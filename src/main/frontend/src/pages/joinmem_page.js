@@ -65,7 +65,7 @@ function MemPage() {
                 </div>
                 <div className={styles.login_wrap}>
                     <div className={styles.login_box}>
-                        <h1>Join Membership</h1>
+                        <h1 className={styles.login_head}>Join Membership</h1>
                         <div className={styles.login_input_form}>
                             <Mem />
                             <button type="submit" form='mem_form' className={styles.mem_btn} onClick={() => {
