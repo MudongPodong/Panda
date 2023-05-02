@@ -29,11 +29,11 @@
 }
 
 
-#root{
+/*#root{
     width: 90%;
     margin: 0 auto;
     position:relative;
-}
+}*/
 .changePage{
     align-items: center;
     left: 45%;
