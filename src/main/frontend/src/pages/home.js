@@ -1,4 +1,4 @@
-import styles from '../Css_dir/home.module.css';
+import styles from '../Css_dir/navigation.module.css';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import logo from '../imgs/logo192_192.png';
@@ -13,7 +13,7 @@ function Home() {
     }
     return (
         <div className={styles.App}>
-            <div className={styles.login_page}>
+            <div className={styles.home_page}>
                 <div className={styles.black_nav}>
                     <h1 className={styles.logo}>
                         <a onClick={gohome} className={styles.home_link}>
