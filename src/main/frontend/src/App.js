@@ -9,6 +9,7 @@ import axios from 'axios';
 import OtherPage from "./pages/OtherPage";
 import OtherPage2 from "./pages/OtherPage2";
 import BoughtList from "./pages/BoughtList";
+import FixBar from "./pages/FixBar";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
               <Route path="/pages/OtherPage" exact={true} element={<OtherPage />}/>
               <Route path="/pages/OtherPage2" exact={true} element={<OtherPage2 />}/>
               <Route path="/pages/BoughtList" exact={true} element={<BoughtList />}/>
+              <Route path="/pages/FixBar" exact={true} element={<FixBar />}/>
           </Routes>
 
 

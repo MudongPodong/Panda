@@ -3,6 +3,9 @@ import React, {useEffect, useState} from 'react';
 import {Routes,Route,Link,NavLink,useNavigate} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import OtherPage from "./OtherPage";
+import OtherPage2 from "./OtherPage2";
+import BoughtList from "./BoughtList";
 
 function FixBar() {
     const [data, setData] = useState([])
@@ -84,14 +87,18 @@ function FixBar() {
                 {/* <div className="my_page_text"> 마이페이지 </div> */}
                 <div className="my_page_tab">
                     <ul>
-                        <li><a>회원 정보</a></li>
-                        <li><a>찜 목록</a></li>
-                        <li><a>구매 이력</a></li>
-                        <li><a>문의 내역</a></li>
+                        <li><Link to="/pages/OtherPage">회원 정보</Link></li>
+                        <li><Link to="/pages/OtherPage2">찜 목록</Link></li>
+                        <li><Link to="/pages/BoughtList">구매 이력</Link></li>
+                        <li><Link to="/pages/OtherPage2">문의 내역</Link></li>
                     </ul>
                 </div>
             </div>
-
+            <Routes>
+                <Route path="/pages/OtherPage" element={<OtherPage/>}></Route>
+                <Route path="/pages/OtherPage2" element={<OtherPage2/>}></Route>
+                <Route path="/pages/BoughtList" element={<BoughtList/>}></Route>
+            </Routes>
         </div>
     );
 }

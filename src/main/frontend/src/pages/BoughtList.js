@@ -5,6 +5,7 @@ import CommonTableColumn from '../Tables/CommonTableColumn';
 import CommonTableRow from '../Tables/CommonTableRow';
 import {Routes,Route,Link,NavLink,useNavigate} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import FixBar from "./FixBar";
 import axios from 'axios';
 
 
@@ -22,7 +23,8 @@ function BoughtList() {
     }, []);
 
     return (
-        <div id='root'>
+        <div>
+            <FixBar></FixBar>
             <h1>구매 이력 목록</h1>
             <p>사용자가 구매한 상품들을 볼 수 있습니다.</p>
             <br/>
