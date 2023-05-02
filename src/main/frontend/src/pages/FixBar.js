@@ -1,4 +1,4 @@
-import '../Css_dir/fixbar.css';
+import styles from '../Css_dir/fixbar.module.css';
 import React, {useEffect, useState} from 'react';
 import {Routes,Route,Link,NavLink,useNavigate} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,6 +6,9 @@ import axios from 'axios';
 import OtherPage from "./OtherPage";
 import OtherPage2 from "./OtherPage2";
 import BoughtList from "./BoughtList";
+import logo from "../imgs/logo192_192.png"
+import profile from '../imgs/profileEx.PNG'
+import SearchResult from "./SearchResult";
 
 function FixBar() {
     const [data, setData] = useState([])
@@ -19,11 +22,11 @@ function FixBar() {
 
     return (
         <div>
-            <div className="black-nav">
-                <h1 className="logo">
-                    <a href="" className="home_link">
-                        <img src=" http://placekitten.com/150/150" width={21} height={21}/>
-                        <span className="need_img">PANDA</span>
+            <div className={styles.blackNav}>
+                <h1 className={styles.logo}>
+                    <a href="" className={styles.home_link}>
+                        <img src={logo} width={21} height={21}/>
+                        <span className={styles.need_img}>PANDA</span>
                     </a>
                 </h1>
 
@@ -70,27 +73,27 @@ function FixBar() {
             {/* black-nav */}
 
             {/* 마이페이지 */}
-            <div className="my_page">
-                <div className="profile_background">
-                    <div className="profile_image">
-                        <img src=" http://placekitten.com/150/150" width="100%" height="100%"/>
+            <div className={styles.my_page}>
+                <div className={styles.profile_background}>
+                    <div className={styles.profile_image}>
+                        <img src={profile} width="100%" height="100%"/>
                     </div>
-                    <div className="profile_content">
-                        <div className="p_nickname">
+                    <div className={styles.profile_content}>
+                        <div className={styles.p_nickname}>
                             닉네임
                         </div>
-                        <div className="p_point">
+                        <div className={styles.p_point}>
                             97명의 사람들이 당신을 추천합니다!
                         </div>
                     </div>
                 </div>
                 {/* <div className="my_page_text"> 마이페이지 </div> */}
-                <div className="my_page_tab">
+                <div className={styles.my_page_tab}>
                     <ul>
                         <li><Link to="/pages/OtherPage">회원 정보</Link></li>
                         <li><Link to="/pages/OtherPage2">찜 목록</Link></li>
                         <li><Link to="/pages/BoughtList">구매 이력</Link></li>
-                        <li><Link to="/pages/OtherPage2">문의 내역</Link></li>
+                        <li><Link to="/pages/SearchResult">문의 내역</Link></li>
                     </ul>
                 </div>
             </div>
@@ -98,6 +101,7 @@ function FixBar() {
                 <Route path="/pages/OtherPage" element={<OtherPage/>}></Route>
                 <Route path="/pages/OtherPage2" element={<OtherPage2/>}></Route>
                 <Route path="/pages/BoughtList" element={<BoughtList/>}></Route>
+                <Route path="/pages/SearchResult" element={<SearchResult/>}></Route>
             </Routes>
         </div>
     );

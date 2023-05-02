@@ -1,5 +1,5 @@
 import '../App.css';
-import '../Css_dir/fixbar.css';
+import '../Css_dir/fixbar.module.css';
 import React, {useEffect, useState} from 'react';
 import CommonTable from '../Tables/CommonTable';
 import CommonTableColumn from '../Tables/CommonTableColumn';
