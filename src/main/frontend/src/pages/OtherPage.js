@@ -10,7 +10,7 @@ import axios from 'axios';
 function OtherPage() {
     const [data, setData] = useState([])
     const movePage= ()=>{
-        document.location.href="/OtherPage2";
+        document.location.href="/pages/OtherPage2";
     }
 
 

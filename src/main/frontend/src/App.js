@@ -8,7 +8,7 @@ import {Routes,Route,Link,NavLink,useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import OtherPage from "./pages/OtherPage";
 import OtherPage2 from "./pages/OtherPage2";
-
+import BoughtList from "./pages/BoughtList";
 
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
           <Routes>
               <Route path="/pages/OtherPage" exact={true} element={<OtherPage />}/>
               <Route path="/pages/OtherPage2" exact={true} element={<OtherPage2 />}/>
+              <Route path="/pages/BoughtList" exact={true} element={<BoughtList />}/>
           </Routes>
 
 
