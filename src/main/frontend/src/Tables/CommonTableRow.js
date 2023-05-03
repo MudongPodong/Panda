@@ -1,11 +1,9 @@
 import React from 'react';
-
+import styles from'./CommonTable.module.css';
 const CommonTableRow = ({ children }) => {
-    const movePage= ()=>{
-        document.location.href="/pages/OtherPage2";
-    }
+
     return (
-        <tr className="common-table-row" onClick={movePage}>
+        <tr className={styles.common_table_row}>
             {
                 children
             }

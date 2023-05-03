@@ -4,6 +4,7 @@ import CommonTable from '../Tables/CommonTable';
 import CommonTableColumn from '../Tables/CommonTableColumn';
 import CommonTableRow from '../Tables/CommonTableRow';
 import {Routes,Route,Link,NavLink,useNavigate} from 'react-router-dom';
+import FixBar from "./FixBar";
 import axios from 'axios';
 
 function OtherPage() {
@@ -21,7 +22,8 @@ function OtherPage() {
     }, []);
 
     return (
-        <div id='root'>
+        <div>
+            <FixBar></FixBar>
             <h1>찜 목록</h1>
             <p>사용자가 찜 등록한 상품들을 볼 수 있습니다!!</p>
             <br/>

@@ -4,9 +4,9 @@ import CommonTable from '../Tables/CommonTable';
 import CommonTableColumn from '../Tables/CommonTableColumn';
 import CommonTableRow from '../Tables/CommonTableRow';
 import {Routes,Route,Link,NavLink,useNavigate} from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import FixBar from "./FixBar";
 import axios from 'axios';
+import styles from "../Css_dir/SearchResult.module.css";
 
 
 function BoughtList() {
@@ -25,15 +25,20 @@ function BoughtList() {
     return (
         <div>
             <FixBar></FixBar>
-            <h1>구매 이력 목록</h1>
-            <p>사용자가 구매한 상품들을 볼 수 있습니다.</p>
             <br/>
+            <br/>
+            <div className={styles.headTitle}>
+                <h1 className={styles.title}>구매 목록
+                    <span>사용자가 구매한 중고물품 목록입니다.</span>
+                </h1>
+            </div>
+            <br/><br/>
 
             <br/><br/>
             <CommonTable headersName={['사진', '상품명', '상품등록일', '구매완료일']}>
                 {data.map(item=>(
                     <CommonTableRow>
-                        <CommonTableColumn><input type="checkbox" name="likeList"/></CommonTableColumn>
+                        <td><input type="checkbox" style={{left:"5%"}} name="likeList"/></td>
                         <CommonTableColumn><img src=" http://placekitten.com/150/150" alt=""/></CommonTableColumn>
                         <CommonTableColumn>{item}</CommonTableColumn>
                         <CommonTableColumn>2020-10-25</CommonTableColumn>
@@ -43,9 +48,9 @@ function BoughtList() {
             </CommonTable>
 
             <br/><br/>
-            <button className='changePage' onClick={ movePage }>마이페이지</button>
+            <button className={styles.changePage} onClick={ movePage }>마이페이지</button>
             <br/><br/><br/>
-            <button className='changePage' onClick={ movePage }>선택 구매</button>
+            <button className={styles.changePage} onClick={ movePage }>선택 구매</button>
             <br/><br/>
 
 

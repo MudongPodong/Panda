@@ -1,17 +1,17 @@
 import React from 'react';
-import './CommonTable.css';
+import styles from'./CommonTable.module.css';
 
 const CommonTable = props => {
     const { headersName, children } = props;
 
     return (
-        <table className="common-table">
+        <table className={styles.common_table}>
             <thead>
             <tr>
                 {
                     headersName.map((item, index) => {
                         return (
-                            <td className="common-table-header-column" key={index}>{ item }</td>
+                            <td className={styles.common_table_header_column} key={index}>{ item }</td>
                         )
                     })
                 }
