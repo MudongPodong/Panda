@@ -28,7 +28,7 @@
     list-style: none;
     z-index: 10;
 }
-.slideInner{
+.slide_item{
     margin-right: 328px;
     display: flex;
     align-items: center;
@@ -60,6 +60,7 @@
 }
 .left_btn{
     border: 0;
+    border-radius: 50%;
     width: 100px;
     height: 100px;
     float: left;
@@ -69,6 +70,7 @@
 }
 .left_btn_hidden{
     border: 0;
+    border-radius: 50%;
     width: 100px;
     height: 100px;
     float: left;
@@ -78,6 +80,7 @@
 }
 .right_btn{
     border: 0;
+    border-radius: 50%;
     width: 100px;
     height: 100px;
     float: right;
@@ -87,6 +90,7 @@
 }
 .right_btn_hidden{
     border: 0;
+    border-radius: 50%;
     width: 100px;
     height: 100px;
     float: right;

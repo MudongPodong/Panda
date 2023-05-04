@@ -13,7 +13,7 @@ class ListVeiw extends React.Component {
         IMG_WIDTH * (this.imgQuantity + 1) + (this.imgQuantity) * SLIDE_GAP * 2;
     //슬라이드 내부 컨텐츠의 전체 길이를 구해준다.
     inner_len = window.innerWidth;
-    hiddenedSlideWidth = (this.inner_len < 410 ? this.slideWidth - 300:(this.inner_len < 670 ? this.slideWidth - 500 : this.slideWidth - 700));
+    hiddenedSlideWidth = (this.inner_len < 430 ? this.slideWidth - 300:(this.inner_len < 650 ? this.slideWidth - 500 : this.slideWidth - 700));
     //슬라이드 내부 컨텐츠 전체 길이에서 윈도우의 innerWidth 값을 빼 남아있는 슬라이드의 길이를 구한다.
     slideEnd;
     //슬라이드의 끝부분에 갔을 때 next 버튼이 없어지도록 만들 때 사용할 변수이다.
@@ -77,7 +77,7 @@ class ListVeiw extends React.Component {
             <div className={styles.list_view_box}>
 
                 <ul className={styles.storeImgUl}>
-                    <div style={{ transform: `translateX(${slideSpot}px)`}} className={styles.slideInner}>
+                    <div style={{ transform: `translateX(${slideSpot}px)`}} className={styles.slide_item}>
                         {imagesData&&imagesData.map((img, i) => (
                             <li key={i} className={styles.storeImgLi}>
                                 <div className={styles.list_container}>
