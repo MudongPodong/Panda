@@ -70,15 +70,15 @@ function NoticePage(){
 
             </div>
             <div className={styles.board_page}>
-                <a href="#" className={'${styles.bt} ${styles.first}'}><b>〈〈</b></a>
-                <a href="#" className={'${styles.bt} ${styles.prev}'}><b>〈</b></a>
-                <a href="#" className={'${styles.num} ${styles.on}'}>1</a>
+                <a href="#" className={styles.num}><b>〈〈</b></a>
+                <a href="#" className={styles.num}><b>〈</b></a>
+                <a href="#" className={styles.num}>1</a>
                 <a href="#" className={styles.num}>2</a>
                 <a href="#" className={styles.num}>3</a>
                 <a href="#" className={styles.num}>4</a>
                 <a href="#" className={styles.num}>5</a>
-                <a href="#" className={'${styles.bt} ${styles.next}'}><b>〉</b></a>
-                <a href="#" className={'${styles.bt} ${styles.last}'}><b>〉〉</b></a>
+                <a href="#" className={styles.num}><b>〉</b></a>
+                <a href="#" className={styles.num}><b>〉〉</b></a>
             </div>
             <div className={styles.bt_wrap}>
                 <a onClick={goregist} className={styles.on}>등록</a>

@@ -22,6 +22,11 @@ function TopNav() {
         movePage('/pages/noticePage');
     }
 
+    function gomypage()
+    {
+        movePage('/pages/OtherPage2');
+    }
+
     return (
         <div className={styles.black_nav}>
             <h1 className={styles.logo}>
@@ -69,7 +74,7 @@ function TopNav() {
                     </li>
                     <li className={styles.tlist_item}>
                         <a className={styles.tlist_item_a} href="">
-                            <span className={styles.tlist_text}>123</span>
+                            <span className={styles.tlist_text} onClick={gomypage}>마이페이지</span>
                         </a>
                     </li>
                 </ul>

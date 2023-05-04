@@ -35,6 +35,16 @@ const Sidebar = () => {
         movePage('/pages/loginpage');
     }
 
+    function gonotice()
+    {
+        movePage('/pages/noticePage');
+    }
+
+    function gomypage()
+    {
+        movePage('/pages/OtherPage2');
+    }
+
     return (
         <div className={styles.header} ref={sideClickRef}>
             <div className={styles.logo_box}>
@@ -57,9 +67,9 @@ const Sidebar = () => {
                 <ul className={styles.nav_list}>
                     <li className={styles.nav_list_item}>카테고리</li>
                     <li className={styles.nav_list_item}>챗봇</li>
-                    <li className={styles.nav_list_item}>123</li>
+                    <li className={styles.nav_list_item} onClick={gonotice}>판매등록</li>
                     <li className={styles.nav_list_item} onClick={gologin}>로그인</li>
-                    <li className={styles.nav_list_item}>123</li>
+                    <li className={styles.nav_list_item} onClick={gomypage}>마이페이지</li>
                 </ul>
             </div>
         </div>

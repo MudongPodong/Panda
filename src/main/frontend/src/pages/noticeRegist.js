@@ -4,8 +4,17 @@ import styles from "../Css_dir/notice.module.css";
 import TopNav from "./top_navigation";
 function NoticeRegist(){
     const movePage = useNavigate();
+    function alertmessage()
+    {
+        alert("정상 등록 되었습니다");
+    }
     function gohome() {
         movePage('/');
+    }
+
+    function gonoticepage()
+    {
+        movePage('/pages/noticePage');
     }
 
     return(
@@ -24,13 +33,13 @@ function NoticeRegist(){
                             <dd><input type="text" placeholder="제목 입력"></input></dd>
                         </dl>
                     </div>
-                    <div className="info">
+                    <div className={styles.info}>
                         <dl>
                             <dt>글쓴이</dt>
                             <dd><input type="text" placeholder="글쓴이 입력"></input></dd>
                         </dl>
                         <dl>
-                            <dt>비밀번호</dt>
+                            <dt>등록물품(사진)이후 수정</dt>
                             <dd><input type="password" placeholder="비밀번호 입력"></input></dd>
                         </dl>
                     </div>
@@ -39,8 +48,8 @@ function NoticeRegist(){
                     </div>
                 </div>
                 <div className={styles.bt_wrap}>
-                    <a onClick={gohome} className={styles.on}>등록</a>
-                    <a onClick={gohome}>취소</a>
+                    <a onClick={alertmessage} className={styles.on}>등록</a>
+                    <a onClick={gonoticepage}>취소</a>
                 </div>
             </div>
         </div>
