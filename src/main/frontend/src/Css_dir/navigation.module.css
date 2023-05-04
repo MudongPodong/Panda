@@ -34,9 +34,10 @@
     display: flex;
     position: relative;
     align-items: center;
-    overflow: hidden;
 }
 .logo_img_wrap{
+    display: flex;
+    align-items: center;
     position: relative;
     width: 21px;
     height: 21px;
@@ -80,6 +81,8 @@
 .home_link{
     cursor: pointer;
     text-decoration: none;
+    display: flex;
+    align-items: center;
 }
 
 .need_img, .tlist_text{
