@@ -2,7 +2,6 @@ import styles from '../Css_dir/home.module.css';
 import { useNavigate } from 'react-router-dom';
 import React, {useState} from 'react';
 import TopNav from "./top_navigation";
-import image from "../imgs/logo192_192.png"
 import ListVeiw from "./ListVeiw";
 
 function Home() {

@@ -27,20 +27,20 @@ const Sidebar = () => {
 
     const movePage = useNavigate();
 
-    function gohome() {
-        window.location.replace('/');
+    function goChat(){
+        movePage('/pages/chat')
     }
 
-    function gologin() {
+    function goLogin() {
         movePage('/pages/loginpage');
     }
 
-    function gonotice()
+    function goNotice()
     {
         movePage('/pages/noticePage');
     }
 
-    function gomypage()
+    function goMypage()
     {
         movePage('/pages/OtherPage2');
     }
@@ -66,10 +66,10 @@ const Sidebar = () => {
                 </div>
                 <ul className={styles.nav_list}>
                     <li className={styles.nav_list_item}>카테고리</li>
-                    <li className={styles.nav_list_item}>챗봇</li>
-                    <li className={styles.nav_list_item} onClick={gonotice}>판매등록</li>
-                    <li className={styles.nav_list_item} onClick={gologin}>로그인</li>
-                    <li className={styles.nav_list_item} onClick={gomypage}>마이페이지</li>
+                    <li className={styles.nav_list_item} onClick={goChat}>챗봇</li>
+                    <li className={styles.nav_list_item} onClick={goNotice}>판매등록</li>
+                    <li className={styles.nav_list_item} onClick={goLogin}>로그인</li>
+                    <li className={styles.nav_list_item} onClick={goMypage}>마이페이지</li>
                 </ul>
             </div>
         </div>

@@ -25,7 +25,10 @@ function LogInPage() {
                         <h1 className={styles.login_head}>LogIn</h1>
                         <div className={styles.login_input_form}>
                             <Login />
-                            <button type="button" className={styles.mem_btn} onClick={goMem}>회원가입</button>
+                            <div className={styles.login_btn_wrap}>
+                                <button type="button" className={styles.mem_btn_under}>회원가입</button>
+                                <button type="button" className={styles.mem_btn} onClick={goMem}>회원가입</button>
+                            </div>
                         </div>
                         <div className={styles.login_setting}>
                             <p>

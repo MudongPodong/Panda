@@ -1,11 +1,19 @@
-.ListViewBox{
+.list_view_wrap{
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    text-align: center;
+    height: 300px;
+    line-height: 0;
+}
+.list_view_box{
     overflow: hidden;
     display: flex;
     align-items: stretch;
     flex-direction: row;
     text-align: center;
     height: 300px;
-
     line-height: 0;
 }
 .storeImgUl{
@@ -50,11 +58,39 @@
 .item_desc{
     display: block;
 }
-.arrowLeft{
+.left_btn{
+    border: 0;
+    width: 100px;
+    height: 100px;
     float: left;
     z-index: 11;
+    opacity: 1;
+    transition: opacity 0.3s ease;
 }
-.arrowRight{
+.left_btn_hidden{
+    border: 0;
+    width: 100px;
+    height: 100px;
+    float: left;
+    z-index: 11;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.right_btn{
+    border: 0;
+    width: 100px;
+    height: 100px;
     float: right;
     z-index: 11;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+.right_btn_hidden{
+    border: 0;
+    width: 100px;
+    height: 100px;
+    float: right;
+    z-index: 11;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }

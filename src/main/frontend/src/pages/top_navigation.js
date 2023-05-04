@@ -10,31 +10,31 @@ import Searchbar from "./searchbar";
 function TopNav() {
     const movePage = useNavigate();
 
-    function gohome() {
-        window.location.replace('/');
+    function goHome() {
+        movePage('/');
     }
 
-    function gologin() {
+    function goLogin() {
         movePage('/pages/loginpage');
     }
 
-    function gonotice()
+    function goNotice()
     {
         movePage('/pages/noticePage');
     }
 
-    function gomypage()
+    function goMypage()
     {
         movePage('/pages/OtherPage2');
     }
 
-    function gochat(){
+    function goChat(){
         movePage('/pages/Chat');
     }
 
     return (
         <div className={styles.black_nav}>
-            <div className={styles.logo_box} onClick={gohome} >
+            <div className={styles.logo_box} onClick={goHome} >
                 <h1 className={styles.logo}>
                     <a className={styles.home_link}>
                         <div className={styles.logo_img_wrap}>
@@ -52,7 +52,7 @@ function TopNav() {
                             <span className={styles.tlist_text}>카테고리</span>
                         </a>
                     </li>
-                    <li className={styles.tlist_item} onClick={gochat}>
+                    <li className={styles.tlist_item} onClick={goChat}>
                         <a className={styles.tlist_item_a}>
                             <span className={styles.tlist_text}>채팅</span>
                         </a>
@@ -72,17 +72,17 @@ function TopNav() {
             </nav>
             <nav className={styles.right_nav}>
                 <ul className={styles.top_list}>
-                    <li className={styles.tlist_item} onClick={gonotice}>
+                    <li className={styles.tlist_item} onClick={goNotice}>
                         <a className={styles.tlist_item_a}>
                             <span className={styles.tlist_text}>판매등록</span>
                         </a>
                     </li>
-                    <li className={styles.tlist_item} onClick={gologin}>
+                    <li className={styles.tlist_item} onClick={goLogin}>
                         <a className={styles.tlist_item_a}>
                             <span className={styles.tlist_text}>LogIn</span>
                         </a>
                     </li>
-                    <li className={styles.tlist_item} onClick={gomypage}>
+                    <li className={styles.tlist_item} onClick={goMypage}>
                         <a className={styles.tlist_item_a} href="">
                             <span className={styles.tlist_text}>마이페이지</span>
                         </a>

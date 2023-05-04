@@ -70,18 +70,14 @@ class ListVeiw extends React.Component {
         const { imagesData, pname, price, addr, count } = this.props;
 
         return (
-            <div className={styles.ListViewBox}>
-                {!!slideSpot && (
-                    <button onClick={this.handlePrevBtn} className={`${styles.slideArrow} ${styles.arrowLeft}`}>
-                        ❮
-                        <i className={`${styles.fas} ${styles.fa_chevron_left}`}></i>
-                    </button>
-                )}
+            <div className={styles.list_view_wrap}>
+                <button onClick={this.handlePrevBtn} className={(!!slideSpot ? `${styles.left_btn}` : `${styles.left_btn_hidden}`)}>
+                    ❮
+                </button>
+            <div className={styles.list_view_box}>
+
                 <ul className={styles.storeImgUl}>
-                    <div
-                        style={{ transform: `translateX(${slideSpot}px)` }}
-                        className={styles.slideInner}
-                    >
+                    <div style={{ transform: `translateX(${slideSpot}px)`}} className={styles.slideInner}>
                         {imagesData&&imagesData.map((img, i) => (
                             <li key={i} className={styles.storeImgLi}>
                                 <div className={styles.list_container}>
@@ -99,16 +95,13 @@ class ListVeiw extends React.Component {
                         ))}
                     </div>
                 </ul>
-                {slideSpot !== this.slideEnd && (
-                    <button
-                        onClick={this.handleNextBtn}
-                        className={`${styles.slideArrow} ${styles.arrowRight}`}
-                    >
-                        ❯
-                        <i className={`${styles.fas} ${styles.fa_chevron_right}`}></i>
-                    </button>
-                )}
-            </div>    );
+
+            </div>
+                <button onClick={this.handleNextBtn} className={(slideSpot !== this.slideEnd ? `${styles.right_btn}` : `${styles.right_btn_hidden}`)}>
+                    ❯
+                </button>
+            </div>
+        );
     }
 }
 ListVeiw.defaultProps = {

@@ -38,14 +38,12 @@
 .login_input_form{
     box-sizing: border-box;
 }
-.input, button{
+
+.input, .login_btn_under, .login_btn, .mem_btn, .mem_btn_under, .cancle_btn, .cancle_btn_under{
     border: none;
     cursor: pointer;
     outline: none;
     background: none;
-}
-
-.input, .login_btn, .mem_btn, .cancle_btn{
     width: 100%;
     height: 45px;
     border-bottom: 1px solid gray;
@@ -53,29 +51,93 @@
     line-height: 30px;
     color: black;
 }
-.login_btn{
-    margin-top: 8px;
+.input:hover {
+    border-color: #51996b;
+    transition: all 0.2s ease;
+}
+.input:hover::placeholder {
+    color: #51996b;
+    transition: color 0.2s ease;
+}
+.input:focus{
+    border-color: #51996b;
+}
+.login_btn_wrap{
+    position: relative;
+    width: 100%;
+    height: 46px;
+    line-height: 30px;
+    margin-top: 6px;
+}
+.login_btn_under{
+    position: absolute;
+    left: 0;
     border: 0;
     color: white;
     background-color: black;
     font-weight: bold;
     border-radius: 10px;
 }
-.mem_btn{
-    margin-top: 10px;
+.login_btn{
+    position: absolute;
+    left: 0;
+    border: 0;
+    color: #51996b;
+    background-color: #1f1f1f;
+    font-weight: bold;
+    border-radius: 10px;
+    opacity: 0;
+
+}
+.login_btn:hover{
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+.mem_btn_under{
+    position: absolute;
+    left: 0;
     border: 0;
     color: white;
     background-color: #51996b;
     font-weight: bold;
     border-radius: 10px;
 }
-.cancle_btn{
-    margin-top: 10px;
+.mem_btn{
+    position: absolute;
+    left: 0;
+    border: 0;
+    color: white;
+    background-color: #477e5a;
+    opacity: 0;
+    font-weight: bold;
+    border-radius: 10px;
+}
+.mem_btn:hover{
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+.cancle_btn_under{
+    position: absolute;
+    left: 0;
     border: 0;
     color: white;
     background-color: black;
     font-weight: bold;
     border-radius: 10px;
+}
+.cancle_btn{
+    position: absolute;
+    left: 0;
+    border: 0;
+    color: white;
+    background-color: #a94848;
+    font-weight: bold;
+    border-radius: 10px;
+    opacity: 0;
+}
+.cancle_btn:hover{
+    opacity: 1;
+    transition: opacity 0.2s ease;
 }
 .login_setting{
     box-sizing: border-box;

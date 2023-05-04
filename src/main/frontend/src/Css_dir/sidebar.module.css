@@ -49,6 +49,7 @@
     right: -18px;
     transition: 0.5s;
     border-radius: 0 0 0 40px;
+    z-index: 20;
 }
 .show_menu *{
     text-align: center;
@@ -64,6 +65,7 @@
     right: -318px;
     transition: 0.5s;
     border-radius: 0 0 0 40px;
+    z-index: 20;
 }
 .hide_menu *{
     text-align: center;
