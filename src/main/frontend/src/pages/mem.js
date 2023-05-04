@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import styles from '../Css_dir/login_mem.module.css';
+import {useNavigate} from "react-router-dom";
 
 const email_regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 const pw_regex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
@@ -36,6 +37,10 @@ function Mem() {
     const pw_error = '***비밀번호는 영어, 숫자 포함 8자리 이상이어야 합니다.***';
     const pwch_error = '***비밀번호가 일치하지 않습니다.***';
     const phone_error = '***정확한 전화번호를 입력해 주십시오.***';
+    const movePage = useNavigate();
+    function gologin(){
+        movePage('/pages/loginpage');
+    }
 
     return (
         <>
@@ -53,6 +58,11 @@ function Mem() {
                 {!phone_regex.test(phone) ? <div className={styles.error_message}>{phone_error}</div>:<div className={styles.error_message}></div>}
                 <input type='text' className={`${styles.input} ${styles.input_addr}`} placeholder='주소' name='address'></input>
                 <div className={styles.error_message}></div>
+                <button type="submit" className={styles.mem_btn} onClick={() => {
+                    // 회원가입
+                    alert('회원가입 성공');
+                    gologin();
+                }}>회원가입</button>
             </form>
         </div>
         </>

@@ -1,3 +1,8 @@
+.App{
+    height: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+}
 .login_page{
     text-align: center;
     position: relative;
@@ -13,7 +18,7 @@
     width: calc(100% - 40px);
     max-width: 700px;
     margin: 0 auto;
-    padding-bottom: 80px;
+    padding-bottom: 20px;
     min-height: calc(100vh - 156px);
     display: table;
     table-layout: fixed;
@@ -22,7 +27,7 @@
     box-sizing: border-box;
     display: table-cell;
     vertical-align: middle;
-    padding-top: 80px;
+    padding-top: 90px;
     padding-bottom: 20px;
 }
 .login_head{
@@ -43,7 +48,6 @@
 .input, .login_btn, .mem_btn, .cancle_btn{
     width: 100%;
     height: 45px;
-    /* margin-top: 10px; */
     border-bottom: 1px solid gray;
     font-size: 16px;
     line-height: 30px;
@@ -51,18 +55,21 @@
 }
 .login_btn{
     margin-top: 8px;
+    border: 0;
     color: white;
     background-color: black;
     font-weight: bold;
 }
 .mem_btn{
     margin-top: 10px;
+    border: 0;
     color: white;
-    background-color: rgb(71, 66, 109);
+    background-color: #51996b;
     font-weight: bold;
 }
 .cancle_btn{
     margin-top: 10px;
+    border: 0;
     color: white;
     background-color: black;
     font-weight: bold;
@@ -94,4 +101,11 @@
     color: red;
     margin-top: 1px;
     margin-bottom: 2px;
+}
+.footer_div{
+    width: 100%;
+    height: 80px;
+    background-color: rgb(220, 220, 220);
+    transform: translateY(-100%);
+    display: block;
 }
