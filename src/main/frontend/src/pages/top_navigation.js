@@ -17,6 +17,11 @@ function TopNav() {
         movePage('/pages/loginpage');
     }
 
+    function gonotice()
+    {
+        movePage('/pages/noticePage');
+    }
+
     return (
         <div className={styles.black_nav}>
             <h1 className={styles.logo}>
@@ -53,8 +58,8 @@ function TopNav() {
             <nav className={styles.right_nav}>
                 <ul className={styles.top_list}>
                     <li className={styles.tlist_item}>
-                        <a className={styles.tlist_item_a} href="">
-                            <span className={styles.tlist_text}>123</span>
+                        <a className={styles.tlist_item_a} onClick={gonotice}>
+                            <span className={styles.tlist_text}>판매등록</span>
                         </a>
                     </li>
                     <li className={styles.tlist_item}>

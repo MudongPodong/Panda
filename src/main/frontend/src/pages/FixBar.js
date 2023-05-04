@@ -1,7 +1,7 @@
 import styles from '../Css_dir/fixbar.module.css';
 import React, {useEffect, useState} from 'react';
 import {Routes,Route,Link,NavLink,useNavigate} from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import axios from 'axios';
 import OtherPage from "./OtherPage";
 import OtherPage2 from "./OtherPage2";
