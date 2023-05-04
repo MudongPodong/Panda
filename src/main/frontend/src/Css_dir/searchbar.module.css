@@ -33,7 +33,7 @@
     transition: opacity 0.5s;
 }
 
-@media screen and (max-width: 905px) {
+@media screen and (max-width: 948px) {
     .header{display: block;}
 }
 .search_box{

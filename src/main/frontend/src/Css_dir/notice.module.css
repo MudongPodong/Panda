@@ -1,30 +1,24 @@
-*{
-    margin:0;
-    padding:0;
+.board_wrap *{
+    margin: 0;
+    padding: 0;
 }
-html
-{
-    font-size:10px;
-}
-
-ul,li{
+.board_wrap ul, .board_wrap li{
     list-style:none;
 }
-
-a{
+.board_wrap a{
     text-decoration: none;
     color :inherit;
-
 }
-
 .board_wrap
 {
+    font-size:10px;
     width: 1000px;
     margin:100px auto;
 }
 
 .board_title
 {
+    font-size:10px;
     margin-bottom: 30px;
 }
 
