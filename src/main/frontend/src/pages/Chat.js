@@ -1,5 +1,5 @@
 import '../App.css';
-import '../Css_dir/chat.css'
+import styles from '../Css_dir/Chat.module.css'
 import profile from '../imgs/profileEx.PNG'
 import search from '../imgs/chat_search.png'
 import axios from 'axios';
@@ -27,28 +27,28 @@ function App() {
             })
     }, []);
 
-    return (
-        <div className="chat_page">
-            <div className="plist">
+return (
+        <div className={styles.chat_page}>
+            <div className={styles.plist}>
                 <ChatList chatLists={chatLists} />
             </div>
-            <div className="chat_container">
-                <div className="chat_header">
-                    <div className="chat_image">
+            <div className={styles.chat_container}>
+                <div className={styles.chat_header}>
+                    <div className={styles.chat_image}>
                         <img src={profile} width="100%" height="100%"></img>
                     </div>
-                    <div className="chat_info">
-                        <div className="chat_name">네고왕김네고</div>
+                    <div className={styles.chat_info}>
+                        <div className={styles.chat_name}>네고왕김네고</div>
                     </div>
-                    <div className="chat_search">
+                    <div className={styles.chat_search}>
                         <img src={search} width="30px" height="30px"></img>
                     </div>
                 </div>
-                <div className="chat_history">
+                <div className={styles.chat_history}>
                     <MessageList messages={messages} />
                 </div>
-                <div className="chat_message">
-                    <textarea name="send_message" placeholder="메시지를 입력하세요" rows="3"></textarea>
+                <div className={styles.chat_message}>
+                    <textarea name={styles.send_message} placeholder="메시지를 입력하세요" rows="3"></textarea>
                     <button>전송</button>
                 </div>
             </div>

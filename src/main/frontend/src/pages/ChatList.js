@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import '../Css_dir/chat.css'
+import styles from '../Css_dir/Chat.module.css'
 import profile from "../imgs/profileEx.PNG";
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
@@ -10,13 +10,13 @@ const ChatList = ({ chatLists }) => {
     return (
         <ul>
             <li key={null}>
-                <div className="p_profile">
+                <div className={styles.p_profile}>
                     <img src={profile} width="100%" height="100%"></img>
                 </div>
-                <div className="p_info">
-                    <div className="p_name">사용자 1</div>
-                    <div className="p_time"></div>
-                    <div className="p_last_message"></div>
+                <div className={styles.p_info}>
+                    <div className={styles.p_name}>사용자 1</div>
+                    <div className={styles.p_time}></div>
+                    <div className={styles.p_last_message}></div>
                 </div>
             </li>
 
@@ -43,13 +43,13 @@ const ChatList = ({ chatLists }) => {
 
                 return (
                     <li key={chatList.roomId}>
-                        <div className="p_profile">
+                        <div className={styles.p_profile}>
                             <img src={profile} width="100%" height="100%"></img>
                         </div>
-                        <div className="p_info">
-                            <div className="p_name">{chatList.senderId}</div>
-                            <div className="p_time">{diff}</div>
-                            <div className="p_last_message">{chatList.lastContent}</div>
+                        <div className={styles.p_info}>
+                            <div className={styles.p_name}>{chatList.senderId}</div>
+                            <div className={styles.p_time}>{diff}</div>
+                            <div className={styles.p_last_message}>{chatList.lastContent}</div>
                         </div>
                     </li> )
             })}

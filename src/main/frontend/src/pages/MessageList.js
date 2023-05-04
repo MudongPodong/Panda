@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import '../Css_dir/chat.css'
+import styles from '../Css_dir/Chat.module.css'
 import dayjs from 'dayjs';
 
 const MessageList = ({ messages }) => {
@@ -22,27 +22,27 @@ const MessageList = ({ messages }) => {
                     <li key={message.messageId}>
                         {
                             message.fromSender === false ?
-                                <div>
-                                    <div className="message_info">
-                                        <span className="message_name float_right">{message.fromSender}</span>
-                                        &nbsp; &nbsp;
-                                        <span className="message_time float_right">{date}</span>
-                                    </div>
-                                    <div className="my_message align_right">
-                                        {message.content}
-                                    </div>
+                            <div>
+                                <div className={styles.message_info}>
+                                    <span className={`${styles.message_name} ${styles.float_right}`}>{message.fromSender}</span>
+                                    &nbsp; &nbsp;
+                                    <span className={`${styles.message_time} ${styles.float_right}`}>{date}</span>
                                 </div>
-                                :
-                                <div>
-                                    <div className="message_info">
-                                        <span className="message_name float_left">{message.fromSender}</span>
-                                        &nbsp; &nbsp;
-                                        <span className="message_time float_left">{date}</span>
-                                    </div>
-                                    <div className="op_message align_left">
-                                        {message.content}
-                                    </div>
+                                <div className={`${styles.my_message} ${styles.align_right}`}>
+                                    {message.content}
                                 </div>
+                            </div>
+                            :
+                            <div>
+                                <div className={styles.message_info}>
+                                    <span className={`${styles.message_name} ${styles.float_left}`}>{message.fromSender}</span>
+                                    &nbsp; &nbsp;
+                                    <span className={`${styles.message_time} ${styles.float_left}`}>{date}</span>
+                                </div>
+                                <div className={`${styles.op_message} ${styles.align_left}`}>
+                                    {message.content}
+                                </div>
+                            </div>
                         }
                     </li> )
             })}
