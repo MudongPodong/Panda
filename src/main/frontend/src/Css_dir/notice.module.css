@@ -18,6 +18,7 @@
 
 .board_title
 {
+    margin-top:150px;
     font-size:10px;
     margin-bottom: 30px;
 }
@@ -60,6 +61,7 @@
 
 .board_list
 {
+    margin-top:30px;
     width:100%;
     border-top:2px solid #000;
 }
@@ -132,11 +134,12 @@
     padding-top:10px;
     font-size:1.2rem;
     letter-spacing: -1px;
+
 }
 .board_page a.num
 {
-    padding-top:9px;
-    font-size:1.4rem;
+    padding-top:3px;
+    font-size:15px;
 }
 .board_page a:first-child
 {
@@ -168,7 +171,8 @@
 
 .board_write .cont
 {
-    border_bottom:1px solid #000;
+    margin-top:10px;
+    border:2px solid #000;
 }
 .board_write .cont textarea
 {
@@ -227,4 +231,121 @@
 {
     padding:10px;
     box-sizing:border-box;
+}
+
+.board_view {
+    width: 100%;
+    board-top: 2px solid #000;
+}
+
+.board_view .title{
+    padding : 20px 15px;
+    border-bottom: 1px solid #000;
+    border-top: 2px solid #000;
+    font-size:2rem;
+}
+
+.board_view .info {
+    padding: 15px;
+    border-bottom: 1px solid #999;
+    font-size:0;
+}
+
+.board_view .info dl{
+    position:relative;
+    display:inline-block;
+    padding : 0 20px;
+}
+
+.board_view .info dl:first-child
+{
+    padding-left:0;
+}
+
+.board_view .info dl::before{
+    content:"";
+    display:block;
+    position: absolute;
+    top :0;
+    left:0;
+    width:1px;
+    height:13px;
+    background:red;
+}
+
+.board_view .info dl:first-child::before
+{
+    display:none;
+}
+.board_view .info dl dt,
+.board_view .info dl dd
+{
+    display:inline-block;
+    font-size:1.4rem;
+}
+.board_view .info dl dt
+{
+    display:inline-block;
+    font-size:1.4rem;
+}
+
+.board_view .info dl dd
+{
+    margin-left:10px;
+    color:#777;
+}
+
+.board_view .cont{
+    padding:15px;
+    border-bottom:1px solid #000;
+    line-height: 160%;
+    font-size:1.4rem;
+    white-space: pre-line;
+}
+
+
+.board_view_wrap
+{
+    font-size:10px;
+    width: 1000px;
+    margin:100px auto;
+}
+
+@media (max-width: 1000px)
+{
+    .board_wrap{
+        width:100%;
+        min-width: 320px;
+        padding :0 30px;
+        box-sizing:border-box;
+    }
+    .board_list .num,
+    .board_list .writer,
+    .board_list .count{
+        display:none;
+    }
+
+    .board_list .date
+    {
+        width:40%;
+    }
+    .board_list .title{
+        text-indent:10px;
+    }
+
+    .board_list .top .title{
+        text-indent:0;
+    }
+    .board_page a{
+        width:26px;
+        height:26px;
+    }
+    .board_page a.bt{
+        padding-top:7px;
+
+    }
+    .board_page a.num{
+        padding-top:6px;
+
+    }
 }
