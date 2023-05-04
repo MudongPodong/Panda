@@ -12,8 +12,11 @@ import BoughtList from "./pages/BoughtList";
 import FixBar from "./pages/FixBar";
 import Chat from "./pages/Chat";
 import SearchResult from "./pages/SearchResult";
-
-
+import LogInPage from "./pages/login_page";
+import MemPage from "./pages/joinmem_page";
+import Home from "./pages/home";
+import Notice from "./pages/noticePage";
+import NoticeRegist from "./pages/noticeRegist"
 function App() {
 
   return (
@@ -21,12 +24,17 @@ function App() {
 
 
           <Routes>
+              <Route path="/" element={<Home/>}></Route>
+              <Route path="/pages/loginpage" element={<LogInPage/>}></Route>
+              <Route path="/pages/joinmempage" element={<MemPage/>}></Route>
               <Route path="/pages/OtherPage" exact={true} element={<OtherPage />}/>
               <Route path="/pages/OtherPage2" exact={true} element={<OtherPage2 />}/>
               <Route path="/pages/BoughtList" exact={true} element={<BoughtList />}/>
               <Route path="/pages/FixBar" exact={true} element={<FixBar />}/>
               <Route path="/pages/Chat" exact={true} element={<Chat />}/>
               <Route path="/pages/SearchResult" exact={true} element={<SearchResult />}/>
+              <Route path="/pages/noticePage" exact={true} element={<Notice/>}/>
+              <Route path="/pages/noticeRegist" exact={true} element={<NoticeRegist/>}/>
           </Routes>
 
 
