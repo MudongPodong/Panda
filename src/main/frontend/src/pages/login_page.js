@@ -35,7 +35,6 @@ function LogInPage() {
                         </div>
                     </div>
                 </div>
-
             </div>
             <footer className={styles.footer_div}>
 
