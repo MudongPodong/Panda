@@ -15,6 +15,11 @@ function NoticePage(){
         movePage('/pages/noticeRegist');
     }
 
+    function goconfirm()
+    {
+        movePage('/pages/noticeConfirm');
+    }
+
     return (
 <div>
     <TopNav></TopNav>
@@ -34,7 +39,7 @@ function NoticePage(){
                 </div>
                 <div>
                     <div className={styles.num}>1</div>
-                    <div className={styles.title}><a href="#">글 제목</a></div>
+                    <div className={styles.title}><a href="#" onClick={goconfirm}>글 제목</a></div>
                     <div className={styles.writer}>박민기</div>
                     <div className={styles.date}>2023.04.28</div>
                     <div className={styles.count}>33</div>
