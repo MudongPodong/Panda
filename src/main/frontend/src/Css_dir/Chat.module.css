@@ -25,7 +25,7 @@ body::-webkit-scrollbar {
 
 .plist ul {
     list-style:none;
-
+    margin-top:0px;
 }
 
 .chat_history ul{
@@ -44,10 +44,10 @@ body::-webkit-scrollbar {
 }
 
 .plist li {
-    width:116%;
+    width:104%;
     overflow:auto;
     margin-left:-40px;
-    padding: 15px 20px;
+    padding: 15px 15px;
     border-bottom: 1px solid black;
 }
 
@@ -68,10 +68,16 @@ body::-webkit-scrollbar {
     overflow: hidden;
 }
 
-.p_info, .chat_info{
+.p_info {
     float: left;
-    width:71%;
+    width:77%;
     height:100%;
+    margin-left:10px;
+}
+
+.chat_info{
+    width: 82%;
+    float:left;
     margin-left:10px;
 }
 
@@ -101,7 +107,7 @@ body::-webkit-scrollbar {
 }
 
 .chat_search {
-    line-height: 50px;
+    line-height: 65px;
 }
 
 .chat_search:hover {
@@ -140,7 +146,8 @@ body::-webkit-scrollbar {
 
 .chat_header {
     width:650px;
-    padding: 15px 45px;
+    margin-top:-1px;
+    padding: 15px 29.5px;
     background: #202020;
     height:80px;
     border-left: 1px solid black;
@@ -148,11 +155,7 @@ body::-webkit-scrollbar {
 
 .chat_history {
     position:fixed;
-    /*left:300px;*/
-    /*top:80px;*/
-    /*bottom:150px;*/
     top:80px;
-    /*height:100%;*/
     bottom:150px;
     width:650px;
     padding: 10px 30px 20px;
@@ -214,7 +217,7 @@ body::-webkit-scrollbar {
     position: relative;
     display:inline-block;
     font-weight: bold;
-    left:540px;
+    left:590px;
     transform: translateX(-100%);
     font-family: "NanumGothic";
 
@@ -240,11 +243,11 @@ body::-webkit-scrollbar {
     width:650px;
     padding:30px;
     background:#202020;
-    height:150px;
+    height:100px;
 }
 
 .chat_message > textarea {
-    width: 85%;
+    width: 80%;
     border: none;
     padding: 10px 20px;
     font-family: "NanumGothic";
@@ -266,7 +269,7 @@ body::-webkit-scrollbar {
     cursor: pointer;
     font-weight: bold;
     background: #3F3F3F;
-    padding:31px 10px;
+    padding:28px 15px;
     border-radius: 8%;
 }
 
