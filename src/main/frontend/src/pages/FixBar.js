@@ -6,9 +6,9 @@ import axios from 'axios';
 import OtherPage from "./OtherPage";
 import OtherPage2 from "./OtherPage2";
 import BoughtList from "./BoughtList";
-import logo from "../logo192_192.png"
 import profile from '../profileEx.PNG'
 import SearchResult from "./SearchResult";
+import TopNav from "./top_navigation";
 
 function FixBar() {
     const [data, setData] = useState([])
@@ -22,54 +22,7 @@ function FixBar() {
 
     return (
         <div>
-            <div className={styles.blackNav}>
-                <h1 className={styles.logo}>
-                    <a href="" className={styles.home_link}>
-                        <img src={logo} width={21} height={21}/>
-                        <span className={styles.need_img}>PANDA</span>
-                    </a>
-                </h1>
-
-                {/*<nav className='left_nav'>*/}
-                {/*  <ul className='top_list'>*/}
-                {/*    <li className='tlist_item'>*/}
-                {/*      <a className='tist_item_a' href="">*/}
-                {/*        <span class="tlist_text">리스트아이템</span>*/}
-                {/*      </a>*/}
-                {/*    </li>*/}
-                {/*    <li className='tlist_item'>*/}
-                {/*      <a className='tist_item_a' href="">*/}
-                {/*        <span className="tlist_text">리스트아이템</span>*/}
-                {/*      </a>*/}
-                {/*    </li>*/}
-                {/*    <li className='tlist_item'>*/}
-                {/*      <a className='tist_item_a' href="">*/}
-                {/*        <span className="tlist_text">리스트아이템</span>*/}
-                {/*      </a>*/}
-                {/*    </li>*/}
-                {/*  </ul>*/}
-                {/*</nav>*/}
-
-                {/*<nav className='right_nav'>*/}
-                {/*  <ul className='top_list'>*/}
-                {/*    <li className='tlist_item'>*/}
-                {/*      <a className='tist_item_a' href="">*/}
-                {/*        <span className="tlist_text">123</span>*/}
-                {/*      </a>*/}
-                {/*    </li>*/}
-                {/*    <li className='tlist_item'>*/}
-                {/*      <a className='tist_item_a' href="">*/}
-                {/*        <span className="tlist_text">Login</span>*/}
-                {/*      </a>*/}
-                {/*    </li>*/}
-                {/*    <li className='tlist_item'>*/}
-                {/*      <a className='tist_item_a' href="">*/}
-                {/*        <span className="tlist_text">123</span>*/}
-                {/*      </a>*/}
-                {/*    </li>*/}
-                {/*  </ul>*/}
-                {/*</nav>*/}
-            </div>
+            <TopNav></TopNav>
             {/* black-nav */}
 
             {/* 마이페이지 */}

@@ -60,14 +60,19 @@
 }
 .top_list{
     list-style-type: none;
+    height: 100%;
+    margin: 0;
     padding: 0;
     display: flex;
     align-items: stretch;
     flex-direction: row;
 }
 .tlist_item{
+    cursor: pointer;
+    height: 69px;
     padding: 0;
     display: flex;
+    position: relative;
     align-items: center;
 }
 .tlist_item_a{
@@ -85,7 +90,24 @@
     font-weight: bold;
     font-size: 16px;
 }
-
+.tlist_item:hover .tlist_text{
+    color: #51996b;
+    transition: color 0.3s ease;
+}
+.tlist_item a:before{
+    width: 0%;
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: #51996b;
+    margin-left: -20px;
+    height: 2px;
+    bottom: 0px;
+    transition: width 0.3s ease;
+}
+.tlist_item:hover a:before{
+    width: 100%;
+}
 .search_input{
     color: black;
     padding: 0;
@@ -98,7 +120,10 @@
     border-radius: 10px;
     cursor: text;
 }
-
+.search_input:focus{
+    border-color: #51996b;
+    outline-color: #51996b;
+}
 .search_input_btn {
     background: url(../imgs/search_logo.png);
     background-size: 35px 35px;
@@ -107,6 +132,13 @@
     line-height: 35px;
     border: 0;
     padding: 0;
+    margin-right: 20px;
+    margin-left: 5px;
+}
+.tlist_item:hover .search_input_btn{
+    background: url(../imgs/search_logo_hover.png);
+    background-size: 35px 35px;
+    transition: all 0.3s ease;
 }
 @media screen and (max-width: 1148px){
     .search_input{width: 300px;}

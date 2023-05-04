@@ -27,6 +27,10 @@ function TopNav() {
         movePage('/pages/OtherPage2');
     }
 
+    function gochat(){
+        movePage('/pages/Chat');
+    }
+
     return (
         <div className={styles.black_nav}>
             <h1 className={styles.logo}>
@@ -42,9 +46,9 @@ function TopNav() {
                             <span className={styles.tlist_text}>카테고리</span>
                         </a>
                     </li>
-                    <li className={styles.tlist_item}>
-                        <a className={styles.tlist_item_a} href="">
-                            <span className={styles.tlist_text}>챗봇</span>
+                    <li className={styles.tlist_item} onClick={gochat}>
+                        <a className={styles.tlist_item_a}>
+                            <span className={styles.tlist_text}>채팅</span>
                         </a>
                     </li>
                     <li className={styles.tlist_item}>
@@ -62,19 +66,19 @@ function TopNav() {
             </nav>
             <nav className={styles.right_nav}>
                 <ul className={styles.top_list}>
-                    <li className={styles.tlist_item}>
-                        <a className={styles.tlist_item_a} onClick={gonotice}>
+                    <li className={styles.tlist_item} onClick={gonotice}>
+                        <a className={styles.tlist_item_a}>
                             <span className={styles.tlist_text}>판매등록</span>
                         </a>
                     </li>
-                    <li className={styles.tlist_item}>
-                        <a className={styles.tlist_item_a} onClick={gologin}>
+                    <li className={styles.tlist_item} onClick={gologin}>
+                        <a className={styles.tlist_item_a}>
                             <span className={styles.tlist_text}>LogIn</span>
                         </a>
                     </li>
-                    <li className={styles.tlist_item}>
+                    <li className={styles.tlist_item} onClick={gomypage}>
                         <a className={styles.tlist_item_a} href="">
-                            <span className={styles.tlist_text} onClick={gomypage}>마이페이지</span>
+                            <span className={styles.tlist_text}>마이페이지</span>
                         </a>
                     </li>
                 </ul>
