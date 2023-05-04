@@ -24,7 +24,7 @@ function SearchResult() {
             <br/>
             <div className={styles.headTitle}>
                 <h1 className={styles.title}>Search Result
-                    <span>다음 검색 결과입니다.</span>
+                    <span>다음 검색 결과입니다..</span>
                 </h1>
             </div>
             <br/><br/>

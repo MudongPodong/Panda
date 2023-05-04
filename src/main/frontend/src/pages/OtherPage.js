@@ -31,7 +31,7 @@ function OtherPage() {
                 <br/>
                 <div className={styles.headTitle}>
                     <h1 className={styles.title}>찜 목록
-                        <span>사용자가 선택한 찜 목록입니다.</span>
+                        <span>사용자가 선택한 찜 목록입니다..</span>
                     </h1>
                 </div>
                 <br/><br/>

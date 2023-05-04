@@ -29,7 +29,7 @@ function BoughtList() {
             <br/>
             <div className={styles.headTitle}>
                 <h1 className={styles.title}>구매 목록
-                    <span>사용자가 구매한 중고물품 목록입니다.</span>
+                    <span>사용자가 구매한 중고물품 목록입니다..</span>
                 </h1>
             </div>
             <br/><br/>
