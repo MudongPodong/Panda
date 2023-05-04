@@ -27,7 +27,49 @@
     position: fixed;
     z-index: 11;
 }
-
+.logo_box{
+    cursor: pointer;
+    height: 68px;
+    padding: 0;
+    display: flex;
+    position: relative;
+    align-items: center;
+    overflow: hidden;
+}
+.logo_img_wrap{
+    position: relative;
+    width: 21px;
+    height: 21px;
+    float: left;
+}
+.green_logo_img{
+    position: absolute;
+}
+.logo_img{
+    position: absolute;
+    transition: all 0.3s ease;
+}
+.logo_box a:before{
+    width: 0%;
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: #51996b;
+    margin-left: -15px;
+    height: 3px;
+    bottom: -3px;
+    transition: width 0.3s ease;
+}
+.logo_box:hover .logo_img{
+    opacity: 0;
+}
+.logo_box:hover a:before{
+    width: 100%;
+}
+.logo_box:hover .need_img{
+    color: #51996b;
+    transition: all 0.3s ease;
+}
 .logo{
     margin: 15px;
     color: white;
@@ -39,6 +81,7 @@
     cursor: pointer;
     text-decoration: none;
 }
+
 .need_img, .tlist_text{
     color: white;
 }
@@ -69,7 +112,7 @@
 }
 .tlist_item{
     cursor: pointer;
-    height: 69px;
+    height: 68px;
     padding: 0;
     display: flex;
     position: relative;
@@ -101,8 +144,8 @@
     position: absolute;
     background-color: #51996b;
     margin-left: -20px;
-    height: 2px;
-    bottom: 0px;
+    height: 3px;
+    bottom: -3px;
     transition: width 0.3s ease;
 }
 .tlist_item:hover a:before{
@@ -140,18 +183,18 @@
     background-size: 35px 35px;
     transition: all 0.3s ease;
 }
-@media screen and (max-width: 1148px){
+@media screen and (max-width: 1199px){
     .search_input{width: 300px;}
 }
-@media screen and (max-width: 1048px) {
+@media screen and (max-width: 1099px) {
     .search_input{width: 200px;}
 }
-@media screen and (max-width: 948px) {
+@media screen and (max-width: 999px) {
     .search_input{display: none;}
     .search_input_btn{display: none;}
 }
-@media screen and (max-width: 767px){
+@media screen and (max-width: 795px){
     .left_nav{display: none;}
     .right_nav{display: none;}
-    .logo{margin: auto;}
+    .logo_box{margin: auto;}
 }

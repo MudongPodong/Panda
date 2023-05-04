@@ -2,6 +2,7 @@ import styles from '../Css_dir/navigation.module.css';
 import {useNavigate} from 'react-router-dom';
 import React from 'react';
 import logo from '../imgs/logo192_192.png';
+import green_logo from '../imgs/green_logo_192_192.png';
 import Sidebar from "./sidebar";
 import Searchbar from "./searchbar";
 
@@ -33,12 +34,17 @@ function TopNav() {
 
     return (
         <div className={styles.black_nav}>
-            <h1 className={styles.logo}>
-                <a onClick={gohome} className={styles.home_link}>
-                    <img src={logo} alt='panda' width={21} height={21}></img>
-                    <span className={styles.need_img}>PANDA</span>
-                </a>
-            </h1>
+            <div className={styles.logo_box} onClick={gohome} >
+                <h1 className={styles.logo}>
+                    <a className={styles.home_link}>
+                        <div className={styles.logo_img_wrap}>
+                            <img src={green_logo} alt='panda' width={21} height={21} className={styles.green_logo_img}></img>
+                            <img src={logo} alt='panda' width={21} height={21} className={styles.logo_img}></img>
+                        </div>
+                        <span className={styles.need_img}>PANDA</span>
+                    </a>
+                </h1>
+            </div>
             <nav className={styles.left_nav}>
                 <ul className={styles.top_list}>
                     <li className={styles.tlist_item}>
