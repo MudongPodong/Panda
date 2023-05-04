@@ -1,9 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 //test
-import styles from "../../../../../../Panda-main/src/main/frontend/src/Css_dir/notice.module.css";
-import navi from "../../../../../../Panda-main/src/main/frontend/src/Css_dir/navigation.module.css";
-import logo from "../../../../../../Panda-main/src/main/frontend/src/imgs/logo192_192.png";
+import styles from "../Css_dir/notice.module.css";
 import TopNav from "./top_navigation";
 
 

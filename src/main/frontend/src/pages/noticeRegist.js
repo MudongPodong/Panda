@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from "../../../../../../Panda-main/src/main/frontend/src/Css_dir/notice.module.css";
+import styles from "../Css_dir/notice.module.css";
 import TopNav from "./top_navigation";
 function NoticeRegist(){
     const movePage = useNavigate();
