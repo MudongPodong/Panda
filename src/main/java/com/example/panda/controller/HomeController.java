@@ -36,7 +36,7 @@ public class HomeController {
         chatTest.add(new MessageDTO(0, 0, true,  "님", new Date()));
         chatTest.add(new MessageDTO(1, 0, true, "네고 안하면 안삼", new Date()));
         chatTest.add(new MessageDTO(2, 0, false, "사지마셈", new Date()));
-        chatTest.add(new MessageDTO(3, 0, true, "신고할게요", new Date()));
+        chatTest.add(new MessageDTO(3, 0, true, "ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ", new Date()));
         chatTest.add(new MessageDTO(4, 0, false, "?", new Date()));
         return chatTest;
     }
@@ -47,7 +47,6 @@ public class HomeController {
         List<MessageRoomDTO> chatListTest = new ArrayList<>();
         chatListTest.add(new MessageRoomDTO(0,  "네고왕김네고", "나", "?", new Date()));
         chatListTest.add(new MessageRoomDTO(1,  "사려는사람", "나", "네고 가능?", new Date()));
-        chatListTest.add(new MessageRoomDTO(2,  "다판다", "나", "ㅎㅇ", new Date()));
 
         return chatListTest;
     }
