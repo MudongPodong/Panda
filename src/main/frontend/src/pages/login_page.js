@@ -6,15 +6,9 @@ import TopNav from "./top_navigation";
 
 function LogInPage() {
     const movePage = useNavigate();
-    
-    function gohome(){
-        movePage('/');
-    }
-    function gologin(){
-        window.location.replace('/pages/loginpage');
-    }
+
     function goMem(){
-        movePage('/pages/joinmempage');
+        movePage('/pages/joinMemPage');
     }
     return (
         <div className={styles.App}>

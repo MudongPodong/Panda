@@ -27,8 +27,8 @@ function App() {
 
           <Routes>
               <Route path="/" element={<Home/>}></Route>
-              <Route path="/pages/loginpage" element={<LogInPage/>}></Route>
-              <Route path="/pages/joinmempage" element={<MemPage/>}></Route>
+              <Route path="/pages/loginPage" element={<LogInPage/>}></Route>
+              <Route path="/pages/joinMemPage" element={<MemPage/>}></Route>
               <Route path="/pages/OtherPage" exact={true} element={<OtherPage />}/>
               <Route path="/pages/OtherPage2" exact={true} element={<OtherPage2 />}/>
               <Route path="/pages/BoughtList" exact={true} element={<BoughtList />}/>

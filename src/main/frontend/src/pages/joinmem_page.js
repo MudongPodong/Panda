@@ -8,7 +8,7 @@ function MemPage() {
     const movePage = useNavigate();
 
     function goLogin(){
-        movePage('/pages/loginpage');
+        movePage('/pages/loginPage');
     }
     return (
         <div className={styles.App}>
