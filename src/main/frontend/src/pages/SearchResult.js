@@ -28,12 +28,12 @@ function SearchResult() {
                 </h1>
             </div>
             <br/><br/>
-            <div>
+            <div className={styles.btn_center}>
                 <button type="button" className={styles.btn_5}>인기순</button>
                 <button type="button" className={styles.btn_5}>가격순</button>
                 <button type="button" className={styles.btn_5}>판매순</button>
             </div>
-
+            <br/>
             <div className={styles.container}>
                 {data.map(item=>(
                     <div className={styles.resultMap} onClick={movePage}>

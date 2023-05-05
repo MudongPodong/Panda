@@ -231,6 +231,11 @@
     transform: translateY(-100%);
     display: block;
 }
+.btn_center{
+    margin: 0 auto;
+    width: 500px;
+}
+
 
 
 
