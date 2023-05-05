@@ -43,8 +43,8 @@ function FixBar() {
                 {/* <div className="my_page_text"> 마이페이지 </div> */}
                 <div className={styles.my_page_tab}>
                     <ul>
-                        <li><Link to="/pages/OtherPage">회원 정보</Link></li>
-                        <li><Link to="/pages/OtherPage2">찜 목록</Link></li>
+                        <li><Link to="/pages/OtherPage2">회원 정보</Link></li>
+                        <li><Link to="/pages/OtherPage">찜 목록</Link></li>
                         <li><Link to="/pages/BoughtList">구매 이력</Link></li>
                         <li><Link to="/pages/SearchResult">문의 내역</Link></li>
                     </ul>
