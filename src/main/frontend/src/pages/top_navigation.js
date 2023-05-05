@@ -13,9 +13,12 @@ function TopNav() {
     function goHome() {
         movePage('/');
     }
+    function goSearchResult(){
+        movePage('/pages/SearchResult');
+    }
 
     function goLogin() {
-        movePage('/pages/loginpage');
+        movePage('/pages/loginPage');
     }
 
     function goNotice()
@@ -65,7 +68,7 @@ function TopNav() {
                             </form>
                         </a>
                         <button type='submit' form='search_form'
-                                className={`${styles.tlist_text} ${styles.search_input_btn}`}></button>
+                                className={`${styles.tlist_text} ${styles.search_input_btn}`} onClick={goSearchResult}></button>
                         <Searchbar></Searchbar>
                     </li>
                 </ul>

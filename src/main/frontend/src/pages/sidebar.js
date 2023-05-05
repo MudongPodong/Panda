@@ -28,11 +28,14 @@ const Sidebar = () => {
     const movePage = useNavigate();
 
     function goChat(){
-        movePage('/pages/chat')
+        movePage('/pages/chat');
+    }
+    function goSearchResult(){
+        movePage('/pages/SearchResult');
     }
 
     function goLogin() {
-        movePage('/pages/loginpage');
+        movePage('/pages/loginPage');
     }
 
     function goNotice()
