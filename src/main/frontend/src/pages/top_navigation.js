@@ -50,11 +50,25 @@ function TopNav() {
             </div>
             <nav className={styles.left_nav}>
                 <ul className={styles.top_list}>
-                    <li className={styles.tlist_item}>
-                        <a className={styles.tlist_item_a} href="">
-                            <span className={styles.tlist_text}>카테고리</span>
-                        </a>
-                    </li>
+                    <div className={styles.category_wrap}>
+                        <li className={`${styles.tlist_item} ${styles.category}`}>
+                            <a className={styles.tlist_item_a} href="">
+                                <span className={styles.tlist_text}>카테고리</span>
+                            </a>
+                        </li>
+                        <div className={styles.category_content}>
+                            <a onClick={goSearchResult}><div className={styles.line}></div>카테고리</a>
+                            <a onClick={goSearchResult}><div className={styles.line}></div>카테고리</a>
+                            <a onClick={goSearchResult}><div className={styles.line}></div>카테고리</a>
+                            <a onClick={goSearchResult}><div className={styles.line}></div>카테고리</a>
+                            <a onClick={goSearchResult}><div className={styles.line}></div>카테고리</a>
+                            <a onClick={goSearchResult}><div className={styles.line}></div>카테고리</a>
+                            <a onClick={goSearchResult}><div className={styles.line}></div>카테고리</a>
+                            <a onClick={goSearchResult}><div className={styles.line}></div>카테고리</a>
+                            <a onClick={goSearchResult}><div className={styles.line}></div>카테고리</a>
+                            <div className={styles.bottom_line}></div>
+                        </div>
+                    </div>
                     <li className={styles.tlist_item} onClick={goChat}>
                         <a className={styles.tlist_item_a}>
                             <span className={styles.tlist_text}>채팅</span>
