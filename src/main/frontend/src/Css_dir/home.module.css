@@ -45,6 +45,10 @@
     width: 100%;
     overflow: hidden;
 }
+.more{
+    cursor: pointer;
+    text-decoration-line: underline;
+}
 .left_btn{
     margin: auto;
     float: left;
