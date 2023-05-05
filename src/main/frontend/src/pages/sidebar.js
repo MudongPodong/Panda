@@ -51,17 +51,18 @@ const Sidebar = () => {
     return (
         <div className={styles.header} ref={sideClickRef}>
             <div className={styles.logo_box}>
-                <img className={styles.logo} src={logo} width='35px' onClick={toggleMenu}></img>
-                <img className={(isOpen ? `${styles.logo}` : `${styles.exit}`)} src={exit} width='35px' onClick={toggleMenu}></img>
-                <img className={styles.exit} src={logo} width='35px' onClick={toggleMenu}></img>
+                <button className={styles.logo} width='35px'></button>
+                <button className={(!isOpen ? `${styles.logo}` : `${styles.exit}`)} width='35px' onClick={toggleMenu}></button>
+                <div className={styles.line}></div>
             </div>
             <div className={(isOpen ? `${styles.show_menu}` : `${styles.hide_menu}`)}>
                 <div className={styles.search_box}>
                     <form name='search' id='search_form_h' method='get'>
                         <input type='text' className={styles.search_input} placeholder='  검색' name='search'></input>
                     </form>
-                    <button type='submit' form='search_form_h'
-                            className={styles.search_input_btn}></button>
+                    <div className={styles.search_btn_wrap}>
+                        <button type='submit' form='search_form_h' className={styles.search_input_btn} onClick={goSearchResult}></button>
+                    </div>
                 </div>
                 <div>
                     <br/><br/>
