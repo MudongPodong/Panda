@@ -39,7 +39,7 @@
     box-sizing: border-box;
 }
 
-.input, .login_btn_under, .login_btn, .mem_btn, .mem_btn_under, .cancle_btn, .cancle_btn_under{
+.input, .login_btn_under, .login_btn, .mem_btn, .mem_btn_under, .cancel_btn, .cancel_btn_under{
     border: none;
     cursor: pointer;
     outline: none;
@@ -152,7 +152,7 @@
     border: 1px solid #51996b;
     height: 100%;
 }
-.cancle_btn_under{
+.cancel_btn_under{
     position: absolute;
     left: 0;
     border: 1px solid black;
@@ -163,7 +163,7 @@
     font-weight: bold;
 }
 
-.cancle_btn{
+.cancel_btn{
     position: absolute;
     left: 0;
     right: 0;
@@ -178,7 +178,7 @@
     line-height: 43px;
     transition: all 0.4s ease;
 }
-.cancle_btn > span{
+.cancel_btn > span{
     line-height: 43px;
     position: absolute;
     font-weight: bold;
@@ -189,7 +189,7 @@
     bottom: 0;
     display: block;
 }
-.login_btn_wrap:hover .cancle_btn{
+.login_btn_wrap:hover .cancel_btn{
     border: 1px solid #a94848;
     height: 100%;
 }
