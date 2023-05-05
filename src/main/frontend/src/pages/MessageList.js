@@ -1,5 +1,4 @@
 import React from 'react';
-import '../App.css';
 import styles from '../Css_dir/Chat.module.css'
 import dayjs from 'dayjs';
 

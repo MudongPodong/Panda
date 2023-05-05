@@ -1,4 +1,3 @@
-import '../App.css';
 import styles from '../Css_dir/Chat.module.css'
 import profile from '../imgs/profileEx.PNG'
 import search from '../imgs/chat_search.png'
@@ -6,8 +5,14 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import MessageList from './MessageList';
 import ChatList from './ChatList';
-function App() {
+import {useNavigate} from "react-router-dom";
+function Chat() {
 
+    const [isOpen, setSearch] = useState(false);
+
+    const toggleSearch = () => {
+        setSearch(isOpen => !isOpen);
+    }
 
     const [messages, getMessages] = useState([]);
     const [chatLists, getLists] = useState([]);
@@ -33,18 +38,20 @@ return (
                 <ChatList chatLists={chatLists} />
             </div>
             <div className={styles.chat_container}>
-                <div className={styles.chat_header}>
+                <div className={`${styles.chat_header} ${isOpen ? styles.chat_header_search : null}`}>
                     <div className={styles.chat_image}>
                         <img src={profile} width="100%" height="100%"></img>
                     </div>
                     <div className={styles.chat_info}>
                         <div className={styles.chat_name}>네고왕김네고</div>
                     </div>
-                    <div className={styles.chat_search}>
-                        <img src={search} width="30px" height="30px"></img>
-                    </div>
+                    {/*<div className={styles.chat_search}>*/}
+                    {/*    /!*<input type="text" className={isOpen ? styles.show_search : styles.hide_search}/>*!/*/}
+                    {/*    /!*<img src={search} width="30px" height="30px" onClick={()=>toggleSearch()} />*!/*/}
+                    {/*    /!*<button className={isOpen ? styles.show_search : styles.hide_search}>검색</button>*!/*/}
+                    {/*</div>*/}
                 </div>
-                <div className={styles.chat_history}>
+                <div className={`${styles.chat_history} ${isOpen ? styles.chat_history_search : null}`}>
                     <MessageList messages={messages} />
                 </div>
                 <div className={styles.chat_message}>
@@ -56,4 +63,4 @@ return (
     );
 }
 
-export default App;
+export default Chat;
