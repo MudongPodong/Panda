@@ -26,15 +26,6 @@ public class ChatEntity {
     private String content;
 
     @CreationTimestamp
-    @Column
+    @Column(updatable = false)
     private LocalDateTime chat_date;
-
-//    @CreationTimestamp
-//    @Column(updatable = false)
-//    private LocalDateTime createdTime;
-//
-//    @UpdateTimestamp
-//    @Column(insertable = false)
-//    private LocalDateTime updatedTime;
-
 }
