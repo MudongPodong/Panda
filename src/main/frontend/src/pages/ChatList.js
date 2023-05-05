@@ -1,11 +1,10 @@
 import React from 'react';
-import '../App.css';
 import styles from '../Css_dir/Chat.module.css'
 import profile from "../imgs/profileEx.PNG";
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
-
 dayjs.locale('ko');
+
 const ChatList = ({ chatLists }) => {
     return (
         <ul>

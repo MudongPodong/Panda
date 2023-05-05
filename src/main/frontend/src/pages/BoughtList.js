@@ -42,11 +42,11 @@ function BoughtList() {
             <CommonTable headersName={['사진', '상품명','가격', '상품등록일', '구매완료일']}>
                 {data.map(item=>(
                     <CommonTableRow>
-                        <CommonTableColumn><img src=" http://placekitten.com/150/150" alt=""/></CommonTableColumn>
-                        <CommonTableColumn>{item}</CommonTableColumn>
-                        <CommonTableColumn><label name="price">{dividePriceUnit("10000")}</label></CommonTableColumn>
-                        <CommonTableColumn>2020-10-25</CommonTableColumn>
-                        <CommonTableColumn>4</CommonTableColumn>
+                        <td className={styles.common_check_box}><img src=" http://placekitten.com/150/150" alt=""/></td>
+                        <td className={styles.common_check_box}>{item}</td>
+                        <td className={styles.common_check_box}><label name="price">{dividePriceUnit("10000")}</label></td>
+                        <td className={styles.common_check_box}>2020-10-25</td>
+                        <td className={styles.common_check_box}>4</td>
                     </CommonTableRow>
                 ))}
             </CommonTable>
