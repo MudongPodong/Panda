@@ -175,6 +175,29 @@
     width: 80%;
     padding: 10px 0px;
     margin: 0 auto;
-    border-top: 1px solid #969696;
+    border-bottom: 1px solid #969696;
+    position: relative;
     cursor: pointer;
+}
+.nav_list_item:hover{
+    color: #51996b;
+    border-color: #51996b;
+    transition: all 0.3s ease;
+}
+.list_line{
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: #51996b;
+    height: 2px;
+    width: 0%;
+    right: 0;
+    bottom: -1px;
+    transition: width 0.3s ease;
+    z-index: 12;
+}
+.nav_list_item:hover .list_line{
+    width: 100%;
+    transition: width 0.3s ease;
+    z-index: 13;
 }

@@ -146,10 +146,15 @@
     display: block;
     position: absolute;
     background-color: #51996b;
-    margin-left: -20px;
     height: 3px;
     bottom: -3px;
     transition: width 0.3s ease;
+}
+.left_nav .tlist_item a:before{
+    left: 0;
+}
+.right_nav .tlist_item a:before{
+    right: 0;
 }
 .tlist_item:hover a:before{
     width: 100%;
