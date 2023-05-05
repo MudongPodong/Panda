@@ -40,7 +40,21 @@ function SearchResult() {
                     </div>
                 ))}
             </div>
-
+            <br/><br/>
+            <hr/>
+            <div className={styles.board_wraping}>
+                <div className={styles.board_paging}>
+                    <a href="#" className={styles.num}><b>〈〈</b></a>
+                    <a href="#" className={styles.num}><b>〈</b></a>
+                    <a href="#" className={styles.num}>1</a>
+                    <a href="#" className={styles.num}>2</a>
+                    <a href="#" className={styles.num}>3</a>
+                    <a href="#" className={styles.num}>4</a>
+                    <a href="#" className={styles.num}>5</a>
+                    <a href="#" className={styles.num}><b>〉</b></a>
+                    <a href="#" className={styles.num}><b>〉〉</b></a>
+                </div>
+            </div>
         </div>
     );
 }
