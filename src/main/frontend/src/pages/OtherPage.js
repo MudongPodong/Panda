@@ -38,7 +38,7 @@ function OtherPage() {
     }
 
     const dividePriceUnit=(price)=>{
-        return price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        return price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");   //금액 1000단위 끊기
     }
 
 
