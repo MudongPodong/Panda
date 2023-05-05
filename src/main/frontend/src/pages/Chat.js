@@ -7,12 +7,11 @@ import MessageList from './MessageList';
 import ChatList from './ChatList';
 import {useNavigate} from "react-router-dom";
 function Chat() {
-
-    const [isOpen, setSearch] = useState(false);
-
-    const toggleSearch = () => {
-        setSearch(isOpen => !isOpen);
-    }
+    // const [isOpen, setSearch] = useState(false);
+    //
+    // const toggleSearch = () => {
+    //     setSearch(isOpen => !isOpen);
+    // }
 
     const [messages, getMessages] = useState([]);
     const [chatLists, getLists] = useState([]);
@@ -32,13 +31,20 @@ function Chat() {
             })
     }, []);
 
+    useEffect(() => {
+        axios.get('/api/chatList')
+            .then(response => {
+                getLists(response.data);
+            })
+    }, []);
+
 return (
         <div className={styles.chat_page}>
             <div className={styles.plist}>
                 <ChatList chatLists={chatLists} />
             </div>
             <div className={styles.chat_container}>
-                <div className={`${styles.chat_header} ${isOpen ? styles.chat_header_search : null}`}>
+                <div className={styles.chat_header}>
                     <div className={styles.chat_image}>
                         <img src={profile} width="100%" height="100%"></img>
                     </div>
@@ -51,7 +57,7 @@ return (
                     {/*    /!*<button className={isOpen ? styles.show_search : styles.hide_search}>검색</button>*!/*/}
                     {/*</div>*/}
                 </div>
-                <div className={`${styles.chat_history} ${isOpen ? styles.chat_history_search : null}`}>
+                <div className={styles.chat_history}>
                     <MessageList messages={messages} />
                 </div>
                 <div className={styles.chat_message}>
