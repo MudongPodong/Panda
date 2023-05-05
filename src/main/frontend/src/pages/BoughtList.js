@@ -38,7 +38,7 @@ function BoughtList() {
             <CommonTable headersName={['사진', '상품명', '상품등록일', '구매완료일']}>
                 {data.map(item=>(
                     <CommonTableRow>
-                        <td><input type="checkbox" style={{left:"5%"}} name="likeList"/></td>
+                        <td className={styles.common_check_box}><input type="checkbox" style={{left:"5%"}} name="likeList"/></td>
                         <CommonTableColumn><img src=" http://placekitten.com/150/150" alt=""/></CommonTableColumn>
                         <CommonTableColumn>{item}</CommonTableColumn>
                         <CommonTableColumn>2020-10-25</CommonTableColumn>
@@ -47,13 +47,10 @@ function BoughtList() {
                 ))}
             </CommonTable>
 
-            <br/><br/>
-            <button className={styles.changePage} onClick={ movePage }>마이페이지</button>
-            <br/><br/><br/>
-            <button className={styles.changePage} onClick={ movePage }>선택 구매</button>
-            <br/><br/>
+            <br/><br/><br/><br/><br/><br/><br/><br/>
+            <footer className={styles.footer_div}>
 
-
+            </footer>
         </div>
     );
 }
