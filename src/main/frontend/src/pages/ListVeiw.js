@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../Css_dir/listVeiw.module.css';
-import image from "../imgs/logo192_192.png";
+import {Link} from "react-router-dom";
+
 class ListVeiw extends React.Component {
     state = {
         slideSpot: 0,
@@ -13,7 +14,7 @@ class ListVeiw extends React.Component {
         IMG_WIDTH * (this.imgQuantity + 1) + (this.imgQuantity) * SLIDE_GAP * 2;
     //슬라이드 내부 컨텐츠의 전체 길이를 구해준다.
     inner_len = window.innerWidth;
-    hiddenedSlideWidth = (this.inner_len < 430 ? this.slideWidth - 300:(this.inner_len < 650 ? this.slideWidth - 500 : this.slideWidth - 700));
+    hiddenedSlideWidth = (this.inner_len < 210 ? this.slideWidth - 100:(this.inner_len < 430 ? this.slideWidth - 300:(this.inner_len < 650 ? this.slideWidth - 500 : this.slideWidth - 700)));
     //슬라이드 내부 컨텐츠 전체 길이에서 윈도우의 innerWidth 값을 빼 남아있는 슬라이드의 길이를 구한다.
     slideEnd;
     //슬라이드의 끝부분에 갔을 때 next 버튼이 없어지도록 만들 때 사용할 변수이다.
@@ -76,21 +77,24 @@ class ListVeiw extends React.Component {
                 </button>
             <div className={styles.list_view_box}>
 
-                <ul className={styles.storeImgUl}>
+                <ul className={styles.list}>
                     <div style={{ transform: `translateX(${slideSpot}px)`}} className={styles.slide_item}>
                         {imagesData&&imagesData.map((img, i) => (
-                            <li key={i} className={styles.storeImgLi}>
-                                <div className={styles.list_container}>
-                                    <div className={styles.item_img}>
-                                        <img width={200} src={img} className={styles.list_img}/>
+                            <li key={i} className={styles.list_item}>
+                                <Link to={`/pages/noticeConfirm#`} style={{ textDecoration: "none" }}>
+                                    {/*to안에 해당 상품 페이지로 이동하게 하면됨*/}
+                                    <div className={styles.list_container}>
+                                        <div className={styles.item_img}>
+                                            <img width={200} src={img} className={styles.list_img}/>
+                                        </div>
+                                        <div className={styles.item_desc}>
+                                            <h2 className={styles.item_name}>{pname[i]}</h2>
+                                            <p className={styles.item_price}>{`${price[i]} 원`}</p>
+                                            <p className={styles.item_addr}>{addr[i]}</p>
+                                            <p className={styles.item_count}>{`${count[i]}회 검색`}</p>
+                                        </div>
                                     </div>
-                                    <div className={styles.item_desc}>
-                                        <h2>{pname[i]}</h2>
-                                        <p>{price[i]}</p>
-                                        <p>{addr[i]}</p>
-                                        <p>{count[i]}</p>
-                                    </div>
-                                </div>
+                                </Link>
                             </li>
                         ))}
                     </div>
@@ -107,15 +111,10 @@ class ListVeiw extends React.Component {
 ListVeiw.defaultProps = {
     //원래 백에서 이미지 받아와야 되는데 일단 임시로 이미지 넣음
     imagesData: ['imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png', 'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png'],
-    pname: ['제목','제목','제목','제목','제목','제목'],
-    price : ['000','000','000','000','000','000'],
-    addr : ['aaa','aaa','aaa','aaa','aaa','aaa'],
-    count : ['100','100','100','100','100','100']
-    // imagesData: ['imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png', 'imgs/logo192_192.png', 'imgs/menu_logo.png'],
-    // pname: ['제목','제목','제목','제목','제목'],
-    // price : ['000','000','000','000','000'],
-    // addr : ['aaa','aaa','aaa','aaa','aaa'],
-    // count : ['100','100','100','100','100']
+    pname: ['귀여운 판다','판다','안판다','맛있어 보이는 판다','과제 언제끝남','집에 보내줘'],
+    price : ['20,000','1,000','500,000','20,000,000','1','2,500'],
+    addr : ['경북 경산시 대학로 280','대구 남구 현충로 170','대구 북구 대학로 80','경북 상주시 경상대로 2559','대구 북구 호국로 807','대구 중구 국채보상로 680'],
+    count : ['1,000','10','0','1,000,000,000','100','99']
 }
 
 const SLIDE_GAP = 14;  //각 슬라이드 사이 간격

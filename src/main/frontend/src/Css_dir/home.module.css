@@ -15,7 +15,7 @@
 .home_wrap {
     box-sizing: border-box;
     width: calc(100% - 40px);
-    max-width: 900px;
+    max-width: 95vw;
     margin: 0 auto;
     padding-bottom: 20px;
     min-height: calc(100vh - 156px);
