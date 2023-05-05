@@ -12,8 +12,33 @@ import axios from 'axios';
 
 function OtherPage() {
     const [data, setData] = useState([])
+    const [price,setPrice]=useState([]);
+
     const movePage= ()=>{
         document.location.href="/pages/OtherPage2";
+    }
+
+    const getCheckCnt=()=>{
+        //선택 항목 수 체크
+        const query='input[name="likeList"]:checked';
+        const selectedElements= document.querySelectorAll(query);
+        const selectedCNT=selectedElements.length;
+        document.getElementById('selectCount').innerText
+            = selectedCNT;
+
+        //선택 총 가격 체크
+        const query2='input[name="likeList"]:checked';
+        const selectedElements2= document.querySelectorAll(query2);
+        let sum=0;
+        selectedElements2.forEach(function (element){
+            sum=sum+Number(element.getAttribute('value'));
+
+        });
+        document.getElementById('selectPrice').innerText= dividePriceUnit(sum.toString());
+    }
+
+    const dividePriceUnit=(price)=>{
+        return price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     }
 
 
@@ -40,20 +65,21 @@ function OtherPage() {
                         찜 목록
                     </div>
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item">선택된 제품 수: </li>
-                        <li className="list-group-item">목록 내 모든 상품 가격: </li>
-                        <li className="list-group-item">선택한 상품 가격: </li>
+
+                        <li className="list-group-item">선택된 제품 수: <span id="selectCount"></span></li>
+                        <li className="list-group-item">목록 내 모든 상품 가격: <span id="totalPrice">60,000</span></li>  {/*나중에 백엔드에서 가져오기*/}
+                        <li className="list-group-item">선택한 상품 가격: <span id="selectPrice"></span></li>
                     </ul>
                 </div>
                 <br/><br/>
-                <CommonTable headersName={['','사진', '상품명', '상품등록일', '찜 등록일']}>
+                <CommonTable headersName={['','사진', '상품명', '가격', '상품등록일']}>
                     {data.map(item=>(
                         <CommonTableRow>
-                            <td className={styles.common_check_box}><input type="checkbox" style={{left:"5%"}} name="likeList"/></td>
+                            <td className={styles.common_check_box}><input type="checkbox" onClick={getCheckCnt} style={{left:"5%"}} name="likeList" value="10000"/></td>
                             <CommonTableColumn><img src=" http://placekitten.com/150/150" alt=""/></CommonTableColumn>
                             <CommonTableColumn>{item}</CommonTableColumn>
+                            <CommonTableColumn><label name="price">{dividePriceUnit("10000")}</label></CommonTableColumn>
                             <CommonTableColumn>2020-10-25</CommonTableColumn>
-                            <CommonTableColumn>4</CommonTableColumn>
                         </CommonTableRow>
                     ))}
                 </CommonTable>
@@ -62,7 +88,9 @@ function OtherPage() {
 
                 <br/><br/><br/>
                 <button className={styles.changePage} onClick={ movePage }>선택 구매</button>
-                <br/><br/>
+
+                <br/><br/><br/>
+                <button className={styles.changePage} onClick={ movePage }>선택 삭제</button>
             </div>
 
         </div>
