@@ -18,8 +18,8 @@ class ListVeiw extends React.Component {
         (this.inner_len < 430 ? this.slideWidth - 300:
             (this.inner_len < 650 ? this.slideWidth - 500 :
                 (this.inner_len < 870 ? this.slideWidth - 700:
-                    (this.inner_len < 1090 ? this.slideWidth - 900:
-                        (this.inner_len < 1310 ? this.slideWidth - 1100:this.slideWidth - 1300))))));
+                    (this.inner_len < 1310 ? this.slideWidth - 900:
+                        (this.inner_len < 1310 ? this.slideWidth - 1000:this.slideWidth - 1100))))));
     //슬라이드 내부 컨텐츠 전체 길이에서 윈도우의 innerWidth 값을 빼 남아있는 슬라이드의 길이를 구한다.
     slideEnd;
     //슬라이드의 끝부분에 갔을 때 next 버튼이 없어지도록 만들 때 사용할 변수이다.
