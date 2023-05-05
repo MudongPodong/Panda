@@ -265,17 +265,17 @@
     background-size: 35px 35px;
     transition: all 0.3s ease;
 }
-@media screen and (max-width: 1199px){
+@media screen and (max-width: 1214px){
     .search_input{width: 300px;}
 }
-@media screen and (max-width: 1099px) {
+@media screen and (max-width: 1114px) {
     .search_input{width: 200px;}
 }
-@media screen and (max-width: 999px) {
+@media screen and (max-width: 1014px) {
     .search_input{display: none;}
     .search_input_btn{display: none;}
 }
-@media screen and (max-width: 795px){
+@media screen and (max-width: 809px){
     .left_nav{display: none;}
     .right_nav{display: none;}
     .logo_box{margin: auto;}
