@@ -64,7 +64,7 @@ function Mem() {
                         // 회원가입
                         alert('회원가입 성공');
                         gologin();
-                    }}>회원가입</button>
+                    }}><span>회원가입</span></button>
                 </div>
             </form>
         </div>

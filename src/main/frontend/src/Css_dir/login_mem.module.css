@@ -64,80 +64,134 @@
 }
 .login_btn_wrap{
     position: relative;
+    text-decoration: 0;
+    display: block;
     width: 100%;
-    height: 46px;
-    line-height: 30px;
+    height: 45px;
+    text-align: center;
+    line-height: 43px;
     margin-top: 6px;
 }
 .login_btn_under{
     position: absolute;
     left: 0;
-    border: 0;
+    border: 1px solid black;
+    padding: 0;
     color: white;
+    line-height: 43px;
     background-color: black;
     font-weight: bold;
-    border-radius: 10px;
 }
 .login_btn{
     position: absolute;
     left: 0;
-    border: 0;
-    color: #51996b;
-    background-color: #1f1f1f;
+    right: 0;
+    bottom: 0;
+    height: 0;
+    border: 1px solid black;
+    padding: 0;
+    color: black;
+    overflow: hidden;
+    background-color: #ffffff;
     font-weight: bold;
-    border-radius: 10px;
-    opacity: 0;
+    line-height: 43px;
+    transition: height 0.4s ease;
+}
+.login_btn > span{
+    line-height: 43px;
+    position: absolute;
+    font-weight: bold;
+    border: 0;
+    margin: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: block;
+}
+.login_btn_wrap:hover .login_btn{
+    height: 100%;
+}
 
-}
-.login_btn:hover{
-    opacity: 1;
-    transition: opacity 0.2s ease;
-}
 .mem_btn_under{
     position: absolute;
     left: 0;
-    border: 0;
+    border: 1px solid #51996b;
+    padding: 0;
+    line-height: 43px;
     color: white;
     background-color: #51996b;
     font-weight: bold;
-    border-radius: 10px;
 }
 .mem_btn{
     position: absolute;
     left: 0;
-    border: 0;
-    color: white;
-    background-color: #477e5a;
-    opacity: 0;
+    right: 0;
+    bottom: 0;
+    height: 0;
+    border: 1px solid #51996b;
+    padding: 0;
+    color: #51996b;
+    overflow: hidden;
+    background-color: #ffffff;
     font-weight: bold;
-    border-radius: 10px;
+    line-height: 43px;
+    transition: height 0.4s ease;
 }
-.mem_btn:hover{
-    opacity: 1;
-    transition: opacity 0.2s ease;
+.mem_btn > span{
+    line-height: 43px;
+    position: absolute;
+    font-weight: bold;
+    border: 0;
+    margin: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: block;
+}
+.login_btn_wrap:hover .mem_btn{
+    border: 1px solid #51996b;
+    height: 100%;
 }
 .cancle_btn_under{
     position: absolute;
     left: 0;
-    border: 0;
+    border: 1px solid black;
+    padding: 0;
+    line-height: 43px;
     color: white;
     background-color: black;
     font-weight: bold;
-    border-radius: 10px;
 }
+
 .cancle_btn{
     position: absolute;
     left: 0;
-    border: 0;
+    right: 0;
+    bottom: 0;
+    height: 0;
+    border: 1px solid black;
+    padding: 0;
     color: white;
+    overflow: hidden;
     background-color: #a94848;
     font-weight: bold;
-    border-radius: 10px;
-    opacity: 0;
+    line-height: 43px;
+    transition: all 0.4s ease;
 }
-.cancle_btn:hover{
-    opacity: 1;
-    transition: opacity 0.2s ease;
+.cancle_btn > span{
+    line-height: 43px;
+    position: absolute;
+    font-weight: bold;
+    border: 0;
+    margin: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: block;
+}
+.login_btn_wrap:hover .cancle_btn{
+    border: 1px solid #a94848;
+    height: 100%;
 }
 .login_setting{
     box-sizing: border-box;
