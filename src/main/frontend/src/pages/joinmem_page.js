@@ -2,7 +2,6 @@ import Mem from './mem';
 import styles from '../Css_dir/login_mem.module.css';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import TopNav from "./top_navigation";
 
 function MemPage() {
     const movePage = useNavigate();
@@ -13,7 +12,6 @@ function MemPage() {
     return (
         <div className={styles.App}>
             <div className={styles.login_page}>
-                <TopNav/>
                 <div className={styles.login_wrap}>
                     <div className={styles.login_box}>
                         <h1>Join Membership</h1>

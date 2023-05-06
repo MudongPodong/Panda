@@ -1,7 +1,6 @@
 import styles from '../Css_dir/home.module.css';
 import { useNavigate } from 'react-router-dom';
 import React, {useState} from 'react';
-import TopNav from "./top_navigation";
 import ListVeiw from "./ListVeiw";
 
 function Home() {
@@ -13,7 +12,6 @@ function Home() {
     return (
         <div className={styles.App}>
             <div className={styles.home_page}>
-                <TopNav/>
                 <div className={styles.home_wrap}>
                     <div className={styles.home_box}>
                         <h1 className={styles.head}>추천 매물</h1>

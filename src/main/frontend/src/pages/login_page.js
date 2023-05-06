@@ -13,7 +13,6 @@ function LogInPage() {
     return (
         <div className={styles.App}>
             <div className={styles.login_page}>
-                <TopNav />
                 <div className={styles.login_wrap}>
                     <div className={styles.login_box}>
                         <h1 className={styles.login_head}>LogIn</h1>

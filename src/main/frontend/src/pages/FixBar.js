@@ -8,7 +8,6 @@ import OtherPage2 from "./OtherPage2";
 import BoughtList from "./BoughtList";
 import profile from '../profileEx.PNG'
 import SearchResult from "./SearchResult";
-import TopNav from "./top_navigation";
 
 function FixBar() {
     const [data, setData] = useState([])
@@ -22,7 +21,6 @@ function FixBar() {
 
     return (
         <div>
-            <TopNav></TopNav>
             {/* black-nav */}
 
             {/* 마이페이지 */}

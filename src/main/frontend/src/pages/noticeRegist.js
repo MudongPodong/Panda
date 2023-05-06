@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from "../Css_dir/notice.module.css";
-import TopNav from "./top_navigation";
 function NoticeRegist(){
     const movePage = useNavigate();
     function alertmessage()
@@ -19,7 +18,6 @@ function NoticeRegist(){
 
     return(
         <div>
-            <TopNav></TopNav>
         <div className={styles.board_wrap}>
             <div className={styles.board_title}>
                 <strong>게시글 작성</strong>

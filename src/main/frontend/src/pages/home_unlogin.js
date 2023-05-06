@@ -1,7 +1,6 @@
 import styles from '../Css_dir/home.module.css';
 import { useNavigate } from 'react-router-dom';
 import React, {useState} from 'react';
-import TopNav from "./top_navigation";
 
 function HomeUn() {
     const movePage = useNavigate();
@@ -12,7 +11,6 @@ function HomeUn() {
     return (
         <div className={styles.App}>
             <div className={styles.home_page}>
-                <TopNav/>
                 <div className={styles.home_wrap}>
                     <div className={styles.home_box}>
 
