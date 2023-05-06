@@ -15,7 +15,7 @@
 .home_wrap {
     box-sizing: border-box;
     width: calc(100% - 40px);
-    max-width: 900px;
+    max-width: 95vw;
     margin: 0 auto;
     padding-bottom: 20px;
     min-height: calc(100vh - 156px);
@@ -44,6 +44,10 @@
 .list_wrap{
     width: 100%;
     overflow: hidden;
+}
+.more{
+    cursor: pointer;
+    text-decoration-line: underline;
 }
 .left_btn{
     margin: auto;

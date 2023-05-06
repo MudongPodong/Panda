@@ -67,7 +67,7 @@ const Sidebar = () => {
                     최근 검색 or 추천검색 등
                 </div>
                 <ul className={styles.nav_list}>
-                    <li className={styles.nav_list_item}>카테고리<div className={styles.list_line}></div></li>
+                    <li className={`${styles.nav_list_item} ${styles.category}`}>카테고리<div className={styles.list_line}></div></li>
                     <li className={styles.nav_list_item} onClick={goChat}>챗봇<div className={styles.list_line}></div></li>
                     <li className={styles.nav_list_item} onClick={goNotice}>판매등록<div className={styles.list_line}></div></li>
                     <li className={styles.nav_list_item} onClick={goLogin}>로그인<div className={styles.list_line}></div></li>

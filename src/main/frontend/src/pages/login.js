@@ -28,7 +28,7 @@ function Login() {
                     <button type="submit" className={styles.login_btn_under}>LogIn</button>
                     <button type="submit" className={styles.login_btn} onClick={() => {
 
-                    }}>LogIn</button>
+                    }}><span>LogIn</span></button>
                 </div>
             </form>
         </div>

@@ -7,7 +7,9 @@ import ListVeiw from "./ListVeiw";
 function Home() {
     const movePage = useNavigate();
     let [recommend_item, setRecommendItem] = useState('');
-
+    function goSearchResult(){
+        movePage('/pages/SearchResult');
+    }
     return (
         <div className={styles.App}>
             <div className={styles.home_page}>
@@ -18,22 +20,22 @@ function Home() {
                         <div className={styles.list_wrap}>
                             <ListVeiw></ListVeiw>
                         </div>
-                        <div className={styles.wrap_label}>
-                            <a>추천 매물 더 보기</a>
+                        <div>
+                            <a className={styles.more} onClick={goSearchResult}>추천 매물 더 보기</a>
                         </div>
                         <h1 className={styles.head}>인기 매물</h1>
                         <div className={styles.rank_wrap}>
                             <ListVeiw></ListVeiw>
                         </div>
-                        <div className={styles.wrap_label}>
-                            <a>인기 매물 더 보기</a>
+                        <div>
+                            <a className={styles.more} onClick={goSearchResult}>인기 매물 더 보기</a>
                         </div>
                         <h1 className={styles.head}>인기 검색어</h1>
                         <div className={styles.search_wrap}>
 
                         </div>
-                        <div className={styles.wrap_label}>
-                            <a>인기 검색어 더 보기</a>
+                        <div>
+                            <a className={styles.more} onClick={goSearchResult}>인기 검색어 더 보기</a>
                         </div>
                     </div>
                 </div>

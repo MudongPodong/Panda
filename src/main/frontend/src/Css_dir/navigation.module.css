@@ -121,6 +121,79 @@
     position: relative;
     align-items: center;
 }
+.category_wrap{
+    margin: 0;
+    padding: 0;
+}
+.category{
+    position: relative;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    line-height: 68px;
+}
+.category_content a {
+    position: relative;
+    color: black;
+    padding: 12px 0;
+    margin: 0 16px;
+    border-bottom: 1px solid #7e7e7e;
+    text-decoration: none;
+    display: block;
+    font-weight: 500;
+    cursor: pointer;
+}
+.category_content a:first-child{
+    margin-top: 10px;
+}
+.category_content{
+    position: absolute;
+    top: 71px;
+    display: none;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    margin: 0;
+    width: 300px;
+    height: 500px;
+    top: 71px;
+    transition: 0.5s;
+    z-index: 20;
+}
+.line{
+    position: absolute;
+    left: -16px;
+    top: 0;
+    height: 0;
+    width: 2px;
+    background-color: #51996b;
+    transition: height 0.5s ease;
+}
+.bottom_line{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background-color: #51996b;
+    transition: width 0.5s ease;
+}
+.category_content a:hover {
+    background-color: #000000;
+    color: white;
+}
+.category_content a:hover .line{
+    height: 100%;
+}
+.category_wrap:hover .category_content {
+    display: block;
+}
+.tlist_item:hover ~ .category_content .bottom_line{
+    width: 100%;
+    transition: width 0.3s ease;
+}
 .tlist_item_a{
     padding: 0 20px;
     margin: 0;
@@ -159,6 +232,7 @@
 .tlist_item:hover a:before{
     width: 100%;
 }
+
 .search_input{
     color: black;
     padding: 0;
@@ -191,17 +265,17 @@
     background-size: 35px 35px;
     transition: all 0.3s ease;
 }
-@media screen and (max-width: 1199px){
+@media screen and (max-width: 1214px){
     .search_input{width: 300px;}
 }
-@media screen and (max-width: 1099px) {
+@media screen and (max-width: 1114px) {
     .search_input{width: 200px;}
 }
-@media screen and (max-width: 999px) {
+@media screen and (max-width: 1014px) {
     .search_input{display: none;}
     .search_input_btn{display: none;}
 }
-@media screen and (max-width: 795px){
+@media screen and (max-width: 809px){
     .left_nav{display: none;}
     .right_nav{display: none;}
     .logo_box{margin: auto;}

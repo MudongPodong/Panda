@@ -11,8 +11,8 @@ import {Routes,Route,Link,NavLink,useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 function OtherPage() {
-    const [data, setData] = useState([])
-    const [price,setPrice]=useState([]);
+    const [data, setData] = useState([]);
+    const [price,setPrice]=useState(0);
 
     const movePage= ()=>{
         document.location.href="/pages/OtherPage2";
@@ -40,12 +40,46 @@ function OtherPage() {
     const dividePriceUnit=(price)=>{
         return price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");   //금액 1000단위 끊기
     }
+    const Btn_del=()=>{
+        const arr=[];
+        const query='input[name="likeList"]:checked';
+        const selectedElements= document.querySelectorAll(query);
+        selectedElements.forEach(function (element){
+            const wid=element.parentElement.textContent;
+            console.log(wid);
+            arr.push(wid);
+        })
 
+        axios.get('/api/del_item',{
+            params:{
+                id: 12,
+                writing_name: "1234",
+                list: arr.join(",")
+            }
+        })
+    }
+
+    const getTotalPrice=()=>{
+        const query='input[name="likeList"]';
+        const selectedElements= document.querySelectorAll(query);
+        let sum=0;
+        selectedElements.forEach(function (element){
+            sum=sum+Number(element.getAttribute('value'));
+            console.log(sum);
+        });
+        document.getElementById('totalPrice').innerText= dividePriceUnit(sum.toString());
+    }
 
     useEffect(() => {
-        axios.get('/api/hello')
+        axios.get('/api/writings')
             .then(response => setData(response.data))
             .catch(error => console.log(error))
+    }, []);
+    useEffect(() => {
+        axios.get('/api/list_totalPrice')
+            .then(response => {
+                setPrice(response.data);
+            })
     }, []);
 
     return (
@@ -67,30 +101,26 @@ function OtherPage() {
                     <ul className="list-group list-group-flush">
 
                         <li className="list-group-item">선택된 제품 수: <span id="selectCount"></span></li>
-                        <li className="list-group-item">목록 내 모든 상품 가격: <span id="totalPrice">60,000</span></li>  {/*나중에 백엔드에서 가져오기*/}
+                        <li className="list-group-item">목록 내 모든 상품 가격: <span id="totalPrice">{dividePriceUnit(price.toString())}  </span></li>  {/*나중에 백엔드에서 가져오기*/}
                         <li className="list-group-item">선택한 상품 가격: <span id="selectPrice"></span></li>
                     </ul>
                 </div>
                 <br/><br/>
-                <CommonTable headersName={['','사진', '상품명', '가격', '상품등록일']}>
+                <CommonTable headersName={['선택/제품id','사진', '상품명', '가격', '상품등록일']}>
                     {data.map(item=>(
                         <CommonTableRow>
-                            <td className={styles.common_check_box}><input type="checkbox" onClick={getCheckCnt} style={{left:"5%"}} name="likeList" value="10000"/></td>
+                            <td className={styles.common_check_box}><input type="checkbox" onClick={getCheckCnt} style={{left:"5%"}} name="likeList" value={item.price}/>{item.writing_Id}</td>
                             <CommonTableColumn><img src=" http://placekitten.com/150/150" alt=""/></CommonTableColumn>
-                            <CommonTableColumn>{item}</CommonTableColumn>
-                            <CommonTableColumn><label name="price">{dividePriceUnit("10000")}</label></CommonTableColumn>
-                            <CommonTableColumn>2020-10-25</CommonTableColumn>
+                            <CommonTableColumn>{item.writing_name}</CommonTableColumn>
+                            <CommonTableColumn>{dividePriceUnit(item.price.toString())}</CommonTableColumn>
+                            <CommonTableColumn>{item.regit_date}</CommonTableColumn>
                         </CommonTableRow>
                     ))}
                 </CommonTable>
 
 
-
                 <br/><br/><br/>
-                <button className={styles.changePage} onClick={ movePage }>선택 구매</button>
-
-                <br/><br/><br/>
-                <button className={styles.changePage} onClick={ movePage }>선택 삭제</button>
+                <button className={styles.changePage} onClick={ Btn_del }>선택 삭제</button>
             </div>
 
         </div>

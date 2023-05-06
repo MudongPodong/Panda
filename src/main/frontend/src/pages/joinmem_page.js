@@ -20,8 +20,8 @@ function MemPage() {
                         <div className={styles.login_input_form}>
                             <Mem />
                             <div className={styles.login_btn_wrap}>
-                                <button type="button" className={styles.cancle_btn_under}>취소</button>
-                                <button type="button" className={styles.cancle_btn} onClick={goLogin}>취소</button>
+                                <button type="button" className={styles.cancel_btn_under}>취소</button>
+                                <button type="button" className={styles.cancel_btn} onClick={goLogin}><span>취소</span></button>
                             </div>
                         </div>
                     </div>

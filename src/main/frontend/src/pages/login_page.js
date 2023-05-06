@@ -21,7 +21,7 @@ function LogInPage() {
                             <Login />
                             <div className={styles.login_btn_wrap}>
                                 <button type="button" className={styles.mem_btn_under}>회원가입</button>
-                                <button type="button" className={styles.mem_btn} onClick={goMem}>회원가입</button>
+                                <button type="button" className={styles.mem_btn} onClick={goMem}><span>회원가입</span></button>
                             </div>
                         </div>
                         <div className={styles.login_setting}>
