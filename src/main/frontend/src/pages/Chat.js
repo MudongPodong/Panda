@@ -6,7 +6,6 @@ import MessageList from './MessageList';
 import ChatList from './ChatList';
 import {useNavigate} from "react-router-dom";
 function Chat() {
-
     let currentSessionName = {
         userId : "diqzk1562"
     };

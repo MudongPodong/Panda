@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import CommonTable from './Tables/CommonTable';
 import CommonTableColumn from './Tables/CommonTableColumn';
 import CommonTableRow from './Tables/CommonTableRow';
-import {Routes,Route,Link,NavLink,useNavigate} from 'react-router-dom';
+import {Routes, Route, Link, NavLink, useNavigate, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import OtherPage from "./pages/OtherPage";
 import OtherPage2 from "./pages/OtherPage2";
@@ -20,10 +20,14 @@ import NoticeRegist from "./pages/noticeRegist"
 import NoticeConfirm from "./pages/noticeConfirm"
 import NoticeModify from "./pages/noticeModify"
 import Home_unlogin from "./pages/home_unlogin";
-function App() {
-    let [isLogIn, setEmail] = useState('');
+import {CSSTransition, TransitionGroup} from "react-transition-group";
+import TopNav from "./pages/top_navigation";
 
+function App() {
   return (
+      <TransitionGroup className={'transition-wrapper'}>
+          <TopNav></TopNav>
+          <CSSTransition key={useLocation().pathname} timeout={300} classNames={'pages_push_controll'}>
       <div id='root'>
           <Routes>
               <Route path="/" element={(document.cookie.match('(^|;) ?' + 'name' + '=([^;]*)(;|$)') ? <Home/>:<Home_unlogin/>)}></Route>
@@ -43,6 +47,8 @@ function App() {
 
 
       </div>
+          </CSSTransition>
+      </TransitionGroup>
   );
 }
 
