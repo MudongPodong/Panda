@@ -70,10 +70,10 @@
     background-size: 35px 35px;
     transition: all 0.3s ease;
 }
-@media screen and (max-width: 809px){
+@media screen and (max-width: 822px){
     .header{display: block;}
 }
-@media screen and (min-width: 810px) {
+@media screen and (min-width: 823px) {
     .header{display: none;}
 }
 .show_menu{
