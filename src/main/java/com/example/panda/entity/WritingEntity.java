@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -32,4 +34,8 @@ public class WritingEntity {
     private int count;
     @Column
     private Boolean is_auction;
+    @Column
+    private int price;
+    @Column
+    private LocalDateTime regit_date;
 }

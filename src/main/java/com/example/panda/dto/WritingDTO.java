@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +23,8 @@ public class WritingDTO {
     private Boolean is_sold;
     private int count;
     private Boolean is_auction;
+    private int price;
+    private LocalDateTime regit_date;
 
 
     public static WritingDTO toWritingDTO(WritingEntity writingEntity) {
@@ -36,6 +41,8 @@ public class WritingDTO {
         writingDTO.setIs_sold(writingEntity.getIs_sold());
         writingDTO.setCount(writingEntity.getCount());
         writingDTO.setIs_auction(writingEntity.getIs_auction());
+        writingDTO.setPrice(writingEntity.getPrice());
+        writingDTO.setRegit_date(writingEntity.getRegit_date());
 
         return writingDTO;
     }

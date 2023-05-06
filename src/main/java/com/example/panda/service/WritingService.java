@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class WritingService {
-    private WritingRepository writingRepository;
+    private final WritingRepository writingRepository;
     public List<WritingDTO> findAll(){
         List<WritingEntity> writingEntityList = writingRepository.findAll();
         List<WritingDTO> writingDTOList = new ArrayList<>();
