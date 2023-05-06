@@ -1,47 +1,45 @@
 import styles from '../Css_dir/Chat.module.css'
 import profile from '../imgs/profileEx.PNG'
-import search from '../imgs/chat_search.png'
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import MessageList from './MessageList';
 import ChatList from './ChatList';
 import {useNavigate} from "react-router-dom";
 function Chat() {
-    // const [isOpen, setSearch] = useState(false);
-    //
-    // const toggleSearch = () => {
-    //     setSearch(isOpen => !isOpen);
-    // }
+
+    let currentSessionName = {
+        userId : "diqzk1562"
+    };
 
     const [messages, getMessages] = useState([]);
-    const [chatLists, getLists] = useState([]);
+    const [chatLists, getChatLists] = useState([]);
+    const [op_Id, setOpId] = useState([]);
+
+    const chatListClick = async (roomId, Id) => {
+        try {
+            const response = await axios.post('/api/chat', {roomId : roomId});
+            getMessages(response.data);
+            setOpId(Id);
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
-        axios.get('/api/chat')
-            .then(response => {
-                getMessages(response.data);
-                console.log(response);
+        axios.post('/api/chatList', currentSessionName)
+            .then((response)=> {
+                getChatLists(response.data);
             })
-    }, []);
-
-    useEffect(() => {
-        axios.get('/api/chatList')
-            .then(response => {
-                getLists(response.data);
-            })
-    }, []);
-
-    useEffect(() => {
-        axios.get('/api/chatList')
-            .then(response => {
-                getLists(response.data);
-            })
+            .catch(error => {
+                console.error(error);
+            });
     }, []);
 
 return (
         <div className={styles.chat_page}>
             <div className={styles.plist}>
-                <ChatList chatLists={chatLists} />
+                <ChatList chatLists={chatLists}  onClick={chatListClick} />
             </div>
             <div className={styles.chat_container}>
                 <div className={styles.chat_header}>
@@ -49,13 +47,8 @@ return (
                         <img src={profile} width="100%" height="100%"></img>
                     </div>
                     <div className={styles.chat_info}>
-                        <div className={styles.chat_name}>네고왕김네고</div>
+                        <div className={styles.chat_name}>{op_Id}</div>
                     </div>
-                    {/*<div className={styles.chat_search}>*/}
-                    {/*    /!*<input type="text" className={isOpen ? styles.show_search : styles.hide_search}/>*!/*/}
-                    {/*    /!*<img src={search} width="30px" height="30px" onClick={()=>toggleSearch()} />*!/*/}
-                    {/*    /!*<button className={isOpen ? styles.show_search : styles.hide_search}>검색</button>*!/*/}
-                    {/*</div>*/}
                 </div>
                 <div className={styles.chat_history}>
                     <MessageList messages={messages} />

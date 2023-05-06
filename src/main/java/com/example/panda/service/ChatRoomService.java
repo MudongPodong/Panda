@@ -14,14 +14,14 @@ import java.util.List;
 public class ChatRoomService {
     private final ChatRoomRepository chatRoomRepository;
 
+    public List<ChatRoomDTO> findByUserId(String id) {
+        List<ChatRoomEntity> chatRoomEntityList = chatRoomRepository.findByUserId(id);
+        List<ChatRoomDTO> chatRoomDTOList = new ArrayList<>();
 
-//    public List<ChatRoomDTO> findByIds(String sender_id, String receiver_id) {
-//        List<ChatRoomEntity> chatRoomEntityList = chatRoomRepository.findAll();
-//
-//        List<ChatRoomDTO> chatRoomDTOList = new ArrayList<>();
-//        for(ChatRoomEntity chatRoomEntity : chatRoomEntityList)
-//            chatRoomDTOList.add(ChatRoomDTO.toChatRoomDTO(chatRoomEntity, sender_id, receiver_id);
-//
-//        return chatRoomDTOList;
-//    }
+        for(ChatRoomEntity chatRoomEntity : chatRoomEntityList)
+            chatRoomDTOList.add(ChatRoomDTO.toChatRoomDTO(chatRoomEntity));
+
+        return chatRoomDTOList;
+    }
+
 }

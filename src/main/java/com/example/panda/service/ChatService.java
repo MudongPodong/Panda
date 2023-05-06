@@ -16,14 +16,13 @@ import java.util.List;
 public class ChatService {
     private final ChatRepository chatRepository;
 
-    @Transactional
-    public List<ChatDTO> findById(int room_id) {
-        List<ChatEntity> chatEntityList = chatRepository.findAll();
+    public List<ChatDTO> findByRoomId(int roomId) {
+        List<ChatEntity> chatEntityList = chatRepository.findByRoomId(roomId);
 
         List<ChatDTO> chatDTOList = new ArrayList<>();
 
         for(ChatEntity chatEntity : chatEntityList)
-            chatDTOList.add(ChatDTO.toChatDTO(chatEntity, room_id));
+            chatDTOList.add(ChatDTO.toChatDTO(chatEntity, roomId));
 
         return chatDTOList;
     }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -27,6 +28,6 @@ public class ChatRoomEntity {
     private String last_content;
 
     @Column
-    private LocalDateTime last_date;
+    private Date last_date;
 
 }

@@ -7,13 +7,13 @@ const MessageList = ({ messages }) => {
         <ul>
             {messages.map(message => {
 
-                const date1 = dayjs(message.date);
+                const date1 = dayjs(message.chatDate);
                 const date2 = dayjs(new Date());
                 let date;
                 if(date2.diff(date1, 'year') > 0)
                     date = date1.format('yyyy-MM-dd');
                 else if(date2.diff(date1, 'day') > 0)
-                    date = date1.format('MM-dd hh:mm A');
+                    date = date1.format('MM-DD hh:mm A');
                 else
                     date = date1.format('hh:mm A');
 

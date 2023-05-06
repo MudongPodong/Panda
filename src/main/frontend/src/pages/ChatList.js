@@ -1,27 +1,31 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from '../Css_dir/Chat.module.css'
 import profile from "../imgs/profileEx.PNG";
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 dayjs.locale('ko');
 
-const ChatList = ({ chatLists }) => {
+const ChatList = ({ chatLists, onClick}) => {
+
+    let currentSessionName = "diqzk1562";
+
     return (
         <ul>
-            <li key={null}>
+            <li>
                 <div className={styles.p_profile}>
                     <img src={profile} width="100%" height="100%"></img>
                 </div>
                 <div className={styles.p_info}>
-                    <div className={styles.p_name}>사용자 1</div>
+                    <div className={styles.p_name}>diqzk1562</div>
                     <div className={styles.p_time}></div>
                     <div className={styles.p_last_message}></div>
                 </div>
             </li>
 
             {chatLists.map(chatList => {
-                const date1 = dayjs(chatList.date);
+                const date1 = dayjs(chatList.lastDate);
                 const date2 = dayjs(new Date());
+
                 let diff;
 
                 if (date2.diff(date1, 'year') > 0)
@@ -36,17 +40,24 @@ const ChatList = ({ chatLists }) => {
                     diff = date2.diff(date1, 'hour') + "시간 전";
                 else if (date2.diff(date1, 'minute') > 0)
                     diff = date2.diff(date1, 'minute')+ "분 전";
-                else if (date2.diff(date1, 'second') > 0)
-                    diff = date2.diff(date1, 'second')+ "초 전";
                 else diff = "방금 전";
 
                 return (
-                    <li key={chatList.roomId}>
+                    <li key={chatList.roomId} onClick={() => onClick(chatList.roomId, chatList.senderId === currentSessionName ? chatList.receiverId : chatList.senderId)}>
                         <div className={styles.p_profile}>
                             <img src={profile} width="100%" height="100%"></img>
                         </div>
                         <div className={styles.p_info}>
-                            <div className={styles.p_name}>{chatList.senderId}</div>
+                            {
+                                chatList.senderId === currentSessionName ?
+                                    <div className={styles.p_name}>
+                                        {chatList.receiverId}
+                                    </div>
+                                    :
+                                    <div className={styles.p_name}>
+                                        {chatList.senderId}
+                                    </div>
+                            }
                             <div className={styles.p_time}>{diff}</div>
                             <div className={styles.p_last_message}>{chatList.lastContent}</div>
                         </div>

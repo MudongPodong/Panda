@@ -16,7 +16,7 @@ public class ChatDTO {
     private int roomId; // 외래값
     private boolean isFromSender; // 최초 보낸 사람이 보낸 메시지인지 판별
     private String content;
-    private LocalDateTime lastDate;
+    private LocalDateTime chatDate;
 
     public static ChatDTO toChatDTO(ChatEntity chatEntity, int roomId) {
         ChatDTO chatDTO = new ChatDTO();
@@ -24,7 +24,7 @@ public class ChatDTO {
         chatDTO.setRoomId(roomId);
         chatDTO.setContent(chatEntity.getContent());
         chatDTO.setFromSender(chatEntity.getIs_from_sender());
-        chatDTO.setLastDate(chatEntity.getChat_date());
+        chatDTO.setChatDate(chatEntity.getChat_date());
 
         return chatDTO;
     }
