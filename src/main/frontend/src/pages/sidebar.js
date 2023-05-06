@@ -26,23 +26,34 @@ const Sidebar = () => {
     const movePage = useNavigate();
 
     function goChat(){
+        toggleMenu();
         movePage('/pages/chat');
     }
     function goSearchResult(){
+        toggleMenu();
         movePage('/pages/SearchResult');
     }
 
     function goLogin() {
+        toggleMenu();
         movePage('/pages/loginPage');
     }
-
+    function logout(){
+        toggleMenu();
+        document.cookie = "name=login; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
+        alert('로그아웃 되었습니다.');
+        movePage('/');
+        window.location.reload();
+    }
     function goNotice()
     {
+        toggleMenu();
         movePage('/pages/noticePage');
     }
 
     function goMypage()
     {
+        toggleMenu();
         movePage('/pages/OtherPage2');
     }
 
@@ -68,9 +79,12 @@ const Sidebar = () => {
                 </div>
                 <ul className={styles.nav_list}>
                     <li className={`${styles.nav_list_item} ${styles.category}`}>카테고리<div className={styles.list_line}></div></li>
-                    <li className={styles.nav_list_item} onClick={goChat}>챗봇<div className={styles.list_line}></div></li>
+                    <li className={styles.nav_list_item} onClick={goChat}>채팅<div className={styles.list_line}></div></li>
                     <li className={styles.nav_list_item} onClick={goNotice}>판매등록<div className={styles.list_line}></div></li>
-                    <li className={styles.nav_list_item} onClick={goLogin}>로그인<div className={styles.list_line}></div></li>
+                    <li className={styles.nav_list_item} onClick={document.cookie.match('(^|;) ?' + 'name' + '=([^;]*)(;|$)') ? logout:goLogin}>
+                        {(document.cookie.match('(^|;) ?' + 'name' + '=([^;]*)(;|$)') ? 'LogOut' : 'LogIn')}
+                        <div className={styles.list_line}></div>
+                    </li>
                     <li className={styles.nav_list_item} onClick={goMypage}>마이페이지<div className={styles.list_line}></div></li>
                 </ul>
             </div>
