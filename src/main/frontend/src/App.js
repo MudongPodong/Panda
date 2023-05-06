@@ -19,14 +19,14 @@ import Notice from "./pages/noticePage";
 import NoticeRegist from "./pages/noticeRegist"
 import NoticeConfirm from "./pages/noticeConfirm"
 import NoticeModify from "./pages/noticeModify"
+import Home_unlogin from "./pages/home_unlogin";
 function App() {
+    let [isLogIn, setEmail] = useState('');
 
   return (
       <div id='root'>
-
-
           <Routes>
-              <Route path="/" element={<Home/>}></Route>
+              <Route path="/" element={(document.cookie.match('(^|;) ?' + 'name' + '=([^;]*)(;|$)') ? <Home/>:<Home_unlogin/>)}></Route>
               <Route path="/pages/loginPage" element={<LogInPage/>}></Route>
               <Route path="/pages/joinMemPage" element={<MemPage/>}></Route>
               <Route path="/pages/OtherPage" exact={true} element={<OtherPage />}/>
