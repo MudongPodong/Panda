@@ -208,11 +208,17 @@
     margin-left: 15px;
     margin-right: 25px;
     color: black;
+    transition: color 0.3s ease;
 }
 .login_setting a:last-child {
     width: 20%;
     margin-left: 25px;
     color: black;
+    transition: color 0.3s ease;
+}
+.login_setting a:hover{
+    color: #51996b;
+    transition: color 0.3s ease;
 }
 .error_message{
     height: 12px;
