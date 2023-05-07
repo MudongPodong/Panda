@@ -55,9 +55,11 @@ body{
 }
 ::-webkit-scrollbar-thumb{
   background-color: #51996b;
+  border-radius: 100px;
 }
 ::-webkit-scrollbar-track{
   background-color: transparent;
+  display: none;
 }
 
 #root{
