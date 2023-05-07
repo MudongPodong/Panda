@@ -11,11 +11,11 @@ const MessageList = ({ messages }) => {
                 const date2 = dayjs(new Date());
                 let date;
                 if(date2.diff(date1, 'year') > 0)
-                    date = date1.format('yyyy-MM-dd');
+                    date = date1.format('yyyy년 M월 D일 A h시 m분');
                 else if(date2.diff(date1, 'day') > 0)
-                    date = date1.format('MM-DD hh:mm A');
+                    date = date1.format('M월 D일 A h시 m분');
                 else
-                    date = date1.format('hh:mm A');
+                    date = date1.format('A h시 m분');
 
                 return (
                     <li key={message.messageId}>

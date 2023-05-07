@@ -16,7 +16,7 @@ public class UserDTO {
     private String nickname;
     private String address;
     private int point;
-    private int photoId;
+    private PhotoDTO photo;
 
 
     public static UserDTO toUserDTO(UserEntity userEntity) {
@@ -29,7 +29,7 @@ public class UserDTO {
         userDTO.setPoint(userEntity.getPoint());
         userDTO.setPhoneNumber(userEntity.getPhone_number());
         if (userEntity.getUser_photo() != null)
-            userDTO.setPhotoId(userEntity.getUser_photo().getPid());
+            userDTO.setPhoto(PhotoDTO.toPhotoDTO(userEntity.getUser_photo()));
 
         return userDTO;
     }

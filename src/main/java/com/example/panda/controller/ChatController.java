@@ -30,7 +30,7 @@ public class ChatController {
     public List<ChatDTO> chatTest(@RequestBody ChatRoomDTO chatRoomDTO) {
         List<ChatDTO> chat = chatService.findByRoomId(chatRoomDTO.getRoomId());
 
-        System.out.println(chat);
+//        System.out.println(chat);
         return chat;
     }
 
@@ -38,14 +38,9 @@ public class ChatController {
     @PostMapping("/api/chatList")
     public List<ChatRoomDTO> chatListTest(@RequestBody UserDTO userDTO) {
         List<ChatRoomDTO> chatList = chatRoomService.findByUserId(userDTO.getUserId());
+//        System.out.println(chatList);
 
         return chatList;
-    }
-
-    @PostMapping("/api/profileList")
-    public List<UserDTO> profileListTest(@RequestBody UserDTO userDTO) {
-
-        return new ArrayList<UserDTO>();
     }
 
 }

@@ -43,11 +43,20 @@ body::-webkit-scrollbar {
     background-color:#1c1e1e;
 }
 
-.plist li {
+.profile_list {
     width:104%;
     overflow:auto;
     margin-left:-40px;
     padding: 15px 15px;
+    border-bottom: 1px solid black;
+}
+
+.selected_list {
+    width:104%;
+    overflow:auto;
+    margin-left:-40px;
+    padding: 15px 15px;
+    background:#202020;
     border-bottom: 1px solid black;
 }
 

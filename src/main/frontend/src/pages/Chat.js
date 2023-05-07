@@ -4,7 +4,6 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import MessageList from './MessageList';
 import ChatList from './ChatList';
-import {useNavigate} from "react-router-dom";
 function Chat() {
 
     let currentSessionName = {
@@ -15,11 +14,11 @@ function Chat() {
     const [chatLists, getChatLists] = useState([]);
     const [op_Id, setOpId] = useState([]);
 
-    const chatListClick = async (roomId, Id) => {
+    const chatListClick = async (roomId, nickname) => {
         try {
             const response = await axios.post('/api/chat', {roomId : roomId});
             getMessages(response.data);
-            setOpId(Id);
+            setOpId(nickname);
 
         } catch (error) {
             console.error(error);
@@ -39,7 +38,7 @@ function Chat() {
 return (
         <div className={styles.chat_page}>
             <div className={styles.plist}>
-                <ChatList chatLists={chatLists}  onClick={chatListClick} />
+                <ChatList chatLists={chatLists} onClick={chatListClick} />
             </div>
             <div className={styles.chat_container}>
                 <div className={styles.chat_header}>

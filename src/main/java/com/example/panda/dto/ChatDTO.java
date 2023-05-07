@@ -13,15 +13,15 @@ import java.util.Date;
 @AllArgsConstructor
 public class ChatDTO {
     private int messageId; // 주키
-    private int roomId; // 외래값
+    private ChatRoomDTO room; // 외래값
     private boolean isFromSender; // 최초 보낸 사람이 보낸 메시지인지 판별
     private String content;
     private LocalDateTime chatDate;
 
-    public static ChatDTO toChatDTO(ChatEntity chatEntity, int roomId) {
+    public static ChatDTO toChatDTO(ChatEntity chatEntity, ChatRoomDTO room) {
         ChatDTO chatDTO = new ChatDTO();
         chatDTO.setMessageId(chatEntity.getChat_id());
-        chatDTO.setRoomId(roomId);
+        chatDTO.setRoom(room);
         chatDTO.setContent(chatEntity.getContent());
         chatDTO.setFromSender(chatEntity.getIs_from_sender());
         chatDTO.setChatDate(chatEntity.getChat_date());

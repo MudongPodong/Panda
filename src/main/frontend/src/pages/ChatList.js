@@ -8,15 +8,16 @@ dayjs.locale('ko');
 const ChatList = ({ chatLists, onClick}) => {
 
     let currentSessionName = "diqzk1562";
+    let currentSessionNickname = "네고안함";
 
     return (
         <ul>
-            <li>
+            <li className={styles.profile_list}>
                 <div className={styles.p_profile}>
                     <img src={profile} width="100%" height="100%"></img>
                 </div>
                 <div className={styles.p_info}>
-                    <div className={styles.p_name}>diqzk1562</div>
+                    <div className={styles.p_name}>{currentSessionNickname}</div>
                     <div className={styles.p_time}></div>
                     <div className={styles.p_last_message}></div>
                 </div>
@@ -43,19 +44,19 @@ const ChatList = ({ chatLists, onClick}) => {
                 else diff = "방금 전";
 
                 return (
-                    <li key={chatList.roomId} onClick={() => onClick(chatList.roomId, chatList.senderId === currentSessionName ? chatList.receiverId : chatList.senderId)}>
+                    <li className = {styles.profile_list} key={chatList.roomId} onClick={() => onClick(chatList.roomId, chatList.sender.userId === currentSessionName ? chatList.receiver.nickname : chatList.sender.nickname)}>
                         <div className={styles.p_profile}>
                             <img src={profile} width="100%" height="100%"></img>
                         </div>
                         <div className={styles.p_info}>
                             {
-                                chatList.senderId === currentSessionName ?
+                                chatList.sender.userId === currentSessionName ?
                                     <div className={styles.p_name}>
-                                        {chatList.receiverId}
+                                        {chatList.receiver.nickname}
                                     </div>
                                     :
                                     <div className={styles.p_name}>
-                                        {chatList.senderId}
+                                        {chatList.sender.nickname}
                                     </div>
                             }
                             <div className={styles.p_time}>{diff}</div>

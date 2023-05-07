@@ -1,6 +1,7 @@
 package com.example.panda.service;
 
 import com.example.panda.dto.ChatDTO;
+import com.example.panda.dto.ChatRoomDTO;
 import com.example.panda.entity.ChatEntity;
 import com.example.panda.repository.ChatRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +23,8 @@ public class ChatService {
         List<ChatDTO> chatDTOList = new ArrayList<>();
 
         for(ChatEntity chatEntity : chatEntityList)
-            chatDTOList.add(ChatDTO.toChatDTO(chatEntity, roomId));
+            chatDTOList.add(ChatDTO.toChatDTO(chatEntity, ChatRoomDTO.toChatRoomDTO(chatEntity.getRoom_id())));
 
         return chatDTOList;
     }
-
-
 }
