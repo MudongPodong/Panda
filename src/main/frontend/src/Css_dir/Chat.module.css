@@ -4,9 +4,8 @@
     box-sizing:border-box;
     position:sticky;
     height:100%;
-    width:1000px;
+    width:1020px;
     margin: 0 auto;
-    margin-top: 71px;
 }
 
 body::-webkit-scrollbar {
@@ -14,11 +13,13 @@ body::-webkit-scrollbar {
 }
 
 .plist {
+    position:fixed;
     float:left;
     width:300px;
     height:100%;
     background:#303030;
     overflow-y:scroll;
+    margin-top:71px;
 }
 .plist::-webkit-scrollbar {
     display:none;
@@ -49,15 +50,6 @@ body::-webkit-scrollbar {
     overflow:auto;
     margin-left:-40px;
     padding: 15px 15px;
-    border-bottom: 1px solid black;
-}
-
-.selected_list {
-    width:104%;
-    overflow:auto;
-    margin-left:-40px;
-    padding: 15px 15px;
-    background:#202020;
     border-bottom: 1px solid black;
 }
 
@@ -114,6 +106,7 @@ body::-webkit-scrollbar {
 .chat_container {
     position:absolute;
     left:300px;
+    margin-top:71px;
 }
 
 .chat_search {
@@ -156,18 +149,18 @@ body::-webkit-scrollbar {
 
 .chat_header {
     width:650px;
-    margin-top:-1px;
+    /*margin-top:0px;*/
     padding: 15px 29.5px;
     background: #202020;
     height:50px;
-    position: relative;
+    position: fixed;
     z-index: 21;
     border-left: 1px solid black;
 }
 
 .chat_history {
     position:fixed;
-    top:80px;
+    top:151px;
     bottom:150px;
     width:650px;
     padding: 10px 30px 20px;
@@ -255,7 +248,7 @@ body::-webkit-scrollbar {
     width:650px;
     padding:30px;
     background:#202020;
-    height:100px;
+    height:120px;
 }
 
 .chat_message > textarea {
@@ -287,4 +280,16 @@ body::-webkit-scrollbar {
 
 .chat_message > button:active {
     color: gray;
+}
+
+.painting {
+    position:absolute;
+    left:31px;
+    top:130px;
+    width:30px;
+    height:25px;
+}
+
+.painting:hover{
+    cursor:pointer;
 }
