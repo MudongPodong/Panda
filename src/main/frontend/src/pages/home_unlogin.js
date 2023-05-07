@@ -14,6 +14,7 @@ function HomeUn() {
                 <div className={styles.home_wrap}>
                     <div className={styles.home_box}>
                         <p>홈페이지 - 로그인 하세요.</p>
+                        <img src={'/imgs/logo512_512.png'}/>
                     </div>
                 </div>
             </div>

@@ -1,11 +1,14 @@
 *{
-  font-family: "TTHoves", "NanumSquare", "나눔스퀘어", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Gothic Neo", "맑은고딕", "돋움", dotum, arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Gothic Neo", "Malgun Gothic", "malgun gothic","맑은 고딕", arial, "돋움", dotum, sans-serif, "굴림";
 }
 html{
   height: 100%;
 }
 body{
   height: 100%;
+}
+::selection{
+  background-color: #51996b;
 }
 #fake{
   box-sizing: border-box;
@@ -23,38 +26,42 @@ body{
   z-index: 0;
 }
 .pages_push_controll-enter{
-  /*transform: translateX(100%);*/
   opacity: 0;
 }
 
 .pages_push_controll-enter-active {
-  /*z-index: 1;*/
-  /*transform: translateX(0);*/
   opacity: 1;
-  /*transition: transform 300ms ease-in-out;*/
   transition: opacity 0.5s ease-in-out;
-
-  /*box-shadow: -5px 0px 25px rgba(0, 0, 0, 0.05);*/
 }
 
 .pages_push_controll-exit {
-  /*transform: translateX(0);*/
   opacity: 1;
 }
 
 .pages_push_controll-exit-active {
-  /*transform: translateX(-100%);*/
   opacity: 0;
-  /*transition: transform 300ms ease-in-out;*/
   transition: opacity 0.5s ease-in-out;
 }
 
 .transition-wrapper {
   position: relative;
-  /*overflow: hidden;*/
+  overflow: auto;
   height: 100%;
   width: 100vw;
 }
+::-webkit-scrollbar{
+  width: 3px;
+  height: 3px;
+}
+::-webkit-scrollbar-thumb{
+  background-color: #51996b;
+  border-radius: 100px;
+}
+::-webkit-scrollbar-track{
+  background-color: transparent;
+  display: none;
+}
+
 #root{
   height: 100%;
 }

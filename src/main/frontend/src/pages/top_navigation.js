@@ -58,7 +58,7 @@ function TopNav() {
                 <ul className={styles.top_list}>
                     <div className={styles.category_wrap}>
                         <li className={`${styles.tlist_item} ${styles.category}`}>
-                            <a className={styles.tlist_item_a} href="">
+                            <a className={styles.tlist_item_a}>
                                 <span className={styles.tlist_text}>카테고리 ▼</span>
                             </a>
                         </li>

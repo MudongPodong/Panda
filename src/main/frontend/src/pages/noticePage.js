@@ -20,7 +20,7 @@ function NoticePage(){
     }
 
     return (
-<div>
+<div className={styles.wrap}>
     <div className={styles.board_wrap}>
         <div className={styles.board_title}>
             <strong>게시글 작성</strong>
@@ -88,6 +88,7 @@ function NoticePage(){
             </div>
         </div>
     </div>
+    <footer className={styles.footer}/>
 </div>
 
 

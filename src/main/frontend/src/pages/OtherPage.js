@@ -72,7 +72,8 @@ function OtherPage() {
     }, []);
 
     return (
-        <div>
+        <div className={styles.wraper}>
+            <div className={styles.wrapBox}>
             <FixBar></FixBar>
             <br/>
             <div id='root'>
@@ -110,8 +111,13 @@ function OtherPage() {
 
                 <br/><br/><br/>
                 <button className={styles.changePage} onClick={ Btn_del }>선택 삭제</button>
+                <br/><br/><br/>
             </div>
 
+        </div>
+            <footer className={styles.footer_div}>
+
+            </footer>
         </div>
     );
 }

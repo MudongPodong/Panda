@@ -38,7 +38,20 @@
     font-style: normal;
     font-weight: 600;
 }
-
+.wraper{
+    height: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+.wrapBox{
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 80px;
+    height: auto;
+    min-height: 100%;
+    box-sizing: border-box;
+}
 .headTitle h1 {
     text-transform: capitalize;
 }
@@ -79,7 +92,7 @@
     align-items: center;
     left: 45%;
     display: inline-block;
-    position: absolute;
+    /*position: absolute;*/
     border: none;
     display: inline-block;
     padding: 15px 30px;

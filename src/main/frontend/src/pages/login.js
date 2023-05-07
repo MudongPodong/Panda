@@ -26,7 +26,7 @@ function Login() {
     return (
         <>
         <div>
-            <form name='login_form' id='login_form' method='post'>
+            <form name='login_form' method='post'>
                 <input type='text' className={styles.input} placeholder='E-mail' name='user_id' onChange={changeEmail} value={email}></input>
                 {!email_regex.test(email) ? <div className={styles.error_message}>{email_error}</div>:<div className={styles.error_message}></div>}
                 <input type='password' className={styles.input} placeholder='Password : 영어, 숫자 포함 8자리 이상' name='pw' onChange={changePw} value={pw}></input>
