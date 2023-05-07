@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from '../Css_dir/Chat.module.css'
 import dayjs from 'dayjs';
-import profileEx from '../imgs/profileEx.PNG'
-import MessageImage from './MessageImage.js';
 
 const MessageList = ({ messages }) => {
     return (
@@ -19,14 +17,6 @@ const MessageList = ({ messages }) => {
                 else
                     date = date1.format('A h시 m분');
 
-                // const photo = atob(message.photo);
-                const blob = new Blob([message.photo], {type: 'image/PNG'});
-                const imageUrl = URL.createObjectURL(blob);
-
-                if(message.photo) {
-                    console.log(message.photo);
-                    console.log(blob);
-                }
                 return (
                     <li key={message.messageId}>
                         {
@@ -37,16 +27,16 @@ const MessageList = ({ messages }) => {
                                     &nbsp; &nbsp;
                                     <span className={`${styles.message_time} ${styles.float_right}`}>{date}</span>
                                 </div>
-                                <div className={`${styles.my_message} ${styles.align_right}`}>
-                                    {
-                                        message.content ?
-                                        message.content
+                                {
+                                    message.content ?
+                                        <div className={`${styles.my_message} ${styles.align_right}`}>
+                                            {message.content}
+                                        </div>
                                         :
-                                            // <img src={imageUrl} alt="이미지" />
-                                            <img src={imageUrl} alt="Image" onError={() => console.log('Error occurred while loading image.')} />
-                                        // <MessageImage ImageData={message.photo}/>
-                                    }
-                                </div>
+                                        <div className={`${styles.message_img} ${styles.align_right}`}>
+                                            <img src={`data:image/png;base64,${message.photo}`} alt="이미지" />
+                                        </div>
+                                }
                             </div>
                             :
                             <div>
@@ -55,14 +45,16 @@ const MessageList = ({ messages }) => {
                                     &nbsp; &nbsp;
                                     <span className={`${styles.message_time} ${styles.float_left}`}>{date}</span>
                                 </div>
-                                <div className={`${styles.op_message} ${styles.align_left}`}>
-                                    {message.content ?
-                                        message.content
+                                {
+                                    message.content ?
+                                        <div className={`${styles.op_message} ${styles.align_left}`}>
+                                            {message.content}
+                                        </div>
                                         :
-                                        // <img src={imageUrl} alt="Image" onError={() => console.log('Error occurred while loading image.')} />
-                                        <MessageImage ImageData={message.photo}/>
-                                    }
-                                </div>
+                                        <div className={`${styles.message_img} ${styles.align_left}`}>
+                                            <img src={`data:image/png;base64,${message.photo}`} alt="이미지" />
+                                        </div>
+                                }
                             </div>
                         }
                     </li> )

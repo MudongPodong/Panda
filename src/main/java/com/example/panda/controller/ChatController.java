@@ -33,10 +33,10 @@ public class ChatController {
     @PostMapping("/api/chat")
     public List<ChatDTO> chatTest(@RequestParam Integer roomId) {
         List<ChatDTO> chat = chatService.findByRoomId(roomId);
-
+//
 //        for(ChatDTO chatDTO : chat) {
 //            if(chatDTO.getPhoto() != null) {
-//                System.out.println(Base64.getEncoder().encodeToString(chatDTO.getPhoto()));
+//                System.out.println(new String(chatDTO.getPhoto()));
 //            }
 //        }
         return chat;

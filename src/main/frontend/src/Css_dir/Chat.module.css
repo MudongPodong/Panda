@@ -168,6 +168,16 @@ body::-webkit-scrollbar {
     background:#1C1E1E;
 }
 
+.message_img > img {
+    width:250px;
+    height:150px;
+    margin-bottom:30px;
+}
+
+.message_img > img:hover{
+    cursor:pointer;
+}
+
 .message_time {
     color: gray;
     font-family: "NanumGothic";

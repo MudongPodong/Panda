@@ -18,6 +18,7 @@ function Chat() {
     const chatListClick = async (roomId, nickname, amISender) => {
         try {
             setRoomId(roomId);
+
             const formData = new FormData();
             formData.append('roomId', roomId);
             const response = await axios.post('/api/chat', formData);
