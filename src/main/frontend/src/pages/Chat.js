@@ -5,7 +5,6 @@ import React, {useEffect, useState} from 'react';
 import MessageList from './MessageList';
 import ChatList from './ChatList';
 function Chat() {
-
     let currentSessionName = {
         userId : "diqzk1562"
     };

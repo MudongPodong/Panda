@@ -2,7 +2,6 @@ import Login from './login';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from "../Css_dir/login_mem.module.css";
-import TopNav from "./top_navigation";
 
 function LogInPage() {
     const movePage = useNavigate();
@@ -13,7 +12,6 @@ function LogInPage() {
     return (
         <div className={styles.App}>
             <div className={styles.login_page}>
-                <TopNav />
                 <div className={styles.login_wrap}>
                     <div className={styles.login_box}>
                         <h1 className={styles.login_head}>LogIn</h1>

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import styles from '../Css_dir/login_mem.module.css';
+import {useNavigate} from "react-router-dom";
 
 const email_regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 const pw_regex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
@@ -16,6 +17,12 @@ function Login() {
     };
     const email_error = '***올바른 이메일 형식이 아닙니다.***';
     const pw_error = '***비밀번호는 영어, 숫자 포함 8자리 이상이어야 합니다.***';
+    const movePage = useNavigate();
+
+    function goHome(){
+        movePage('/');
+        window.location.reload();
+    }
     return (
         <>
         <div>
@@ -27,7 +34,8 @@ function Login() {
                 <div className={styles.login_btn_wrap}>
                     <button type="submit" className={styles.login_btn_under}>LogIn</button>
                     <button type="submit" className={styles.login_btn} onClick={() => {
-
+                        document.cookie = "name=login; path=/;";
+                        goHome();
                     }}><span>LogIn</span></button>
                 </div>
             </form>
