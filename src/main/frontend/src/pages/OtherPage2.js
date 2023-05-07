@@ -6,6 +6,7 @@ import CommonTableRow from '../Tables/CommonTableRow';
 import {Routes,Route,Link,NavLink,useNavigate} from 'react-router-dom';
 import FixBar from "./FixBar";
 import axios from 'axios';
+import styles from "../Css_dir/SearchResult.module.css";
 
 function OtherPage() {
     const [data, setData] = useState([])
@@ -22,18 +23,23 @@ function OtherPage() {
     }, []);
 
     return (
-        <div>
-            <FixBar></FixBar>
-            <h1>찜 목록</h1>
-            <p>사용자가 찜 등록한 상품들을 볼 수 있습니다!!</p>
-            <br/>
+        <div className={styles.wraper}>
+            <div className={styles.wrapBox}>
+                <FixBar></FixBar>
+                <h1>찜 목록</h1>
+                <p>사용자가 찜 등록한 상품들을 볼 수 있습니다!!</p>
+                <br/>
 
 
-            <br/><br/>
-            <button className='changePage' onClick={ movePage }>이전페이지</button>
-            <br/><br/>
+                <br/><br/>
+                <button className='changePage' onClick={ movePage }>이전페이지</button>
+                <br/><br/>
 
 
+            </div>
+            <footer className={styles.footer_div}>
+
+            </footer>
         </div>
     );
 }

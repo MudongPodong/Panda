@@ -27,7 +27,8 @@ function BoughtList() {
     }, []);
 
     return (
-        <div>
+        <div className={styles.wraper}>
+            <div className={styles.wrapBox}>
             <FixBar></FixBar>
             <br/>
             <br/>
@@ -52,6 +53,7 @@ function BoughtList() {
             </CommonTable>
 
             <br/><br/><br/><br/><br/><br/><br/><br/>
+                </div>
             <footer className={styles.footer_div}>
 
             </footer>
