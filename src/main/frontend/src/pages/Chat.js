@@ -4,6 +4,8 @@ import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import MessageList from './MessageList';
 import ChatList from './ChatList';
+import Painting from '../imgs/temp_painting.png';
+
 function Chat() {
     let currentSessionName = {
         userId : "diqzk1562"
@@ -54,6 +56,7 @@ return (
                 <div className={styles.chat_message}>
                     <textarea name={styles.send_message} placeholder="메시지를 입력하세요" rows="3"></textarea>
                     <button>전송</button>
+                    <img src={Painting} className={styles.painting} />
                 </div>
             </div>
         </div>
