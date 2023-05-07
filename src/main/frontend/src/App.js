@@ -28,25 +28,23 @@ function App() {
       <TransitionGroup className={'transition-wrapper'}>
           <TopNav></TopNav>
           <CSSTransition key={useLocation().pathname} timeout={300} classNames={'pages_push_controll'}>
-      <div id='root'>
-          <Routes>
-              <Route path="/" element={(document.cookie.match('(^|;) ?' + 'name' + '=([^;]*)(;|$)') ? <Home/>:<Home_unlogin/>)}></Route>
-              <Route path="/pages/loginPage" element={<LogInPage/>}></Route>
-              <Route path="/pages/joinMemPage" element={<MemPage/>}></Route>
-              <Route path="/pages/OtherPage" exact={true} element={<OtherPage />}/>
-              <Route path="/pages/OtherPage2" exact={true} element={<OtherPage2 />}/>
-              <Route path="/pages/BoughtList" exact={true} element={<BoughtList />}/>
-              <Route path="/pages/FixBar" exact={true} element={<FixBar />}/>
-              <Route path="/pages/Chat" exact={true} element={<Chat />}/>
-              <Route path="/pages/SearchResult" exact={true} element={<SearchResult />}/>
-              <Route path="/pages/noticePage" exact={true} element={<Notice/>}/>
-              <Route path="/pages/noticeRegist" exact={true} element={<NoticeRegist/>}/>
-              <Route path="/pages/noticeConfirm" exact={true} element={<NoticeConfirm/>}/>
-              <Route path="/pages/noticeModify" exact={true} element={<NoticeModify/>}/>
-          </Routes>
-
-
-      </div>
+              <div id='root'>
+                  <Routes>
+                      <Route path="/" element={(document.cookie.match('(^|;) ?' + 'name' + '=([^;]*)(;|$)') ? <Home/>:<Home_unlogin/>)}></Route>
+                      <Route path="/pages/loginPage" element={<LogInPage/>}></Route>
+                      <Route path="/pages/joinMemPage" element={<MemPage/>}></Route>
+                      <Route path="/pages/OtherPage" exact={true} element={<OtherPage />}/>
+                      <Route path="/pages/OtherPage2" exact={true} element={<OtherPage2 />}/>
+                      <Route path="/pages/BoughtList" exact={true} element={<BoughtList />}/>
+                      <Route path="/pages/FixBar" exact={true} element={<FixBar />}/>
+                      <Route path="/pages/Chat" exact={true} element={<Chat />}/>
+                      <Route path="/pages/SearchResult" exact={true} element={<SearchResult />}/>
+                      <Route path="/pages/noticePage" exact={true} element={<Notice/>}/>
+                      <Route path="/pages/noticeRegist" exact={true} element={<NoticeRegist/>}/>
+                      <Route path="/pages/noticeConfirm" exact={true} element={<NoticeConfirm/>}/>
+                      <Route path="/pages/noticeModify" exact={true} element={<NoticeModify/>}/>
+                  </Routes>
+              </div>
           </CSSTransition>
       </TransitionGroup>
   );
