@@ -1,5 +1,6 @@
 package com.example.panda.entity;
 
+import com.example.panda.dto.ChatDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,4 +29,20 @@ public class ChatEntity {
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime chat_date;
+
+    @Lob
+    private byte[] photo;
+
+
+    public static ChatEntity toSaveEntity(ChatDTO chatDTO, ChatRoomEntity chatRoomEntity) {
+        ChatEntity chatEntity = new ChatEntity();
+        chatEntity.setChat_id(chatDTO.getMessageId());
+        chatEntity.setRoom_id(chatRoomEntity);
+        chatEntity.setContent(chatDTO.getContent());
+        chatEntity.setIs_from_sender(chatDTO.isFromSender());
+        chatEntity.setChat_date(chatDTO.getChatDate());
+        chatEntity.setPhoto(chatDTO.getPhoto());
+
+        return chatEntity;
+    }
 }

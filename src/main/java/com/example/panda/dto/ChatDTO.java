@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Blob;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -17,6 +18,7 @@ public class ChatDTO {
     private boolean isFromSender; // 최초 보낸 사람이 보낸 메시지인지 판별
     private String content;
     private LocalDateTime chatDate;
+    private byte[] photo;
 
     public static ChatDTO toChatDTO(ChatEntity chatEntity, ChatRoomDTO room) {
         ChatDTO chatDTO = new ChatDTO();
@@ -25,6 +27,7 @@ public class ChatDTO {
         chatDTO.setContent(chatEntity.getContent());
         chatDTO.setFromSender(chatEntity.getIs_from_sender());
         chatDTO.setChatDate(chatEntity.getChat_date());
+        chatDTO.setPhoto(chatEntity.getPhoto());
 
         return chatDTO;
     }

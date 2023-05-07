@@ -2,19 +2,22 @@ package com.example.panda.controller;
 
 import com.example.panda.dto.ChatDTO;
 import com.example.panda.dto.ChatRoomDTO;
-import com.example.panda.dto.UserDTO;
+import com.example.panda.dto.PhotoDTO;
 import com.example.panda.service.ChatRoomService;
 import com.example.panda.service.ChatService;
+import com.example.panda.service.PhotoService;
 import com.example.panda.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -24,23 +27,50 @@ public class ChatController {
 
     private final ChatService chatService;
     private final ChatRoomService chatRoomService;
+    private final PhotoService photoService;
 
     /* 채팅 테스트용 */
     @PostMapping("/api/chat")
-    public List<ChatDTO> chatTest(@RequestBody ChatRoomDTO chatRoomDTO) {
-        List<ChatDTO> chat = chatService.findByRoomId(chatRoomDTO.getRoomId());
+    public List<ChatDTO> chatTest(@RequestParam Integer roomId) {
+        List<ChatDTO> chat = chatService.findByRoomId(roomId);
 
-//        System.out.println(chat);
+//        for(ChatDTO chatDTO : chat) {
+//            if(chatDTO.getPhoto() != null) {
+//                System.out.println(Base64.getEncoder().encodeToString(chatDTO.getPhoto()));
+//            }
+//        }
         return chat;
     }
 
     /* 채팅방 테스트용 */
     @PostMapping("/api/chatList")
-    public List<ChatRoomDTO> chatListTest(@RequestBody UserDTO userDTO) {
-        List<ChatRoomDTO> chatList = chatRoomService.findByUserId(userDTO.getUserId());
-//        System.out.println(chatList);
+    public List<ChatRoomDTO> chatListTest(@RequestParam String userId) {
+        List<ChatRoomDTO> chatList = chatRoomService.findByUserId(userId);
 
         return chatList;
+    }
+
+    @PostMapping("/api/sendChat")
+    public List<ChatDTO> sendChatTest(@RequestParam("message") String message, @RequestParam("roomId") Integer roomId,
+                         @RequestParam("isFromSender") Boolean isFromSender) {
+
+        ChatDTO chatDTO = new ChatDTO(0, null, isFromSender, message, LocalDateTime.now(), null);
+        chatService.save(chatDTO, roomId);
+        List<ChatDTO> chat = chatService.findByRoomId(roomId);
+
+        return chat;
+    }
+
+    @PostMapping("/api/sendChatPhoto")
+    public List<ChatDTO> sendPhotoTest(@RequestParam("photo")MultipartFile photo,  @RequestParam("roomId") Integer roomId,
+                         @RequestParam("isFromSender") Boolean isFromSender) throws IOException {
+
+
+        ChatDTO chatDTO = new ChatDTO(0, null, isFromSender, null, LocalDateTime.now(), photo.getBytes());
+        chatService.save(chatDTO, roomId);
+
+        List<ChatDTO> chat = chatService.findByRoomId(roomId);
+        return chat;
     }
 
 }

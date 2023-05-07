@@ -284,7 +284,7 @@ body::-webkit-scrollbar {
 
 .painting {
     position:absolute;
-    left:31px;
+    left:30px;
     top:130px;
     width:30px;
     height:25px;
@@ -292,4 +292,20 @@ body::-webkit-scrollbar {
 
 .painting:hover{
     cursor:pointer;
+}
+
+.map {
+    position:absolute;
+    left:90px;
+    top:130px;
+    width:21px;
+    height:26px;
+}
+
+.map:hover{
+    cursor:pointer;
+}
+
+.button_hidden {
+    display:none;
 }

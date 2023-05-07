@@ -44,7 +44,9 @@ const ChatList = ({ chatLists, onClick}) => {
                 else diff = "방금 전";
 
                 return (
-                    <li className = {styles.profile_list} key={chatList.roomId} onClick={() => onClick(chatList.roomId, chatList.sender.userId === currentSessionName ? chatList.receiver.nickname : chatList.sender.nickname)}>
+                    <li className = {styles.profile_list} key={chatList.roomId} onClick={() => onClick(chatList.roomId,
+                        chatList.sender.userId === currentSessionName ? chatList.receiver.nickname : chatList.sender.nickname,
+                        chatList.sender.userId === currentSessionName)}>
                         <div className={styles.p_profile}>
                             <img src={profile} width="100%" height="100%"></img>
                         </div>

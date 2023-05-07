@@ -1,5 +1,7 @@
 package com.example.panda.entity;
 
+import com.example.panda.dto.ChatDTO;
+import com.example.panda.dto.PhotoDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,5 +18,14 @@ public class PhotoEntity {
     @Lob
     private byte[] pdata;
 
+    public static PhotoEntity toSaveEntity(PhotoDTO photoDTO) {
+
+        PhotoEntity photoEntity = new PhotoEntity();
+        photoEntity.setPid(photoDTO.getPhotoId());
+        photoEntity.setPdata(photoDTO.getPhotoData());
+
+
+        return photoEntity;
+    }
     
 }
