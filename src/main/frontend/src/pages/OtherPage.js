@@ -59,24 +59,13 @@ function OtherPage() {
         })
     }
 
-    const getTotalPrice=()=>{
-        const query='input[name="likeList"]';
-        const selectedElements= document.querySelectorAll(query);
-        let sum=0;
-        selectedElements.forEach(function (element){
-            sum=sum+Number(element.getAttribute('value'));
-            console.log(sum);
-        });
-        document.getElementById('totalPrice').innerText= dividePriceUnit(sum.toString());
-    }
-
-    useEffect(() => {
+    useEffect(() => {    //일단 글목록 가져옴 (나중에 찜 목록 가져와야함)
         axios.get('/api/writings')
             .then(response => setData(response.data))
             .catch(error => console.log(error))
     }, []);
     useEffect(() => {
-        axios.get('/api/list_totalPrice')
+        axios.get('/api/list_totalPrice')  //목록에 있는 가격들 총합
             .then(response => {
                 setPrice(response.data);
             })

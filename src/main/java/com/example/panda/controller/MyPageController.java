@@ -35,10 +35,8 @@ public class MyPageController {
     public int totalPrice(){
         List<WritingDTO> writingDTOList = writingService.findAll();
         int sum=0;
-        for(WritingDTO writingDTO : writingDTOList)
-            sum+=writingDTO.getPrice();
+        for(WritingDTO writingDTO : writingDTOList) sum+=writingDTO.getPrice();
 
-        System.out.println("총합:"+sum);
         return sum;
     }
 }
