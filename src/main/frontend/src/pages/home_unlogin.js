@@ -66,7 +66,7 @@ function HomeUn() {
                                     경매도 하는
                                 </h1>
                                 <h1 className={`${styles.home_bottom_title} ${styles.home_bottom_panda}`}>
-                                    PANDA
+                                    <a>PANDA</a>
                                 </h1>
                                 <p>더 높은 가격으로 판매하고 싶나요?</p>
                                 <p>경매 시스템을 통한 더 편한 판매</p>

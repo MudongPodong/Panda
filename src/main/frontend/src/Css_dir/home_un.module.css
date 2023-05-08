@@ -102,6 +102,9 @@
     margin-top: 0;
     color: #ffffff;
 }
+.home_bottom_panda a{
+    background-color: black;
+}
 .home_mid_list{
     display: flex;
     justify-content: space-between;
