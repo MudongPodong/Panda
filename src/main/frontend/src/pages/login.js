@@ -28,9 +28,9 @@ function Login() {
         <div>
             <form name='login_form' method='post'>
                 <input type='text' className={styles.input} placeholder='E-mail' name='user_id' onChange={changeEmail} value={email}></input>
-                {!email_regex.test(email) ? <div className={styles.error_message}>{email_error}</div>:<div className={styles.error_message}></div>}
+                {!email_regex.test(email) && email != '' ? <div className={styles.error_message}>{email_error}</div>:<div className={styles.error_message}></div>}
                 <input type='password' className={styles.input} placeholder='Password : 영어, 숫자 포함 8자리 이상' name='pw' onChange={changePw} value={pw}></input>
-                {!pw_regex.test(pw) ? <div className={styles.error_message}>{pw_error}</div>:<div className={styles.error_message}></div>}
+                {!pw_regex.test(pw) && pw != '' ? <div className={styles.error_message}>{pw_error}</div>:<div className={styles.error_message}></div>}
                 <div className={styles.login_btn_wrap}>
                     <button type="submit" className={styles.login_btn_under}>LogIn</button>
                     <button type="submit" className={styles.login_btn} onClick={() => {
