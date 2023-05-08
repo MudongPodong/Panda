@@ -25,7 +25,7 @@ public class ChatService {
     private final ChatRepository chatRepository;
     private final ChatRoomRepository chatRoomRepository;
 
-    public List<ChatDTO> findByRoomId(int roomId) {
+    public List<ChatDTO> findByRoomId(Long roomId) {
         List<ChatEntity> chatEntityList = chatRepository.findByRoomId(roomId);
 
         List<ChatDTO> chatDTOList = new ArrayList<>();
@@ -36,16 +36,21 @@ public class ChatService {
         return chatDTOList;
     }
 
-    public Integer save(ChatDTO chatDTO, Integer roomId) {
+    @Transactional
+    public Long save(ChatDTO chatDTO, Long roomId) {
         Optional<ChatRoomEntity> optionalChatRoomEntity = chatRoomRepository.findById(roomId);
 
         if(optionalChatRoomEntity.isPresent()) {
-
             ChatRoomEntity chatRoomEntity = optionalChatRoomEntity.get();
             ChatEntity chatEntity = ChatEntity.toSaveEntity(chatDTO, chatRoomEntity);
 
+            chatRoomEntity.setLast_content(chatDTO.getContent());
+            chatRoomEntity.setLast_date(chatDTO.getChatDate());
+
+            chatRoomRepository.save(chatRoomEntity);
             return chatRepository.save(chatEntity).getChat_id();
-        } else return null;
+        }
+        else return null;
 
     }
 }

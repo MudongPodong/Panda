@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ChatRepository extends JpaRepository<ChatEntity, Integer> {
     @Query("SELECT e FROM ChatEntity e WHERE e.room_id.room_id = :roomId")
-    List<ChatEntity> findByRoomId(int roomId);
+    List<ChatEntity> findByRoomId(Long roomId);
 
 }

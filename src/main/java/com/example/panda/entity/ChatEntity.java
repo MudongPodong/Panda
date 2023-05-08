@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class ChatEntity {
     @Id // pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int chat_id;
+    private Long chat_id;
 
     @ManyToOne
     @JoinColumn(name="room_id")

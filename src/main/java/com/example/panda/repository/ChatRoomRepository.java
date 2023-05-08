@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Integer> {
+public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Long> {
     @Query(value = "SELECT * FROM (" +
             "SELECT * FROM Chat_room WHERE sender_id = :id " +
             "UNION " +
