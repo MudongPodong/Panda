@@ -77,11 +77,13 @@ class ListVeiw extends React.Component {
 
         return (
             <div className={styles.list_view_wrap}>
-                <button onClick={this.handlePrevBtn} className={(!!slideSpot ? `${styles.left_btn}` : `${styles.left_btn_hidden}`)}>
-                    ❮
-                </button>
+                {/*<button onClick={this.handlePrevBtn} className={(!!slideSpot ? `${styles.left_btn}` : `${styles.left_btn_hidden}`)}>*/}
+                {/*    <img src={'/imgs/left_btn.png'} width={100}/>*/}
+                {/*</button>*/}
             <div className={styles.list_view_box}>
-
+                <button onClick={this.handlePrevBtn} className={(!!slideSpot ? `${styles.left_btn}` : `${styles.left_btn_hidden}`)}>
+                    <img src={'/imgs/left_btn.png'} width={100}/>
+                </button>
                 <ul className={styles.list}>
                     <div style={{ transform: `translateX(${slideSpot}px)`}} className={styles.slide_item}>
                         {imagesData&&imagesData.map((img, i) => (
@@ -104,11 +106,13 @@ class ListVeiw extends React.Component {
                         ))}
                     </div>
                 </ul>
-
-            </div>
                 <button onClick={this.handleNextBtn} className={(slideSpot !== this.slideEnd ? `${styles.right_btn}` : `${styles.right_btn_hidden}`)}>
-                    ❯
+                    <img src={'/imgs/right_btn.png'} width={100}/>
                 </button>
+            </div>
+                {/*<button onClick={this.handleNextBtn} className={(slideSpot !== this.slideEnd ? `${styles.right_btn}` : `${styles.right_btn_hidden}`)}>*/}
+                {/*    <img src={'/imgs/right_btn.png'} width={100}/>*/}
+                {/*</button>*/}
             </div>
         );
     }

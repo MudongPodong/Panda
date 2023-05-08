@@ -48,7 +48,7 @@ function HomeUn() {
                                     <ul className={styles.home_mid_list}>
                                         <li><img src={'/imgs/logo192_192.png'} width={81}/><br/>AI를 통한<br/>판매 등록</li>
                                         <li><img src={'/imgs/logo192_192.png'} width={81}/><br/>챗봇</li>
-                                        <li><img src={'/imgs/logo192_192.png'} width={81}/><br/>데이터 분석을 통한<br></br> 제품 추천</li>
+                                        <li><img src={'/imgs/logo192_192.png'} width={81}/><br/>데이터 분석을<br/>통한<br></br> 제품 추천</li>
                                     </ul>
                                 </div>
                                 <div className={styles.home_img_box}>

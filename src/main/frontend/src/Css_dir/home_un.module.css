@@ -111,6 +111,7 @@
 .home_mid_list li{
     width: 100px;
     margin: 10px 5px;
+    text-align: left;
 }
 .home_text{
     text-align: left;
