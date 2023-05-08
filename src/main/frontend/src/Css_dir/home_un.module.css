@@ -30,10 +30,10 @@
     background-color: transparent;
 }
 .mid_section{
-    background-color: #f8f8f8;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 .bottom_section{
-    background-color: rgba(81, 153, 107, 0.45);
+    background-color: rgba(81, 153, 107, 0.1);
 }
 .home_top{
     width: 1024px;
