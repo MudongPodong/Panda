@@ -85,7 +85,7 @@
 .left_btn{
     border: 0;
     padding: 0;
-    /*border-radius: 50%;*/
+    border-radius: 20px;
     background-color: transparent;
     line-height: 0;
     width: 100px;
@@ -96,14 +96,14 @@
     transition: all 0.3s ease;
     cursor: pointer;
 }.left_btn:hover{
-    opacity: 1;
-    background-color: white;
+    opacity: 0.9;
+    background-color: black;
  }
 .left_btn_hidden{
     border: 0;
     padding: 0;
     background-color: transparent;
-    /*border-radius: 50%;*/
+    border-radius: 20px;
     line-height: 0;
     width: 100px;
     height: 100%;
@@ -116,7 +116,7 @@
     border: 0;
     padding: 0;
     background-color: transparent;
-    /*border-radius: 50%;*/
+    border-radius: 20px;
     line-height: 0;
     width: 100px;
     height: 100%;
@@ -127,14 +127,14 @@
     cursor: pointer;
 }
 .right_btn:hover{
-    opacity: 1;
-    background-color: white;
+    opacity: 0.9;
+    background-color: black;
 }
 .right_btn_hidden{
     border: 0;
     padding: 0;
     background-color: transparent;
-    /*border-radius: 50%;*/
+    border-radius: 20px;
     line-height: 0;
     width: 100px;
     height: 100%;
