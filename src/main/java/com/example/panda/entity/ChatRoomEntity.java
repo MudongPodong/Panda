@@ -14,7 +14,7 @@ import java.util.Date;
 public class ChatRoomEntity {
     @Id // pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int room_id;
+    private Long room_id;
 
     @ManyToOne
     @JoinColumn(name="sender_id")
@@ -28,6 +28,6 @@ public class ChatRoomEntity {
     private String last_content;
 
     @Column
-    private Date last_date;
+    private LocalDateTime last_date;
 
 }

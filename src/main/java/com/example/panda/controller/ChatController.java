@@ -31,7 +31,7 @@ public class ChatController {
 
     /* 채팅 테스트용 */
     @PostMapping("/api/chat")
-    public List<ChatDTO> chatTest(@RequestParam Integer roomId) {
+    public List<ChatDTO> chatTest(@RequestParam Long roomId) {
         List<ChatDTO> chat = chatService.findByRoomId(roomId);
 //
 //        for(ChatDTO chatDTO : chat) {
@@ -51,10 +51,11 @@ public class ChatController {
     }
 
     @PostMapping("/api/sendChat")
-    public List<ChatDTO> sendChatTest(@RequestParam("message") String message, @RequestParam("roomId") Integer roomId,
+    public List<ChatDTO> sendChatTest(@RequestParam("message") String message, @RequestParam("roomId") Long roomId,
                          @RequestParam("isFromSender") Boolean isFromSender) {
 
-        ChatDTO chatDTO = new ChatDTO(0, null, isFromSender, message, LocalDateTime.now(), null);
+        ChatDTO chatDTO = new ChatDTO(null, null, isFromSender, message, LocalDateTime.now(), null);
+
         chatService.save(chatDTO, roomId);
         List<ChatDTO> chat = chatService.findByRoomId(roomId);
 
@@ -62,11 +63,11 @@ public class ChatController {
     }
 
     @PostMapping("/api/sendChatPhoto")
-    public List<ChatDTO> sendPhotoTest(@RequestParam("photo")MultipartFile photo,  @RequestParam("roomId") Integer roomId,
+    public List<ChatDTO> sendPhotoTest(@RequestParam("photo")MultipartFile photo,  @RequestParam("roomId") Long roomId,
                          @RequestParam("isFromSender") Boolean isFromSender) throws IOException {
 
 
-        ChatDTO chatDTO = new ChatDTO(0, null, isFromSender, null, LocalDateTime.now(), photo.getBytes());
+        ChatDTO chatDTO = new ChatDTO(null, null, isFromSender, null, LocalDateTime.now(), photo.getBytes());
         chatService.save(chatDTO, roomId);
 
         List<ChatDTO> chat = chatService.findByRoomId(roomId);

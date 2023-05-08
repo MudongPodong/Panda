@@ -5,25 +5,13 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 dayjs.locale('ko');
 
-const ChatList = ({ chatLists, onClick}) => {
+const ChatList = ({ chatLists, onClick, isClicked}) => {
 
     let currentSessionName = "diqzk1562";
-    let currentSessionNickname = "네고안함";
 
     return (
         <ul>
-            <li className={styles.profile_list}>
-                <div className={styles.p_profile}>
-                    <img src={profile} width="100%" height="100%"></img>
-                </div>
-                <div className={styles.p_info}>
-                    <div className={styles.p_name}>{currentSessionNickname}</div>
-                    <div className={styles.p_time}></div>
-                    <div className={styles.p_last_message}></div>
-                </div>
-            </li>
-
-            {chatLists.map(chatList => {
+            {chatLists.map((chatList, index) => {
                 const date1 = dayjs(chatList.lastDate);
                 const date2 = dayjs(new Date());
 
@@ -44,9 +32,10 @@ const ChatList = ({ chatLists, onClick}) => {
                 else diff = "방금 전";
 
                 return (
-                    <li className = {styles.profile_list} key={chatList.roomId} onClick={() => onClick(chatList.roomId,
+                    <li className = {`${styles.profile_list} ${index === isClicked ? styles.profile_list_clicked : null}`} key={index} onClick={() => onClick(chatList.roomId,
                         chatList.sender.userId === currentSessionName ? chatList.receiver.nickname : chatList.sender.nickname,
-                        chatList.sender.userId === currentSessionName)}>
+                        chatList.sender.userId === currentSessionName,
+                        index)}>
                         <div className={styles.p_profile}>
                             <img src={profile} width="100%" height="100%"></img>
                         </div>

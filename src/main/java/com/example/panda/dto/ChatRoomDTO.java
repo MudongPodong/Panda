@@ -12,11 +12,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatRoomDTO {
-    private int roomId; // 주키
+    private Long roomId; // 주키
     private UserDTO sender; // 최초 보낸 사람 (외래키)
     private UserDTO receiver;  // 최초 받은 사람 (외래키)
     private String lastContent; // 마지막 메시지
-    private Date lastDate;
+    private LocalDateTime lastDate;
 
 
     public static ChatRoomDTO toChatRoomDTO (ChatRoomEntity chatRoomEntity, UserDTO sender, UserDTO receiver) {

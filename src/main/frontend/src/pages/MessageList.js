@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import styles from '../Css_dir/Chat.module.css'
 import dayjs from 'dayjs';
 
 const MessageList = ({ messages }) => {
+    const scrollRef = useRef();
+    useEffect(() => {
+        scrollRef.current.scrollIntoView();
+    }, [messages])
+
     return (
         <ul>
             {messages.map(message => {
@@ -57,9 +62,10 @@ const MessageList = ({ messages }) => {
                                 }
                             </div>
                         }
-                    </li> )
+                    </li>
+                )
             })}
-
+            <div ref={scrollRef}></div>
         </ul>
     );
 };

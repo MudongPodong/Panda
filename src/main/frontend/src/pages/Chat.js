@@ -9,13 +9,39 @@ import Map from '../imgs/temp_map.png';
 
 function Chat() {
     let userId = "diqzk1562";
+
     const [messages, getMessages] = useState([]);
     const [chatLists, getChatLists] = useState([]);
     const [op_Id, setOpId] = useState([]);
     const [currentRoomId, setRoomId] = useState([]);
     const [isSender, setIsSender] = useState(false);
+    const [isClicked, setIsClicked] = useState(null);
+    const [sendText, setSendText] = useState('');
+    const imageInput = useRef();
+    const [selectedFile, setSelectedFile] = useState(null);
+    const scrollRef = useRef();
 
-    const chatListClick = async (roomId, nickname, amISender) => {
+    const imageSelectClick = () => {
+        imageInput.current.click();
+    }
+
+    const scrollToBottom = () => {
+        scrollRef.current.scrollTop = scrollRef.current.height;
+    }
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setSelectedFile(file);
+    }
+
+    const handleKeyPress= (event) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            handleUpload();
+        }
+    };
+
+    const chatListClick = async (roomId, nickname, amISender, clickIndex) => {
         try {
             setRoomId(roomId);
 
@@ -25,39 +51,14 @@ function Chat() {
             getMessages(response.data);
             setOpId(nickname);
             setIsSender(amISender);
+            setIsClicked(clickIndex);
         } catch (error) {
             console.error(error);
         }
     };
 
-    useEffect(() => {
-        const formData = new FormData();
-        formData.append('userId', userId);
-        axios.post('/api/chatList', formData)
-            .then((response)=> {
-                getChatLists(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }, []);
-
-    const [sendText, setSendText] = useState('');
-    const imageInput = useRef();
-    const [selectedFile, setSelectedFile] = useState(null);
-    const imageSelectClick = () => {
-        imageInput.current.click();
-    }
-
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        setSelectedFile(file);
-    }
-
-    const handleTextChange = (event) => {
-        setSendText(event.target.value);
-    }
     const handleUpload = () => {
+
         if(selectedFile) {
             const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
             const allowedExtensions = ['jpg', 'jpeg', 'png'];
@@ -106,11 +107,34 @@ function Chat() {
         }
     }
 
+    useEffect(() => {
+        const formData = new FormData();
+        formData.append('userId', userId);
+        axios.post('/api/chatList', formData)
+            .then((response)=> {
+                getChatLists(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }, [handleUpload]);
 
-return (
+    return (
         <div className={styles.chat_page}>
             <div className={styles.plist}>
-                <ChatList chatLists={chatLists} onClick={chatListClick}/>
+                <ul>
+                <li className={styles.profile_First}>
+                        <div className={styles.p_profile}>
+                            <img src={profile} width="100%" height="100%"></img>
+                        </div>
+                        <div className={styles.p_info}>
+                            <div className={styles.p_name}>나</div>
+                            <div className={styles.p_time}></div>
+                            <div className={styles.p_last_message}></div>
+                        </div>
+                    </li>
+                </ul>
+                <ChatList chatLists={chatLists} onClick={chatListClick} isClicked={isClicked}/>
             </div>
             <div className={styles.chat_container}>
                 <div className={styles.chat_header}>
@@ -121,11 +145,11 @@ return (
                         <div className={styles.chat_name}>{op_Id}</div>
                     </div>
                 </div>
-                <div className={styles.chat_history}>
-                    <MessageList messages={messages} />
+                <div className={styles.chat_history} >
+                    <MessageList messages={messages} setScrollRef={scrollRef}/>
                 </div>
                 <div className={styles.chat_message}>
-                    <textarea name={styles.send_message} placeholder="메시지를 입력하세요" value={sendText} rows="3" onChange={handleTextChange}></textarea>
+                    <textarea name={styles.send_message} placeholder="메시지를 입력하세요" value={sendText} rows="3" onChange={(event) => setSendText(event.target.value)} onKeyPress={handleKeyPress}></textarea>
                     <button onClick={handleUpload}>전송</button>
                     <img src={Painting} className={styles.painting} onClick={imageSelectClick} />
                     <img src={Map} className={styles.map}  />

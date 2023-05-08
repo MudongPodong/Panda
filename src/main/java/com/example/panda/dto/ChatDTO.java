@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatDTO {
-    private int messageId; // 주키
+    private Long messageId; // 주키
     private ChatRoomDTO room; // 외래값
     private boolean isFromSender; // 최초 보낸 사람이 보낸 메시지인지 판별
     private String content;
