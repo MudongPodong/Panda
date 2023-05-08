@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,5 +37,13 @@ public class MyPageController {
         for(WritingDTO writingDTO : writingDTOList) sum+=writingDTO.getPrice();
 
         return sum;
+    }
+
+    @GetMapping("/api/favoriteList")   //찜 목록 가져오기
+    public List<WritingDTO> favoriteList(){
+        List<WritingDTO> writingDTOList=new ArrayList<>();
+
+
+        return writingDTOList;
     }
 }

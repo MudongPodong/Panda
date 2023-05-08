@@ -60,7 +60,7 @@ function OtherPage() {
     }
 
     useEffect(() => {    //일단 글목록 가져옴 (나중에 찜 목록 가져와야함)
-        axios.get('/api/writings')
+        axios.get('/api/favoriteList')
             .then(response => setData(response.data))
             .catch(error => console.log(error))
     }, []);
