@@ -16,7 +16,6 @@
     margin: 0 auto;
     text-align: center;
     position: relative;
-    overflow: hidden;
     padding-bottom: 80px;
     height: auto;
     min-height: 100%;
@@ -367,4 +366,7 @@
     background-color: rgb(220, 220, 220);
     transform: translateY(-100%);
     display: block;
+}
+.border_list_wrap{
+    padding-bottom: 30px;
 }
