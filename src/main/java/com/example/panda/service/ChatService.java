@@ -2,13 +2,10 @@ package com.example.panda.service;
 
 import com.example.panda.dto.ChatDTO;
 import com.example.panda.dto.ChatRoomDTO;
-import com.example.panda.dto.PhotoDTO;
 import com.example.panda.entity.ChatEntity;
 import com.example.panda.entity.ChatRoomEntity;
-import com.example.panda.entity.PhotoEntity;
 import com.example.panda.repository.ChatRepository;
 import com.example.panda.repository.ChatRoomRepository;
-import com.example.panda.repository.PhotoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

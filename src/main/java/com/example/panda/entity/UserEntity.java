@@ -30,7 +30,6 @@ public class UserEntity {
     @Column
     private int point;
 
-    @OneToOne
-    @JoinColumn(name = "pid")
-    private PhotoEntity user_photo;
+    @Lob
+    private byte[] photo;
 }

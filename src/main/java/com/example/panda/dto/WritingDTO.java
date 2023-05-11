@@ -16,7 +16,7 @@ import java.util.Date;
 public class WritingDTO {
     private int writing_Id;
     private String writing_name;
-    private int writing_photo;
+    private byte[] photo;
     private String writing_content;
     private String category;
     private String detail_category;
@@ -31,8 +31,8 @@ public class WritingDTO {
         WritingDTO writingDTO = new WritingDTO();
         writingDTO.setWriting_Id(writingEntity.getWid());
         writingDTO.setWriting_name(writingEntity.getWriting_name());
-        if(writingEntity.getWriting_photo()!=null){
-            writingDTO.setWriting_photo(writingEntity.getWriting_photo().getPid());
+        if(writingEntity.getPhoto()!=null){
+            writingDTO.setPhoto(writingEntity.getPhoto());
         }
 
         writingDTO.setWriting_content(writingEntity.getWriting_content());

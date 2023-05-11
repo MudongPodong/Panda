@@ -1,6 +1,5 @@
 package com.example.panda.entity;
 
-import com.example.panda.dto.PhotoDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,9 +18,8 @@ public class WritingEntity {
     private int wid;
     @Column(length = 64)
     private String writing_name;
-    @OneToOne
-    @JoinColumn(name="writing_photo")
-    private PhotoEntity writing_photo;
+    @Lob
+    private byte[] photo;
     @Column(length = 1024)
     private String writing_content;
     @Column(length = 32)

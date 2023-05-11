@@ -2,23 +2,14 @@ package com.example.panda.controller;
 
 import com.example.panda.dto.ChatDTO;
 import com.example.panda.dto.ChatRoomDTO;
-import com.example.panda.dto.PhotoDTO;
 import com.example.panda.service.ChatRoomService;
 import com.example.panda.service.ChatService;
-import com.example.panda.service.PhotoService;
-import com.example.panda.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,7 +18,6 @@ public class ChatController {
 
     private final ChatService chatService;
     private final ChatRoomService chatRoomService;
-    private final PhotoService photoService;
 
     /* 채팅 테스트용 */
     @PostMapping("/api/chat")
