@@ -17,12 +17,12 @@ public class ChatRoomEntity {
     private Long room_id;
 
     @ManyToOne
-    @JoinColumn(name="sender_id")
-    private UserEntity sender_id;
+    @JoinColumn(name="buyer_id")
+    private UserEntity buyer_id;
 
     @ManyToOne
-    @JoinColumn(name="receiver_id")
-    private UserEntity receiver_id;
+    @JoinColumn(name="seller_id")
+    private UserEntity seller_id;
 
     @Column (length = 1024)
     private String last_content;

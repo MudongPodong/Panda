@@ -13,18 +13,18 @@ import java.util.Date;
 @AllArgsConstructor
 public class ChatRoomDTO {
     private Long roomId; // 주키
-    private UserDTO sender; // 최초 보낸 사람 (외래키)
-    private UserDTO receiver;  // 최초 받은 사람 (외래키)
+    private UserDTO buyer; // 최초 보낸 사람 (외래키)
+    private UserDTO seller;  // 최초 받은 사람 (외래키)
     private String lastContent; // 마지막 메시지
     private LocalDateTime lastDate;
 
 
-    public static ChatRoomDTO toChatRoomDTO (ChatRoomEntity chatRoomEntity, UserDTO sender, UserDTO receiver) {
+    public static ChatRoomDTO toChatRoomDTO (ChatRoomEntity chatRoomEntity, UserDTO buyer, UserDTO seller) {
         ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
         chatRoomDTO.setRoomId(chatRoomEntity.getRoom_id());
         chatRoomDTO.setLastContent(chatRoomEntity.getLast_content());
-        chatRoomDTO.setSender(sender);
-        chatRoomDTO.setReceiver(receiver);
+        chatRoomDTO.setBuyer(buyer);
+        chatRoomDTO.setSeller(seller);
         chatRoomDTO.setLastDate(chatRoomEntity.getLast_date());
 
         return chatRoomDTO;
@@ -36,11 +36,11 @@ public class ChatRoomDTO {
         chatRoomDTO.setLastContent(chatRoomEntity.getLast_content());
         chatRoomDTO.setLastDate(chatRoomEntity.getLast_date());
 
-        if(chatRoomEntity.getSender_id() != null)
-            chatRoomDTO.setSender(UserDTO.toUserDTO(chatRoomEntity.getSender_id()));
+        if(chatRoomEntity.getBuyer_id() != null)
+            chatRoomDTO.setBuyer(UserDTO.toUserDTO(chatRoomEntity.getBuyer_id()));
 
-        if(chatRoomEntity.getReceiver_id() != null)
-            chatRoomDTO.setReceiver(UserDTO.toUserDTO(chatRoomEntity.getReceiver_id()));
+        if(chatRoomEntity.getSeller_id() != null)
+            chatRoomDTO.setSeller(UserDTO.toUserDTO(chatRoomEntity.getSeller_id()));
 
         return chatRoomDTO;
     }

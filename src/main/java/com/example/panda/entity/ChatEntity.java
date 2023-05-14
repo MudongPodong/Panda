@@ -21,7 +21,7 @@ public class ChatEntity {
     private ChatRoomEntity room_id;
 
     @Column
-    private Boolean is_from_sender;
+    private Boolean is_from_buyer;
 
     @Column(length = 1024)
     private String content;
@@ -39,7 +39,7 @@ public class ChatEntity {
         chatEntity.setChat_id(chatDTO.getMessageId());
         chatEntity.setRoom_id(chatRoomEntity);
         chatEntity.setContent(chatDTO.getContent());
-        chatEntity.setIs_from_sender(chatDTO.isFromSender());
+        chatEntity.setIs_from_buyer(chatDTO.isFromBuyer());
         chatEntity.setChat_date(chatDTO.getChatDate());
         chatEntity.setPhoto(chatDTO.getPhoto());
 
