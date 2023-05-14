@@ -21,6 +21,7 @@ public class JoinMemEntity {
     private String user_nick_name;
     private String user_phone;
     private String user_addr;
+    private int user_point;
 
     public JoinMemEntity() {};
     public JoinMemEntity(String email, String pw, String nick, String phone, String addr){
@@ -29,6 +30,15 @@ public class JoinMemEntity {
         this.user_nick_name = nick;
         this.user_phone = phone;
         this.user_addr = addr;
+        this.user_point = 0;
+    }
+    public JoinMemEntity(String email, String pw, String nick, String phone, String addr, int point){
+        this.user_email = email;
+        this.user_pw = pw;
+        this.user_nick_name = nick;
+        this.user_phone = phone;
+        this.user_addr = addr;
+        this.user_point = point;
     }
 
 
