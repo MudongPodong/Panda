@@ -8,7 +8,6 @@ const pw_regex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
 const phone_regex = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 
 function Mem() {
-    let [messages, getMessages] = useState([]);
     let [email, setEmail] = useState('');
     let [pw, setPw] = useState('');
     let [pw_ch, setPw_check] = useState('');
@@ -55,6 +54,7 @@ function Mem() {
     }
 
     const join_mem = () => {
+        console.log(email, pw, pw_ch, nickname, phone, addr);
         if(!email_regex.test(email)){
             alert('정확한 이메일을 입력해 주세요.');
             return false;
@@ -105,8 +105,10 @@ function Mem() {
 
         axios.post('/api/join_mem', form_data)
             .then((response)=> {
-                getMessages(response.data);
-                console.log('채팅 전송 성공');
+                if(response.data)
+                    console.log('회원가입 성공');
+                else
+                    console.log('회원가입 실패');
             })
             .catch(error => {
                 console.error(error);
