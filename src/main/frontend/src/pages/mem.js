@@ -105,13 +105,18 @@ function Mem() {
 
         axios.post('/api/join_mem', form_data)
             .then((response)=> {
-                if(response.data)
+                if(response.data) {
                     console.log('회원가입 성공');
-                else
+                    return true;
+                }
+                else {
                     console.log('회원가입 실패');
+                    return false;
+                }
             })
             .catch(error => {
                 console.error(error);
+                return false;
             });
     }
 
@@ -134,10 +139,13 @@ function Mem() {
                 <div className={styles.login_btn_wrap}>
                     <button type="submit" className={styles.mem_btn_under}>회원가입</button>
                     <button type="submit" className={styles.mem_btn} onClick={() => {
-                        join_mem();
-                        // 회원가입
-                        alert('회원가입 성공');
-                        goLogin();
+                        if(join_mem()){
+                            alert('회원가입 성공');
+                            goLogin();
+                        }
+                        else {
+
+                        }
                     }}><span>회원가입</span></button>
                 </div>
             </form>
