@@ -15,7 +15,7 @@ import java.util.Date;
 public class ChatDTO {
     private Long messageId; // 주키
     private ChatRoomDTO room; // 외래값
-    private boolean isFromSender; // 최초 보낸 사람이 보낸 메시지인지 판별
+    private boolean isFromBuyer; // 최초 보낸 사람이 보낸 메시지인지 판별
     private String content;
     private LocalDateTime chatDate;
     private byte[] photo;
@@ -25,7 +25,7 @@ public class ChatDTO {
         chatDTO.setMessageId(chatEntity.getChat_id());
         chatDTO.setRoom(room);
         chatDTO.setContent(chatEntity.getContent());
-        chatDTO.setFromSender(chatEntity.getIs_from_sender());
+        chatDTO.setFromBuyer(chatEntity.getIs_from_buyer());
         chatDTO.setChatDate(chatEntity.getChat_date());
         chatDTO.setPhoto(chatEntity.getPhoto());
 
