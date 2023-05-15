@@ -59,7 +59,7 @@ function Mem() {
             alert('정확한 이메일을 입력해 주세요.');
             return false;
         }
-        if(email == ''){
+        if(email === ''){
             alert('이메일을 입력해 주세요.');
             return false;
         }
@@ -67,7 +67,7 @@ function Mem() {
             alert('알파벳과 숫자가 포함된 8자리 이상 25자리 이하 비밀번호를 입력해 주세요.');
             return false;
         }
-        if(pw == ''){
+        if(pw === ''){
             alert('비밀번호를 입력해 주세요.');
             return false;
         }
@@ -75,11 +75,11 @@ function Mem() {
             alert('비밀번호 확인이 잘못되었습니다.');
             return false;
         }
-        if(pw_ch == ''){
+        if(pw_ch === ''){
             alert('비밀번호 확인을 입력해 주세요.');
             return false;
         }
-        if(nickname == ''){
+        if(nickname === ''){
             alert('닉네임을 입력해 주세요.');
             return false;
         }
@@ -87,11 +87,11 @@ function Mem() {
             alert('정확한 전화번호를 입력해 주세요.');
             return false;
         }
-        if(phone == ''){
+        if(phone === ''){
             alert('전화번호를 입력해 주세요.');
             return false;
         }
-        if(addr == ''){
+        if(addr === ''){
             alert('주소를 입려해 주세요.');
             return false;
         }
@@ -127,15 +127,15 @@ function Mem() {
         <div>
             <form name='mem_form' id='mem_form' method='post'>
                 <input type='text' className={styles.input} placeholder='E-mail' name='user_id' onChange={changeEmail} value={email}></input>
-                {!email_regex.test(email) && email != '' ? <div className={styles.error_message}>{email_error}</div>:<div className={styles.error_message}></div>}
+                {!email_regex.test(email) && email !== '' ? <div className={styles.error_message}>{email_error}</div>:<div className={styles.error_message}></div>}
                 <input type='password' className={styles.input} placeholder='Password : 영어, 숫자 포함 8자리 이상' name='pw' onChange={changePw} value={pw}></input>
-                {!pw_regex.test(pw) && pw != '' ? <div className={styles.error_message}>{pw_error}</div>:<div className={styles.error_message}></div>}
+                {!pw_regex.test(pw) && pw !== '' ? <div className={styles.error_message}>{pw_error}</div>:<div className={styles.error_message}></div>}
                 <input type='password' className={styles.input} placeholder='Password 확인 : Password를 한번 더 입력' name='pw_ch' onChange={changePw_check} value={pw_ch}></input>
                 {pw !== pw_ch ? <div className={styles.error_message}>{pwch_error}</div>:<div className={styles.error_message}></div>}
                 <input type='text' className={styles.input} placeholder='닉네임' name='name' onChange={changeNickname} value={nickname}></input>
                 <div className={styles.error_message}></div>
                 <input type='text' className={styles.input} placeholder='휴대폰 : 숫자만 입력(- 자동 입력)' name='phone' onChange={changePhone} value={phone}></input>
-                {!phone_regex.test(phone) && phone != '' ? <div className={styles.error_message}>{phone_error}</div>:<div className={styles.error_message}></div>}
+                {!phone_regex.test(phone) && phone !== '' ? <div className={styles.error_message}>{phone_error}</div>:<div className={styles.error_message}></div>}
                 <input type='text' className={styles.input} placeholder='주소' name='address' onChange={changeAddr} value={addr}></input>
                 <div className={styles.error_message}></div>
                 <div className={styles.login_btn_wrap}>
