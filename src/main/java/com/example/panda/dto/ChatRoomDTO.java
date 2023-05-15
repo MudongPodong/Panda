@@ -36,11 +36,11 @@ public class ChatRoomDTO {
         chatRoomDTO.setLastContent(chatRoomEntity.getLast_content());
         chatRoomDTO.setLastDate(chatRoomEntity.getLast_date());
 
-        if(chatRoomEntity.getBuyer_id() != null)
-            chatRoomDTO.setBuyer(UserDTO.toUserDTO(chatRoomEntity.getBuyer_id()));
+        if(chatRoomEntity.getBuyer() != null)
+            chatRoomDTO.setBuyer(UserDTO.toUserDTO(chatRoomEntity.getBuyer()));
 
-        if(chatRoomEntity.getSeller_id() != null)
-            chatRoomDTO.setSeller(UserDTO.toUserDTO(chatRoomEntity.getSeller_id()));
+        if(chatRoomEntity.getSeller() != null)
+            chatRoomDTO.setSeller(UserDTO.toUserDTO(chatRoomEntity.getSeller()));
 
         return chatRoomDTO;
     }
