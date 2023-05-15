@@ -11,7 +11,6 @@ import lombok.*;
 @Builder
 public class UserEntity {
     @Id
-    @Column(nullable = false, unique = true, length=50)
     private String email;
 
     @Column(nullable = false, length = 32)
@@ -35,8 +34,17 @@ public class UserEntity {
     @Builder.Default
     private byte[] userImg = null;
 
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void setPassword(String password) { this.password = password; }
+
     @Builder
-    public UserEntity(String email, String password, String phoneNumber, String nickname, String address, int point, byte[] userImg){
+    public UserEntity(String email, String password, String phoneNumber, String nickname, String address, int point, byte[] userImg, Authority authority){
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
@@ -44,5 +52,6 @@ public class UserEntity {
         this.address = address;
         this.point = point;
         this.userImg = userImg;
+        this.authority = authority;
     }
 }
