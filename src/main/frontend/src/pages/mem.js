@@ -50,7 +50,7 @@ function Mem() {
     const phone_error = '***정확한 전화번호를 입력해 주십시오.***';
     const movePage = useNavigate();
     function goLogin(){
-        movePage('/pages/loginpage');
+        movePage('/pages/loginPage');
     }
 
     const join_mem = () => {
@@ -105,11 +105,12 @@ function Mem() {
         form_data.append('point', 0);
         form_data.append('user_img', null);
 
-        axios.post('/api/join_mem', form_data)
+        axios.post('/sign/joinMem', form_data)
             .then((response)=> {
                 if(response.data) {
                     console.log('회원가입 성공');
-                    return true;
+                    alert('회원가입 성공');
+                    goLogin();
                 }
                 else {
                     console.log('회원가입 실패');
@@ -140,7 +141,7 @@ function Mem() {
                 <div className={styles.error_message}></div>
                 <div className={styles.login_btn_wrap}>
                     <button type="submit" className={styles.mem_btn_under}>회원가입</button>
-                    <button type="submit" className={styles.mem_btn} onClick={() => {
+                    <button className={styles.mem_btn} onClick={() => {
                         if(join_mem()){
                             alert('회원가입 성공');
                             goLogin();

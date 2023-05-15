@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/api/**").permitAll() // /api/를 제외한 모든 uri의 request는 토큰 필요
+                        .requestMatchers("/pages/**", "/sign/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
                         .anyRequest().authenticated());
         http
                 .formLogin()
