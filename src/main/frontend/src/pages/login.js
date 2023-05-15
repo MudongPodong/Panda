@@ -23,10 +23,20 @@ function Login() {
         movePage('/');
         window.location.reload();
     }
+    const submitHandler = (e) => {
+        e.preventDefault();
+        let body = {
+            email: email,
+            password: pw,
+        };
+        axios
+            .post("http://localhost:3000/api/login", body)
+            .then((res) => console.log(res));
+    }
     return (
         <>
         <div>
-            <form name='login_form' method='post'>
+            <form onSubmit={submitHandler} name='login_form' method='post'>
                 <input type='text' className={styles.input} placeholder='E-mail' name='user_id' onChange={changeEmail} value={email}></input>
                 {!email_regex.test(email) && email != '' ? <div className={styles.error_message}>{email_error}</div>:<div className={styles.error_message}></div>}
                 <input type='password' className={styles.input} placeholder='Password : 영어, 숫자 포함 8자리 이상' name='pw' onChange={changePw} value={pw}></input>

@@ -100,8 +100,10 @@ function Mem() {
         form_data.append('email', email);
         form_data.append('password', pw);
         form_data.append('nickname', nickname);
-        form_data.append('Phone_number', phone);
+        form_data.append('phone_number', phone);
         form_data.append('address', addr);
+        form_data.append('point', 0);
+        form_data.append('user_img', null);
 
         axios.post('/api/join_mem', form_data)
             .then((response)=> {

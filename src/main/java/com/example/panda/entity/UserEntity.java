@@ -11,18 +11,19 @@ import lombok.*;
 @Builder
 public class UserEntity {
     @Id
+    @Column(nullable = false, unique = true, length=50)
     private String email;
 
-    @Column(length = 32)
+    @Column(nullable = false, length = 32)
     private String password;
 
-    @Column(length = 32, name = "phone_number")
+    @Column(nullable = false, unique = true, length = 15, name = "phone_number")
     private String phoneNumber;
 
-    @Column(length = 32)
+    @Column(nullable = false, length = 32)
     private String nickname;
 
-    @Column(length = 128)
+    @Column(nullable = false, length = 128)
     private String address;
 
     @Column
@@ -34,6 +35,7 @@ public class UserEntity {
     @Builder.Default
     private byte[] userImg = null;
 
+    @Builder
     public UserEntity(String email, String password, String phoneNumber, String nickname, String address, int point, byte[] userImg){
         this.email = email;
         this.password = password;

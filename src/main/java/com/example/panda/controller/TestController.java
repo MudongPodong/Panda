@@ -18,7 +18,7 @@ public class TestController {
         List<UserDTO> userDTOList = userService.findAll();
 
         for(UserDTO userDTO : userDTOList)
-            System.out.println(userDTO.getUserId());
+            System.out.println(userDTO.Email());
         return "index";
     }
 
