@@ -1,32 +1,23 @@
 package com.example.panda.service;
 
-import com.example.panda.dto.ChatDTO;
-import com.example.panda.dto.ChatRoomDTO;
-import com.example.panda.dto.JoinMemDTO;
-import com.example.panda.entity.ChatEntity;
-import com.example.panda.entity.ChatRoomEntity;
-import com.example.panda.entity.JoinMemEntity;
-import com.example.panda.repository.JoinMemRepository;
+import com.example.panda.entity.UserEntity;
+import com.example.panda.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class JoinMemService {
-    private final JoinMemRepository joinMemRepository;
+    private final UserRepository joinMemRepository;
 
     public boolean existByUserEmailAndPhone(String userEmail, String userPhone) {
-        boolean isExist = joinMemRepository.existByUserEmailAndPhone(userEmail, userPhone);
+        boolean isExist = joinMemRepository.existsByEmailAndPhoneNumber(userEmail, userPhone);
 
         return isExist;
     }
     @Transactional
-    public void save(JoinMemEntity joinMemEntity) {
+    public void save(UserEntity joinMemEntity) {
         joinMemRepository.save(joinMemEntity);
     }
 }

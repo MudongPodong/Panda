@@ -1,25 +1,25 @@
 package com.example.panda.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "User")
+@NoArgsConstructor
 public class UserEntity {
     @Id
-    private String uid;
-
-    @Column(length = 16)
-    private String password;
+    private String email;
 
     @Column(length = 32)
-    private String phone_number;
+    private String password;
 
-    @Column(length = 64)
-    private String email;
+    @Column(length = 32, name = "phone_number")
+    private String phoneNumber;
 
     @Column(length = 32)
     private String nickname;
@@ -28,8 +28,21 @@ public class UserEntity {
     private String address;
 
     @Column
-    private int point;
+    @Builder.Default
+    private int point = 0;
 
-    @Lob
-    private byte[] photo;
+    @Column(name = "user_img")
+    @Builder.Default
+    private byte[] userImg = null;
+
+    @Builder
+    public UserEntity(String email, String password, String phoneNumber, String nickname, String address, int point, byte[] userImg){
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.nickname = nickname;
+        this.address = address;
+        this.point = point;
+        this.userImg = userImg;
+    }
 }

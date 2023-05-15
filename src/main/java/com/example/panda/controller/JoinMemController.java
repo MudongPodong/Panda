@@ -1,15 +1,12 @@
 package com.example.panda.controller;
 
-import com.example.panda.dto.JoinMemDTO;
-import com.example.panda.entity.JoinMemEntity;
+import com.example.panda.entity.UserEntity;
 import com.example.panda.service.JoinMemService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class JoinMemController {
@@ -22,7 +19,13 @@ public class JoinMemController {
         if(isExist){
             return false;
         }
-        joinMemService.save(new JoinMemEntity(email, pw, nickname, phone, addr));
+        joinMemService.save(UserEntity.builder()
+                .email(email)
+                .password(pw)
+                .nickname(nickname)
+                .phoneNumber(phone)
+                .address(addr)
+                .build());
         return true;
     }
 }

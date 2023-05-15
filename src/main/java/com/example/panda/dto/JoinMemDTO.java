@@ -1,12 +1,10 @@
 package com.example.panda.dto;
 
-import com.example.panda.entity.ChatEntity;
-import com.example.panda.entity.JoinMemEntity;
+import com.example.panda.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,14 +15,14 @@ public class JoinMemDTO {
     private String phone; // 전화번호
     private String addr; // 주소
 
-    public static JoinMemDTO toJoinMemDTO(JoinMemEntity joinMemEntity) {
+    public static JoinMemDTO toJoinMemDTO(UserEntity joinMemEntity) {
         JoinMemDTO joinMemDTO = new JoinMemDTO();
 
-        joinMemDTO.setEmail(joinMemEntity.getUser_email());
-        joinMemDTO.setPw(joinMemEntity.getUser_pw());
-        joinMemDTO.setNickName(joinMemEntity.getUser_nick_name());
-        joinMemDTO.setPhone(joinMemEntity.getUser_phone());
-        joinMemDTO.setAddr(joinMemEntity.getUser_addr());
+        joinMemDTO.setEmail(joinMemEntity.getEmail());
+        joinMemDTO.setPw(joinMemEntity.getPassword());
+        joinMemDTO.setNickName(joinMemEntity.getNickname());
+        joinMemDTO.setPhone(joinMemEntity.getPhoneNumber());
+        joinMemDTO.setAddr(joinMemEntity.getAddress());
 
         return joinMemDTO;
     }
