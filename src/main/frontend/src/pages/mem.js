@@ -15,23 +15,23 @@ function Mem() {
     let [phone, setPhone] = useState('');
     let [addr, setAddr] = useState('');
     const changeEmail = (e) =>{
-        const {value, email} = e.target;
+        const value = e.target.value;
         setEmail(value);
     }
     const changePw = (e) => {
-        const { value, pw } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+        const value = e.target.value; // 우선 e.target 에서 value 를 추출
         setPw(value);
     };
     const changePw_check = (e) => {
-        const { value, pwch } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+        const value = e.target.value; // 우선 e.target 에서 value 를 추출
         setPw_check(value);
     };
     const changeNickname = (e) => {
-        const { value, nickname } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+        const value = e.target.value; // 우선 e.target 에서 value 를 추출
         setNickname(value);
     };
     const changePhone = (e) => {
-        const { value, phone_num} = e.target;
+        const value = e.target.value;
         const num = value.replace(/[^0-9]/g, '');
         if(num.length < 11){
             setPhone(value.replace(/[^0-9]/g, '').replace(/^(\d{0,3})(\d{0,3})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, ""));
@@ -41,7 +41,7 @@ function Mem() {
         }
     }
     const changeAddr = (e) => {
-        const { value, addr } = e.target; // 우선 e.target 에서 name 과 value 를 추출
+        const value = e.target.value; // 우선 e.target 에서 value 를 추출
         setAddr(value);
     };
     const email_error = '***올바른 이메일 형식이 아닙니다.***';
