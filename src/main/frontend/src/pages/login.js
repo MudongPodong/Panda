@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import styles from '../Css_dir/login_mem.module.css';
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const email_regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 const pw_regex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
