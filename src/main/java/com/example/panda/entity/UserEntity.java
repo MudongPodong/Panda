@@ -1,16 +1,14 @@
 package com.example.panda.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "User")
 @NoArgsConstructor
+@Builder
 public class UserEntity {
     @Id
     private String email;
@@ -32,10 +30,10 @@ public class UserEntity {
     private int point = 0;
 
     @Column(name = "user_img")
+    @Lob
     @Builder.Default
     private byte[] userImg = null;
 
-    @Builder
     public UserEntity(String email, String password, String phoneNumber, String nickname, String address, int point, byte[] userImg){
         this.email = email;
         this.password = password;

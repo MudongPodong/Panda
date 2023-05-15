@@ -29,20 +29,20 @@ public class WritingDTO {
 
     public static WritingDTO toWritingDTO(WritingEntity writingEntity) {
         WritingDTO writingDTO = new WritingDTO();
-        writingDTO.setWriting_Id(writingEntity.getWid());
-        writingDTO.setWriting_name(writingEntity.getWriting_name());
-        if(writingEntity.getPhoto()!=null){
-            writingDTO.setPhoto(writingEntity.getPhoto());
-        }
-
-        writingDTO.setWriting_content(writingEntity.getWriting_content());
-        writingDTO.setCategory(writingEntity.getCategory());
-        writingDTO.setDetail_category(writingDTO.getDetail_category());
-        writingDTO.setIs_sold(writingEntity.getIs_sold());
-        writingDTO.setCount(writingEntity.getCount());
-        writingDTO.setIs_auction(writingEntity.getIs_auction());
-        writingDTO.setPrice(writingEntity.getPrice());
-        writingDTO.setRegit_date(writingEntity.getRegit_date());
+//        writingDTO.setWriting_Id(writingEntity.getWid());
+//        writingDTO.setWriting_name(writingEntity.getWriting_name());
+//        if(writingEntity.getPhoto()!=null){
+//            writingDTO.setPhoto(writingEntity.getPhoto());
+//        }
+//
+//        writingDTO.setWriting_content(writingEntity.getWriting_content());
+//        writingDTO.setCategory(writingEntity.getCategory());
+//        writingDTO.setDetail_category(writingDTO.getDetail_category());
+//        writingDTO.setIs_sold(writingEntity.getIs_sold());
+//        writingDTO.setCount(writingEntity.getCount());
+//        writingDTO.setIs_auction(writingEntity.getIs_auction());
+//        writingDTO.setPrice(writingEntity.getPrice());
+//        writingDTO.setRegit_date(writingEntity.getRegit_date());
 
         return writingDTO;
     }

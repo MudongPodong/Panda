@@ -15,18 +15,19 @@ public class UserDTO {
     private String nickname;
     private String address;
     private int point;
-    private byte[] userImg;
+    private byte[] photo;
 
 
     public static UserDTO toUserDTO(UserEntity userEntity) {
         UserDTO userDTO = new UserDTO();
-        userDTO.setPassword(userEntity.getPassword());
         userDTO.setEmail(userEntity.getEmail());
+        userDTO.setPassword(userEntity.getPassword());
+        userDTO.setPhoneNumber(userEntity.getPhoneNumber());
         userDTO.setNickname(userEntity.getNickname());
         userDTO.setAddress(userEntity.getAddress());
         userDTO.setPoint(userEntity.getPoint());
-        userDTO.setPhoneNumber(userEntity.getPhoneNumber());
-        userDTO.setUserImg(userEntity.getUserImg());
+        if (userEntity.getUserImg() != null)
+            userDTO.setPhoto(userEntity.getUserImg());
 
         return userDTO;
     }

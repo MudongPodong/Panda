@@ -19,19 +19,13 @@ public class WritingEntity {
     @Column(length = 64)
     private String writing_name;
     @Lob
-    private byte[] photo;
-    @Column(length = 1024)
-    private String writing_content;
+    private byte[] writing_photo;
     @Column(length = 32)
     private String category;
     @Column(length = 32)
     private String detail_category;
     @Column
-    private Boolean is_sold;
-    @Column
     private int count;
-    @Column
-    private Boolean is_auction;
     @Column
     private int price;
     @Column
