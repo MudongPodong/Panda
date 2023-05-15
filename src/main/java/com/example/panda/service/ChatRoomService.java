@@ -14,8 +14,8 @@ import java.util.List;
 public class ChatRoomService {
     private final ChatRoomRepository chatRoomRepository;
 
-    public List<ChatRoomDTO> findByUserId(String id) {
-        List<ChatRoomEntity> chatRoomEntityList = chatRoomRepository.findByUserId(id);
+    public List<ChatRoomDTO> findByUserEmail(String email) {
+        List<ChatRoomEntity> chatRoomEntityList = chatRoomRepository.findByUserId(email);
         List<ChatRoomDTO> chatRoomDTOList = new ArrayList<>();
 
         for(ChatRoomEntity chatRoomEntity : chatRoomEntityList)

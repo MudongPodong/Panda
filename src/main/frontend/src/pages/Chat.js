@@ -8,13 +8,13 @@ import Painting from '../imgs/temp_painting.png';
 import Map from '../imgs/temp_map.png';
 
 function Chat() {
-    let userId = "diqzk1562";
+    let email = "diqzk1562@naver.com";
 
     const [messages, getMessages] = useState([]);
     const [chatLists, getChatLists] = useState([]);
     const [op_Id, setOpId] = useState([]);
     const [currentRoomId, setRoomId] = useState([]);
-    const [isSender, setIsSender] = useState(false);
+    const [isBuyer, setIsBuyer] = useState(false);
     const [isClicked, setIsClicked] = useState(null);
     const [sendText, setSendText] = useState('');
     const imageInput = useRef();
@@ -41,7 +41,7 @@ function Chat() {
         }
     };
 
-    const chatListClick = async (roomId, nickname, amISender, clickIndex) => {
+    const chatListClick = async (roomId, nickname, amIBuyer, clickIndex) => {
         try {
             setRoomId(roomId);
 
@@ -50,7 +50,7 @@ function Chat() {
             const response = await axios.post('/api/chat', formData);
             getMessages(response.data);
             setOpId(nickname);
-            setIsSender(amISender);
+            setIsBuyer(amIBuyer);
             setIsClicked(clickIndex);
         } catch (error) {
             console.error(error);
@@ -68,7 +68,7 @@ function Chat() {
                 const formData = new FormData();
                 formData.append('photo', selectedFile);
                 formData.append('roomId', currentRoomId);
-                formData.append('isFromSender', isSender);
+                formData.append('isFromBuyer', isBuyer);
 
                 axios.post('/api/sendChatPhoto', formData, {
                     headers: {
@@ -89,7 +89,7 @@ function Chat() {
             const formData = new FormData();
 
             formData.append('roomId', currentRoomId);
-            formData.append('isFromSender', isSender);
+            formData.append('isFromBuyer', isBuyer);
             formData.append('message', sendText);
 
             axios.post('/api/sendChat', formData)
@@ -109,7 +109,7 @@ function Chat() {
 
     useEffect(() => {
         const formData = new FormData();
-        formData.append('userId', userId);
+        formData.append('email', email);
         axios.post('/api/chatList', formData)
             .then((response)=> {
                 getChatLists(response.data);

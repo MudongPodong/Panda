@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Long> {
     @Query(value = "SELECT * FROM (" +
-            "SELECT * FROM Chat_room WHERE sender_id = :id " +
+            "SELECT * FROM Chat_room WHERE sender = :email " +
             "UNION " +
-            "SELECT * FROM Chat_room WHERE receiver_id = :id " +
+            "SELECT * FROM Chat_room WHERE receiver = :email " +
             ") AS combined " +
             "ORDER BY last_date DESC", nativeQuery = true)
-    List<ChatRoomEntity> findByUserId(String id);
+    List<ChatRoomEntity> findByUserId(String email);
 
 }

@@ -25,10 +25,10 @@ const MessageList = ({ messages }) => {
                 return (
                     <li key={message.messageId}>
                         {
-                            message.fromSender === false ?
+                            message.fromBuyer === false ?
                             <div>
                                 <div className={styles.message_info}>
-                                    <span className={`${styles.message_name} ${styles.float_right}`}>{message.fromSender}</span>
+                                    <span className={`${styles.message_name} ${styles.float_right}`}>{message.fromBuyer}</span>
                                     &nbsp; &nbsp;
                                     <span className={`${styles.message_time} ${styles.float_right}`}>{date}</span>
                                 </div>
@@ -46,7 +46,7 @@ const MessageList = ({ messages }) => {
                             :
                             <div>
                                 <div className={styles.message_info}>
-                                    <span className={`${styles.message_name} ${styles.float_left}`}>{message.fromSender}</span>
+                                    <span className={`${styles.message_name} ${styles.float_left}`}>{message.fromBuyer}</span>
                                     &nbsp; &nbsp;
                                     <span className={`${styles.message_time} ${styles.float_left}`}>{date}</span>
                                 </div>

@@ -33,21 +33,21 @@ const ChatList = ({ chatLists, onClick, isClicked}) => {
 
                 return (
                     <li className = {`${styles.profile_list} ${index === isClicked ? styles.profile_list_clicked : null}`} key={index} onClick={() => onClick(chatList.roomId,
-                        chatList.sender.userId === currentSessionName ? chatList.receiver.nickname : chatList.sender.nickname,
-                        chatList.sender.userId === currentSessionName,
+                        chatList.buyer.email === currentSessionName ? chatList.seller.nickname : chatList.buyer.nickname,
+                        chatList.buyer.email === currentSessionName,
                         index)}>
                         <div className={styles.p_profile}>
                             <img src={profile} width="100%" height="100%"></img>
                         </div>
                         <div className={styles.p_info}>
                             {
-                                chatList.sender.userId === currentSessionName ?
+                                chatList.buyer.email === currentSessionName ?
                                     <div className={styles.p_name}>
-                                        {chatList.receiver.nickname}
+                                        {chatList.seller.nickname}
                                     </div>
                                     :
                                     <div className={styles.p_name}>
-                                        {chatList.sender.nickname}
+                                        {chatList.buyer.nickname}
                                     </div>
                             }
                             <div className={styles.p_time}>{diff}</div>

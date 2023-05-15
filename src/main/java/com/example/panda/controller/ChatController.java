@@ -23,28 +23,23 @@ public class ChatController {
     @PostMapping("/api/chat")
     public List<ChatDTO> chatTest(@RequestParam Long roomId) {
         List<ChatDTO> chat = chatService.findByRoomId(roomId);
-//
-//        for(ChatDTO chatDTO : chat) {
-//            if(chatDTO.getPhoto() != null) {
-//                System.out.println(new String(chatDTO.getPhoto()));
-//            }
-//        }
+
         return chat;
     }
 
     /* 채팅방 테스트용 */
     @PostMapping("/api/chatList")
-    public List<ChatRoomDTO> chatListTest(@RequestParam String userId) {
-        List<ChatRoomDTO> chatList = chatRoomService.findByUserId(userId);
+    public List<ChatRoomDTO> chatListTest(@RequestParam String email) {
+        List<ChatRoomDTO> chatList = chatRoomService.findByUserEmail(email);
 
         return chatList;
     }
 
     @PostMapping("/api/sendChat")
     public List<ChatDTO> sendChatTest(@RequestParam("message") String message, @RequestParam("roomId") Long roomId,
-                         @RequestParam("isFromSender") Boolean isFromSender) {
+                         @RequestParam("isFromBuyer") Boolean isFromBuyer) {
 
-        ChatDTO chatDTO = new ChatDTO(null, null, isFromSender, message, LocalDateTime.now(), null);
+        ChatDTO chatDTO = new ChatDTO(null, null, isFromBuyer, message, LocalDateTime.now(), null);
 
         chatService.save(chatDTO, roomId);
         List<ChatDTO> chat = chatService.findByRoomId(roomId);
@@ -54,10 +49,10 @@ public class ChatController {
 
     @PostMapping("/api/sendChatPhoto")
     public List<ChatDTO> sendPhotoTest(@RequestParam("photo")MultipartFile photo,  @RequestParam("roomId") Long roomId,
-                         @RequestParam("isFromSender") Boolean isFromSender) throws IOException {
+                         @RequestParam("isFromBuyer") Boolean isFromBuyer) throws IOException {
 
 
-        ChatDTO chatDTO = new ChatDTO(null, null, isFromSender, null, LocalDateTime.now(), photo.getBytes());
+        ChatDTO chatDTO = new ChatDTO(null, null, isFromBuyer, null, LocalDateTime.now(), photo.getBytes());
         chatService.save(chatDTO, roomId);
 
         List<ChatDTO> chat = chatService.findByRoomId(roomId);
