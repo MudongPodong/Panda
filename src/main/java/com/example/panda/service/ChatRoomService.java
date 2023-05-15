@@ -15,7 +15,7 @@ public class ChatRoomService {
     private final ChatRoomRepository chatRoomRepository;
 
     public List<ChatRoomDTO> findByUserEmail(String email) {
-        List<ChatRoomEntity> chatRoomEntityList = chatRoomRepository.findByUserId(email);
+        List<ChatRoomEntity> chatRoomEntityList = chatRoomRepository.findByUserEmail(email);
         List<ChatRoomDTO> chatRoomDTOList = new ArrayList<>();
 
         for(ChatRoomEntity chatRoomEntity : chatRoomEntityList)
