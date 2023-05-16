@@ -1,3 +1,9 @@
+// title : UserController
+// 설명 : 사용자의 정보에 대한 컨트롤을 하는 컨트롤러
+//      프론트에서부터 axios로 넘긴 FormData를 받아 사용자 정보 조회, 사용자 닉네임 변경, 사용자 비밀번호 변경
+// 작성자 : 심상혁
+// 생성일 : 2023.05.16
+// 업데이트 : -
 package com.example.panda.controller;
 
 import com.example.panda.dto.ChangePasswordDTO;
@@ -22,12 +28,12 @@ public class UserController {
     }
 
     @PostMapping("/nickname")   // 닉네임 변경
-    public ResponseEntity<UserResponseDTO> setMemberNickname(@RequestBody UserRequestDTO request) {
+    public ResponseEntity<UserResponseDTO> setMemberNickname(UserRequestDTO request) {
         return ResponseEntity.ok(userService.changeMemberNickname(request.getEmail(), request.getNickname()));
     }
 
     @PostMapping("/password")   // 비밀번호 변경
-    public ResponseEntity<UserResponseDTO> setMemberPassword(@RequestBody ChangePasswordDTO request) {
+    public ResponseEntity<UserResponseDTO> setMemberPassword(ChangePasswordDTO request) {
         return ResponseEntity.ok(userService.changeMemberPassword(request.getEmail(), request.getExPassword(), request.getNewPassword()));
     }
 }

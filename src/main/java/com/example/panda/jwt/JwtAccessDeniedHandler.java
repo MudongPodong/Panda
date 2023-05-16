@@ -1,3 +1,9 @@
+// title : JwtAccessDeniedHandler
+// 설명 : 필요한 권한이 없이 접근하려 할때 exception을 throw하는 클래스
+//      403에러 발생
+// 작성자 : 심상혁
+// 생성일 : 2023.05.16
+// 업데이트 : -
 package com.example.panda.jwt;
 
 import jakarta.servlet.ServletException;

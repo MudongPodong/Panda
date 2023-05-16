@@ -1,3 +1,9 @@
+// title : UserRequestDTO
+// 설명 : 사용자 정보에 대한 요청에 사용할 DTO
+//      회원가입, 로그인 등에 사용
+// 작성자 : 심상혁
+// 생성일 : 2023.05.16
+// 업데이트 : -
 package com.example.panda.dto;
 
 import com.example.panda.entity.Authority;
