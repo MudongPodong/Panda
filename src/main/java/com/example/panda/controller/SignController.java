@@ -29,8 +29,8 @@ public class SignController {
         }
         return ResponseEntity.ok(signService.joinMem(userDTO));
     }
-    @PostMapping("/login")
-    public ResponseEntity<TokenDTO> login(UserDTO userDTO) {
+    @PostMapping("/sign/login")
+    public ResponseEntity<TokenDTO> login(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(signService.login(userDTO));
     }
 }

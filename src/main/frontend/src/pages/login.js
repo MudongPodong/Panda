@@ -24,7 +24,8 @@ function Login() {
         movePage('/');
         window.location.reload();
     }
-    const login = () => {
+    const login = (e) => {
+        e.preventDefault();
         if (!email_regex.test(email)) {
             alert('정확한 이메일을 입력해 주세요.');
             return false;
@@ -53,37 +54,27 @@ function Login() {
             .then((response) => {
                 if (response.data == 200) {
                     console.log('로그인 성공');
-                    return true;
+                    goHome();
                 } else {
                     console.log('로그인 실패');
-                    return false;
+                    alert('로그인 실패\n이메일과 비밀번호를 확인해 주세요.');
                 }
             })
             .catch(error => {
                 console.error(error);
-                return false;
             });
     }
     return (
         <>
         <div>
-            <form name='login_form' method='post'>
-                {/*<input type='hidden' name={_csrf.parameterName} value={_csrf.token}/>*/}
+            <form name='login_form' id='login_form' method='post'>
                 <input type='text' className={styles.input} placeholder='E-mail' name='email' onChange={changeEmail} value={email}></input>
                 {!email_regex.test(email) && email !== '' ? <div className={styles.error_message}>{email_error}</div>:<div className={styles.error_message}></div>}
                 <input type='password' className={styles.input} placeholder='Password : 영어, 숫자 포함 8자리 이상' name='pw' onChange={changePw} value={pw}></input>
                 {!pw_regex.test(pw) && pw !== '' ? <div className={styles.error_message}>{pw_error}</div>:<div className={styles.error_message}></div>}
                 <div className={styles.login_btn_wrap}>
-                    <button type="submit" className={styles.login_btn_under}>LogIn</button>
-                    <button type="submit" className={styles.login_btn} onClick={() => {
-                        //document.cookie = "name=login; path=/;";
-                        if(login()){
-                            goHome();
-                        }
-                        else{
-                            alert('로그인 실패\n이메일과 비밀번호를 확인해 주세요.');
-                        }
-                    }}><span>LogIn</span></button>
+                    <button className={styles.login_btn_under}>LogIn</button>
+                    <button className={styles.login_btn} onClick={login}><span>LogIn</span></button>
                 </div>
             </form>
         </div>
