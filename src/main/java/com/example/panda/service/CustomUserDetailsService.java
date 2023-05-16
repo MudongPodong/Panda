@@ -1,3 +1,9 @@
+// title : CustomUserDetailsService
+// 설명 : 로그인에 사용하기위한 클래스
+//      로그인에서 loadUserByUsername()사용
+// 작성자 : 심상혁
+// 생성일 : 2023.05.16
+// 업데이트 : -
 package com.example.panda.service;
 
 import com.example.panda.entity.UserEntity;
