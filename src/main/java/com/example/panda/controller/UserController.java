@@ -7,7 +7,7 @@
 package com.example.panda.controller;
 
 import com.example.panda.dto.ChangePasswordDTO;
-import com.example.panda.dto.UserRequestDTO;
+import com.example.panda.dto.UserDTO;
 import com.example.panda.dto.UserResponseDTO;
 import com.example.panda.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +28,8 @@ public class UserController {
     }
 
     @PostMapping("/nickname")   // 닉네임 변경
-    public ResponseEntity<UserResponseDTO> setMemberNickname(UserRequestDTO request) {
-        return ResponseEntity.ok(userService.changeMemberNickname(request.getEmail(), request.getNickname()));
+    public ResponseEntity<UserResponseDTO> setMemberNickname(UserDTO userDTO) {
+        return ResponseEntity.ok(userService.changeMemberNickname(userDTO.getEmail(), userDTO.getNickname()));
     }
 
     @PostMapping("/password")   // 비밀번호 변경

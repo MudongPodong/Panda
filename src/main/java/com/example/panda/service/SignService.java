@@ -1,7 +1,7 @@
 package com.example.panda.service;
 
 import com.example.panda.dto.TokenDTO;
-import com.example.panda.dto.UserRequestDTO;
+import com.example.panda.dto.UserDTO;
 import com.example.panda.dto.UserResponseDTO;
 import com.example.panda.entity.UserEntity;
 import com.example.panda.jwt.TokenProvider;
@@ -23,17 +23,17 @@ public class SignService {
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
 
-    public UserResponseDTO joinMem(UserRequestDTO requestDTO) {
-        if (userRepository.existsByEmailAndPhoneNumber(requestDTO.getEmail(), requestDTO.getPhoneNumber())) {
+    public UserResponseDTO joinMem(UserDTO userDTO) {
+        if (userRepository.existsByEmailAndPhoneNumber(userDTO.getEmail(), userDTO.getPhoneNumber())) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
         }
 
-        UserEntity user = requestDTO.toUser(passwordEncoder);
+        UserEntity user = userDTO.toUser(passwordEncoder);
         return UserResponseDTO.of(userRepository.save(user));
     }
 
-    public TokenDTO login(UserRequestDTO requestDTO) {
-        UsernamePasswordAuthenticationToken authenticationToken = requestDTO.toAuthentication();
+    public TokenDTO login(UserDTO userDTO) {
+        UsernamePasswordAuthenticationToken authenticationToken = userDTO.toAuthentication();
 
         Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
 

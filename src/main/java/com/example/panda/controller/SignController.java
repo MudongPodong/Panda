@@ -8,7 +8,7 @@
 package com.example.panda.controller;
 
 import com.example.panda.dto.TokenDTO;
-import com.example.panda.dto.UserRequestDTO;
+import com.example.panda.dto.UserDTO;
 import com.example.panda.dto.UserResponseDTO;
 import com.example.panda.repository.UserRepository;
 import com.example.panda.service.SignService;
@@ -30,12 +30,12 @@ public class SignController {
                                                    @RequestParam("address") String addr,
                                                    @RequestParam("point") int point,
                                                    @RequestParam("user_img") byte[] userImg) {
-        UserRequestDTO requestDTO = new UserRequestDTO(email, pw, nickname, phoneNumber, addr, point, userImg);
-        return ResponseEntity.ok(signService.joinMem(requestDTO));
+        UserDTO userDTO = new UserDTO(email, pw, nickname, phoneNumber, addr, point, userImg);
+        return ResponseEntity.ok(signService.joinMem(userDTO));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDTO> login(UserRequestDTO requestDTO) {
-        return ResponseEntity.ok(signService.login(requestDTO));
+    public ResponseEntity<TokenDTO> login(UserDTO userDTO) {
+        return ResponseEntity.ok(signService.login(userDTO));
     }
 }
