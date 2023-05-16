@@ -54,7 +54,6 @@ function Mem() {
     }
 
     const join_mem = () => {
-        console.log(email, pw, pw_ch, nickname, phone, addr);
         if(!email_regex.test(email)){
             alert('정확한 이메일을 입력해 주세요.');
             return false;
@@ -95,22 +94,25 @@ function Mem() {
             alert('주소를 입려해 주세요.');
             return false;
         }
-        const form_data = new FormData();
 
-        form_data.append('email', email);
-        form_data.append('password', pw);
-        form_data.append('nickname', nickname);
-        form_data.append('phone_number', phone);
-        form_data.append('address', addr);
-        form_data.append('point', 0);
-        form_data.append('user_img', null);
-
-        axios.post('/sign/joinMem', form_data)
+        const user = {
+            'email' : email,
+            'password' : pw,
+            'phoneNumber' : phone,
+            'nickname' : nickname,
+            'address' : addr,
+            'point' : 50,
+            'user_img' : null
+        }
+        axios.post('/sign/joinMem', user, {
+            headers: {
+                "Content-Type": `application/json`,
+            },
+        })
             .then((response)=> {
                 if(response.data) {
                     console.log('회원가입 성공');
-                    alert('회원가입 성공');
-                    goLogin();
+                    return true;
                 }
                 else {
                     console.log('회원가입 실패');
@@ -147,7 +149,7 @@ function Mem() {
                             goLogin();
                         }
                         else {
-
+                            alert('회원가입 실패');
                         }
                     }}><span>회원가입</span></button>
                 </div>

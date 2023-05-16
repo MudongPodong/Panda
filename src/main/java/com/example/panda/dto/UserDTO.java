@@ -23,7 +23,7 @@ public class UserDTO {
     private String nickname;
     private String address;
     private int point;
-    private byte[] photo;
+    private byte[] userImg;
 
 
     public static UserDTO toUserDTO(UserEntity userEntity) {
@@ -35,7 +35,7 @@ public class UserDTO {
         userDTO.setAddress(userEntity.getAddress());
         userDTO.setPoint(userEntity.getPoint());
         if (userEntity.getUserImg() != null)
-            userDTO.setPhoto(userEntity.getUserImg());
+            userDTO.setUserImg(userEntity.getUserImg());
 
         return userDTO;
     }
@@ -47,7 +47,7 @@ public class UserDTO {
                 .phoneNumber(phoneNumber)
                 .address(address)
                 .point(point)
-                .userImg(photo)
+                .userImg(userImg)
                 .authority(Authority.ROLE_USER)
                 .build();
     }

@@ -10,7 +10,6 @@ package com.example.panda.controller;
 import com.example.panda.dto.TokenDTO;
 import com.example.panda.dto.UserDTO;
 import com.example.panda.dto.UserResponseDTO;
-import com.example.panda.repository.UserRepository;
 import com.example.panda.service.SignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,17 +19,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class SignController {
     private final SignService signService;
-    private final UserRepository userRepository;
 
     @PostMapping("/sign/joinMem")
-    public ResponseEntity<UserResponseDTO> joinMem(@RequestParam("email") String email,
-                                                   @RequestParam("password") String pw,
-                                                   @RequestParam("nickname") String nickname,
-                                                   @RequestParam("phone_number") String phoneNumber,
-                                                   @RequestParam("address") String addr,
-                                                   @RequestParam("point") int point,
-                                                   @RequestParam("user_img") byte[] userImg) {
-        UserDTO userDTO = new UserDTO(email, pw, nickname, phoneNumber, addr, point, userImg);
+    public ResponseEntity<UserResponseDTO> joinMem(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(signService.joinMem(userDTO));
     }
 
