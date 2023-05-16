@@ -117,9 +117,8 @@ function Mem() {
                     goLogin();
                 }
                 else {
-                    console.log(response.data);
                     console.log('이미 존재하는 사용자 정보입니다.');
-                    alert('이미 존재하는 사용자 정보입니다.');
+                    alert('이미 존재하는 사용자 정보입니다.\n다른 이메일 또는 전화번호를 사용해주세요.');
                 }
             })
             .catch(error => {
