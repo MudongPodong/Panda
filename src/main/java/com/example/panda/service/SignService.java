@@ -33,14 +33,11 @@ public class SignService {
     public UserResponseDTO joinMem(UserDTO userDTO) {
         // UserDTO를 통해 사용자 정보를 받아 이미 회원가입 되어있는 사용자인지 확인 후 아니라면 DB에 사용자를 저장한다.
         if (userRepository.existsByEmailAndPhoneNumber(userDTO.getEmail(), userDTO.getPhoneNumber())) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다");
+            //throw new RuntimeException("이미 가입되어 있는 유저입니다");
+            return null;
         }
 
         UserEntity user = userDTO.toUser(passwordEncoder);  // 비밀번호는 인코딩을 하여 UserEntitiy를 생성하도록 한다.
-        System.out.println("password= " + user.getPassword());
-        System.out.print("password len = ");
-        System.out.print(user.getPassword().length());
-        System.out.println();
         return UserResponseDTO.of(userRepository.save(user));
     }
 

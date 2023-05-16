@@ -51,7 +51,7 @@ function Login() {
             },
         })
             .then((response) => {
-                if (response.data) {
+                if (response.data == 200) {
                     console.log('로그인 성공');
                     return true;
                 } else {

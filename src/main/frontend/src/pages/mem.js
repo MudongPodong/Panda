@@ -53,7 +53,8 @@ function Mem() {
         movePage('/pages/loginPage');
     }
 
-    const join_mem = () => {
+    const join_mem = (e) => {
+        e.preventDefault();
         if(!email_regex.test(email)){
             alert('정확한 이메일을 입력해 주세요.');
             return false;
@@ -110,18 +111,19 @@ function Mem() {
             },
         })
             .then((response)=> {
-                if(response.data) {
+                if(response.status === 200) {
                     console.log('회원가입 성공');
-                    return true;
+                    alert('회원가입 성공');
+                    goLogin();
                 }
                 else {
-                    console.log('회원가입 실패');
-                    return false;
+                    console.log(response.data);
+                    console.log('이미 존재하는 사용자 정보입니다.');
+                    alert('이미 존재하는 사용자 정보입니다.');
                 }
             })
             .catch(error => {
                 console.error(error);
-                return false;
             });
     }
 
@@ -142,16 +144,8 @@ function Mem() {
                 <input type='text' className={styles.input} placeholder='주소' name='address' onChange={changeAddr} value={addr}></input>
                 <div className={styles.error_message}></div>
                 <div className={styles.login_btn_wrap}>
-                    <button type="submit" className={styles.mem_btn_under}>회원가입</button>
-                    <button className={styles.mem_btn} onClick={() => {
-                        if(join_mem()){
-                            alert('회원가입 성공');
-                            goLogin();
-                        }
-                        else {
-                            alert('회원가입 실패');
-                        }
-                    }}><span>회원가입</span></button>
+                    <button className={styles.mem_btn_under}>회원가입</button>
+                    <button className={styles.mem_btn} onClick={join_mem}><span>회원가입</span></button>
                 </div>
             </form>
         </div>

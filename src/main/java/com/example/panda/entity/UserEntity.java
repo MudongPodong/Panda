@@ -43,7 +43,7 @@ public class UserEntity {
     @Builder.Default
     private byte[] userImg = null;  // 사용자 이미지(회원가입시 기본 이미지)
 
-    @Transient
+    //@Transient
     @Enumerated(EnumType.STRING)
     private Authority authority;    // authority는 DB에 존재하지 않음. -> enum타입으로 사용
 

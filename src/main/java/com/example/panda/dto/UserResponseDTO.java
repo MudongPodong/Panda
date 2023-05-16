@@ -17,12 +17,12 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserResponseDTO {
     private String email;
-    private String phoneNum;
+    private String nickname;
 
     public static UserResponseDTO of(UserEntity user){
         return UserResponseDTO.builder()
                 .email(user.getEmail())
-                .phoneNum(user.getPhoneNumber())
+                .nickname(user.getNickname())
                 .build();
     }
 }

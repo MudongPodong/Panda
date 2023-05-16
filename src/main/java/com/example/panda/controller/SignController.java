@@ -12,6 +12,7 @@ import com.example.panda.dto.UserDTO;
 import com.example.panda.dto.UserResponseDTO;
 import com.example.panda.service.SignService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +23,12 @@ public class SignController {
 
     @PostMapping("/sign/joinMem")
     public ResponseEntity<UserResponseDTO> joinMem(@RequestBody UserDTO userDTO) {
+        UserResponseDTO responseDTO = signService.joinMem((userDTO));
+        if(responseDTO == null){
+            return ResponseEntity.status(204).build();
+        }
         return ResponseEntity.ok(signService.joinMem(userDTO));
     }
-
     @PostMapping("/login")
     public ResponseEntity<TokenDTO> login(UserDTO userDTO) {
         return ResponseEntity.ok(signService.login(userDTO));

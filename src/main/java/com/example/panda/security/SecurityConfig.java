@@ -1,6 +1,6 @@
 // title : SecurityConfig
-// 설명 : 스프링 시큐리티 사용을 위한 SecurityConfig
-//      비밀번호 암호화를 위한 encodePwd()
+// 설명 : 스프링 시큐리티 사용을 위한 filterChain
+//      비밀번호 암호화를 위한 passwordEncoder()
 // 작성자 : 심상혁
 // 생성일 : 2023.05.16
 // 업데이트 : -
@@ -31,13 +31,13 @@ public class SecurityConfig {
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
     @Bean
-    public BCryptPasswordEncoder encodePwd() {
+    public BCryptPasswordEncoder passwordEncoder() {
         // 비밀번호 함호화를 위한 BCryptPasswordEncoder 빈
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain springSecurity(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .httpBasic().disable()  // https만 사용
                 .csrf().disable()   // 로컬스토리지에 토큰저장할거라 csrf를 disable
@@ -49,6 +49,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/pages/**", "/sign/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
+                        //.requestMatchers("").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
                         .anyRequest().authenticated());
         http
                 .formLogin()
