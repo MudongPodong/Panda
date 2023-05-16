@@ -19,21 +19,22 @@ import lombok.*;
 @Builder
 public class UserEntity {
     @Id
+    @Column(name = "email")
     private String email;
 
-    @Column(nullable = false, length = 64)
+    @Column(name = "password", nullable = false, length = 256)
     private String password;    // 비밀번호
 
     @Column(nullable = false, unique = true, length = 15, name = "phone_number")
     private String phoneNumber; // 전화번호(휴대폰)
 
-    @Column(nullable = false, length = 32)
+    @Column(name = "nickname", nullable = false, length = 32)
     private String nickname;    // 닉네임
 
-    @Column(nullable = false, length = 128)
+    @Column(nullable = false, length = 128, name = "address")
     private String address; //주소
 
-    @Column
+    @Column(name = "point")
     @Builder.Default
     private int point = 0;  // 포인트(회원가입시 0포인트)
 
@@ -42,6 +43,7 @@ public class UserEntity {
     @Builder.Default
     private byte[] userImg = null;  // 사용자 이미지(회원가입시 기본 이미지)
 
+    @Transient
     @Enumerated(EnumType.STRING)
     private Authority authority;    // authority는 DB에 존재하지 않음. -> enum타입으로 사용
 

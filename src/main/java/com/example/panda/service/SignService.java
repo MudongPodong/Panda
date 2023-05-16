@@ -37,6 +37,10 @@ public class SignService {
         }
 
         UserEntity user = userDTO.toUser(passwordEncoder);  // 비밀번호는 인코딩을 하여 UserEntitiy를 생성하도록 한다.
+        System.out.println("password= " + user.getPassword());
+        System.out.print("password len = ");
+        System.out.print(user.getPassword().length());
+        System.out.println();
         return UserResponseDTO.of(userRepository.save(user));
     }
 
