@@ -1,24 +1,25 @@
+// title : SecurityUser
+// 설명 :
+// 작성자 : 심상혁
+// 생성일 : 2023.05.16
+// 업데이트 : -
 package com.example.panda.security;
 
 import com.example.panda.entity.UserEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Getter
 @Setter
 public class SecurityUser implements UserDetails {
     private static final long serialVersionUID = 1L;
 
-    private UserEntity user; // composition
+    private UserEntity user;
 
     //일반로그인
     public SecurityUser(UserEntity user) {

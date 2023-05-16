@@ -1,3 +1,9 @@
+// title : JwtSecurityConfig
+// 설명 : TokenProvider와 JwtFilter를 SecurityConfig에 적용할때 사용하는 클래스
+//      configure() 메소드로 jwt필터를 등록한다.
+// 작성자 : 심상혁
+// 생성일 : 2023.05.16
+// 업데이트 : -
 package com.example.panda.security;
 
 import com.example.panda.jwt.JwtFilter;
@@ -8,7 +14,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-// TokenProvider와 JwtFilter를 SecurityConfig에 적용할때 사용
 @RequiredArgsConstructor
 public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
     private final TokenProvider tokenProvider;

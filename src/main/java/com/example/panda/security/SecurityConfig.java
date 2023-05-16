@@ -1,3 +1,9 @@
+// title : SecurityConfig
+// 설명 : 스프링 시큐리티 사용을 위한 SecurityConfig
+//      비밀번호 암호화를 위한 encodePwd()
+// 작성자 : 심상혁
+// 생성일 : 2023.05.16
+// 업데이트 : -
 package com.example.panda.security;
 import com.example.panda.jwt.JwtAccessDeniedHandler;
 import com.example.panda.jwt.JwtAuthenticationEntryPoint;
