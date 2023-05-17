@@ -5,6 +5,7 @@ import logo from '../imgs/logo192_192.png';
 import green_logo from '../imgs/green_logo_192_192.png';
 import Sidebar from "./sidebar";
 import Searchbar from "./searchbar";
+import axios from "axios";
 
 
 function TopNav() {
@@ -14,7 +15,27 @@ function TopNav() {
         movePage('/');
     }
     function goSearchResult(){
-        movePage('/pages/SearchResult');
+        const query='input[id=search_input]';
+        const searchElement=document.querySelector(query);
+        //const searchElement=document.getElementById('search_input');
+        const search_word=searchElement.value;
+        //console.log(search_word);
+
+        const searchdata=new FormData();
+        searchdata.append('word', search_word);
+
+        // axios.post('/api/searchResult', searchdata,{     //post방식
+        //     headers: {
+        //         'Content-Type' : 'multipart/form-data'
+        //     }
+        // }).then((response)=>{
+        //     console.log('성공');
+        // }).catch(error=>{
+        //     console.error(error);
+        // })
+
+        movePage('/pages/SearchResult', {state:{word:search_word}});
+
     }
 
     function goLogin() {
@@ -83,7 +104,7 @@ function TopNav() {
                     <li className={styles.tlist_item}>
                         <a className={styles.tlist_item_a}>
                             <form name='search' id='search_form' method='get'>
-                                <input type='text' className={`${styles.tlist_text} ${styles.search_input}`}
+                                <input type='text' id='search_input' className={`${styles.tlist_text} ${styles.search_input}`}
                                        placeholder='  검색' name='search'></input>
                             </form>
                         </a>

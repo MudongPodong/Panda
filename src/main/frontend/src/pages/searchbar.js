@@ -3,6 +3,7 @@ import logo from '../imgs/search_logo.png';
 import exit from '../imgs/close_logo.png';
 import styles from "../Css_dir/searchbar.module.css";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const Searchbar = () => {
     const [isOpenTop, setIsOpenTop] = useState(false);
@@ -28,7 +29,6 @@ const Searchbar = () => {
 
     const movePage = useNavigate();
     function goSearchResult(){
-        movePage('/pages/SearchResult');
     }
 
     return (

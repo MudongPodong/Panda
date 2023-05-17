@@ -17,6 +17,8 @@ public class WritingDTO {
     private String detail_category;
     private int count;
     private int price;
+    private String user_name;
+    private int user_point;
     private LocalDateTime regit_date;
     private UserDTO userDTO;
 
@@ -31,7 +33,10 @@ public class WritingDTO {
         writingDTO.setPrice(writingEntity.getPrice());
         writingDTO.setRegit_date(writingEntity.getRegit_date());
 
+
         writingDTO.setUserDTO(UserDTO.toUserDTO(writingEntity.getUserEntity()));
+        writingDTO.setUser_name(writingDTO.getUserDTO().getNickname());
+        writingDTO.setUser_point(writingDTO.getUserDTO().getPoint());
         return writingDTO;
     }
 

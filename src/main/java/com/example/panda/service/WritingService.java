@@ -23,4 +23,12 @@ public class WritingService {
 
         return writingDTOList;
     }
+    public List<WritingDTO> findSearch(String word){
+        List<WritingEntity> writingEntityList = writingRepository.findSearch(word);
+        List<WritingDTO> writingDTOList = new ArrayList<>();
+        for(WritingEntity writingEntity : writingEntityList) {
+            writingDTOList.add(WritingDTO.toWritingDTO(writingEntity));
+        }
+        return writingDTOList;
+    }
 }

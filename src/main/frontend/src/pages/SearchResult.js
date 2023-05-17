@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Routes,Route,Link,NavLink,useNavigate} from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import FixBar from "./FixBar";
 import styles from '../Css_dir/SearchResult.module.css'
 import axios from 'axios';
@@ -7,13 +7,22 @@ import axios from 'axios';
 
 function SearchResult() {
     const [data, setData] = useState([])
+    const location = useLocation();
+    //const userInfo = { ...location.state };
+    const userInfo = { ...location.state };
+    const listdata=new FormData();
+    listdata.append('search_word', location.search.toString().split("=").at(1));
+
     const movePage= ()=>{
         document.location.href="/pages/noticeConfirm";
     }
 
-
     useEffect(() => {
-        axios.get('/api/hello')
+        axios.post('/api/searchResult',listdata,{
+            headers: {
+                'Content-Type' : 'multipart/form-data'
+            }
+        })
             .then(response => setData(response.data))
             .catch(error => console.log(error))
     }, []);
@@ -39,10 +48,10 @@ function SearchResult() {
                         <div className={styles.resultMap} onClick={movePage}>
 
                             <img className={styles.content_picture} src="http://placekitten.com/150/150" ></img>
-                            <p> <b>김치라면{item.writing_name}</b> <br/>
-                                [판매자]: 무동포동 <br/>
+                            <p> <b>{item.writing_name}</b> <br/>
+                                [판매자]: {item.user_name} <br/>
                                 가격: {item.price}원 <br/>
-                                판매자 평점:*****</p>
+                                판매자 평점:{item.user_point}점</p>
                         </div>
                     ))}
                 </div>
