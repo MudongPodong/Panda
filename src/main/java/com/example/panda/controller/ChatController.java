@@ -41,15 +41,15 @@ public class ChatController {
         return chatList;
     }
 
-    @PostMapping("/api/sendChat")
-    public List<ChatDTO> sendChatTest(@RequestBody ChatDTO chatDTO) {
-
-        chatDTO.setChatDate(LocalDateTime.now());
-        chatService.save(chatDTO);
-        List<ChatDTO> chat = chatService.findByRoomId(chatDTO.getRoomId());
-
-        return chat;
-    }
+//    @PostMapping("/api/sendChat")
+//    public List<ChatDTO> sendChatTest(@RequestBody ChatDTO chatDTO) {
+//
+//        chatDTO.setChatDate(LocalDateTime.now());
+//        chatService.save(chatDTO);
+//        List<ChatDTO> chat = chatService.findByRoomId(chatDTO.getRoomId());
+//
+//        return chat;
+//    }
 
     @PostMapping("/api/sendChatPhoto")
     public List<ChatDTO> sendPhotoTest(@RequestParam("photo")MultipartFile photo,  @RequestParam("roomId") Long roomId,

@@ -13,12 +13,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatDTO {
+public class ChatDTO implements Serializable {
 
     private Long roomId;
     private String content;
