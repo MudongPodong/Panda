@@ -39,9 +39,9 @@ function SearchResult() {
                         <div className={styles.resultMap} onClick={movePage}>
 
                             <img className={styles.content_picture} src="http://placekitten.com/150/150" ></img>
-                            <p> <b>김치라면</b> <br/>
+                            <p> <b>김치라면{item.writing_name}</b> <br/>
                                 [판매자]: 무동포동 <br/>
-                                가격: 10,000원 <br/>
+                                가격: {item.price}원 <br/>
                                 판매자 평점:*****</p>
                         </div>
                     ))}

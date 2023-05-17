@@ -13,34 +13,25 @@ import java.time.LocalDateTime;
 public class WritingDTO {
     private int writing_Id;
     private String writing_name;
-    private byte[] photo;
-    private String writing_content;
     private String category;
     private String detail_category;
-    private Boolean is_sold;
     private int count;
-    private Boolean is_auction;
     private int price;
     private LocalDateTime regit_date;
+    private UserDTO userDTO;
 
 
     public static WritingDTO toWritingDTO(WritingEntity writingEntity) {
         WritingDTO writingDTO = new WritingDTO();
-//        writingDTO.setWriting_Id(writingEntity.getWid());
-//        writingDTO.setWriting_name(writingEntity.getWriting_name());
-//        if(writingEntity.getPhoto()!=null){
-//            writingDTO.setPhoto(writingEntity.getPhoto());
-//        }
-//
-//        writingDTO.setWriting_content(writingEntity.getWriting_content());
-//        writingDTO.setCategory(writingEntity.getCategory());
-//        writingDTO.setDetail_category(writingDTO.getDetail_category());
-//        writingDTO.setIs_sold(writingEntity.getIs_sold());
-//        writingDTO.setCount(writingEntity.getCount());
-//        writingDTO.setIs_auction(writingEntity.getIs_auction());
-//        writingDTO.setPrice(writingEntity.getPrice());
-//        writingDTO.setRegit_date(writingEntity.getRegit_date());
+        writingDTO.setWriting_Id(writingEntity.getWid());
+        writingDTO.setWriting_name(writingEntity.getWriting_name());
+        writingDTO.setCategory(writingEntity.getCategory());
+        writingDTO.setDetail_category(writingEntity.getDetail_category());
+        writingDTO.setCount(writingEntity.getCount());
+        writingDTO.setPrice(writingEntity.getPrice());
+        writingDTO.setRegit_date(writingEntity.getRegit_date());
 
+        writingDTO.setUserDTO(UserDTO.toUserDTO(writingEntity.getUserEntity()));
         return writingDTO;
     }
 

@@ -28,4 +28,8 @@ public class WritingEntity {
     private int price;
     @Column
     private LocalDateTime regit_date;
+
+    @ManyToOne
+    @JoinColumn(name="email")
+    private UserEntity userEntity;
 }
