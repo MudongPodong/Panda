@@ -70,13 +70,18 @@ function Login() {
                 alert('로그인 실패\n이메일과 비밀번호를 확인해 주세요.');
             });
     }
+    const handleOnKeyPress = e => {
+        if (e.key === 'Enter') {
+            login(e); // Enter 입력이 되면 클릭 이벤트 실행
+        }
+    };
     return (
         <>
         <div>
-            <form name='login_form' id='login_form' method='post'>
-                <input type='text' className={styles.input} placeholder='E-mail' name='email' onChange={changeEmail} value={email}></input>
+            <form name='login_form' id='login_form' method='post' onSubmit='return false;'>
+                <input type='text' className={styles.input} placeholder='E-mail' name='email' onChange={changeEmail} value={email} onKeyDown={handleOnKeyPress}></input>
                 {!email_regex.test(email) && email !== '' ? <div className={styles.error_message}>{email_error}</div>:<div className={styles.error_message}></div>}
-                <input type='password' className={styles.input} placeholder='Password : 영어, 숫자 포함 8자리 이상' name='pw' onChange={changePw} value={pw}></input>
+                <input type='password' className={styles.input} placeholder='Password : 영어, 숫자 포함 8자리 이상' name='pw' onChange={changePw} value={pw} onKeyDown={handleOnKeyPress}></input>
                 {!pw_regex.test(pw) && pw !== '' ? <div className={styles.error_message}>{pw_error}</div>:<div className={styles.error_message}></div>}
                 <div className={styles.login_btn_wrap}>
                     <button className={styles.login_btn_under}>LogIn</button>
