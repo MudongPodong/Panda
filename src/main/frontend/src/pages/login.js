@@ -79,7 +79,7 @@ function Login() {
     return (
         <>
         <div>
-            <form name='login_form' id='login_form' method='post' onSubmit='return false;'>
+            <form name='login_form' id='login_form' method='post' onSubmit={() => {return false;}}>
                 <input type='text' className={styles.input} placeholder='E-mail' name='email' onChange={changeEmail} value={email} onKeyDown={handleOnKeyPress}></input>
                 {!email_regex.test(email) && email !== '' ? <div className={styles.error_message}>{email_error}</div>:<div className={styles.error_message}></div>}
                 <input type='password' className={styles.input} placeholder='Password : 영어, 숫자 포함 8자리 이상' name='pw' onChange={changePw} value={pw} onKeyDown={handleOnKeyPress}></input>

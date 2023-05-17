@@ -7,9 +7,7 @@ import ChatList from './ChatList';
 import Painting from '../imgs/temp_painting.png';
 import Map from '../imgs/temp_map.png';
 import XButton from '../imgs/XButton.png';
-import SockJs from "sockjs-client";
-import StompJs from "stompjs";
-import dayjs from "dayjs";
+
 
 function Chat() {
     let email = "diqzk1562@naver.com";

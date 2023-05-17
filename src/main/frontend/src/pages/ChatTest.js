@@ -1,5 +1,3 @@
-import SockJS from 'sockjs-client';
-import Stomp from 'stompjs';
 import ChatList from "./ChatList";
 import axios from "axios";
 import {useEffect, useState} from "react";
