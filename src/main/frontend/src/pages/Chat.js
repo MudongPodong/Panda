@@ -7,6 +7,8 @@ import ChatList from './ChatList';
 import Painting from '../imgs/temp_painting.png';
 import Map from '../imgs/temp_map.png';
 import XButton from '../imgs/XButton.png';
+import SockJs from "sockjs-client";
+import StompJs from "stompjs";
 import dayjs from "dayjs";
 
 function Chat() {
@@ -24,6 +26,22 @@ function Chat() {
     const scrollRef = useRef();
     const [previewImage, setPreviewImage] = useState(null);
     const [fileInputKey, setFileInputKey] = useState(Date.now());
+
+    useEffect(() => {
+
+        const socket = new WebSocket('ws://localhost:8080/chat');
+
+        socket.onopen = () => {
+            console.log('웹 소켓 연결 열림');
+            // 연결이 열리면 채팅방 목록 요청
+            socket.send(email);
+
+            socket.onmessage = (event) => {
+                getChatLists(JSON.parse(event.data));
+                console.log(event.data);
+            }
+        };
+    }, []);
 
     const imageSelectClick = () => {
         imageInput.current.click();
@@ -153,12 +171,6 @@ function Chat() {
         setFileInputKey(Date.now());
     }
 
-
-    useEffect(() => {
-        loadChatList();
-    }, []);
-
-
     return (
         <div className={styles.chat_page}>
             <div className={styles.plist}>
@@ -190,6 +202,7 @@ function Chat() {
                     <img src={Painting} className={styles.painting} onClick={imageSelectClick} />
                     <img src={Map} className={styles.map}  />
                     <input type="file" ref={imageInput} className={styles.button_hidden} key={fileInputKey} onChange={handleFileChange} />
+                    {/*<button onClick={sendMessage}>제출</button>*/}
                 </div>
             </div>
         </div>

@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -23,11 +24,11 @@ public class ChatRoomEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long room_id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="buyer")
     private UserEntity buyer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="seller")
     private UserEntity seller;
 
@@ -35,5 +36,5 @@ public class ChatRoomEntity {
     private String last_content;
 
     @Column
-    private LocalDateTime last_date;
+    private Date last_date;
 }
