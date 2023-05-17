@@ -19,7 +19,6 @@ function Login() {
     const email_error = '***올바른 이메일 형식이 아닙니다.***';
     const pw_error = '***비밀번호는 영어, 숫자 포함 8자리 이상이어야 합니다.***';
     const movePage = useNavigate();
-
     function goHome(){
         movePage('/');
         window.location.reload();
@@ -52,12 +51,14 @@ function Login() {
                 "Access-Control-Allow-Origin": `http://localhost:3000`,
                 'Access-Control-Allow-Credentials':"true",
             },
-            // withCredentials: true
         })
             .then((response) => {
                 console.log(response)
                 if (response.status == 200) {
                     console.log('로그인 성공');
+                    //console.log(response.data);
+                    document.cookie=`JUSER_T=${response.data['accessToken']}`;
+                    document.cookie=`JUSER_RT=${response.data['refreshToken']}`;
                     goHome();
                 } else {
                     console.log('로그인 실패');

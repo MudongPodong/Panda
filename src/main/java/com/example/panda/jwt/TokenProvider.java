@@ -45,20 +45,20 @@ public class TokenProvider {
     }
 
     public TokenDTO generateTokenDto(Authentication authentication) {
-        log.info("generateTokenDTO");
+        //log.info("generateTokenDTO");
         // Authentication를 String으로 변환
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();  // 현재 시각
-        Date tokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME); // 만료 시각
+        Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME); // 만료 시각
 
         // builder를 이용해 토큰 생성
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
-                .setExpiration(tokenExpiresIn)
+                .setExpiration(accessTokenExpiresIn)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
         String refreshToken = Jwts.builder()
@@ -66,12 +66,12 @@ public class TokenProvider {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
         // TokenDTO에 생성한 토큰 정보를 넣어 반환
-        log.info("generateTokenDTO2");
+        log.info("generateTokenDTO");
         return TokenDTO.builder()
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)
-                .accessToken(refreshToken)
-                //.tokenExpiresIn(tokenExpiresIn.getTime())
+                .accessTokenExpiresIn(accessTokenExpiresIn.getTime())
+                .refreshToken(refreshToken)
                 .build();
     }
     public Authentication getAuthentication(String accessToken) {

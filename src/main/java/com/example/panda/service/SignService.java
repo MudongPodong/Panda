@@ -39,7 +39,6 @@ public class SignService {
             //throw new RuntimeException("이미 가입되어 있는 유저입니다");
             return null;
         }
-
         UserEntity user = userDTO.toUser(passwordEncoder);  // 비밀번호는 인코딩을 하여 UserEntitiy를 생성하도록 한다.
         return UserResponseDTO.of(userRepository.save(user));
     }

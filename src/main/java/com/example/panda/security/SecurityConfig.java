@@ -64,7 +64,8 @@ public class SecurityConfig {
                         .requestMatchers("/pages/**", "/sign/**", "/api/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
                         //.requestMatchers("").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
                         .anyRequest().authenticated());
-        http.addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
+        http.apply(new JwtSecurityConfig(tokenProvider));
         //http
                 //.formLogin()
                 //.loginPage("/pages/loginPage")
