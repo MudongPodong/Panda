@@ -30,10 +30,12 @@ public class MyPageController {
         return writingDTOList;
     }
 
-    @DeleteMapping("/api/del_item")
-    public void requestItem(@RequestBody String data)  {
+    @PostMapping("/api/del_item")
+    public void requestItem(@RequestParam("id")int id,
+                            @RequestParam("writing_name")String writing_name,
+                            @RequestParam("list")String list)  {
         //System.out.println(data);
-        String[] del_list=data.split(",");
+        String[] del_list=list.split(",");
         for(String st:del_list){
             //System.out.println(st);
             favoriteService.deleteFavorite("jhng01@naver.com",Integer.parseInt(st));

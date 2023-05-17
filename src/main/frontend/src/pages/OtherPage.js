@@ -62,22 +62,22 @@ function OtherPage() {
         listdata.append('writing_name', "1234");
         listdata.append('list', arr.join(","));
 
-        // axios.post('/api/del_item', listdata,{     //post방식
-        //     headers: {
-        //         'Content-Type' : 'multipart/form-data'
-        //     }
-        // }).then((response)=>{
-        //     console.log('성공');
-        // }).catch(error=>{
-        //     console.error(error);
-        // })
-        axios.delete('/api/del_item', {         //post방식
-            data:arr.join(",")
+        axios.post('/api/del_item', listdata,{     //post방식
+            headers: {
+                'Content-Type' : 'multipart/form-data'
+            }
         }).then((response)=>{
             console.log('성공');
         }).catch(error=>{
             console.error(error);
         })
+        // axios.delete('/api/del_item', {         //delete방식
+        //     data:arr.join(",")
+        // }).then((response)=>{
+        //     console.log('성공');
+        // }).catch(error=>{
+        //     console.error(error);
+        // })
         document.location.href="/pages/OtherPage";
     }
 
