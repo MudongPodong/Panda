@@ -15,16 +15,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatDTO implements Serializable {
+public class ChatDTO {
 
     private Long roomId;
     private String content;
     private boolean isFromBuyer;
-    private LocalDateTime chatDate;
+    private Date chatDate;
     private byte[] photo;
 
     public static ChatDTO toChatDTO(ChatEntity chatEntity) {

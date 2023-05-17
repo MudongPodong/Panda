@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -41,22 +42,22 @@ public class ChatController {
         return chatList;
     }
 
-//    @PostMapping("/api/sendChat")
-//    public List<ChatDTO> sendChatTest(@RequestBody ChatDTO chatDTO) {
-//
-//        chatDTO.setChatDate(LocalDateTime.now());
-//        chatService.save(chatDTO);
-//        List<ChatDTO> chat = chatService.findByRoomId(chatDTO.getRoomId());
-//
-//        return chat;
-//    }
+    @PostMapping("/api/sendChat")
+    public List<ChatDTO> sendChatTest(@RequestBody ChatDTO chatDTO) {
+
+        chatDTO.setChatDate(new Date());
+        chatService.save(chatDTO);
+        List<ChatDTO> chat = chatService.findByRoomId(chatDTO.getRoomId());
+
+        return chat;
+    }
 
     @PostMapping("/api/sendChatPhoto")
     public List<ChatDTO> sendPhotoTest(@RequestParam("photo")MultipartFile photo,  @RequestParam("roomId") Long roomId,
                          @RequestParam("isFromBuyer") Boolean isFromBuyer) throws IOException {
 
 
-        ChatDTO chatDTO = new ChatDTO(roomId, null, isFromBuyer, LocalDateTime.now(), photo.getBytes());
+        ChatDTO chatDTO = new ChatDTO(roomId, null, isFromBuyer, new Date(), photo.getBytes());
         chatService.save(chatDTO);
 
         List<ChatDTO> chat = chatService.findByRoomId(roomId);

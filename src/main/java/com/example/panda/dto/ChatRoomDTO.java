@@ -24,7 +24,7 @@ public class ChatRoomDTO {
     private UserDTO buyer; // 최초 보낸 사람 (구매자)
     private UserDTO seller;  // 최초 받은 사람 (판매자)
     private String lastContent; // 마지막 메시지의 내용
-    private LocalDateTime lastDate; // 마지막 메시지의 날짜
+    private Date lastDate; // 마지막 메시지의 날짜
 
 
     public static ChatRoomDTO toChatRoomDTO (ChatRoomEntity chatRoomEntity, UserDTO buyer, UserDTO seller) {

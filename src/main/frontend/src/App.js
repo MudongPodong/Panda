@@ -16,12 +16,13 @@ import LogInPage from "./pages/login_page";
 import MemPage from "./pages/joinmem_page";
 import Home from "./pages/home";
 import Notice from "./pages/noticePage";
-import NoticeRegist from "./pages/noticeRegist"
-import NoticeConfirm from "./pages/noticeConfirm"
-import NoticeModify from "./pages/noticeModify"
+import NoticeRegist from "./pages/noticeRegist";
+import NoticeConfirm from "./pages/noticeConfirm";
+import NoticeModify from "./pages/noticeModify";
 import Home_unlogin from "./pages/home_unlogin";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import TopNav from "./pages/top_navigation";
+import ChatTest from "./pages/ChatTest";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
                       <Route path="/pages/noticeRegist" exact={true} element={<NoticeRegist/>}/>
                       <Route path="/pages/noticeConfirm" exact={true} element={<NoticeConfirm/>}/>
                       <Route path="/pages/noticeModify" exact={true} element={<NoticeModify/>}/>
+                      <Route path="/pages/ChatTest" exact={true} element={<ChatTest/>}/>
                   </Routes>
               </div>
           </CSSTransition>

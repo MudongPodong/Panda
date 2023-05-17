@@ -12,19 +12,36 @@ import com.example.panda.entity.ChatRoomEntity;
 import com.example.panda.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 @Service
 @RequiredArgsConstructor
 public class ChatRoomService {
     private final ChatRoomRepository chatRoomRepository;
 
+    @Transactional
     public List<ChatRoomDTO> findByUserEmail(String email) {
         List<ChatRoomEntity> chatRoomEntityList = chatRoomRepository.findByUserEmail(email);
         List<ChatRoomDTO> chatRoomDTOList = new ArrayList<>();
 
+        for(ChatRoomEntity chatRoomEntity : chatRoomEntityList)
+            chatRoomDTOList.add(ChatRoomDTO.toChatRoomDTO(chatRoomEntity));
+
+        return chatRoomDTOList;
+    }
+
+    @Transactional
+    public List<ChatRoomDTO> findByUserEmailAsync(String email) throws ExecutionException, InterruptedException {
+        Future<List<ChatRoomEntity>> future = chatRoomRepository.findByUserEmailAsync(email);
+
+        List<ChatRoomEntity> chatRoomEntityList = future.get();
+
+        List<ChatRoomDTO> chatRoomDTOList = new ArrayList<>();
         for(ChatRoomEntity chatRoomEntity : chatRoomEntityList)
             chatRoomDTOList.add(ChatRoomDTO.toChatRoomDTO(chatRoomEntity));
 

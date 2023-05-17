@@ -7,6 +7,8 @@ import ChatList from './ChatList';
 import Painting from '../imgs/temp_painting.png';
 import Map from '../imgs/temp_map.png';
 import XButton from '../imgs/XButton.png';
+import SockJs from "sockjs-client";
+import StompJs from "stompjs";
 import dayjs from "dayjs";
 
 function Chat() {
@@ -24,6 +26,56 @@ function Chat() {
     const scrollRef = useRef();
     const [previewImage, setPreviewImage] = useState(null);
     const [fileInputKey, setFileInputKey] = useState(Date.now());
+
+    // // 웹 소켓
+    // const [stompClient, setStompClient] = useState(null);
+    //
+    // useEffect(() => {
+    //     const socket = new SockJs('/chat');
+    //     const stomp = StompJs.over(socket);
+    //
+    //     stomp.connect({}, () => {
+    //
+    //         const user = {
+    //             email : email,
+    //         };
+    //         stomp.send('/app/chatList', {}, JSON.stringify(user));
+    //         setStompClient(stomp);
+    //
+    //         stomp.subscribe('/topic/chatList/', (profile) => {
+    //             const updatedChatList = JSON.parse(profile.body);
+    //             getChatLists(updatedChatList);
+    //             console.log(updatedChatList);
+    //         });
+    //     });
+    //
+    //     return () => {
+    //         if(stompClient) {
+    //             stompClient.disconnect();
+    //         }
+    //     }
+    // }, []);
+    //
+    // const sendMessage = () => {
+    //     const message = {
+    //         roomId: 1,
+    //         isFromBuyer:true,
+    //         content: "소켓된다",
+    //         chatDate: null,
+    //         photo: null
+    //     };
+    //
+    //     // stompClient.send('/app/chat', {}, JSON.stringify(message));
+    // };
+
+    // useEffect(() => {
+    //     if(stompClient) {
+    //         stompClient.subscribe('/topic/messages', (message) => {
+    //             const receivedMessage = JSON.parse(message.body);
+    //             console.log(receivedMessage);
+    //         });
+    //     }
+    // }, [stompClient]);
 
     const imageSelectClick = () => {
         imageInput.current.click();
@@ -144,7 +196,7 @@ function Chat() {
         else {
             console.log('입력이 없습니다.');
         }
-        loadChatList();
+        // loadChatList();
     }
 
     const XButtonClick = () => {
@@ -190,6 +242,7 @@ function Chat() {
                     <img src={Painting} className={styles.painting} onClick={imageSelectClick} />
                     <img src={Map} className={styles.map}  />
                     <input type="file" ref={imageInput} className={styles.button_hidden} key={fileInputKey} onChange={handleFileChange} />
+                    {/*<button onClick={sendMessage}>제출</button>*/}
                 </div>
             </div>
         </div>

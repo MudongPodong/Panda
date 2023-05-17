@@ -61,7 +61,7 @@ public class SecurityConfig {
                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/pages/**", "/sign/**", "/api/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
+                        .requestMatchers("/pages/**", "/sign/**", "/api/**", "/chat/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
                         //.requestMatchers("").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
                         .anyRequest().authenticated());
         http.addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);

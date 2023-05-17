@@ -12,6 +12,7 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Document(collection = "Chat")
@@ -20,7 +21,7 @@ public class ChatEntity {
     private Long roomId;
     private Boolean isFromBuyer;
     private String content;
-    private LocalDateTime chatDate;
+    private Date chatDate;
     private byte[] photo;
 
     public static ChatEntity toSaveEntity(ChatDTO chatDTO) {
