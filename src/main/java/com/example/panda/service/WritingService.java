@@ -23,5 +23,4 @@ public class WritingService {
 
         return writingDTOList;
     }
-
 }
