@@ -7,17 +7,27 @@
 package com.example.panda.security;
 import com.example.panda.jwt.JwtAccessDeniedHandler;
 import com.example.panda.jwt.JwtAuthenticationEntryPoint;
+import com.example.panda.jwt.JwtFilter;
 import com.example.panda.jwt.TokenProvider;
+import com.example.panda.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -29,6 +39,7 @@ public class SecurityConfig {
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final CustomUserDetailsService userDetailsService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -40,6 +51,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .httpBasic().disable()  // https만 사용
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
                 .csrf().disable()   // 로컬스토리지에 토큰저장할거라 csrf를 disable
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // REST api사용해 세션없이 토큰 주고받으며 데이터 주고받도록 세션 stateless
                 .and()
@@ -48,25 +61,44 @@ public class SecurityConfig {
                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/pages/**", "/sign/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
+                        .requestMatchers("/pages/**", "/sign/**", "/api/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
                         //.requestMatchers("").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
                         .anyRequest().authenticated());
-        http
-                .formLogin()
-                .loginPage("/pages/loginPage")
-                .usernameParameter("email")
-                .permitAll()
-                .loginProcessingUrl("/api/login")
-                .defaultSuccessUrl("/")
-                .failureUrl("/pages/loginPage")
+        http.addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
+        //http
+                //.formLogin()
+                //.loginPage("/pages/loginPage")
+                //.usernameParameter("email")
+                //.passwordParameter("password")
+
+                //.loginProcessingUrl("/sign/login")
+                //.defaultSuccessUrl("/", true)
+
+//                .failureUrl("/pages/loginPage")
                 //failureHandler(authenticationFailureHandler())
-                .and()
-                .logout()
-                .logoutUrl("/")
-                .deleteCookies("JSESSIONID")
-                .and()
-                .apply(new JwtSecurityConfig(tokenProvider));   // JwtSecurityConfig로 tokenProvider 적용
+                //.permitAll()
+                //.and()
+                //.logout()
+                //.logoutSuccessUrl("/")
+                //.deleteCookies("JSESSIONID");
+
+                //.and()
+                //.apply(new JwtSecurityConfig(tokenProvider));   // JwtSecurityConfig로 tokenProvider 적용
+        //http.userDetailsService(userDetailsService);
         //.logoutSuccesshandler(logoutSuccessHandler());
         return http.build();
+    }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("HEAD","POST","GET","DELETE","PUT"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

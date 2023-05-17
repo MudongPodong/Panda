@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class TokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
-    private static final String BEARER_TYPE = "bearer";
+    private static final String BEARER_TYPE = "Bearer";
     private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;
     private final Key key;
 
@@ -45,6 +45,7 @@ public class TokenProvider {
     }
 
     public TokenDTO generateTokenDto(Authentication authentication) {
+        log.info("generateTokenDTO");
         // Authentication를 String으로 변환
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -60,11 +61,17 @@ public class TokenProvider {
                 .setExpiration(tokenExpiresIn)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
+        String refreshToken = Jwts.builder()
+                .setExpiration(new Date(now + 86400000))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
         // TokenDTO에 생성한 토큰 정보를 넣어 반환
+        log.info("generateTokenDTO2");
         return TokenDTO.builder()
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)
-                .tokenExpiresIn(tokenExpiresIn.getTime())
+                .accessToken(refreshToken)
+                //.tokenExpiresIn(tokenExpiresIn.getTime())
                 .build();
     }
     public Authentication getAuthentication(String accessToken) {

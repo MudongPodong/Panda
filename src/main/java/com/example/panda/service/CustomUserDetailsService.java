@@ -6,8 +6,10 @@
 // 업데이트 : -
 package com.example.panda.service;
 
+import com.example.panda.dto.UserDTO;
 import com.example.panda.entity.UserEntity;
 import com.example.panda.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,9 +19,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+
+@AllArgsConstructor
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         if(email == null || email.equals("")) {
@@ -30,7 +34,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private  UserDetails createUserDetails(UserEntity user){
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(user.getAuthority().toString());
-        return new User(String.valueOf(user.getEmail()), user.getPassword(), Collections.singleton(grantedAuthority));
+        UserDTO userDTO = UserDTO.toUserDTO(user);
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userDTO.getAuthority().toString());
+        return new User(String.valueOf(userDTO.getEmail()), userDTO.getPassword(), Collections.singleton(grantedAuthority));
     }
 }

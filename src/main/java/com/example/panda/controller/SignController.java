@@ -12,10 +12,13 @@ import com.example.panda.dto.UserDTO;
 import com.example.panda.dto.UserResponseDTO;
 import com.example.panda.service.SignService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class SignController {
@@ -31,6 +34,9 @@ public class SignController {
     }
     @PostMapping("/sign/login")
     public ResponseEntity<TokenDTO> login(@RequestBody UserDTO userDTO) {
-        return ResponseEntity.ok(signService.login(userDTO));
+        log.info("login controller start");
+        TokenDTO tokenDTO = signService.login(userDTO);
+        log.info("generateTokenDTO3");
+        return ResponseEntity.ok(tokenDTO);
     }
 }

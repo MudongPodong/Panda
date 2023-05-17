@@ -49,9 +49,13 @@ function Login() {
         axios.post('/sign/login', user, {
             headers: {
                 "Content-Type": `application/json`,
+                "Access-Control-Allow-Origin": `http://localhost:3000`,
+                'Access-Control-Allow-Credentials':"true",
             },
+            // withCredentials: true
         })
             .then((response) => {
+                console.log(response)
                 if (response.data == 200) {
                     console.log('로그인 성공');
                     goHome();

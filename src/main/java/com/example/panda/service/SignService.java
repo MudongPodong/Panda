@@ -10,10 +10,12 @@ package com.example.panda.service;
 import com.example.panda.dto.TokenDTO;
 import com.example.panda.dto.UserDTO;
 import com.example.panda.dto.UserResponseDTO;
+import com.example.panda.entity.Authority;
 import com.example.panda.entity.UserEntity;
 import com.example.panda.jwt.TokenProvider;
 import com.example.panda.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -21,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -42,14 +45,22 @@ public class SignService {
     }
 
     public TokenDTO login(UserDTO userDTO) {
+        log.info("login signService start");
+        log.info("login set role and pw encoding");
+        userDTO.setAuthority(Authority.ROLE_USER);
+        //userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        log.info("create authenticationToken");
         // toAuthentication()을 통해 UsernamePasswordAuthenticatonToken 인스턴스 생성
         UsernamePasswordAuthenticationToken authenticationToken = userDTO.toAuthentication();
+        log.info("create authentication");
         // AuthenticationManagerBuilder를 이용해 AuthenticationManager를 구현한 ProviderManager를 생성
         // ProviderManager는 데이터를 AbstractUserDetailsAuthenticationProvider 의 자식 클래스인 DaoAuthenticationProvider 를 주입받아서 호출
         // DaoAuthenticationProvider 내부에 있는 authenticate에서 retrieveUser을 통해 DB에서의 User의 비밀번호가 실제 비밀번호가 맞는지 비교
         //retrieveUser에서는 DB에서의 User를 꺼내기 위해, CustomUserDetailService에 있는 loadUserByUsername을 가져와 사용
         Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
+        //log.debug("authentication", authentication);
         // 토큰 생성하여 반환
+        log.info("login signService return");
         return tokenProvider.generateTokenDto(authentication);
     }
 }

@@ -43,10 +43,6 @@ public class UserEntity {
     @Builder.Default
     private byte[] userImg = null;  // 사용자 이미지(회원가입시 기본 이미지)
 
-    //@Transient
-    @Enumerated(EnumType.STRING)
-    private Authority authority;    // authority는 DB에 존재하지 않음. -> enum타입으로 사용
-
     public void setNickname(String nickname) {  // 닉네임 변경
         this.nickname = nickname;
     }
@@ -57,7 +53,7 @@ public class UserEntity {
 
     // 빌더를 사용해 생성자
     @Builder
-    public UserEntity(String email, String password, String phoneNumber, String nickname, String address, int point, byte[] userImg, Authority authority){
+    public UserEntity(String email, String password, String phoneNumber, String nickname, String address, int point, byte[] userImg){
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
@@ -65,6 +61,5 @@ public class UserEntity {
         this.address = address;
         this.point = point;
         this.userImg = userImg;
-        this.authority = authority;
     }
 }
