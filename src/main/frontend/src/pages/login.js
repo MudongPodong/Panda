@@ -56,7 +56,7 @@ function Login() {
         })
             .then((response) => {
                 console.log(response)
-                if (response.data == 200) {
+                if (response.status == 200) {
                     console.log('로그인 성공');
                     goHome();
                 } else {
@@ -66,6 +66,8 @@ function Login() {
             })
             .catch(error => {
                 console.error(error);
+                console.log('로그인 실패');
+                alert('로그인 실패\n이메일과 비밀번호를 확인해 주세요.');
             });
     }
     return (

@@ -44,23 +44,27 @@ public class SignService {
         return UserResponseDTO.of(userRepository.save(user));
     }
 
-    public TokenDTO login(UserDTO userDTO) {
-        log.info("login signService start");
-        log.info("login set role and pw encoding");
-        userDTO.setAuthority(Authority.ROLE_USER);
-        //userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        log.info("create authenticationToken");
-        // toAuthentication()을 통해 UsernamePasswordAuthenticatonToken 인스턴스 생성
+    @Transactional
+    public TokenDTO login(UserDTO userDTO){
+        // 1. Login ID/PW를 기반으로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken = userDTO.toAuthentication();
-        log.info("create authentication");
-        // AuthenticationManagerBuilder를 이용해 AuthenticationManager를 구현한 ProviderManager를 생성
-        // ProviderManager는 데이터를 AbstractUserDetailsAuthenticationProvider 의 자식 클래스인 DaoAuthenticationProvider 를 주입받아서 호출
-        // DaoAuthenticationProvider 내부에 있는 authenticate에서 retrieveUser을 통해 DB에서의 User의 비밀번호가 실제 비밀번호가 맞는지 비교
-        //retrieveUser에서는 DB에서의 User를 꺼내기 위해, CustomUserDetailService에 있는 loadUserByUsername을 가져와 사용
+
+        // 2. 실제로 검증(사용자 비밀번호 체크)이 이루어지는 부분
+        // authenticate(authenticationToken) method 실행 시 CustomUserDetailService - loadUserByUsername method가 실행됨
         Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
-        //log.debug("authentication", authentication);
-        // 토큰 생성하여 반환
-        log.info("login signService return");
-        return tokenProvider.generateTokenDto(authentication);
+
+        // 3. 인증 정보를 기반으로 JWT 토큰 생성
+        TokenDTO tokenDTO = tokenProvider.generateTokenDto(authentication);
+
+        // 4 .RefreshToken 저장
+//        RefreshToken refreshToken = RefreshToken.builder()
+//                .key(authentication.getName())
+//                .value(tokenDto.getRefreshToken())
+//                .build();
+//
+//        refreshTokenRepository.save(refreshToken);
+
+        // 5. 토큰 발급
+        return tokenDTO;
     }
 }
