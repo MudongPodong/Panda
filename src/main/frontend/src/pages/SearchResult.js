@@ -8,7 +8,7 @@ import axios from 'axios';
 function SearchResult() {
     const [data, setData] = useState([])
     const movePage= ()=>{
-        document.location.href="/pages/OtherPage2";
+        document.location.href="/pages/noticeConfirm";
     }
 
 
@@ -21,8 +21,7 @@ function SearchResult() {
     return (
         <div className={styles.wraper}>
             <div className={styles.wrapBox}>
-                <FixBar></FixBar>
-                <br/>
+                <br/><br/><br/><br/><br/>
                 <div className={styles.headTitle}>
                     <h1 className={styles.title}>검색 결과
                         <span>다음 검색 결과입니다..</span>
