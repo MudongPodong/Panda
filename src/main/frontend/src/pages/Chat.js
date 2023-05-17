@@ -6,6 +6,8 @@ import MessageList from './MessageList';
 import ChatList from './ChatList';
 import Painting from '../imgs/temp_painting.png';
 import Map from '../imgs/temp_map.png';
+import XButton from '../imgs/XButton.png';
+import dayjs from "dayjs";
 
 function Chat() {
     let email = "diqzk1562@naver.com";
@@ -20,18 +22,25 @@ function Chat() {
     const imageInput = useRef();
     const [selectedFile, setSelectedFile] = useState(null);
     const scrollRef = useRef();
+    const [previewImage, setPreviewImage] = useState(null);
+    const [fileInputKey, setFileInputKey] = useState(Date.now());
 
     const imageSelectClick = () => {
         imageInput.current.click();
     }
 
-    const scrollToBottom = () => {
-        scrollRef.current.scrollTop = scrollRef.current.height;
-    }
-
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         setSelectedFile(file);
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const imageUrl = reader.result;
+                setPreviewImage(imageUrl);
+                // imagePreviewRef.current.src = imageUrl;
+            };
+            reader.readAsDataURL(file);
+        }
     }
 
     const handleKeyPress= (event) => {
@@ -41,17 +50,35 @@ function Chat() {
         }
     };
 
-    const chatListClick = async (roomId, nickname, amIBuyer, clickIndex) => {
+    const loadChatList = () => {
+
+        axios.post('/api/chatList', {email: email})
+            .then((response)=> {
+                getChatLists(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    const loadChat = (roomId) => {
+        axios.post('/api/chat',
+            {roomId: roomId})
+            .then((response)=> {
+                getMessages(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    const chatListClick = (roomId, nickname, amIBuyer, clickIndex) => {
         try {
             setRoomId(roomId);
-
-            const formData = new FormData();
-            formData.append('roomId', roomId);
-            const response = await axios.post('/api/chat', formData);
-            getMessages(response.data);
             setOpId(nickname);
             setIsBuyer(amIBuyer);
             setIsClicked(clickIndex);
+            loadChat(roomId);
         } catch (error) {
             console.error(error);
         }
@@ -62,9 +89,18 @@ function Chat() {
         if(selectedFile) {
             const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
             const allowedExtensions = ['jpg', 'jpeg', 'png'];
-            const maxSize = 5 * 1024 * 1024;
+            const maxSize = 1 * 1024 * 1024;
 
-            if (allowedExtensions.includes(fileExtension) && selectedFile.size <= maxSize) {
+            if (!allowedExtensions.includes(fileExtension)) {
+                console.log('올바른 파일 형식이 아닙니다.');
+                setSelectedFile(null);
+            }
+
+            else if (selectedFile.size > maxSize) {
+                console.log('파일 크기 제한은 ' + (maxSize / (1024 * 1024)) + 'MB 입니다.');
+                setSelectedFile(null);
+            }
+            else {
                 const formData = new FormData();
                 formData.append('photo', selectedFile);
                 formData.append('roomId', currentRoomId);
@@ -72,27 +108,30 @@ function Chat() {
 
                 axios.post('/api/sendChatPhoto', formData, {
                     headers: {
-                        'Content-Type' : 'multipart/form-data'
+                        'Content-Type': 'multipart/form-data'
                     }
                 })
-                    .then((response)=> {
+                    .then((response) => {
                         getMessages(response.data);
                         console.log('파일 업로드 성공');
                     })
                     .catch(error => {
                         console.error(error);
                     });
-            } else{
-                console.log('올바른 파일 형식이 아니거나 파일 크기가 너무 큽니다.');
             }
         } else if (sendText !== '') {
-            const formData = new FormData();
-
-            formData.append('roomId', currentRoomId);
-            formData.append('isFromBuyer', isBuyer);
-            formData.append('message', sendText);
-
-            axios.post('/api/sendChat', formData)
+            const message = {
+                roomId: currentRoomId,
+                isFromBuyer:isBuyer,
+                content: sendText,
+                chatDate: null,
+                photo: null
+            }
+            axios.post('/api/sendChat', JSON.stringify(message), {
+                headers: {
+                    "Content-Type": `application/json`,
+                }
+            })
                 .then((response)=> {
                     getMessages(response.data);
                     console.log('채팅 전송 성공');
@@ -105,19 +144,20 @@ function Chat() {
         else {
             console.log('입력이 없습니다.');
         }
+        loadChatList();
     }
 
+    const XButtonClick = () => {
+        setSelectedFile(null);
+        setPreviewImage(null);
+        setFileInputKey(Date.now());
+    }
+
+
     useEffect(() => {
-        const formData = new FormData();
-        formData.append('email', email);
-        axios.post('/api/chatList', formData)
-            .then((response)=> {
-                getChatLists(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }, [handleUpload]);
+        loadChatList();
+    }, []);
+
 
     return (
         <div className={styles.chat_page}>
@@ -137,26 +177,23 @@ function Chat() {
                 <ChatList chatLists={chatLists} onClick={chatListClick} isClicked={isClicked}/>
             </div>
             <div className={styles.chat_container}>
-                <div className={styles.chat_header}>
-                    <div className={styles.chat_image}>
-                        <img src={profile} width="100%" height="100%"></img>
-                    </div>
-                    <div className={styles.chat_info}>
-                        <div className={styles.chat_name}>{op_Id}</div>
-                    </div>
-                </div>
-                <div className={styles.chat_history} >
-                    <MessageList messages={messages} setScrollRef={scrollRef}/>
-                </div>
+            <MessageList messages={messages} setScrollRef={scrollRef} op_Id={op_Id}/>
                 <div className={styles.chat_message}>
+                    <div className={`${styles.image_preview_box} ${previewImage === null ? styles.button_hidden : null}`}>
+                        <img src={XButton} width="2.5%" onClick={XButtonClick}/>
+                        <div className={styles.image_preview}>
+                            <img src={previewImage} width="100%" height="100%"/>
+                        </div>
+                    </div>
                     <textarea name={styles.send_message} placeholder="메시지를 입력하세요" value={sendText} rows="3" onChange={(event) => setSendText(event.target.value)} onKeyPress={handleKeyPress}></textarea>
                     <button onClick={handleUpload}>전송</button>
                     <img src={Painting} className={styles.painting} onClick={imageSelectClick} />
                     <img src={Map} className={styles.map}  />
-                    <input type="file" ref={imageInput} className={styles.button_hidden} onChange={handleFileChange} />
+                    <input type="file" ref={imageInput} className={styles.button_hidden} key={fileInputKey} onChange={handleFileChange} />
                 </div>
             </div>
         </div>
+
     );
 }
 

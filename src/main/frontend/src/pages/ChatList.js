@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 dayjs.locale('ko');
 
-const ChatList = ({ chatLists, onClick, isClicked}) => {
+const ChatList = ({ chatLists, onClick, isClicked }) => {
 
     let currentEmail = "diqzk1562";
 
@@ -35,8 +35,8 @@ const ChatList = ({ chatLists, onClick, isClicked}) => {
                     <li className = {`${styles.profile_list} ${index === isClicked ? styles.profile_list_clicked : null}`} key={index} onClick={() => onClick(chatList.roomId,
                         chatList.buyer.email === currentEmail ? chatList.seller.nickname : chatList.buyer.nickname,
                         chatList.buyer.email === currentEmail,
-                        index)}>
-                        <div className={styles.p_profile}>
+                        index)} >
+                        <div className={styles.p_profile} >
                             <img src={profile} width="100%" height="100%"></img>
                         </div>
                         <div className={styles.p_info}>

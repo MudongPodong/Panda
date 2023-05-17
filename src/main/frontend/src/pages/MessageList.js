@@ -1,14 +1,26 @@
 import React, {useEffect, useRef} from 'react';
 import styles from '../Css_dir/Chat.module.css'
 import dayjs from 'dayjs';
+import profile from "../imgs/profileEx.PNG";
 
-const MessageList = ({ messages }) => {
+const MessageList = ({ messages, op_Id}) => {
     const scrollRef = useRef();
     useEffect(() => {
         scrollRef.current.scrollIntoView();
     }, [messages])
 
     return (
+
+        <div>
+            <div className={styles.chat_header}>
+                <div className={styles.chat_image}>
+                    <img src={profile} width="100%" height="100%"></img>
+                </div>
+                <div className={styles.chat_info}>
+                    <div className={styles.chat_name}>{op_Id}</div>
+                </div>
+            </div>
+            <div className={styles.chat_history} >
         <ul>
             {messages.map(message => {
 
@@ -67,6 +79,8 @@ const MessageList = ({ messages }) => {
             })}
             <div ref={scrollRef}></div>
         </ul>
+            </div>
+        </div>
     );
 };
 

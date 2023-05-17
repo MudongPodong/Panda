@@ -1,7 +1,15 @@
+/*
+ * title : ChatController
+ * 설명 : 채팅 관련 요청을 다루기 위한 Controller
+ * 작성자 : 이승현
+ * 생성일 : 2023.05.17
+ * 업데이트 : -
+ */
 package com.example.panda.controller;
 
 import com.example.panda.dto.ChatDTO;
 import com.example.panda.dto.ChatRoomDTO;
+import com.example.panda.dto.UserDTO;
 import com.example.panda.service.ChatRoomService;
 import com.example.panda.service.ChatService;
 import lombok.RequiredArgsConstructor;
@@ -19,30 +27,26 @@ public class ChatController {
     private final ChatService chatService;
     private final ChatRoomService chatRoomService;
 
-    /* 채팅 테스트용 */
     @PostMapping("/api/chat")
-    public List<ChatDTO> chatTest(@RequestParam Long roomId) {
-        List<ChatDTO> chat = chatService.findByRoomId(roomId);
+    public List<ChatDTO> chatTest(@RequestBody ChatDTO chatDTO) {
+        List<ChatDTO> chat = chatService.findByRoomId(chatDTO.getRoomId());
 
         return chat;
     }
 
-    /* 채팅방 테스트용 */
     @PostMapping("/api/chatList")
-    public List<ChatRoomDTO> chatListTest(@RequestParam String email) {
-        List<ChatRoomDTO> chatList = chatRoomService.findByUserEmail(email);
+    public List<ChatRoomDTO> chatListTest(@RequestBody UserDTO userDTO) {
+        List<ChatRoomDTO> chatList = chatRoomService.findByUserEmail(userDTO.getEmail());
 
         return chatList;
     }
 
     @PostMapping("/api/sendChat")
-    public List<ChatDTO> sendChatTest(@RequestParam("message") String message, @RequestParam("roomId") Long roomId,
-                         @RequestParam("isFromBuyer") Boolean isFromBuyer) {
+    public List<ChatDTO> sendChatTest(@RequestBody ChatDTO chatDTO) {
 
-        ChatDTO chatDTO = new ChatDTO(null, null, isFromBuyer, message, LocalDateTime.now(), null);
-
-        chatService.save(chatDTO, roomId);
-        List<ChatDTO> chat = chatService.findByRoomId(roomId);
+        chatDTO.setChatDate(LocalDateTime.now());
+        chatService.save(chatDTO);
+        List<ChatDTO> chat = chatService.findByRoomId(chatDTO.getRoomId());
 
         return chat;
     }
@@ -52,8 +56,8 @@ public class ChatController {
                          @RequestParam("isFromBuyer") Boolean isFromBuyer) throws IOException {
 
 
-        ChatDTO chatDTO = new ChatDTO(null, null, isFromBuyer, null, LocalDateTime.now(), photo.getBytes());
-        chatService.save(chatDTO, roomId);
+        ChatDTO chatDTO = new ChatDTO(roomId, null, isFromBuyer, LocalDateTime.now(), photo.getBytes());
+        chatService.save(chatDTO);
 
         List<ChatDTO> chat = chatService.findByRoomId(roomId);
         return chat;

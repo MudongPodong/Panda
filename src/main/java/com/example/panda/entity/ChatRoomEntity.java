@@ -1,3 +1,11 @@
+/*
+ * title : ChatRoomEntity
+ * 설명 : 채팅방 DB의 Table에 맞는 ChatRoomEntity 클래스.
+ *        MySQL에 알맞은 형식
+ * 작성자 : 이승현
+ * 생성일 : 2023.05.17
+ * 업데이트 : -
+ */
 package com.example.panda.entity;
 
 import jakarta.persistence.*;
@@ -28,5 +36,4 @@ public class ChatRoomEntity {
 
     @Column
     private LocalDateTime last_date;
-
 }
