@@ -32,7 +32,7 @@
 
 package com.example.panda.config;
 
-import com.example.panda.controller.ChatHandler;
+import com.example.panda.controller.ChatRoomHandler;
 import com.example.panda.service.ChatRoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new ChatHandler(chatRoomService), "/chat")
+        registry.addHandler(new ChatRoomHandler(chatRoomService), "/chat")
                 .setAllowedOrigins("*");
     }
 }

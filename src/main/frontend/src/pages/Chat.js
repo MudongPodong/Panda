@@ -27,55 +27,21 @@ function Chat() {
     const [previewImage, setPreviewImage] = useState(null);
     const [fileInputKey, setFileInputKey] = useState(Date.now());
 
-    // // 웹 소켓
-    // const [stompClient, setStompClient] = useState(null);
-    //
-    // useEffect(() => {
-    //     const socket = new SockJs('/chat');
-    //     const stomp = StompJs.over(socket);
-    //
-    //     stomp.connect({}, () => {
-    //
-    //         const user = {
-    //             email : email,
-    //         };
-    //         stomp.send('/app/chatList', {}, JSON.stringify(user));
-    //         setStompClient(stomp);
-    //
-    //         stomp.subscribe('/topic/chatList/', (profile) => {
-    //             const updatedChatList = JSON.parse(profile.body);
-    //             getChatLists(updatedChatList);
-    //             console.log(updatedChatList);
-    //         });
-    //     });
-    //
-    //     return () => {
-    //         if(stompClient) {
-    //             stompClient.disconnect();
-    //         }
-    //     }
-    // }, []);
-    //
-    // const sendMessage = () => {
-    //     const message = {
-    //         roomId: 1,
-    //         isFromBuyer:true,
-    //         content: "소켓된다",
-    //         chatDate: null,
-    //         photo: null
-    //     };
-    //
-    //     // stompClient.send('/app/chat', {}, JSON.stringify(message));
-    // };
+    useEffect(() => {
 
-    // useEffect(() => {
-    //     if(stompClient) {
-    //         stompClient.subscribe('/topic/messages', (message) => {
-    //             const receivedMessage = JSON.parse(message.body);
-    //             console.log(receivedMessage);
-    //         });
-    //     }
-    // }, [stompClient]);
+        const socket = new WebSocket('ws://localhost:8080/chat');
+
+        socket.onopen = () => {
+            console.log('웹 소켓 연결 열림');
+            // 연결이 열리면 채팅방 목록 요청
+            socket.send(email);
+
+            socket.onmessage = (event) => {
+                getChatLists(JSON.parse(event.data));
+                console.log(event.data);
+            }
+        };
+    }, []);
 
     const imageSelectClick = () => {
         imageInput.current.click();
@@ -196,7 +162,7 @@ function Chat() {
         else {
             console.log('입력이 없습니다.');
         }
-        // loadChatList();
+        loadChatList();
     }
 
     const XButtonClick = () => {
@@ -204,12 +170,6 @@ function Chat() {
         setPreviewImage(null);
         setFileInputKey(Date.now());
     }
-
-
-    useEffect(() => {
-        loadChatList();
-    }, []);
-
 
     return (
         <div className={styles.chat_page}>

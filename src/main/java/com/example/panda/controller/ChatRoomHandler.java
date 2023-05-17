@@ -36,7 +36,7 @@ import java.util.concurrent.ExecutionException;
 
 @RequiredArgsConstructor
 @RestController
-public class ChatHandler extends TextWebSocketHandler {
+public class ChatRoomHandler extends TextWebSocketHandler {
     private final ChatRoomService chatRoomService;
 
     @Override
@@ -50,7 +50,6 @@ public class ChatHandler extends TextWebSocketHandler {
             TextMessage textMessage = new TextMessage(json);
             session.sendMessage(textMessage);
         }
-
     }
 
 

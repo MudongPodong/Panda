@@ -23,7 +23,6 @@ function ChatTest() {
                 console.log(event.data);
             }
         };
-
     }, []);
 
 
