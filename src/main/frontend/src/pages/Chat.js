@@ -12,8 +12,8 @@ import XButton from '../imgs/XButton.png';
 function Chat() {
     let email = "diqzk1562@naver.com";
 
-    const [messages, getMessages] = useState([]);
-    const [chatLists, getChatLists] = useState([]);
+    const [messages, setMessages] = useState([]);
+    const [chatRooms, setChatRooms] = useState([]);
     const [op_Id, setOpId] = useState([]);
     const [currentRoomId, setRoomId] = useState([]);
     const [isBuyer, setIsBuyer] = useState(false);
@@ -25,20 +25,32 @@ function Chat() {
     const [previewImage, setPreviewImage] = useState(null);
     const [fileInputKey, setFileInputKey] = useState(Date.now());
 
-    useEffect(() => {
-
+    const connectChat = () => {
         const socket = new WebSocket('ws://localhost:8080/chat');
-
         socket.onopen = () => {
-            console.log('웹 소켓 연결 열림');
-            // 연결이 열리면 채팅방 목록 요청
-            socket.send(email);
+
+            const data = {
+                email: "diqzk1562@naver.com",
+            };
+
+            console.log(data);
+            socket.send(JSON.stringify(data));
 
             socket.onmessage = (event) => {
-                getChatLists(JSON.parse(event.data));
-                console.log(event.data);
-            }
+                console.log(`chat 소켓 열림`);
+                // JSON.parse(event.data).forEach((chatRoom) => {
+                //     socket = new WebSocket(`ws://localhost:8080/chat/${chatRoom.roomId}`);
+                //     socket.onopen = () => {
+                //         console.log(`${chatRoom.roomId}번 소켓이 열렸습니다!`);
+                //     };
+                // });
+                setChatRooms(JSON.parse(event.data));
+            };
         };
+    };
+
+    useEffect(() => {
+        connectChat();
     }, []);
 
     const imageSelectClick = () => {
@@ -53,7 +65,6 @@ function Chat() {
             reader.onload = () => {
                 const imageUrl = reader.result;
                 setPreviewImage(imageUrl);
-                // imagePreviewRef.current.src = imageUrl;
             };
             reader.readAsDataURL(file);
         }
@@ -70,7 +81,7 @@ function Chat() {
 
         axios.post('/api/chatList', {email: email})
             .then((response)=> {
-                getChatLists(response.data);
+                setChatRooms(response.data);
             })
             .catch(error => {
                 console.error(error);
@@ -78,14 +89,29 @@ function Chat() {
     }
 
     const loadChat = (roomId) => {
-        axios.post('/api/chat',
-            {roomId: roomId})
-            .then((response)=> {
-                getMessages(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+
+        const data = {
+            roomId: roomId,
+        };
+
+        const room = chatRooms.find((r) => r.roomId === roomId);
+
+
+        if(!room.hasOwnProperty("socket")) {
+            room.socket = new WebSocket(`ws://localhost:8080/chat/${roomId}`);
+            room.socket.onopen = () => {
+                console.log(`${roomId}소켓 열림`);
+                room.socket.send(JSON.stringify(data));
+                room.socket.onmessage = (event) => {
+                    setMessages(JSON.parse(event.data));
+                };
+            };
+        } else {
+            room.socket.send(JSON.stringify(data));
+            room.socket.onmessage = (event) => {
+                setMessages(JSON.parse(event.data));
+            }
+        };
     }
 
     const chatListClick = (roomId, nickname, amIBuyer, clickIndex) => {
@@ -128,7 +154,7 @@ function Chat() {
                     }
                 })
                     .then((response) => {
-                        getMessages(response.data);
+                        setMessages(response.data);
                         console.log('파일 업로드 성공');
                     })
                     .catch(error => {
@@ -149,7 +175,7 @@ function Chat() {
                 }
             })
                 .then((response)=> {
-                    getMessages(response.data);
+                    setMessages(response.data);
                     console.log('채팅 전송 성공');
                 })
                 .catch(error => {
@@ -184,7 +210,7 @@ function Chat() {
                         </div>
                     </li>
                 </ul>
-                <ChatList chatLists={chatLists} onClick={chatListClick} isClicked={isClicked}/>
+                <ChatList chatLists={chatRooms} onClick={chatListClick} isClicked={isClicked} email={email}/>
             </div>
             <div className={styles.chat_container}>
             <MessageList messages={messages} setScrollRef={scrollRef} op_Id={op_Id}/>
@@ -200,7 +226,6 @@ function Chat() {
                     <img src={Painting} className={styles.painting} onClick={imageSelectClick} />
                     <img src={Map} className={styles.map}  />
                     <input type="file" ref={imageInput} className={styles.button_hidden} key={fileInputKey} onChange={handleFileChange} />
-                    {/*<button onClick={sendMessage}>제출</button>*/}
                 </div>
             </div>
         </div>

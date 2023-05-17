@@ -26,13 +26,13 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Long> 
             "ORDER BY last_date DESC", nativeQuery = true)
     List<ChatRoomEntity> findByUserEmail(@Param("email") String email);
 
-    @Async
-    @Query(value = "SELECT * FROM (" +
-            "SELECT * FROM Chat_room WHERE buyer = :email " +
-            "UNION " +
-            "SELECT * FROM Chat_room WHERE seller = :email " +
-            ") AS combined " +
-            "ORDER BY last_date DESC", nativeQuery = true)
-    Future<List<ChatRoomEntity>> findByUserEmailAsync(@Param("email") String email);
+//    @Async
+//    @Query(value = "SELECT * FROM (" +
+//            "SELECT * FROM Chat_room WHERE buyer = :email " +
+//            "UNION " +
+//            "SELECT * FROM Chat_room WHERE seller = :email " +
+//            ") AS combined " +
+//            "ORDER BY last_date DESC", nativeQuery = true)
+//    Future<List<ChatRoomEntity>> findByUserEmailAsync(@Param("email") String email);
 
 }

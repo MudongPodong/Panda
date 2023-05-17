@@ -35,17 +35,17 @@ public class ChatRoomService {
         return chatRoomDTOList;
     }
 
-    @Transactional
-    public List<ChatRoomDTO> findByUserEmailAsync(String email) throws ExecutionException, InterruptedException {
-        Future<List<ChatRoomEntity>> future = chatRoomRepository.findByUserEmailAsync(email);
-
-        List<ChatRoomEntity> chatRoomEntityList = future.get();
-
-        List<ChatRoomDTO> chatRoomDTOList = new ArrayList<>();
-        for(ChatRoomEntity chatRoomEntity : chatRoomEntityList)
-            chatRoomDTOList.add(ChatRoomDTO.toChatRoomDTO(chatRoomEntity));
-
-        return chatRoomDTOList;
-    }
+//    @Transactional
+//    public List<ChatRoomDTO> findByUserEmailAsync(String email) throws ExecutionException, InterruptedException {
+//        Future<List<ChatRoomEntity>> future = chatRoomRepository.findByUserEmailAsync(email);
+//
+//        List<ChatRoomEntity> chatRoomEntityList = future.get();
+//
+//        List<ChatRoomDTO> chatRoomDTOList = new ArrayList<>();
+//        for(ChatRoomEntity chatRoomEntity : chatRoomEntityList)
+//            chatRoomDTOList.add(ChatRoomDTO.toChatRoomDTO(chatRoomEntity));
+//
+//        return chatRoomDTOList;
+//    }
 
 }

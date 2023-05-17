@@ -10,7 +10,6 @@ const MessageList = ({ messages, op_Id}) => {
     }, [messages])
 
     return (
-
         <div>
             <div className={styles.chat_header}>
                 <div className={styles.chat_image}>
@@ -22,7 +21,7 @@ const MessageList = ({ messages, op_Id}) => {
             </div>
             <div className={styles.chat_history} >
         <ul>
-            {messages.map(message => {
+            {messages.map((message, index) => {
 
                 const date1 = dayjs(message.chatDate);
                 const date2 = dayjs(new Date());
@@ -35,7 +34,7 @@ const MessageList = ({ messages, op_Id}) => {
                     date = date1.format('A h시 m분');
 
                 return (
-                    <li key={message.messageId}>
+                    <li key={index}>
                         {
                             message.fromBuyer === false ?
                             <div>

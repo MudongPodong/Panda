@@ -25,43 +25,43 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChatController {
 
-    private final ChatService chatService;
-    private final ChatRoomService chatRoomService;
-
-    @PostMapping("/api/chat")
-    public List<ChatDTO> chatTest(@RequestBody ChatDTO chatDTO) {
-        List<ChatDTO> chat = chatService.findByRoomId(chatDTO.getRoomId());
-
-        return chat;
-    }
-
-    @PostMapping("/api/chatList")
-    public List<ChatRoomDTO> chatListTest(@RequestBody UserDTO userDTO) {
-        List<ChatRoomDTO> chatList = chatRoomService.findByUserEmail(userDTO.getEmail());
-
-        return chatList;
-    }
-
-    @PostMapping("/api/sendChat")
-    public List<ChatDTO> sendChatTest(@RequestBody ChatDTO chatDTO) {
-
-        chatDTO.setChatDate(new Date());
-        chatService.save(chatDTO);
-        List<ChatDTO> chat = chatService.findByRoomId(chatDTO.getRoomId());
-
-        return chat;
-    }
-
-    @PostMapping("/api/sendChatPhoto")
-    public List<ChatDTO> sendPhotoTest(@RequestParam("photo")MultipartFile photo,  @RequestParam("roomId") Long roomId,
-                         @RequestParam("isFromBuyer") Boolean isFromBuyer) throws IOException {
-
-
-        ChatDTO chatDTO = new ChatDTO(roomId, null, isFromBuyer, new Date(), photo.getBytes());
-        chatService.save(chatDTO);
-
-        List<ChatDTO> chat = chatService.findByRoomId(roomId);
-        return chat;
-    }
+//    private final ChatService chatService;
+//    private final ChatRoomService chatRoomService;
+//
+//    @PostMapping("/api/chat")
+//    public List<ChatDTO> chatTest(@RequestBody ChatDTO chatDTO) {
+//        List<ChatDTO> chat = chatService.findByRoomId(chatDTO.getRoomId());
+//
+//        return chat;
+//    }
+//
+//    @PostMapping("/api/chatList")
+//    public List<ChatRoomDTO> chatListTest(@RequestBody UserDTO userDTO) {
+//        List<ChatRoomDTO> chatList = chatRoomService.findByUserEmail(userDTO.getEmail());
+//
+//        return chatList;
+//    }
+//
+//    @PostMapping("/api/sendChat")
+//    public List<ChatDTO> sendChatTest(@RequestBody ChatDTO chatDTO) {
+//
+//        chatDTO.setChatDate(new Date());
+//        chatService.save(chatDTO);
+//        List<ChatDTO> chat = chatService.findByRoomId(chatDTO.getRoomId());
+//
+//        return chat;
+//    }
+//
+//    @PostMapping("/api/sendChatPhoto")
+//    public List<ChatDTO> sendPhotoTest(@RequestParam("photo")MultipartFile photo,  @RequestParam("roomId") Long roomId,
+//                         @RequestParam("isFromBuyer") Boolean isFromBuyer) throws IOException {
+//
+//
+//        ChatDTO chatDTO = new ChatDTO(roomId, null, isFromBuyer, new Date(), photo.getBytes());
+//        chatService.save(chatDTO);
+//
+//        List<ChatDTO> chat = chatService.findByRoomId(roomId);
+//        return chat;
+//    }
 
 }
