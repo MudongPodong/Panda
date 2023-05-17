@@ -13,9 +13,9 @@ public class FavoriteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int fid;
     @ManyToOne
-    @JoinColumn(name="uid")
+    @JoinColumn(name="email")
     private UserEntity userEntity;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="wid")
     private WritingEntity writingEntity;
 

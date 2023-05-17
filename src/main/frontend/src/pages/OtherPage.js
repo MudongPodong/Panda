@@ -50,13 +50,28 @@ function OtherPage() {
             arr.push(wid);
         })
 
-        axios.get('/api/del_item',{
-            params:{
-                id: 12,
-                writing_name: "1234",
-                list: arr.join(",")
+        // axios.post('/api/del_item',{
+        //     params:{
+        //         id: 12,
+        //         writing_name: "1234",
+        //         list: arr.join(",")
+        //     }
+        // })
+        const listdata=new FormData();
+        listdata.append('id', 12);
+        listdata.append('writing_name', "1234");
+        listdata.append('list', arr.join(","));
+
+        axios.post('/api/del_item', listdata,{
+            headers: {
+                'Content-Type' : 'multipart/form-data'
             }
+        }).then((response)=>{
+            console.log('성공');
+        }).catch(error=>{
+            console.error(error);
         })
+
     }
 
     useEffect(() => {    //일단 글목록 가져옴 (나중에 찜 목록 가져와야함)
@@ -99,7 +114,7 @@ function OtherPage() {
                 <CommonTable headersName={['선택/제품id','사진', '상품명', '가격', '상품등록일']}>
                     {data.map(item=>(
                         <CommonTableRow>
-                            <td className={styles.common_check_box}><input type="checkbox" onClick={getCheckCnt} style={{left:"5%"}} name="likeList" value={item.price}/>{item.writing_Id}</td>
+                            <td className={styles.common_check_box}><input type="checkbox" onClick={getCheckCnt} style={{left:"5%"}} name="likeList" value={item.price}/>{item.writing_id}</td>
                             <CommonTableColumn><img src=" http://placekitten.com/150/150" alt=""/></CommonTableColumn>
                             <CommonTableColumn>{item.writing_name}</CommonTableColumn>
                             <CommonTableColumn>{dividePriceUnit(item.price.toString())}</CommonTableColumn>
