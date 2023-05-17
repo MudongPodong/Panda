@@ -6,9 +6,15 @@ import com.example.panda.dto.WritingDTO;
 import com.example.panda.service.FavoriteService;
 import com.example.panda.service.UserService;
 import com.example.panda.service.WritingService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,25 +27,17 @@ public class MyPageController {
     @GetMapping("/api/writings")
     public List<WritingDTO> test(){
         List<WritingDTO> writingDTOList = writingService.findAll();
-        //for(WritingDTO writingDTO : writingDTOList)
-        //    System.out.println(writingDTO.getWriting_content());
-
         return writingDTOList;
     }
 
-    @PostMapping("/api/del_item")
-    public void requestItem(@RequestParam("id") Integer id,
-                            @RequestParam("writing_name") String writing_name,
-                            @RequestParam("list") String list){
-        System.out.println(id);
-        System.out.println(writing_name);
-        System.out.println(list);
-        String[] del_list=list.split(",");
+    @DeleteMapping("/api/del_item")
+    public void requestItem(@RequestBody String data)  {
+        //System.out.println(data);
+        String[] del_list=data.split(",");
         for(String st:del_list){
             //System.out.println(st);
             favoriteService.deleteFavorite("jhng01@naver.com",Integer.parseInt(st));
         }
-        //favoriteService.deleteFavorite("jhng01@naver.com",);
     }
 
     @GetMapping("/api/list_totalPrice")   //프론트 내부에서 전체 리스트 계산 합 못 구함(정적 데이터만 계산 가능함)

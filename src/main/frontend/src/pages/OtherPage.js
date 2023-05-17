@@ -15,7 +15,7 @@ function OtherPage() {
     const [price,setPrice]=useState(0);
 
     const movePage= ()=>{
-        document.location.href="/pages/OtherPage2";
+        document.location.href="/pages/OtherPage";
     }
 
     const getCheckCnt=()=>{
@@ -62,16 +62,23 @@ function OtherPage() {
         listdata.append('writing_name', "1234");
         listdata.append('list', arr.join(","));
 
-        axios.post('/api/del_item', listdata,{
-            headers: {
-                'Content-Type' : 'multipart/form-data'
-            }
+        // axios.post('/api/del_item', listdata,{     //post방식
+        //     headers: {
+        //         'Content-Type' : 'multipart/form-data'
+        //     }
+        // }).then((response)=>{
+        //     console.log('성공');
+        // }).catch(error=>{
+        //     console.error(error);
+        // })
+        axios.delete('/api/del_item', {         //post방식
+            data:arr.join(",")
         }).then((response)=>{
             console.log('성공');
         }).catch(error=>{
             console.error(error);
         })
-
+        document.location.href="/pages/OtherPage";
     }
 
     useEffect(() => {    //일단 글목록 가져옴 (나중에 찜 목록 가져와야함)
@@ -126,6 +133,8 @@ function OtherPage() {
 
                 <br/><br/><br/>
                 <button className={styles.changePage} onClick={ Btn_del }>선택 삭제</button>
+                <br/><br/><br/>
+                <button className={styles.changePage} onClick={ movePage }>테스트</button>
                 <br/><br/><br/>
             </div>
 
