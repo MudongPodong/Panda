@@ -204,9 +204,9 @@ function Chat() {
                             <img src={profile} width="100%" height="100%"></img>
                         </div>
                         <div className={styles.p_info}>
-                            <div className={styles.p_name}>나</div>
-                            <div className={styles.p_time}></div>
-                            <div className={styles.p_last_message}></div>
+                            <div className={`${styles.p_name} ${styles.whitesmoke_color}`}>나</div>
+                            <div className={`${styles.p_time} ${styles.whitesmoke_color}`}></div>
+                            <div className={`${styles.p_last_message} ${styles.whitesmoke_color}`}/>
                         </div>
                     </li>
                 </ul>

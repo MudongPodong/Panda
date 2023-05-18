@@ -18,7 +18,7 @@ body::-webkit-scrollbar {
     width:300px;
     height:100%;
     overflow-y:scroll;
-    background:#111111;
+    background:black;
     margin-top:71px;
 }
 
@@ -27,8 +27,8 @@ body::-webkit-scrollbar {
     overflow:auto;
     margin-left:-40px;
     padding: 15px 15px;
-    border-bottom: 1px solid gray;
-    background:#111111;
+    border-bottom: 1px solid #111111;
+    background:black;
 }
 
 .plist::-webkit-scrollbar {
@@ -46,7 +46,7 @@ body::-webkit-scrollbar {
     overflow:auto;
     margin-left:-40px;
     padding: 15px 15px;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid #111111;
 }
 
 .profile_list:hover {
@@ -54,7 +54,7 @@ body::-webkit-scrollbar {
 }
 
 .profile_list_clicked {
-    background:#222222;
+    background:whitesmoke;
 }
 
 .chat_history ul{
@@ -67,6 +67,14 @@ body::-webkit-scrollbar {
 
 .chat_history::-webkit-scrollbar-thumb {
     background-color:black;
+}
+
+.black_color {
+    color:black;
+}
+
+.whitesmoke_color {
+    color:whitesmoke;
 }
 
 .p_profile, .chat_image {
@@ -95,19 +103,16 @@ body::-webkit-scrollbar {
     overflow:hidden;
     font-family:"NanumGothicOTF";
     font-weight: bold;
-    color: white;
 }
 
 .p_time {
     text-align:right;
     font-family:"NanumGothicOTF";
-    color: white;
 }
 
 .p_last_message {
     float:left;
     font-family:"NanumSquare";
-    color: white;
     margin-top:5px;
 }
 
@@ -265,8 +270,9 @@ body::-webkit-scrollbar {
     bottom:0;
     width:650px;
     padding:30px;
-    background:#111111;
+    background:whitesmoke;
     height:120px;
+    border-top:1px solid black;
 }
 
 .chat_message textarea {
@@ -275,23 +281,23 @@ body::-webkit-scrollbar {
     padding: 12.5px 20px;
     font-family: "NanumGothicOTF";
     font-size:16px;
-    color:black;
+    color:whitesmoke;
     margin-bottom: 5px;
     border-radius: 5px;
     resize: none;
-    background: whitesmoke;
+    background: black;
     overflow:auto;
 }
 
 .chat_message button {
     float: right;
-    color: black;
+    color: whitesmoke;
     font-size: 20px;
     font-family: "NanumGothicOTF";
     border: none;
     cursor: pointer;
     font-weight: bold;
-    background: whitesmoke;
+    background: black;
     padding:28px 15px;
     border-radius: 8%;
 }
