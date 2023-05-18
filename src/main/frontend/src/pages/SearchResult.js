@@ -13,7 +13,9 @@ function SearchResult() {
     const listdata=new FormData();
     listdata.append('search_word', location.search.toString().split("=").at(1));
 
-    const movePage= ()=>{
+    const movePage= (event)=>{
+        const divId = event.target.id;
+        console.log(divId);
         document.location.href="/pages/noticeConfirm";
     }
 
@@ -44,16 +46,23 @@ function SearchResult() {
                 </div>
                 <br/>
                 <div className={styles.container}>
-                    {data.map(item=>(
-                        <div className={styles.resultMap} onClick={movePage}>
-
-                            <img className={styles.content_picture} src="http://placekitten.com/150/150" ></img>
-                            <p> <b>{item.writing_name}</b> <br/>
-                                [판매자]: {item.user_name} <br/>
-                                가격: {item.price}원 <br/>
-                                판매자 평점:{item.user_point}점</p>
+                    {data.length === 0 ? (
+                        <p style={{ fontSize: '25px' }}>받아온 데이터가 없습니다.</p>
+                    ):(
+                        <div>
+                            {data.map(item=>(
+                                <div className={styles.resultMap} onClick={movePage} id={item.writing_Id}>
+                                    <img className={styles.content_picture} src="http://placekitten.com/150/150" ></img>
+                                    <p> <b>{item.writing_name}</b> <br/>
+                                        [판매자]: {item.user_name} <br/>
+                                        가격: {item.price}원 <br/>
+                                        판매자 평점:{item.user_point} {item.writing_Id}점</p>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    )
+
+                    }
                 </div>
                 <br/><br/>
                 <hr/>
