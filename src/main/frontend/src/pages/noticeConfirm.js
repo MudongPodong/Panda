@@ -1,12 +1,18 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import styles from "../Css_dir/notice.module.css";
+import axios from "axios";
 
 function NoticeConfirm()
 {
     const movePage = useNavigate();
     const location=useLocation();
     const writingInfo = { ...location.state };
+    const listdata=new FormData();
+    const [favoriteCNT, setCount] = useState(0)  //해당 게시글에 찜등록한 사람 수
+    const [favoriteFlag, setFlag] = useState(0)  //해당 게시글에 찜등록했는지 안했는지 검사
+    listdata.append('wid', writingInfo.word);  //이전 페이지에서 받아온 글id
+
     function gonoticepage()
     {
         movePage('/pages/noticePage');
@@ -16,6 +22,33 @@ function NoticeConfirm()
     {
         movePage('/pages/noticeModify');
     }
+    const Btn_register=()=>{    //찜등록하는 동작
+
+        const favorite_regit=new FormData();
+
+        favorite_regit.append('wid', writingInfo.word);
+        favorite_regit.append('email', "jhng01@naver.com"); //추후에 로그인 정보받아와서 넣어줘야함
+
+        axios.post('/api/favorite_register', favorite_regit,{     //post방식
+            headers: {
+                'Content-Type' : 'multipart/form-data'
+            }
+        }).then(response => setFlag(response.data))
+            .catch(error=>{
+            console.error(error);
+        })
+        console.log(favoriteFlag);
+    }
+
+    useEffect(() => {
+        axios.post('/api/favorite_writing',listdata,{  //해당 게시글을 찜등록한 사람의 수를 카운팅해서 가져옴
+            headers: {
+                'Content-Type' : 'multipart/form-data'
+            }
+        })
+            .then(response => setCount(response.data))
+            .catch(error => console.log(error))
+    }, []);
 
     return(
         <div>
@@ -28,12 +61,13 @@ function NoticeConfirm()
             <div className={styles.board_view_wrap}>
                 <div className={styles.board_view}>
                     <div className={styles.title}>
-                        <div>글 제목이 들어갑니다.&nbsp;&nbsp; <span className={styles.favorite_count}>찜:{location.search.toString().split("=").at(1)}회</span></div>
-                        <button className={styles.favorite_btn}>찜등록</button>
+                        <div>글 제목이 들어갑니다.&nbsp;&nbsp; <span className={styles.favorite_count}>찜:{favoriteCNT}회</span></div>
+                        <button className={styles.favorite_btn} onClick={Btn_register}>찜등록</button>
                     </div>
                     <div className={styles.info}>
                         <dl>
                             <dt>번호</dt>
+                            {/*{location.search.toString().split("=").at(1)}*/}
                             <dd>{writingInfo.word}</dd>
                         </dl>
                         <dl>
