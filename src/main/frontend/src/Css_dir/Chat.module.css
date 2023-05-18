@@ -18,7 +18,7 @@ body::-webkit-scrollbar {
     width:300px;
     height:100%;
     overflow-y:scroll;
-    background:black;
+    background:#111111;
     margin-top:71px;
 }
 
@@ -28,7 +28,7 @@ body::-webkit-scrollbar {
     margin-left:-40px;
     padding: 15px 15px;
     border-bottom: 1px solid gray;
-    background:black;
+    background:#111111;
 }
 
 .plist::-webkit-scrollbar {
@@ -215,8 +215,8 @@ body::-webkit-scrollbar {
 }
 
 .op_message:after {
-    bottom: 20px;
-    left: -23px;
+    bottom: 15px;
+    left: -22px;
     border: solid transparent;
     content: " ";
     height: 0;
@@ -247,7 +247,7 @@ body::-webkit-scrollbar {
 }
 
 .my_message:after {
-    bottom: 35%;
+    bottom: 25%;
     left: 100%;
     border: solid transparent;
     content: " ";
@@ -265,7 +265,7 @@ body::-webkit-scrollbar {
     bottom:0;
     width:650px;
     padding:30px;
-    background:black;
+    background:#111111;
     height:120px;
 }
 
