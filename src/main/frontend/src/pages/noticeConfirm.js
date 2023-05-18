@@ -27,7 +27,6 @@ function NoticeConfirm()
         const favorite_regit=new FormData();
 
         favorite_regit.append('wid', writingInfo.word);
-        favorite_regit.append('email', "jhng01@naver.com"); //추후에 로그인 정보받아와서 넣어줘야함
 
         axios.post('/api/favorite_register', favorite_regit,{     //post방식
             headers: {
@@ -37,7 +36,6 @@ function NoticeConfirm()
             .catch(error=>{
             console.error(error);
         })
-        console.log(favoriteFlag);
     }
 
     useEffect(() => {

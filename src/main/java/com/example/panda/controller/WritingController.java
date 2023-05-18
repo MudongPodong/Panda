@@ -1,9 +1,9 @@
 package com.example.panda.controller;
 
 import com.example.panda.dto.WritingDTO;
-import com.example.panda.entity.WritingContent;
+
 import com.example.panda.entity.WritingEntity;
-import com.example.panda.service.WritingContentService;
+
 import com.example.panda.service.WritingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

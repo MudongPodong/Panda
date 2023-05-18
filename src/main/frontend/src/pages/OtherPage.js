@@ -13,9 +13,14 @@ import axios from 'axios';
 function OtherPage() {
     const [data, setData] = useState([]);
     const [price,setPrice]=useState(0);
+    const navigate = useNavigate();
 
-    const movePage= ()=>{
-        document.location.href="/pages/OtherPage";
+    const movePage= (event)=>{
+        const getId=event.currentTarget.id
+        navigate('/pages/noticeConfirm?search='+getId, {state:{
+                word:getId
+            }});
+        //document.location.href="/pages/OtherPage";
     }
 
     const getCheckCnt=()=>{
@@ -122,10 +127,10 @@ function OtherPage() {
                     {data.map(item=>(
                         <CommonTableRow>
                             <td className={styles.common_check_box}><input type="checkbox" onClick={getCheckCnt} style={{left:"5%"}} name="likeList" value={item.price}/>{item.writing_id}</td>
-                            <CommonTableColumn><img src=" http://placekitten.com/150/150" alt=""/></CommonTableColumn>
-                            <CommonTableColumn>{item.writing_name}</CommonTableColumn>
-                            <CommonTableColumn>{dividePriceUnit(item.price.toString())}</CommonTableColumn>
-                            <CommonTableColumn>{item.regit_date}</CommonTableColumn>
+                            <td className={styles.common_check_box} onClick={movePage} id={item.writing_id}><img src=" http://placekitten.com/150/150" alt=""/></td>
+                            <td className={styles.common_check_box} onClick={movePage} id={item.writing_id}>{item.writing_name}</td>
+                            <td className={styles.common_check_box} onClick={movePage} id={item.writing_id}><label name="price">{dividePriceUnit(item.price.toString())}</label></td>
+                            <td className={styles.common_check_box} onClick={movePage} id={item.writing_id}>{item.regit_date}</td>
                         </CommonTableRow>
                     ))}
                 </CommonTable>

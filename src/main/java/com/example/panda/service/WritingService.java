@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class WritingService {
-    @Autowired
+//    @Autowired
     private final WritingRepository writingRepository;
 
     public void write(WritingEntity we)

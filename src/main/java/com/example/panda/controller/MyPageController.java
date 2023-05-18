@@ -8,9 +8,13 @@ import com.example.panda.service.UserService;
 import com.example.panda.service.WritingService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -32,30 +36,37 @@ public class MyPageController {
 
     @PostMapping("/api/del_item")
     public void requestItem(@RequestParam("id")int id,
-                            @RequestParam("writing_name")String writing_name,
+                            @RequestParam("writing_name")String writing_name,           //찜 삭제
                             @RequestParam("list")String list)  {
-        //System.out.println(data);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         String[] del_list=list.split(",");
         for(String st:del_list){
-            //System.out.println(st);
-            favoriteService.deleteFavorite("jhng01@naver.com",Integer.parseInt(st));
+            favoriteService.deleteFavorite(userDetails.getUsername(),Integer.parseInt(st));
         }
     }
 
     @GetMapping("/api/list_totalPrice")   //프론트 내부에서 전체 리스트 계산 합 못 구함(정적 데이터만 계산 가능함)
     public int totalPrice(){
-        List<FavoriteDTO> favoriteDTOList = favoriteService.findByEmail("jhng01@naver.com");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        List<FavoriteDTO> favoriteDTOList = favoriteService.findByEmail(userDetails.getUsername());
         int sum=0;
         for(FavoriteDTO favoriteDTO : favoriteDTOList) sum+=favoriteDTO.getPrice();
 
         return sum;
     }
 
-    @GetMapping("/api/favoriteList")   //찜 목록 가져오기(매개변수에 @RequestParam으로 세션값 받아와야함)
+    @GetMapping("/api/favoriteList")   //찜 목록 조회(매개변수에 @RequestParam으로 세션값 받아와야함)
     public List<FavoriteDTO> favoriteList(){
         List<WritingDTO> writingDTOList=new ArrayList<>();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
 
-        List<FavoriteDTO> favoriteDTOList=favoriteService.findByEmail("jhng01@naver.com");
+        List<FavoriteDTO> favoriteDTOList=favoriteService.findByEmail(userDetails.getUsername());
+
+        //System.out.println(userDetails.getUsername());
 
         return favoriteDTOList;
     }
@@ -70,9 +81,10 @@ public class MyPageController {
         return count;
     }
     @PostMapping("/api/favorite_register")
-    public int favoriteRegit(@RequestParam("wid") int wid,
-                              @RequestParam("email") String email){        //찜 등록
-        return favoriteService.save(email,wid);
+    public int favoriteRegit(@RequestParam("wid") int wid){        //찜 등록
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        return favoriteService.save(userDetails.getUsername(),wid);
     }
 
 }
