@@ -48,10 +48,10 @@ public class SignController {
 //        return "/";
 //    }
     @GetMapping("/login")
-    public String login2(Model model) {
+    public HttpStatus login2(Model model) {
         log.info("login controller start");
         model.addAttribute("user", new UserRequestDTO());
 
-        return "login";
+        return HttpStatus.OK;
     }
 }
