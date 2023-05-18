@@ -9,6 +9,7 @@ package com.example.panda.controller;
 
 import com.example.panda.dto.TokenDTO;
 import com.example.panda.dto.UserDTO;
+import com.example.panda.dto.UserRequestDTO;
 import com.example.panda.dto.UserResponseDTO;
 import com.example.panda.service.SignService;
 import lombok.RequiredArgsConstructor;
@@ -32,11 +33,25 @@ public class SignController {
         }
         return ResponseEntity.ok(signService.joinMem(userDTO));
     }
-    @PostMapping("/sign/login")
-    public ResponseEntity<TokenDTO> login(@RequestBody UserDTO userDTO) {
+//    @PostMapping("/sign/login")
+//    public ResponseEntity<TokenDTO> login(@RequestBody UserDTO userDTO) {
+//        log.info("login controller start");
+//        TokenDTO tokenDTO = signService.login(userDTO);
+//        log.info("generateTokenDTO3");
+//        return ResponseEntity.ok(tokenDTO);
+//    }
+//    @GetMapping("/sign/login")
+//    public String login(Model model) {
+//        log.info("login controller start");
+//        model.addAttribute("user", new UserRequestDTO());
+//
+//        return "/";
+//    }
+    @GetMapping("/login")
+    public String login2(Model model) {
         log.info("login controller start");
-        TokenDTO tokenDTO = signService.login(userDTO);
-        log.info("generateTokenDTO3");
-        return ResponseEntity.ok(tokenDTO);
+        model.addAttribute("user", new UserRequestDTO());
+
+        return "login";
     }
 }

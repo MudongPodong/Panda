@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -54,39 +55,22 @@ public class SecurityConfig {
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
                 .csrf().disable()   // 로컬스토리지에 토큰저장할거라 csrf를 disable
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // REST api사용해 세션없이 토큰 주고받으며 데이터 주고받도록 세션 stateless
-                .and()
-                .exceptionHandling()    // 예외 처리
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
-                .and()
+                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // REST api사용해 세션없이 토큰 주고받으며 데이터 주고받도록 세션 stateless
+                //.and()
+                //.exceptionHandling()    // 예외 처리
+                //.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                //.accessDeniedHandler(jwtAccessDeniedHandler)
+                //.and()
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/pages/**", "/sign/**", "/api/**", "/chat/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
-                        //.requestMatchers("").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
+                        //.requestMatchers("/", "http://localhost:3000/**", "http://localhost:3000/pages/**", "http://localhost:3000/sign/**", "http://localhost:3000/api/**", "http://localhost:3000/chat/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
+                        .requestMatchers("/login", "http://localhost:3000/", "http://localhost:3000/pages/loginPage", "http://localhost:3000/pages/joinMemPage").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
+                        //.requestMatchers("http://localhost:3000/pages/joinMemPage").hasAuthority("USER")
                         .anyRequest().authenticated());
-        //http.addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
-        http.apply(new JwtSecurityConfig(tokenProvider));
-        //http
-                //.formLogin()
-                //.loginPage("/pages/loginPage")
-                //.usernameParameter("email")
-                //.passwordParameter("password")
-
-                //.loginProcessingUrl("/sign/login")
-                //.defaultSuccessUrl("/", true)
-
-//                .failureUrl("/pages/loginPage")
-                //failureHandler(authenticationFailureHandler())
-                //.permitAll()
-                //.and()
-                //.logout()
-                //.logoutSuccessUrl("/")
-                //.deleteCookies("JSESSIONID");
-
-                //.and()
-                //.apply(new JwtSecurityConfig(tokenProvider));   // JwtSecurityConfig로 tokenProvider 적용
-        //http.userDetailsService(userDetailsService);
-        //.logoutSuccesshandler(logoutSuccessHandler());
+        //http.apply(new JwtSecurityConfig(tokenProvider));   // JwtSecurityConfig로 tokenProvider 적용
+        http.formLogin().loginPage("http://localhost:3000/pages/loginPage").usernameParameter("email").passwordParameter("password");
+        http.formLogin().loginProcessingUrl("/login").defaultSuccessUrl("http://localhost:3000/",true);
+        http.logout().logoutSuccessUrl("http://localhost:3000/").deleteCookies("JSESSIONID");
+        http.userDetailsService(userDetailsService);
         return http.build();
     }
     @Bean
