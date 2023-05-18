@@ -58,16 +58,15 @@ function Login() {
             .then((response) => {
                 if (response.status == 200) {
                     console.log('로그인 성공');
-                    alert('로그인');
-                    //goHome();
+                    //alert('로그인');
+                    goHome();
                 } else {
                     console.log('로그인 실패');
-                    alert('로그인 실패\n이메일과 비밀번호를 확인해 주세요.');
                 }
             })
             .catch(error => {
                 console.error(error);
-                console.log('로그인 실패');
+                console.log('로그인 실패1');
                 alert('로그인 실패\n이메일과 비밀번호를 확인해 주세요.');
             });
         // axios.post('/sign/login', user, {
