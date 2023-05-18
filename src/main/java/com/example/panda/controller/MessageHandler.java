@@ -13,6 +13,7 @@ import com.example.panda.service.ChatService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -20,6 +21,8 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,27 +34,39 @@ public class MessageHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
-
+        session.setBinaryMessageSizeLimit(1024*1024);
+        session.setTextMessageSizeLimit(1024*1024);
     }
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
         String receivedMessage = message.getPayload();
         ObjectMapper objectMapper = new ObjectMapper();
-        ChatRoomDTO chatRoomDTO = objectMapper.readValue(receivedMessage, ChatRoomDTO.class);
+        ChatDTO chatDTO = objectMapper.readValue(receivedMessage, ChatDTO.class);
 
-        List<ChatDTO> chatDTOList = chatService.findByRoomId(chatRoomDTO.getRoomId());
+        if(chatDTO.getPhoto() != null || chatDTO.getContent() != null) {
+            chatDTO.setChatDate(new Date());
+            chatService.save(chatDTO);
 
-        if(session.isOpen()) {
-            String json = objectMapper.writeValueAsString(chatDTOList);
-            TextMessage textMessage = new TextMessage(json);
-            session.sendMessage(textMessage);
+            if (session.isOpen()) {
+                String json = objectMapper.writeValueAsString(chatDTO);
+                TextMessage textMessage = new TextMessage(json);
+                session.sendMessage(textMessage);
+            }
+        } else {
+            List<ChatDTO> chatDTOList = chatService.findByRoomId(chatDTO.getRoomId());
+
+            if (session.isOpen()) {
+                String json = objectMapper.writeValueAsString(chatDTOList);
+                TextMessage textMessage = new TextMessage(json);
+                session.sendMessage(textMessage);
+            }
         }
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status){
-        System.out.println("세션제거");
+        System.out.println("세션 닫힘");
     }
 
 }

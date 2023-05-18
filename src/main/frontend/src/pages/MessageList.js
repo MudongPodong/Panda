@@ -5,6 +5,7 @@ import profile from "../imgs/profileEx.PNG";
 
 const MessageList = ({ messages, op_Id}) => {
     const scrollRef = useRef();
+
     useEffect(() => {
         scrollRef.current.scrollIntoView();
     }, [messages])
@@ -50,7 +51,7 @@ const MessageList = ({ messages, op_Id}) => {
                                         </div>
                                         :
                                         <div className={`${styles.message_img} ${styles.align_right}`}>
-                                            <img src={`data:image/png;base64,${message.photo}`} alt="이미지" />
+                                            <img src={message.photo} alt="이미지" />
                                         </div>
                                 }
                             </div>
@@ -68,7 +69,7 @@ const MessageList = ({ messages, op_Id}) => {
                                         </div>
                                         :
                                         <div className={`${styles.message_img} ${styles.align_left}`}>
-                                            <img src={`data:image/png;base64,${message.photo}`} alt="이미지" />
+                                            <img src={message.photo} alt="이미지" />
                                         </div>
                                 }
                             </div>

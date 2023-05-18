@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Date;
 
 @Data
@@ -26,7 +27,7 @@ public class ChatDTO {
     private String content;
     private boolean isFromBuyer;
     private Date chatDate;
-    private byte[] photo;
+    private String photo = null;
 
     public static ChatDTO toChatDTO(ChatEntity chatEntity) {
         ChatDTO chatDTO = new ChatDTO();
@@ -34,8 +35,9 @@ public class ChatDTO {
         chatDTO.setContent(chatEntity.getContent());
         chatDTO.setFromBuyer(chatEntity.getIsFromBuyer());
         chatDTO.setChatDate(chatEntity.getChatDate());
-        chatDTO.setPhoto(chatEntity.getPhoto());
-
+        if(chatEntity.getPhoto() != null) {
+            chatDTO.setPhoto(new String(chatEntity.getPhoto()));
+        }
         return chatDTO;
     }
 }

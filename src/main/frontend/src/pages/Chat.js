@@ -60,9 +60,29 @@ function Chat() {
         imageInput.current.click();
     }
 
+    const [encodeFile, setEncodeFile] = useState(null);
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         setSelectedFile(file);
+
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        const allowedExtensions = ['jpg', 'jpeg', 'png'];
+        const maxSize = 1 * 1024 * 1024;
+
+        if (!allowedExtensions.includes(fileExtension)) {
+            console.log('올바른 파일 형식이 아닙니다.');
+            setSelectedFile(null);
+            setPreviewImage(null);
+            return;
+        }
+
+        else if (file.size > maxSize) {
+            console.log('파일 크기 제한은 ' + (maxSize / (1024 * 1024)) + 'MB 입니다.');
+            setSelectedFile(null);
+            setPreviewImage(null);
+            return;
+        }
+
         if(file) {
             const reader = new FileReader();
             reader.onload = () => {
@@ -131,69 +151,43 @@ function Chat() {
     };
 
     const handleUpload = () => {
+        if(sendText === '' && !selectedFile) return;
+
+        let room = socketMap.get(currentRoomId);
+        let message;
+
         if(selectedFile) {
-            const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
-            const allowedExtensions = ['jpg', 'jpeg', 'png'];
-            const maxSize = 1 * 1024 * 1024;
-
-            if (!allowedExtensions.includes(fileExtension)) {
-                console.log('올바른 파일 형식이 아닙니다.');
-                setSelectedFile(null);
-            }
-
-            else if (selectedFile.size > maxSize) {
-                console.log('파일 크기 제한은 ' + (maxSize / (1024 * 1024)) + 'MB 입니다.');
-                setSelectedFile(null);
-            }
-            else {
-
-                const formData = new FormData();
-                formData.append('photo', selectedFile);
-                formData.append('roomId', currentRoomId);
-                formData.append('isFromBuyer', isBuyer);
-
-                axios.post('/api/sendChatPhoto', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
-                    .then((response) => {
-                        setMessages(response.data);
-                        console.log('파일 업로드 성공');
-                    })
-                    .catch(error => {
-                        console.error(error);
-                    });
-            }
-        } else if (sendText !== '') {
-            const message = {
+            message = {
                 roomId: currentRoomId,
-                isFromBuyer:isBuyer,
+                fromBuyer:isBuyer,
+                content: null,
+                chatDate: null,
+                photo: previewImage
+            };
+        } else {
+            message = {
+                roomId: currentRoomId,
+                fromBuyer:isBuyer,
                 content: sendText,
                 chatDate: null,
                 photo: null
             }
-            let room = socketMap.get(currentRoomId);
-            
-            // axios.post('/api/sendChat', JSON.stringify(message), {
-            //     headers: {
-            //         "Content-Type": `application/json`,
-            //     }
-            // })
-            //     .then((response)=> {
-            //         setMessages(response.data);
-            //         console.log('채팅 전송 성공');
-            //     })
-            //     .catch(error => {
-            //         console.error(error);
-            //     });
-            setSendText('');
         }
-        else {
-            console.log('입력이 없습니다.');
+
+        room.send(JSON.stringify(message));
+        room.onmessage = (event) => {
+            let data = JSON.parse(event.data);
+           setMessages([...messages, data]);
+
+            let updatedRooms = chatRooms.map(chatRoom =>
+                chatRoom.roomId === currentRoomId ? {...chatRoom, lastContent: data.photo != null ? "" : data.content, lastDate: data.chatDate } : chatRoom
+            );
+            setChatRooms(updatedRooms);
         }
-        loadChatList();
-    }
+        setPreviewImage(null);
+        setSelectedFile(null);
+        setSendText('');
+    };
 
     const XButtonClick = () => {
         setSelectedFile(null);
@@ -221,7 +215,7 @@ function Chat() {
 
             {currentRoomId != null ?
                 <div className={styles.chat_container}>
-                    <MessageList messages={messages} setScrollRef={scrollRef} op_Id={op_Id}/>
+                    <MessageList messages={messages} op_Id={op_Id}/>
                     <div className={styles.chat_message}>
                         <div className={`${styles.image_preview_box} ${previewImage === null ? styles.button_hidden : null}`}>
                             <img src={XButton} width="2.5%" onClick={XButtonClick}/>
