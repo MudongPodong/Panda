@@ -12,10 +12,15 @@ import com.example.panda.dto.UserDTO;
 import com.example.panda.dto.UserRequestDTO;
 import com.example.panda.dto.UserResponseDTO;
 import com.example.panda.service.SignService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +32,7 @@ public class SignController {
 
     @PostMapping("/sign/joinMem")
     public ResponseEntity<UserResponseDTO> joinMem(@RequestBody UserDTO userDTO) {
+        log.info("joinMem controller start");
         UserResponseDTO responseDTO = signService.joinMem((userDTO));
         if(responseDTO == null){
             return ResponseEntity.status(204).build();
@@ -48,10 +54,22 @@ public class SignController {
 //        return "/";
 //    }
     @GetMapping("/login")
-    public HttpStatus login2(Model model) {
+    public HttpStatus login() {
         log.info("login controller start");
-        model.addAttribute("user", new UserRequestDTO());
+        return HttpStatus.OK;
+    }
+    @PostMapping("/check")
+    public boolean loginCheck() {
+        log.info("loginCheck controller start");
+        return signService.isAuthenticated();
+    }
 
+    @GetMapping("/logout")
+    public HttpStatus logout(HttpServletRequest request, HttpServletResponse response){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
         return HttpStatus.OK;
     }
 }

@@ -113,7 +113,7 @@ function Mem() {
             .then((response)=> {
                 if(response.status === 200) {
                     console.log('회원가입 성공');
-                    //alert('회원가입 성공');
+                    alert('회원가입 성공');
                     goLogin();
                 }
                 else {

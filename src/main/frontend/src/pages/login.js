@@ -59,14 +59,17 @@ function Login() {
                 if (response.status == 200) {
                     console.log('로그인 성공');
                     //alert('로그인');
+                    document.cookie="isLogin=true; path=/;"
                     goHome();
                 } else {
                     console.log('로그인 실패');
+                    document.cookie="isLogin=false; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;"
                 }
             })
             .catch(error => {
                 console.error(error);
                 console.log('로그인 실패');
+                document.cookie="isLogin=false; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;"
                 alert('로그인 실패\n이메일과 비밀번호를 확인해 주세요.');
             });
         // axios.post('/sign/login', user, {

@@ -40,10 +40,27 @@ function TopNav() {
         movePage('/pages/loginPage');
     }
     function logout(){
-        document.cookie = "name=login; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
-        alert('로그아웃 되었습니다.');
-        movePage('/');
-        window.location.reload();
+        //document.cookie = "JSESSIONID=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
+        axios.get('/logout')
+            .then((response)=> {
+                if(response.status === 200) {
+                    console.log('로그아웃 성공');
+                    document.cookie = "isLogin=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
+                    alert('로그아웃 되었습니다.');
+                    movePage('/');
+                    window.location.reload();
+                }
+                else {
+                    console.log('로그아웃 실패');
+                    alert('로그아웃 실패');
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                console.log('로그아웃 실패');
+                alert('로그아웃 실패');
+            });
+        //alert('로그아웃 되었습니다.');
     }
 
     function goNotice()
@@ -119,9 +136,9 @@ function TopNav() {
                             <span className={styles.tlist_text}>판매등록</span>
                         </a>
                     </li>
-                    <li className={styles.tlist_item} onClick={document.cookie.match('(^|;) ?' + 'name' + '=([^;]*)(;|$)') ? logout:goLogin}>
+                    <li className={styles.tlist_item} onClick={document.cookie.match('isLogin' + '=([^;]*)(;|$)') ? logout:goLogin}>
                         <a className={styles.tlist_item_a}>
-                            <span className={styles.tlist_text}>{(document.cookie.match('(^|;) ?' + 'name' + '=([^;]*)(;|$)') ? 'LogOut' : 'LogIn')}</span>
+                            <span className={styles.tlist_text}>{(document.cookie.match('isLogin' + '=([^;]*)(;|$)')? 'LogOut' : 'LogIn')}</span>
                         </a>
                     </li>
                     <li className={styles.tlist_item} onClick={goMypage}>
