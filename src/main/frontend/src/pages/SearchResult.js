@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 import FixBar from "./FixBar";
 import styles from '../Css_dir/SearchResult.module.css'
 import axios from 'axios';
@@ -8,15 +8,23 @@ import axios from 'axios';
 function SearchResult() {
     const [data, setData] = useState([])
     const location = useLocation();
+    const navigate = useNavigate();
+
     //const userInfo = { ...location.state };
     const userInfo = { ...location.state };
     const listdata=new FormData();
     listdata.append('search_word', location.search.toString().split("=").at(1));
 
-    const movePage= (event)=>{
-        const divId = event.target.id;
-        console.log(divId);
-        document.location.href="/pages/noticeConfirm";
+    const movePage= (event)=>{       //일단 아이디만 받아서 넘겨서 게시물 상세 페이지에서 백엔드로 데베 불어오는게 나을듯(WritingConten 테이블이랑, Writing 테이블 개체 다불러야함)
+
+        let getId=event.currentTarget.id
+        // const elements=event.currentTarget.querySelectorAll('div');
+        // elements.forEach(function (element){
+        //
+        // });
+        navigate('/pages/noticeConfirm?search='+getId, {state:{
+            word:getId
+            }});
     }
 
     useEffect(() => {
@@ -52,11 +60,15 @@ function SearchResult() {
                         <div>
                             {data.map(item=>(
                                 <div className={styles.resultMap} onClick={movePage} id={item.writing_Id}>
-                                    <img className={styles.content_picture} src="http://placekitten.com/150/150" ></img>
-                                    <p> <b>{item.writing_name}</b> <br/>
-                                        [판매자]: {item.user_name} <br/>
-                                        가격: {item.price}원 <br/>
-                                        판매자 평점:{item.user_point} {item.writing_Id}점</p>
+                                    <img className={styles.content_picture} src="http://placekitten.com/150/150"></img>
+                                    {/*<p> <b>{item.writing_name}</b> <br/>*/}
+                                    {/*    [판매자]: {item.user_name} <br/>*/}
+                                    {/*    가격: {item.price}원 <br/>*/}
+                                    {/*    판매자 평점:{item.user_point}점</p>*/}
+                                    <div> <b>{item.writing_name}</b></div>
+                                    <div>  [판매자]: {item.user_name} </div>
+                                    <div>    가격: {item.price} </div>
+                                    <div>    판매자 평점:{item.user_point}</div>
                                 </div>
                             ))}
                         </div>

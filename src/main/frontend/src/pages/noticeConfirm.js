@@ -1,10 +1,12 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import styles from "../Css_dir/notice.module.css";
 
 function NoticeConfirm()
 {
     const movePage = useNavigate();
+    const location=useLocation();
+    const writingInfo = { ...location.state };
     function gonoticepage()
     {
         movePage('/pages/noticePage');
@@ -26,13 +28,13 @@ function NoticeConfirm()
             <div className={styles.board_view_wrap}>
                 <div className={styles.board_view}>
                     <div className={styles.title}>
-                        <div>글 제목이 들어갑니다.&nbsp;&nbsp; <span className={styles.favorite_count}>찜: 회</span></div>
+                        <div>글 제목이 들어갑니다.&nbsp;&nbsp; <span className={styles.favorite_count}>찜:{location.search.toString().split("=").at(1)}회</span></div>
                         <button className={styles.favorite_btn}>찜등록</button>
                     </div>
                     <div className={styles.info}>
                         <dl>
                             <dt>번호</dt>
-                            <dd>1</dd>
+                            <dd>{writingInfo.word}</dd>
                         </dl>
                         <dl>
                             <dt>글쓴이</dt>
