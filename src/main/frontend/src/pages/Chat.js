@@ -5,7 +5,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import MessageList from './MessageList';
 import ChatList from './ChatList';
 import Painting from '../imgs/temp_painting.png';
-import Map from '../imgs/temp_map.png';
+import guidance from '../imgs/temp_map.png';
 import XButton from '../imgs/XButton.png';
 
 
@@ -15,7 +15,7 @@ function Chat() {
     const [messages, setMessages] = useState([]);
     const [chatRooms, setChatRooms] = useState([]);
     const [op_Id, setOpId] = useState([]);
-    const [currentRoomId, setRoomId] = useState([]);
+    const [currentRoomId, setRoomId] = useState(null);
     const [isBuyer, setIsBuyer] = useState(false);
     const [isClicked, setIsClicked] = useState(null);
     const [sendText, setSendText] = useState('');
@@ -25,28 +25,31 @@ function Chat() {
     const [previewImage, setPreviewImage] = useState(null);
     const [fileInputKey, setFileInputKey] = useState(Date.now());
 
+    const [chatSocket, setChatSocket] = useState(null);
+    const [socketMap, setSocketMap] = useState(new Map());
+
     const connectChat = () => {
         const socket = new WebSocket('ws://localhost:8080/chat');
-        socket.onopen = () => {
-
-            const data = {
-                email: "diqzk1562@naver.com",
-            };
-
-            console.log(data);
-            socket.send(JSON.stringify(data));
-
-            socket.onmessage = (event) => {
+            socket.onopen = () => {
                 console.log(`chat 소켓 열림`);
-                // JSON.parse(event.data).forEach((chatRoom) => {
-                //     socket = new WebSocket(`ws://localhost:8080/chat/${chatRoom.roomId}`);
-                //     socket.onopen = () => {
-                //         console.log(`${chatRoom.roomId}번 소켓이 열렸습니다!`);
-                //     };
-                // });
-                setChatRooms(JSON.parse(event.data));
+                setChatSocket(socket);
+                const data = {
+                    email: "diqzk1562@naver.com",
+                };
+
+                console.log(data);
+                socket.send(JSON.stringify(data));
+
+                socket.onmessage = (event) => {
+                    // JSON.parse(event.data).forEach((chatRoom) => {
+                    //     socket = new WebSocket(`ws://localhost:8080/chat/${chatRoom.roomId}`);
+                    //     socket.onopen = () => {
+                    //         console.log(`${chatRoom.roomId}번 소켓이 열렸습니다!`);
+                    //     };
+                    // });
+                    setChatRooms(JSON.parse(event.data));
+                };
             };
-        };
     };
 
     useEffect(() => {
@@ -94,25 +97,26 @@ function Chat() {
             roomId: roomId,
         };
 
-        const room = chatRooms.find((r) => r.roomId === roomId);
+        let room = socketMap.get(roomId);
 
+        if(room == null) {
+            room = new WebSocket(`ws://localhost:8080/chat/${roomId}`);
+            socketMap.set(roomId, room);
 
-        if(!room.hasOwnProperty("socket")) {
-            room.socket = new WebSocket(`ws://localhost:8080/chat/${roomId}`);
-            room.socket.onopen = () => {
+            room.onopen = () => {
                 console.log(`${roomId}소켓 열림`);
-                room.socket.send(JSON.stringify(data));
-                room.socket.onmessage = (event) => {
+                room.send(JSON.stringify(data));
+                room.onmessage = (event) => {
                     setMessages(JSON.parse(event.data));
                 };
             };
         } else {
-            room.socket.send(JSON.stringify(data));
-            room.socket.onmessage = (event) => {
+            room.send(JSON.stringify(data));
+            room.onmessage = (event) => {
                 setMessages(JSON.parse(event.data));
             }
-        };
-    }
+        }
+    };
 
     const chatListClick = (roomId, nickname, amIBuyer, clickIndex) => {
         try {
@@ -127,7 +131,6 @@ function Chat() {
     };
 
     const handleUpload = () => {
-
         if(selectedFile) {
             const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
             const allowedExtensions = ['jpg', 'jpeg', 'png'];
@@ -143,6 +146,7 @@ function Chat() {
                 setSelectedFile(null);
             }
             else {
+
                 const formData = new FormData();
                 formData.append('photo', selectedFile);
                 formData.append('roomId', currentRoomId);
@@ -169,18 +173,20 @@ function Chat() {
                 chatDate: null,
                 photo: null
             }
-            axios.post('/api/sendChat', JSON.stringify(message), {
-                headers: {
-                    "Content-Type": `application/json`,
-                }
-            })
-                .then((response)=> {
-                    setMessages(response.data);
-                    console.log('채팅 전송 성공');
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+            let room = socketMap.get(currentRoomId);
+            
+            // axios.post('/api/sendChat', JSON.stringify(message), {
+            //     headers: {
+            //         "Content-Type": `application/json`,
+            //     }
+            // })
+            //     .then((response)=> {
+            //         setMessages(response.data);
+            //         console.log('채팅 전송 성공');
+            //     })
+            //     .catch(error => {
+            //         console.error(error);
+            //     });
             setSendText('');
         }
         else {
@@ -212,24 +218,34 @@ function Chat() {
                 </ul>
                 <ChatList chatLists={chatRooms} onClick={chatListClick} isClicked={isClicked} email={email}/>
             </div>
-            <div className={styles.chat_container}>
-            <MessageList messages={messages} setScrollRef={scrollRef} op_Id={op_Id}/>
-                <div className={styles.chat_message}>
-                    <div className={`${styles.image_preview_box} ${previewImage === null ? styles.button_hidden : null}`}>
-                        <img src={XButton} width="2.5%" onClick={XButtonClick}/>
-                        <div className={styles.image_preview}>
-                            <img src={previewImage} width="100%" height="100%"/>
-                        </div>
-                    </div>
-                    <textarea name={styles.send_message} placeholder="메시지를 입력하세요" value={sendText} rows="3" onChange={(event) => setSendText(event.target.value)} onKeyPress={handleKeyPress}></textarea>
-                    <button onClick={handleUpload}>전송</button>
-                    <img src={Painting} className={styles.painting} onClick={imageSelectClick} />
-                    <img src={Map} className={styles.map}  />
-                    <input type="file" ref={imageInput} className={styles.button_hidden} key={fileInputKey} onChange={handleFileChange} />
-                </div>
-            </div>
-        </div>
 
+            {currentRoomId != null ?
+                <div className={styles.chat_container}>
+                    <MessageList messages={messages} setScrollRef={scrollRef} op_Id={op_Id}/>
+                    <div className={styles.chat_message}>
+                        <div className={`${styles.image_preview_box} ${previewImage === null ? styles.button_hidden : null}`}>
+                            <img src={XButton} width="2.5%" onClick={XButtonClick}/>
+                            <div className={styles.image_preview}>
+                                <img src={previewImage} width="100%" height="100%"/>
+                            </div>
+                        </div>
+                    <textarea name={styles.send_message} placeholder="메시지를 입력하세요."rows="3" value={sendText} onChange={(event) => setSendText(event.target.value)} onKeyPress={handleKeyPress}></textarea>
+                    <button onClick={handleUpload}>전송</button>
+                        <img src={Painting} className={styles.painting} onClick={imageSelectClick} />
+                        <img src={guidance} className={styles.map}  />
+                        <input type="file" ref={imageInput} className={styles.button_hidden} key={fileInputKey} onChange={handleFileChange} />
+                    </div>
+                </div>
+                :
+                <div className={styles.chat_container}>
+                    <div className={styles.chat_header} />
+                    <div className={styles.chat_history}>
+                        <div className={styles.no_room_selected}>채팅 방을 클릭해주세요.</div>
+                    </div>
+                    <div className={styles.chat_message} />
+                </div>
+            }
+                </div>
     );
 }
 
