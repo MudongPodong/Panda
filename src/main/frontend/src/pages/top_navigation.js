@@ -17,14 +17,9 @@ function TopNav() {
     function goSearchResult(){
         const query='input[id=search_input]';
         const searchElement=document.querySelector(query);
-        //const searchElement=document.getElementById('search_input');
         const search_word=searchElement.value;
-        //console.log(search_word);
 
-        const searchdata=new FormData();
-        searchdata.append('word', search_word);
-
-        // axios.post('/api/searchResult', searchdata,{     //post방식
+        // axios.post('/api/searchResult', searchdata,{     post방식
         //     headers: {
         //         'Content-Type' : 'multipart/form-data'
         //     }
@@ -34,8 +29,11 @@ function TopNav() {
         //     console.error(error);
         // })
 
-        movePage('/pages/SearchResult', {state:{word:search_word}});
-
+        if(searchElement.value.length >=2){
+            const searchdata=new FormData();
+            searchdata.append('word', search_word);
+            movePage('/pages/SearchResult', {state:{word:search_word}});
+        }
     }
 
     function goLogin() {
@@ -104,11 +102,11 @@ function TopNav() {
                     <li className={styles.tlist_item}>
                         <a className={styles.tlist_item_a}>
                             <form name='search' id='search_form' method='get'>
-                                <input type='text' id='search_input' className={`${styles.tlist_text} ${styles.search_input}`}
-                                       placeholder='  검색' name='search'></input>
+                                <input type='text' minLength="2" id='search_input' className={`${styles.tlist_text} ${styles.search_input}`}
+                                       placeholder='  검색' name='search' required></input>
                             </form>
                         </a>
-                        <button type='submit' form='search_form'
+                        <button type='submit' form='search_form' id='search_btn'
                                 className={`${styles.tlist_text} ${styles.search_input_btn}`} onClick={goSearchResult}></button>
                         <Searchbar></Searchbar>
                     </li>

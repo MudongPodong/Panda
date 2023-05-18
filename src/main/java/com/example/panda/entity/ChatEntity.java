@@ -12,6 +12,7 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Date;
 
 @Data
@@ -22,7 +23,7 @@ public class ChatEntity {
     private Boolean isFromBuyer;
     private String content;
     private Date chatDate;
-    private byte[] photo;
+    private byte[] photo = null;
 
     public static ChatEntity toSaveEntity(ChatDTO chatDTO) {
         ChatEntity chatEntity = new ChatEntity();
@@ -30,8 +31,9 @@ public class ChatEntity {
         chatEntity.setContent(chatDTO.getContent());
         chatEntity.setIsFromBuyer(chatDTO.isFromBuyer());
         chatEntity.setChatDate(chatDTO.getChatDate());
-        chatEntity.setPhoto(chatDTO.getPhoto());
-
+        if(chatDTO.getPhoto() != null) {
+            chatEntity.setPhoto(chatDTO.getPhoto().getBytes());
+        }
         return chatEntity;
     }
 }

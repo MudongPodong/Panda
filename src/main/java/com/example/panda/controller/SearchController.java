@@ -16,8 +16,7 @@ public class SearchController {
     public List<WritingDTO> searching(@RequestParam("search_word") String word){
         List<WritingDTO> writingDTOList = writingService.findSearch("%"+java.net.URLDecoder.decode(word, StandardCharsets.UTF_8)+"%");
 
-        System.out.println("으악"+"%"+java.net.URLDecoder.decode(word, StandardCharsets.UTF_8)+"%");
-
+        //System.out.println("으악"+"%"+java.net.URLDecoder.decode(word, StandardCharsets.UTF_8)+"%");
         return writingDTOList;
     }
 }

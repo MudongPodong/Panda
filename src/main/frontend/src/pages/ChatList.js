@@ -40,16 +40,16 @@ const ChatList = ({ chatLists, onClick, isClicked, email}) => {
                         <div className={styles.p_info}>
                             {
                                 chatList.buyer.email === email ?
-                                    <div className={styles.p_name}>
+                                    <div className={`${index === isClicked ? styles.black_color : styles.whitesmoke_color} ${styles.p_name}`}>
                                         {chatList.seller.nickname}
                                     </div>
                                     :
-                                    <div className={styles.p_name}>
+                                    <div className={`${index===isClicked ? styles.black_color : styles.whitesmoke_color } ${styles.p_name}`}>
                                         {chatList.buyer.nickname}
                                     </div>
                             }
-                            <div className={styles.p_time}>{diff}</div>
-                            <div className={styles.p_last_message}>{chatList.lastContent}</div>
+                            <div className={`${index===isClicked ? styles.black_color : styles.whitesmoke_color } ${styles.p_time}`}>{diff}</div>
+                            <div className={`${index===isClicked ? styles.black_color : styles.whitesmoke_color} ${styles.p_last_message}`}>{chatList.lastContent}</div>
                         </div>
                     </li> )
             })}

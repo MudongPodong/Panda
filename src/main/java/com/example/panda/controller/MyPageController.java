@@ -44,9 +44,9 @@ public class MyPageController {
 
     @GetMapping("/api/list_totalPrice")   //프론트 내부에서 전체 리스트 계산 합 못 구함(정적 데이터만 계산 가능함)
     public int totalPrice(){
-        List<WritingDTO> writingDTOList = writingService.findAll();
+        List<FavoriteDTO> favoriteDTOList = favoriteService.findByEmail("jhng01@naver.com");
         int sum=0;
-        for(WritingDTO writingDTO : writingDTOList) sum+=writingDTO.getPrice();
+        for(FavoriteDTO favoriteDTO : favoriteDTOList) sum+=favoriteDTO.getPrice();
 
         return sum;
     }
@@ -59,4 +59,20 @@ public class MyPageController {
 
         return favoriteDTOList;
     }
+    @PostMapping("/api/favorite_writing")
+    public int favoriteWriting(@RequestParam("wid") int wid){  //해당 게시글 찜 등록한 사람 수 리턴
+        List<WritingDTO> writingDTOList=new ArrayList<>();
+
+        List<FavoriteDTO> favoriteDTOList=favoriteService.findByWid(wid);   //나중에 글아이디 넣기
+        int count=favoriteDTOList.size();
+        System.out.println("받아온 글id:"+wid+"개수:"+count);
+
+        return count;
+    }
+    @PostMapping("/api/favorite_register")
+    public int favoriteRegit(@RequestParam("wid") int wid,
+                              @RequestParam("email") String email){        //찜 등록
+        return favoriteService.save(email,wid);
+    }
+
 }

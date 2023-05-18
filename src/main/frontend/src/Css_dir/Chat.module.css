@@ -18,7 +18,7 @@ body::-webkit-scrollbar {
     width:300px;
     height:100%;
     overflow-y:scroll;
-    background:#303030;
+    background:black;
     margin-top:71px;
 }
 
@@ -27,8 +27,8 @@ body::-webkit-scrollbar {
     overflow:auto;
     margin-left:-40px;
     padding: 15px 15px;
-    border-bottom: 1px solid black;
-    background:#202020;
+    border-bottom: 1px solid #111111;
+    background:black;
 }
 
 .plist::-webkit-scrollbar {
@@ -46,7 +46,7 @@ body::-webkit-scrollbar {
     overflow:auto;
     margin-left:-40px;
     padding: 15px 15px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #111111;
 }
 
 .profile_list:hover {
@@ -54,7 +54,7 @@ body::-webkit-scrollbar {
 }
 
 .profile_list_clicked {
-    background:#101010;
+    background:whitesmoke;
 }
 
 .chat_history ul{
@@ -66,10 +66,15 @@ body::-webkit-scrollbar {
 }
 
 .chat_history::-webkit-scrollbar-thumb {
-    background-color:#303030;
+    background-color:black;
 }
-.chat_history::-webkit-scrollbar-track {
-    background-color:#1c1e1e;
+
+.black_color {
+    color:black;
+}
+
+.whitesmoke_color {
+    color:whitesmoke;
 }
 
 .p_profile, .chat_image {
@@ -96,21 +101,19 @@ body::-webkit-scrollbar {
 .p_name{
     float:left;
     overflow:hidden;
-    font-family:"NanumGothic";
+    font-family:"NanumGothicOTF";
     font-weight: bold;
-    color: whitesmoke;
 }
 
 .p_time {
     text-align:right;
-    font-family:"NanumGothic";
-    color: whitesmoke;
+    font-family:"NanumGothicOTF";
 }
 
 .p_last_message {
     float:left;
-    font-family:"NanumGothic";
-    color: whitesmoke;
+    font-family:"NanumSquare";
+    margin-top:5px;
 }
 
 .chat_container {
@@ -130,10 +133,10 @@ body::-webkit-scrollbar {
 .chat_name{
     line-height: 45px;
     float:left;
-    font-family:"NanumSquare";
+    font-family:"NanumGothicOTF";
     font-weight: bold;
     overflow:hidden;
-    color: white;
+    color: black;
 }
 
 .float_left {
@@ -159,23 +162,23 @@ body::-webkit-scrollbar {
 
 .chat_header {
     width:650px;
-    /*margin-top:0px;*/
     padding: 15px 29.5px;
-    background: #202020;
+    background: whitesmoke;
     height:50px;
     position: fixed;
     z-index: 21;
-    border-left: 1px solid black;
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
 }
 
 .chat_history {
     position:fixed;
     top:151px;
-    bottom:150px;
+    bottom:180px;
     width:650px;
     padding: 10px 30px 20px;
     overflow-y: scroll;
-    background:#1C1E1E;
+    background:whitesmoke;
 }
 
 .message_img > img {
@@ -201,7 +204,7 @@ body::-webkit-scrollbar {
 }
 
 .op_message {
-    background: #3F3F3F;
+    background: black;
     color: white;
     padding: 18px 20px;
     line-height: 26px;
@@ -217,21 +220,21 @@ body::-webkit-scrollbar {
 }
 
 .op_message:after {
-    bottom: 20px;
-    left: -23px;
+    bottom: 15px;
+    left: -22px;
     border: solid transparent;
     content: " ";
     height: 0;
     width: 0;
     position: absolute;
     pointer-events: none;
-    border-bottom-color: #3F3F3F;
+    border-bottom-color: black;
     border-width: 10px;
     transform:rotate(270deg) scale(2);
 }
 
 .my_message {
-    background: #A15234;
+    background: forestgreen;
     color: white;
     padding: 18px 20px;
     line-height: 26px;
@@ -249,7 +252,7 @@ body::-webkit-scrollbar {
 }
 
 .my_message:after {
-    bottom: 35%;
+    bottom: 25%;
     left: 100%;
     border: solid transparent;
     content: " ";
@@ -257,7 +260,7 @@ body::-webkit-scrollbar {
     width: 0;
     position: absolute;
     pointer-events: none;
-    border-bottom-color: #A15234;
+    border-bottom-color: forestgreen;
     border-width: 10px;
     transform:rotate(90deg) scale(1.5);
 }
@@ -267,38 +270,39 @@ body::-webkit-scrollbar {
     bottom:0;
     width:650px;
     padding:30px;
-    background:#202020;
+    background:whitesmoke;
     height:120px;
+    border-top:1px solid black;
 }
 
-.chat_message > textarea {
+.chat_message textarea {
     width: 80%;
     border: none;
-    padding: 10px 20px;
-    font-family: "NanumGothic";
+    padding: 12.5px 20px;
+    font-family: "NanumGothicOTF";
     font-size:16px;
-    color:white;
+    color:whitesmoke;
     margin-bottom: 5px;
     border-radius: 5px;
     resize: none;
-    background: #3F3F3F;
+    background: black;
     overflow:auto;
 }
 
-.chat_message > button {
+.chat_message button {
     float: right;
-    color: white;
+    color: whitesmoke;
     font-size: 20px;
-    font-family: "NanumGothic";
+    font-family: "NanumGothicOTF";
     border: none;
     cursor: pointer;
     font-weight: bold;
-    background: #3F3F3F;
+    background: black;
     padding:28px 15px;
     border-radius: 8%;
 }
 
-.chat_message > button:active {
+.chat_message button:active {
     color: gray;
 }
 
@@ -352,4 +356,13 @@ body::-webkit-scrollbar {
     z-index:5;
     width:300px;
     height:150px;
+}
+
+.no_room_selected {
+    color:black;
+    font-family:NanumGothicOTF;
+    font-weight: bold;
+    line-height: 500px;
+    text-align: center;
+    font-size:25px;
 }
