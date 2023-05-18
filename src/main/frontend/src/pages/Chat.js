@@ -8,7 +8,6 @@ import Painting from '../imgs/temp_painting.png';
 import guidance from '../imgs/temp_map.png';
 import XButton from '../imgs/XButton.png';
 
-
 function Chat() {
     let email = "diqzk1562@naver.com";
 
@@ -21,13 +20,16 @@ function Chat() {
     const [sendText, setSendText] = useState('');
     const imageInput = useRef();
     const [selectedFile, setSelectedFile] = useState(null);
-    const scrollRef = useRef();
     const [previewImage, setPreviewImage] = useState(null);
     const [fileInputKey, setFileInputKey] = useState(Date.now());
+
+    const [isBigger, setIsBigger] = useState(false);
+    const [isNotFormal, setIsNotFormal] = useState(false);
 
     const [chatSocket, setChatSocket] = useState(null);
     const [socketMap, setSocketMap] = useState(new Map());
 
+    const maxSize = 1 * 1024 * 1024;
     const connectChat = () => {
         const socket = new WebSocket('ws://localhost:8080/chat');
             socket.onopen = () => {
@@ -41,12 +43,6 @@ function Chat() {
                 socket.send(JSON.stringify(data));
 
                 socket.onmessage = (event) => {
-                    // JSON.parse(event.data).forEach((chatRoom) => {
-                    //     socket = new WebSocket(`ws://localhost:8080/chat/${chatRoom.roomId}`);
-                    //     socket.onopen = () => {
-                    //         console.log(`${chatRoom.roomId}번 소켓이 열렸습니다!`);
-                    //     };
-                    // });
                     setChatRooms(JSON.parse(event.data));
                 };
             };
@@ -60,24 +56,24 @@ function Chat() {
         imageInput.current.click();
     }
 
-    const [encodeFile, setEncodeFile] = useState(null);
     const handleFileChange = (event) => {
+        if(event.target.files[0] == null) return;
         const file = event.target.files[0];
         setSelectedFile(file);
 
         const fileExtension = file.name.split('.').pop().toLowerCase();
         const allowedExtensions = ['jpg', 'jpeg', 'png'];
-        const maxSize = 1 * 1024 * 1024;
 
         if (!allowedExtensions.includes(fileExtension)) {
-            console.log('올바른 파일 형식이 아닙니다.');
+            setIsNotFormal(true);
             setSelectedFile(null);
             setPreviewImage(null);
             return;
         }
 
-        else if (file.size > maxSize) {
+        if (file.size > maxSize) {
             console.log('파일 크기 제한은 ' + (maxSize / (1024 * 1024)) + 'MB 입니다.');
+            setIsBigger(true);
             setSelectedFile(null);
             setPreviewImage(null);
             return;
@@ -91,6 +87,8 @@ function Chat() {
             };
             reader.readAsDataURL(file);
         }
+        setIsNotFormal(false);
+        setIsBigger(false);
     }
 
     const handleKeyPress= (event) => {
@@ -99,17 +97,6 @@ function Chat() {
             handleUpload();
         }
     };
-
-    const loadChatList = () => {
-
-        axios.post('/api/chatList', {email: email})
-            .then((response)=> {
-                setChatRooms(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
 
     const loadChat = (roomId) => {
 
@@ -172,6 +159,7 @@ function Chat() {
                 chatDate: null,
                 photo: null
             }
+            setSendText('');
         }
 
         room.send(JSON.stringify(message));
@@ -186,7 +174,6 @@ function Chat() {
         }
         setPreviewImage(null);
         setSelectedFile(null);
-        setSendText('');
     };
 
     const XButtonClick = () => {
@@ -217,13 +204,18 @@ function Chat() {
                 <div className={styles.chat_container}>
                     <MessageList messages={messages} op_Id={op_Id}/>
                     <div className={styles.chat_message}>
+                        <div className={styles.error_message}>
+                            {
+                                isBigger === true ? `이미지 용량 제한은 ${maxSize / (1024 * 1024)}MB 입니다.` : isNotFormal === true ? "이미지 파일이 아닙니다." : null
+                            }
+                        </div>
                         <div className={`${styles.image_preview_box} ${previewImage === null ? styles.button_hidden : null}`}>
                             <img src={XButton} width="2.5%" onClick={XButtonClick}/>
                             <div className={styles.image_preview}>
                                 <img src={previewImage} width="100%" height="100%"/>
                             </div>
                         </div>
-                    <textarea name={styles.send_message} placeholder="메시지를 입력하세요."rows="3" value={sendText} onChange={(event) => setSendText(event.target.value)} onKeyPress={handleKeyPress}></textarea>
+                    <textarea name={styles.send_message} placeholder={"메시지를 입력하세요."} rows="3" value={sendText} onChange={(event) => setSendText(event.target.value)} onKeyPress={handleKeyPress}></textarea>
                     <button onClick={handleUpload}>전송</button>
                         <img src={Painting} className={styles.painting} onClick={imageSelectClick} />
                         <img src={guidance} className={styles.map}  />

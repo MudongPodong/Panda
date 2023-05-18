@@ -1,14 +1,23 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from '../Css_dir/Chat.module.css'
 import dayjs from 'dayjs';
 import profile from "../imgs/profileEx.PNG";
+import Modal from 'react-modal';
 
 const MessageList = ({ messages, op_Id}) => {
     const scrollRef = useRef();
-
+    const [selectedImage, setSelectedImage] = useState(null);
     useEffect(() => {
         scrollRef.current.scrollIntoView();
     }, [messages])
+
+    const openImageModal = (imageUrl) => {
+        setSelectedImage(imageUrl);
+    };
+
+    const closeImageModal = () => {
+        setSelectedImage(null);
+    };
 
     return (
         <div>
@@ -51,7 +60,7 @@ const MessageList = ({ messages, op_Id}) => {
                                         </div>
                                         :
                                         <div className={`${styles.message_img} ${styles.align_right}`}>
-                                            <img src={message.photo} alt="이미지" />
+                                            <img src={message.photo} alt="이미지" onClick={() => openImageModal(message.photo)} />
                                         </div>
                                 }
                             </div>
@@ -69,7 +78,7 @@ const MessageList = ({ messages, op_Id}) => {
                                         </div>
                                         :
                                         <div className={`${styles.message_img} ${styles.align_left}`}>
-                                            <img src={message.photo} alt="이미지" />
+                                            <img src={message.photo} alt="이미지" onClick={() => openImageModal(message.photo)} />
                                         </div>
                                 }
                             </div>
@@ -80,6 +89,29 @@ const MessageList = ({ messages, op_Id}) => {
             <div ref={scrollRef}></div>
         </ul>
             </div>
+            <Modal
+                isOpen={selectedImage !== null}
+                onRequestClose={closeImageModal}
+                contentLabel="이미지 확대"
+                style={{
+                    content: {
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        width: '80%',
+                        margin: '0 auto',
+                        padding:'0',
+                        marginTop:'50px',
+                    },
+                    overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    },
+                }}
+                onClick={closeImageModal}
+            >
+                {selectedImage && (<img src={selectedImage} onClick={closeImageModal} style={{width:'100%', height:'100%', objectFit:'contain'}} />)}
+            </Modal>
         </div>
     );
 };

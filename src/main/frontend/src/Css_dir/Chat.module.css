@@ -166,9 +166,6 @@ body::-webkit-scrollbar {
     background: whitesmoke;
     height:50px;
     position: fixed;
-    z-index: 21;
-    border-left: 1px solid white;
-    border-bottom: 1px solid white;
 }
 
 .chat_history {
@@ -179,6 +176,8 @@ body::-webkit-scrollbar {
     padding: 10px 30px 20px;
     overflow-y: scroll;
     background:whitesmoke;
+    border-top:1px solid black;
+
 }
 
 .message_img > img {
@@ -214,9 +213,10 @@ body::-webkit-scrollbar {
     max-width:90%;
     right:30px;
     position: relative;
+    min-height:26px;
     display:inline-block;
-    font-weight: bold;
-    font-family: "NanumGothic";
+    /*font-weight: bold;*/
+    font-family: "NanumGothicOTF";
 }
 
 .op_message:after {
@@ -244,10 +244,11 @@ body::-webkit-scrollbar {
     max-width: 90%;
     position: relative;
     display:inline-block;
-    font-weight: bold;
+    min-height:26px;
+    /*font-weight: bold;*/
     left:590px;
     transform: translateX(-100%);
-    font-family: "NanumGothic";
+    font-family: "NanumGothicOTF";
 
 }
 
@@ -365,4 +366,19 @@ body::-webkit-scrollbar {
     line-height: 500px;
     text-align: center;
     font-size:25px;
+}
+
+.modal {
+    width:800px;
+    height:400px;
+    position:absolute;
+}
+
+.error_message {
+    color:red;
+    font-family:NanumGothic;
+    position:absolute;
+    top:5px;
+    left:30px;
+    font-weight: bold;
 }

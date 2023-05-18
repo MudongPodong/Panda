@@ -7,13 +7,9 @@
 package com.example.panda.controller;
 
 import com.example.panda.dto.ChatDTO;
-import com.example.panda.dto.ChatRoomDTO;
-import com.example.panda.dto.UserDTO;
 import com.example.panda.service.ChatService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -21,11 +17,8 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @RequiredArgsConstructor
 @RestController
@@ -34,8 +27,9 @@ public class MessageHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
-        session.setBinaryMessageSizeLimit(1024*1024);
-        session.setTextMessageSizeLimit(1024*1024);
+        session.setBinaryMessageSizeLimit(5*1024*1024);
+        session.setTextMessageSizeLimit(5*1024*1024);
+        // 데이터 용량 크기 5MB로 제한
     }
 
     @Override
