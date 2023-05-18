@@ -12,7 +12,13 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class WritingService {
+    @Autowired
     private final WritingRepository writingRepository;
+
+    public void write(WritingEntity we)
+    {
+        writingRepository.save(we);
+    }
     public List<WritingDTO> findAll(){
         List<WritingEntity> writingEntityList = writingRepository.findAll();
         List<WritingDTO> writingDTOList = new ArrayList<>();
