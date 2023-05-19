@@ -1,7 +1,6 @@
 import styles from '../Css_dir/Chat.module.css'
 import profile from '../imgs/profileEx.PNG'
-import axios from 'axios';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import MessageList from './MessageList';
 import ChatList from './ChatList';
 import Painting from '../imgs/temp_painting.png';
@@ -9,10 +8,10 @@ import guidance from '../imgs/temp_map.png';
 import XButton from '../imgs/XButton.png';
 
 function Chat() {
-    let email = "diqzk1562@naver.com";
 
     const [messages, setMessages] = useState([]);
     const [chatRooms, setChatRooms] = useState([]);
+
     const [op_Id, setOpId] = useState([]);
     const [currentRoomId, setRoomId] = useState(null);
     const [isBuyer, setIsBuyer] = useState(false);
@@ -29,28 +28,89 @@ function Chat() {
     const [chatSocket, setChatSocket] = useState(null);
     const [socketMap, setSocketMap] = useState(new Map());
 
-    const maxSize = 1 * 1024 * 1024;
-    const connectChat = () => {
-        const socket = new WebSocket('ws://localhost:8080/chat');
-            socket.onopen = () => {
-                console.log(`chat 소켓 열림`);
-                setChatSocket(socket);
-                const data = {
-                    email: "diqzk1562@naver.com",
-                };
+    const [email, setEmail] = useState(null);
 
-                console.log(data);
-                socket.send(JSON.stringify(data));
-
-                socket.onmessage = (event) => {
-                    setChatRooms(JSON.parse(event.data));
-                };
-            };
-    };
+    const maxSize = 4 * 1024 * 1024;
 
     useEffect(() => {
-        connectChat();
-    }, []);
+        let socket;
+
+        if(chatSocket == null) {
+            socket = new WebSocket('ws://localhost:8080/chat');
+            setChatSocket(socket);
+
+            socket.onopen = () => {
+                console.log(`chat 소켓 열림`);
+            };
+
+        } else {
+            socket = chatSocket;
+        }
+
+        socket.onmessage = (event) => {
+
+            let receivedMap = JSON.parse(event.data);
+            setChatRooms(receivedMap.chatRooms);
+            setEmail(receivedMap.email);
+            // let roomID = receivedMap.roomId;
+            // console.log("roomID:" + roomID);
+
+            receivedMap.chatRooms.forEach((chatRoom, index) => {
+                let room = socketMap.get(chatRoom.roomId);
+                if (room == null) {
+                    let room = new WebSocket(`ws://localhost:8080/chat/${chatRoom.roomId}`);
+                    socketMap.set(chatRoom.roomId, room);
+
+                    room.onopen = () => {
+                        console.log(`방번호 : ${chatRoom.roomId} 소켓 열림`)
+                        socketMap.set(chatRoom.roomId, room);
+                    }
+
+                    room.onmessage = (event) => {
+                        let parsedMessage = JSON.parse(event.data);
+                        let chatList = parsedMessage.messages;
+                        let chat = parsedMessage.message;
+                        let myRoomId = parsedMessage.myRoomId;
+                        if (chatList) setMessages(chatList);
+                        else if (chat) {
+                            setMessages((prevMessages) => [...prevMessages, chat]);
+                            setChatRooms((prevRooms) => {
+                                const updatedRooms = prevRooms.map(chatRoom => chatRoom.roomId === chat.roomId ?
+                                    {
+                                        ...chatRoom, lastContent: chat.photo != null ? "사진" : chat.content,
+                                        lastDate: chat.chatDate
+                                    } : chatRoom);
+
+                                updatedRooms.sort((a, b) => {
+                                    return b.lastDate - a.lastDate;
+                                });
+                                let email = receivedMap.email;
+
+                                if(chat.roomId === myRoomId) {
+                                    chatListClick(myRoomId,
+                                        updatedRooms[0].buyer.email === email ? updatedRooms[0].seller.nickname : updatedRooms[0].buyer.nickname,
+                                        updatedRooms[0].buyer.email !== email,
+                                        0);
+                                    setRoomId(myRoomId);
+                                }
+                                return updatedRooms;
+                            });
+                        }
+                    }
+                }
+            });
+        };
+    }, [currentRoomId]);
+
+    useEffect(() => {
+        if(currentRoomId) {
+            let roomSocket = socketMap.get(currentRoomId)
+            if(roomSocket == null) {
+                console.log("채팅방이 없는뎄?");
+            }
+            roomSocket.send(JSON.stringify({roomId: currentRoomId}));
+        }
+    }, [currentRoomId])
 
     const imageSelectClick = () => {
         imageInput.current.click();
@@ -72,7 +132,6 @@ function Chat() {
         }
 
         if (file.size > maxSize) {
-            console.log('파일 크기 제한은 ' + (maxSize / (1024 * 1024)) + 'MB 입니다.');
             setIsBigger(true);
             setSelectedFile(null);
             setPreviewImage(null);
@@ -100,29 +159,18 @@ function Chat() {
 
     const loadChat = (roomId) => {
 
+        let roomSocket = socketMap.get(roomId);
+
+        if(roomSocket == null) {
+            console.log("채팅 방이 없는데요?");
+            return;
+        }
+
         const data = {
             roomId: roomId,
         };
 
-        let room = socketMap.get(roomId);
-
-        if(room == null) {
-            room = new WebSocket(`ws://localhost:8080/chat/${roomId}`);
-            socketMap.set(roomId, room);
-
-            room.onopen = () => {
-                console.log(`${roomId}소켓 열림`);
-                room.send(JSON.stringify(data));
-                room.onmessage = (event) => {
-                    setMessages(JSON.parse(event.data));
-                };
-            };
-        } else {
-            room.send(JSON.stringify(data));
-            room.onmessage = (event) => {
-                setMessages(JSON.parse(event.data));
-            }
-        }
+        roomSocket.send(JSON.stringify(data));
     };
 
     const chatListClick = (roomId, nickname, amIBuyer, clickIndex) => {
@@ -141,7 +189,7 @@ function Chat() {
         if(sendText === '' && !selectedFile) return;
 
         let room = socketMap.get(currentRoomId);
-        let message;
+        let message;;
 
         if(selectedFile) {
             message = {
@@ -163,15 +211,6 @@ function Chat() {
         }
 
         room.send(JSON.stringify(message));
-        room.onmessage = (event) => {
-            let data = JSON.parse(event.data);
-           setMessages([...messages, data]);
-
-            let updatedRooms = chatRooms.map(chatRoom =>
-                chatRoom.roomId === currentRoomId ? {...chatRoom, lastContent: data.photo != null ? "" : data.content, lastDate: data.chatDate } : chatRoom
-            );
-            setChatRooms(updatedRooms);
-        }
         setPreviewImage(null);
         setSelectedFile(null);
     };
@@ -197,12 +236,12 @@ function Chat() {
                         </div>
                     </li>
                 </ul>
-                <ChatList chatLists={chatRooms} onClick={chatListClick} isClicked={isClicked} email={email}/>
+                <ChatList chatRooms={chatRooms} onClick={chatListClick} isClicked={isClicked} email={email}/>
             </div>
 
             {currentRoomId != null ?
                 <div className={styles.chat_container}>
-                    <MessageList messages={messages} op_Id={op_Id}/>
+                    <MessageList messages={messages} op_Id={op_Id} isBuyer={isBuyer} currentRoomId={currentRoomId} />
                     <div className={styles.chat_message}>
                         <div className={styles.error_message}>
                             {
@@ -231,7 +270,7 @@ function Chat() {
                     <div className={styles.chat_message} />
                 </div>
             }
-                </div>
+        </div>
     );
 }
 

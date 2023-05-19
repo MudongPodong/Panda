@@ -4,6 +4,7 @@ import com.example.panda.dto.WritingDTO;
 import com.example.panda.entity.WritingEntity;
 import com.example.panda.repository.WritingRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

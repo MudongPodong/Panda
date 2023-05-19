@@ -25,13 +25,17 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     private final ChatRoomService chatRoomService;
     private final ChatService chatService;
+    private final HandshakeInterceptor handshakeInterceptor;
+    private final WebSocketSessionManager webSocketSessionManager;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new ChatHandler(chatRoomService, chatService), "/chat")
-                        .setAllowedOrigins("*");
+        registry.addHandler(new ChatHandler(chatService, chatRoomService, webSocketSessionManager), "/chat")
+                .addInterceptors(handshakeInterceptor)
+                .setAllowedOrigins("http://localhost:3000");
 
-        registry.addHandler(new MessageHandler(chatService), "/chat/{roomId}")
-                .setAllowedOrigins("*");
+        registry.addHandler(new MessageHandler(chatService, chatRoomService, webSocketSessionManager), "/chat/{roomId}")
+                .addInterceptors(handshakeInterceptor)
+                .setAllowedOrigins("http://localhost:3000");
     }
 }

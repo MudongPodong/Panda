@@ -4,9 +4,10 @@ import dayjs from 'dayjs';
 import profile from "../imgs/profileEx.PNG";
 import Modal from 'react-modal';
 
-const MessageList = ({ messages, op_Id}) => {
+const MessageList = React.memo(({ messages, op_Id, isBuyer}) => {
     const scrollRef = useRef();
     const [selectedImage, setSelectedImage] = useState(null);
+
     useEffect(() => {
         scrollRef.current.scrollIntoView();
     }, [messages])
@@ -46,7 +47,7 @@ const MessageList = ({ messages, op_Id}) => {
                 return (
                     <li key={index}>
                         {
-                            message.fromBuyer === false ?
+                            message.fromBuyer === isBuyer ?
                             <div>
                                 <div className={styles.message_info}>
                                     <span className={`${styles.message_name} ${styles.float_right}`}>{message.fromBuyer}</span>
@@ -114,6 +115,12 @@ const MessageList = ({ messages, op_Id}) => {
             </Modal>
         </div>
     );
-};
+}, (prevProps, nextProps) => {
+    if (prevProps.messages === nextProps.messages
+    ) {
+        return true;
+    }
+    return false;
+});
 
 export default MessageList;

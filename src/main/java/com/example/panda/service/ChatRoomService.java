@@ -8,6 +8,7 @@
 package com.example.panda.service;
 
 import com.example.panda.dto.ChatRoomDTO;
+import com.example.panda.entity.ChatEntity;
 import com.example.panda.entity.ChatRoomEntity;
 import com.example.panda.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -35,17 +37,14 @@ public class ChatRoomService {
         return chatRoomDTOList;
     }
 
-//    @Transactional
-//    public List<ChatRoomDTO> findByUserEmailAsync(String email) throws ExecutionException, InterruptedException {
-//        Future<List<ChatRoomEntity>> future = chatRoomRepository.findByUserEmailAsync(email);
-//
-//        List<ChatRoomEntity> chatRoomEntityList = future.get();
-//
-//        List<ChatRoomDTO> chatRoomDTOList = new ArrayList<>();
-//        for(ChatRoomEntity chatRoomEntity : chatRoomEntityList)
-//            chatRoomDTOList.add(ChatRoomDTO.toChatRoomDTO(chatRoomEntity));
-//
-//        return chatRoomDTOList;
-//    }
+    @Transactional
+    public ChatRoomDTO findById(Long roomId) {
+        Optional<ChatRoomEntity> optionalChatRoomEntity = chatRoomRepository.findById(roomId);
+
+        if(optionalChatRoomEntity.isPresent()) {
+            ChatRoomEntity chatRoomEntity = optionalChatRoomEntity.get();
+          return ChatRoomDTO.toChatRoomDTO(chatRoomEntity);
+        } else return null;
+    }
 
 }
