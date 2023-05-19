@@ -2,13 +2,38 @@ import styles from '../Css_dir/home.module.css';
 import { useNavigate } from 'react-router-dom';
 import React, {useState} from 'react';
 import ListVeiw from "./ListVeiw";
+import axios from "axios";
 
 function Home() {
     const movePage = useNavigate();
     let [recommend_item, setRecommendItem] = useState('');
+
+    const isLogin = () => {
+        axios.post('/check')
+            .then((response)=>{
+                console.log(response.data)
+                if(response.data){
+                    console.log('now login');
+                    return true;
+                }
+                else{
+                    console.log('need login');
+                    document.cookie = "isLogin=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
+                    alert('로그인이 필요합니다.');
+                    movePage('/pages/loginPage');
+                }
+            }).catch(error=>{
+                console.error(error);
+                console.log('need login');
+                document.cookie = "isLogin=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
+                alert('로그인이 필요합니다.');
+                movePage('/pages/loginPage');
+            });
+    }
     function goSearchResult(){
         movePage('/pages/SearchResult');
     }
+    isLogin();
     return (
         <div className={styles.App}>
             <div className={styles.home_page}>
