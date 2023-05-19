@@ -49,12 +49,13 @@ public class FavoriteService {
         favoriteEntity.setWritingEntity(writingEntity.get());
 
         List<FavoriteEntity> favoriteEntities=favoriteRepository.findByEmail(email);
-        for(FavoriteEntity favorite:favoriteEntities){  //겹치는게 있으면 저장X
-            if(favorite.getUserEntity().getEmail().equals(email) && favorite.getWritingEntity().getWid()==wid) return 1;
+        for(FavoriteEntity favorite:favoriteEntities){
+            if(favorite.getUserEntity().getEmail().equals(email) && favorite.getWritingEntity().getWid()==wid) return 1;  //사용자가 이미 등록한 상품이면 등록 취소
+            if(writingEntity.get().getUserEntity().getEmail().equals(email)) return 2;   //사용자 자신이 올린 상품을 찜 등록할때 찜 등록 취소
         }
 
         favoriteRepository.save(favoriteEntity);
-        return 2;
+        return 3;
     }
 
     public void deleteFavorite(String email,int wid){

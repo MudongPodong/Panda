@@ -7,6 +7,7 @@ function NoticeConfirm()
 {
     const movePage = useNavigate();
     const location=useLocation();
+    const navigate = useNavigate();
     const writingInfo = { ...location.state };
     const listdata=new FormData();
     const [favoriteCNT, setCount] = useState(0)  //해당 게시글에 찜등록한 사람 수
@@ -32,7 +33,11 @@ function NoticeConfirm()
             headers: {
                 'Content-Type' : 'multipart/form-data'
             }
-        }).then(response => setFlag(response.data))
+        }).then(response => {
+            if(response.data ===1)alert('이미 등록한 제품입니다!');
+            else if(response.data ===2) alert('자신의 제품을 찜 등록 할 수 없습니다!');
+            else alert('정상 등록 되었습니다.')
+        })
             .catch(error=>{
             console.error(error);
         })
