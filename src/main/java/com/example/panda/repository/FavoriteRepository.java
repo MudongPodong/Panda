@@ -17,6 +17,6 @@ public interface FavoriteRepository extends JpaRepository<FavoriteEntity, Intege
 
     @Query(value="DELETE FROM Favorite WHERE email= :email AND wid= :wid",nativeQuery = true)
     @Modifying
-    void deleteFavorite(String email,int wid);
+    void deleteFavorite(@Param("email") String email,@Param("wid") int wid);
     //DELETE FROM table_name WHERE id = 1105;
 }

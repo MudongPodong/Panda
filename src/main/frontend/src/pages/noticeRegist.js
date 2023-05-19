@@ -64,9 +64,13 @@ const NoticeRegist = () => {
 
 
 
-        axios.post("/api/noticeRegist", formdata)
+        axios.post("/api/noticeRegist", formdata,{     //post방식
+            headers: {
+                'Content-Type' : 'multipart/form-data'
+            }
+        })
             .then(response => {
-                console.log(response.data);
+                //console.log(response.data);
                 alertmessage();
             })
             .catch(error => {
@@ -156,4 +160,3 @@ const NoticeRegist = () => {
 
 
 export default NoticeRegist;
-

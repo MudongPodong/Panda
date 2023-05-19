@@ -36,10 +36,15 @@ public class UserService {
         return userDTOList;
 
     }
-    public UserDTO findbyId(String id){
+    public UserDTO findbyId(String id){      //UserDTO리턴
         Optional<UserEntity> userEntity=userRepository.findById(id);
         UserDTO userDTO=UserDTO.toUserDTO(userEntity.get());
         return userDTO;
+    }
+
+    public UserEntity findbyEmail(String id){   //UserEntity리턴
+        Optional<UserEntity> userEntity=userRepository.findById(id);
+        return userEntity.get();
     }
 
     // 사용자 정보 가져오는 함수

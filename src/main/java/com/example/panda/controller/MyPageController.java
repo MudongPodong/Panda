@@ -76,7 +76,6 @@ public class MyPageController {
 
         List<FavoriteDTO> favoriteDTOList=favoriteService.findByWid(wid);   //나중에 글아이디 넣기
         int count=favoriteDTOList.size();
-        System.out.println("받아온 글id:"+wid+"개수:"+count);
 
         return count;
     }
