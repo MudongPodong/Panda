@@ -36,7 +36,8 @@
     background-color: rgba(81, 153, 107, 0.1);
 }
 .home_top{
-    width: 1024px;
+    width: 100vw;
+    max-width: 1024px;
     height: 684px;
     margin: 0 auto;
     padding: 30px 0;
@@ -45,7 +46,8 @@
     justify-content: space-between;
 }
 .home_mid{
-    width: 1024px;
+    width: 100vw;
+    max-width: 1024px;
     height: 684px;
     margin: 0 auto;
     padding: 30px 0;
@@ -54,7 +56,8 @@
     justify-content: space-between;
 }
 .home_bottom{
-    width: 1024px;
+    width: 100vw;
+    max-width: 1024px;
     height: 684px;
     margin: 0 auto;
     padding-top: 30px;
@@ -190,6 +193,17 @@
 }
 .home_mem:hover .home_mem_btn{
     height: 100%;
+}
+@media screen and (min-width: 901px){
+    .home_top{flex-direction: row; height: 684px}
+    .home_mid{flex-direction: row; height: 684px}
+    .home_bottom{flex-direction: row; height: 684px}
+}
+@media screen and (max-width: 900px){
+    .home_top{flex-direction: column; height: 800px}
+    .home_mid{flex-direction: column; height: 920px}
+    .home_bottom{flex-direction: column; height: 800px}
+    .home_text{margin-bottom: 50px}
 }
 .footer_div{
     width: 100%;
