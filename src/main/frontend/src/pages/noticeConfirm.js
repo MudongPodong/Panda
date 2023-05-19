@@ -36,7 +36,10 @@ function NoticeConfirm()
         }).then(response => {
             if(response.data ===1)alert('이미 등록한 제품입니다!');
             else if(response.data ===2) alert('자신의 제품을 찜 등록 할 수 없습니다!');
-            else alert('정상 등록 되었습니다.')
+            else {
+                alert('정상 등록 되었습니다.');
+                window.location.reload();
+            }
         })
             .catch(error=>{
             console.error(error);

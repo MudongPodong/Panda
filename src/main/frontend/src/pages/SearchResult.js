@@ -10,8 +10,7 @@ function SearchResult() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    //const userInfo = { ...location.state };
-    const userInfo = { ...location.state };
+    const searchInfo = { ...location.state };
     const listdata=new FormData();
     listdata.append('search_word', location.search.toString().split("=").at(1));
 
