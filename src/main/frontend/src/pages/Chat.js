@@ -1,6 +1,6 @@
 import styles from '../Css_dir/Chat.module.css'
 import profile from '../imgs/profileEx.PNG'
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import MessageList from './MessageList';
 import ChatList from './ChatList';
 import Painting from '../imgs/temp_painting.png';
@@ -48,7 +48,6 @@ function Chat() {
             setChatRooms(receivedMap.chatRooms);
             setToChatList(prevState => ({...prevState, email:receivedMap.email}));
 
-            console.log(receivedMap.email);
             receivedMap.chatRooms.forEach((chatRoom, index) => {
                 let room = socketMap.get(chatRoom.roomId);
 
@@ -75,7 +74,7 @@ function Chat() {
                         // 스크롤을 내려야 하는가 true or false,
                         // 더 이상 불러올 메시지가 없는가 full의 내용이 담김.
                         // 또한 채팅을 보낸 사람 sender, 받은 사람 receiver 내용이 담김.
-                        
+
                         // let opUserImg = parsedMessage.opUserImg;
                         if (!chat) {  // chat == null -> 채팅방을 클릭했다는 의미
                             chatList[chatList.length-1].type = type;

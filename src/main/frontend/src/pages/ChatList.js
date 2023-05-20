@@ -47,7 +47,10 @@ const ChatList = React.memo(({ chatRooms, onClick, toChatList}) => {
                                     </div>
                             }
                             <div className={`${index===toChatList.isClicked ? styles.black_color : styles.whitesmoke_color } ${styles.p_time}`}>{diff}</div>
-                            <div className={`${index===toChatList.isClicked ? styles.black_color : styles.whitesmoke_color} ${styles.p_last_message}`}>{chatList.lastContent === null ? "사진" : chatList.lastContent}</div>
+                            <div className={`${index===toChatList.isClicked ? styles.black_color : styles.whitesmoke_color} ${styles.p_last_message}`}>
+                                {chatList.lastContent === null ?
+                                    "사진" : chatList.lastContent}
+                            </div>
                         </div>
                     </li> )
             })}

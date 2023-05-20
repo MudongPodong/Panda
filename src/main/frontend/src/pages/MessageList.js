@@ -8,6 +8,7 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
 
     const [selectedImage, setSelectedImage] = useState(null);
     const chatContainerRef = useRef();
+    const messageRef = useRef();
 
     useEffect(() => {
         if(!messages[0]) return;
@@ -22,7 +23,7 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
 
         else if(type === 'isBottom') {
             if(chatContainerRef.current.scrollTop + chatContainerRef.current.clientHeight
-            >= chatContainerRef.current.scrollHeight - 128)
+            >= chatContainerRef.current.scrollHeight - (128 + messageRef.current.offsetHeight))
                 // 현재 사용자가 메시지를 받는 사람이며, 스크롤이 밑에 있는지 확인해야함
                 // 밑에 없으면 현재 스크롤을 올려서 메시지를 보고 있다는 의미.
                 // scrollTop, clientHeight 를 더한게 꼭 128 차이가 나길래 -128을 해줌.
@@ -108,7 +109,7 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
                                 </div>
                                 {
                                     message.content ?
-                                        <div className={`${styles.op_message} ${styles.align_left}`}>
+                                        <div className={`${styles.op_message} ${styles.align_left}`} ref={messageRef}>
                                             {message.content}
                                         </div>
                                         :

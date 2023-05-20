@@ -1,5 +1,5 @@
 import styles from '../Css_dir/navigation.module.css';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import React from 'react';
 import logo from '../imgs/logo192_192.png';
 import green_logo from '../imgs/green_logo_192_192.png';
@@ -214,11 +214,18 @@ function TopNav() {
                             <div className={styles.bottom_line}></div>
                         </div>
                     </div>
-                    <li className={styles.tlist_item} onClick={goChat}>
+                    <li className={styles.tlist_item} onClick={goChat} >
                         <a className={styles.tlist_item_a}>
                             <span className={styles.tlist_text}>채팅</span>
                         </a>
                     </li>
+                    {/*<Link to={"/pages/Chat"} target={`_blank`}>*/}
+                    {/*    <li className={styles.tlist_item} >*/}
+                    {/*        <a className={styles.tlist_item_a}>*/}
+                    {/*            <span className={styles.tlist_text}>채팅</span>*/}
+                    {/*        </a>*/}
+                    {/*    </li>*/}
+                    {/*</Link>*/}
                     <li className={styles.tlist_item}>
                         <a className={styles.tlist_item_a}>
                             <form name='search' id='search_form' method='get'>
