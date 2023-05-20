@@ -42,20 +42,16 @@ function Chat() {
     // 이미지 파일 최대 사이즈 4MB로 함
 
     useEffect(() => {
-
-       const socket = new WebSocket('ws://localhost:8080/chat');
-
-       socket.onopen = () => {
-           // console.log(`chat 소켓 열림`);
-       };
-
+        const socket = new WebSocket('ws://localhost:8080/chat');
         socket.onmessage = (event) => {
             let receivedMap = JSON.parse(event.data);
             setChatRooms(receivedMap.chatRooms);
             setToChatList(prevState => ({...prevState, email:receivedMap.email}));
 
+            console.log(receivedMap.email);
             receivedMap.chatRooms.forEach((chatRoom, index) => {
                 let room = socketMap.get(chatRoom.roomId);
+
                 if (room == null) {
                     let room = new WebSocket(`ws://localhost:8080/chat/${chatRoom.roomId}`);
                     socketMap.set(chatRoom.roomId, room);
@@ -66,31 +62,33 @@ function Chat() {
                     }
 
                     room.onmessage = (event) => {
-                        let parsedMessage = JSON.parse(event.data);
-                        let chatList = parsedMessage.messages;  // 채팅방을 눌렀을 때 가져올 메시지 목록
-                        let chat = parsedMessage.message;       // 상대 또는 내가 보낸 메시지
-                        let myRoomId = parsedMessage.myRoomId;  // 현재 내가 보고있는 채팅창 번호
-                        let myRooms = parsedMessage.myRooms     // 갱신될 채팅창 목록
-                        let amIBuyer = parsedMessage.amIBuyer;
-                        let opNickname = parsedMessage.opNickname;
-                        let myIndex = parsedMessage.myIndex;
-                        let type = parsedMessage.type; // type -> 해당 메시지가 어떤 정보를 담고 있는지
+                        let parsedMap = JSON.parse(event.data);
+
+                        let chatList = parsedMap.messages;  // 채팅방을 눌렀을 때 가져올 메시지 목록
+                        let chat = parsedMap.message;       // 상대 또는 내가 보낸 메시지 1개
+                        let myRoomId = parsedMap.myRoomId;  // 현재 내가 보고있는 채팅창 번호
+                        let myRooms = parsedMap.myRooms     // 갱신될 채팅창 목록
+                        let amIBuyer = parsedMap.amIBuyer;  // 내가 구매자인지?
+                        let opNickname = parsedMap.opNickname;  // 상대방 닉네임
+                        let myIndex = parsedMap.myIndex;    // 내 채팅방 인덱스
+                        let type = parsedMap.type; // type -> 해당 메시지가 어떤 정보를 담고 있는지
                         // 스크롤을 내려야 하는가 true or false,
                         // 더 이상 불러올 메시지가 없는가 full의 내용이 담김.
                         // 또한 채팅을 보낸 사람 sender, 받은 사람 receiver 내용이 담김.
                         
                         // let opUserImg = parsedMessage.opUserImg;
-                        if (!chat) {  // 가져온 메시지가 채팅 메시지 하나 일 경우
+                        if (!chat) {  // chat == null -> 채팅방을 클릭했다는 의미
                             chatList[chatList.length-1].type = type;
-                            // console.log(type);
                             setMessages(chatList);
                         }
                         // 상대나 자신이 메시지를 보낸게 아니면
                         // 메시지 리스트를 가져와 저장
-                        else if (chat) {
+
+                        else if (chat) {    // chat != null -> 상대나 내가 메시지를 보냈다는 의미
                             // 메시지를 보낸거라면 메시지 목록 갱신 및 채팅방 목록 갱신
                             setChatRooms(() => myRooms);
                             if(chat.roomId === myRoomId) {
+
                                 if(type === 'sender')
                                     // 내가 메시지를 보낸거면 스크롤을 내림
                                     chat.type = 'true';
@@ -114,6 +112,9 @@ function Chat() {
                 }
             });
         };
+        return () => {
+            console.log("닫힘");
+        }
     }, []);
 
     useEffect(() => {
@@ -271,7 +272,9 @@ function Chat() {
                     <div className={styles.chat_message} />
                 </div>
             }
+
         </div>
+
     );
 }
 

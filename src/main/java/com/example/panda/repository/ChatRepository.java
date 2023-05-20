@@ -18,6 +18,5 @@ public interface ChatRepository extends MongoRepository<ChatEntity, String> {
 
     List<ChatEntity> findByRoomId(@Param("roomId")Long roomId);
 
-
 }
 

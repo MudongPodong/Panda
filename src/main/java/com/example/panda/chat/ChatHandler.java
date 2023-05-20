@@ -4,7 +4,7 @@
  * 생성일 : 2023.05.18
  * 업데이트 : -
  */
-package com.example.panda.controller;
+package com.example.panda.chat;
 
 import com.example.panda.chat.WebSocketSessionManager;
 import com.example.panda.dto.ChatRoomDTO;
@@ -55,6 +55,7 @@ public class ChatHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         String email = (String) session.getAttributes().get("user");
+
         webSocketSessionManager.removeSession(email);
         webSocketSessionManager.removeChatInfo(email);
     }
