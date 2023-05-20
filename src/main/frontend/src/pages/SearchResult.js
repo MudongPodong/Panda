@@ -15,6 +15,7 @@ function SearchResult() {
     const listdata=new FormData();
 
     listdata.append('search_word', location.search.toString().split("=").at(1));
+    //listdata.append('sort','search');  //페이지 넘길때 필요함(>>, >, <, <<)
     if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search_popularity')) listdata.append('sort','search_popularity');  //인기순 정렬
     else if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search_price')) listdata.append('sort','search_price'); //가격순 정렬
     else if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search_sell')) listdata.append('sort','search_sell');   //판매순 정렬
@@ -60,7 +61,7 @@ function SearchResult() {
         //console.log(value);
         let contentArr=[];
 
-        for(let j=value*15-15;j<value*15 && j<contents.length;j++){  //15개씩 끊어서 나타냄(15개 넘어가면 다음 페이지)
+        for(let j=value*2-2;j<value*2 && j<contents.length;j++){  //15개씩 끊어서 나타냄(15개 넘어가면 다음 페이지)
 
             contentArr.push(
                 <div className={styles.resultMap} onClick={movePage} name="spam" id={contents[j].writing_Id}>
@@ -82,8 +83,9 @@ function SearchResult() {
     }
     let pages=[];
     const PageCount=(search_sort)=>{    //하단 총 페이지 수
-        const count=data.length/15;
-        for(let i=0;i<=count && i<=5;i++){
+        const count=data.length/2;
+        console.log(search_sort);
+        for(let i=0;i<=count;i++){
             pages.push(
                 <span>
                     <form name={search_sort+(i+1)} id={search_sort+(i+1)} method='get'>
@@ -111,6 +113,11 @@ function SearchResult() {
             .catch(error => console.log(error))
     }, []);
 
+    let currentPage=parseInt(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).match(/\d+/g));
+    console.log(data.length);
+    if(isNaN(currentPage)){
+        currentPage=1;
+    }
     return (
         <div className={styles.wraper}>
             <div className={styles.wrapBox}>
@@ -175,17 +182,46 @@ function SearchResult() {
                             </form>
                             <button id={listdata.get('sort')+1} form={listdata.get('sort')+1} className={styles.num} onClick={contentDivide}>&lt;&lt;</button>
                         </span>
-                        {/*<span id="<"  className={styles.num} ><b>〈</b></span>*/}
-                        {PageCount(decodeURIComponent(location.search.toString().split(/[=?]/).at(1)).replace(/[0-9]/g, ''))}    {/*현재 어떤 정렬인지 뽑아냄*/}
-                        {/*<span id=">" className={styles.num} ><b>〉</b></span>*/}
-                        <span id=">>" className={styles.num}>
-                            <form name={listdata.get('sort')+(Math.floor(data.length/15)+1)} id={listdata.get('sort')+(Math.floor(data.length/15)+1)} method='get'>
-                                <input name={listdata.get('sort')+(Math.floor(data.length/15)+1)} id={listdata.get('sort')+(Math.floor(data.length/15)+1)}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
+                        {(currentPage-5-(currentPage%5-1))>=1?(
+                            <span id=">" className={styles.num}>
+                            <form name={listdata.get('sort')+(currentPage-5-(currentPage%5-1))} id={listdata.get('sort')+(currentPage-5-(currentPage%5-1))} method='get'>
+                                <input name={listdata.get('sort')+(currentPage-5-(currentPage%5-1))} id={listdata.get('sort')+(currentPage-5-(currentPage%5-1))}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
                                        style={{ display: 'none' }}></input>
 
                             </form>
-                            <button id={listdata.get('sort')+(Math.floor(data.length/15)+1)} form={listdata.get('sort')+(Math.floor(data.length/15)+1)} className={styles.num} onClick={contentDivide}>&gt;&gt;</button>
+                            <button id={listdata.get('sort')+(currentPage-5-(currentPage%5-1))} form={listdata.get('sort')+(currentPage-5-(currentPage%5-1))} className={styles.num} onClick={contentDivide}>&lt;</button>
                         </span>
+                        ):(
+                            <span id=">>" className={styles.num}>
+
+                            <button id={listdata.get('sort')+(Math.floor(data.length/2)+1)} className={styles.num}>&gt;</button>
+                        </span>
+                        ) }
+
+                        {/*<span id="<"  className={styles.num} ><b>〈</b></span>*/}
+                        {PageCount(decodeURIComponent(location.search.toString().split(/[=?]/).at(1)).replace(/[0-9]/g, ''))}    {/*현재 어떤 정렬인지 뽑아냄*/}
+                        {(currentPage+5-(currentPage%5-1))<(Math.floor(data.length/2)+1)?(
+                            <span id=">" className={styles.num}>
+                            <form name={listdata.get('sort')+(currentPage+5-(currentPage%5-1))} id={listdata.get('sort')+(currentPage+5-(currentPage%5-1))} method='get'>
+                                <input name={listdata.get('sort')+(currentPage+5-(currentPage%5-1))} id={listdata.get('sort')+(currentPage+5-(currentPage%5-1))}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
+                                       style={{ display: 'none' }}></input>
+
+                            </form>
+                            <button id={listdata.get('sort')+(currentPage+5-(currentPage%5-1))} form={listdata.get('sort')+(currentPage+5-(currentPage%5-1))} className={styles.num} onClick={contentDivide}>&gt;</button>
+                        </span>
+                        ):(
+                            <></>
+                        ) }
+                        {/*<span id=">" className={styles.num} ><b>〉</b></span>*/}
+                        {/*(Math.floor(data.length/2)+1)*/}
+                        {/*<span id=">>" className={styles.num}>*/}
+                        {/*    <form name={listdata.get('sort')+(Math.floor(data.length/2)+1)} id={listdata.get('sort')+(Math.floor(data.length/2)+1)} method='get'>*/}
+                        {/*        <input name={listdata.get('sort')+(Math.floor(data.length/2)+1)} id={listdata.get('sort')+(Math.floor(data.length/2)+1)}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}*/}
+                        {/*               style={{ display: 'none' }}></input>*/}
+
+                        {/*    </form>*/}
+                        {/*    <button id={listdata.get('sort')+(Math.floor(data.length/2)+1)} form={listdata.get('sort')+(Math.floor(data.length/2)+1)} className={styles.num} onClick={contentDivide}>&gt;&gt;</button>*/}
+                        {/*</span>*/}
                     </div>
                 </div>
             </div>
