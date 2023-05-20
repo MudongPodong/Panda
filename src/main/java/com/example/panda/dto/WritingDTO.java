@@ -21,6 +21,7 @@ public class WritingDTO {
     private int user_point;
     private LocalDateTime regit_date;
     private UserDTO userDTO;
+    private int favorite_count;
 
 
     public static WritingDTO toWritingDTO(WritingEntity writingEntity) {
@@ -32,7 +33,7 @@ public class WritingDTO {
         writingDTO.setCount(writingEntity.getCount());
         writingDTO.setPrice(writingEntity.getPrice());
         writingDTO.setRegit_date(writingEntity.getRegit_date());
-
+        writingDTO.setFavorite_count(writingEntity.getFavorite_count());
 
         writingDTO.setUserDTO(UserDTO.toUserDTO(writingEntity.getUserEntity()));
         writingDTO.setUser_name(writingDTO.getUserDTO().getNickname());

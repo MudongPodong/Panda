@@ -3,21 +3,25 @@ package com.example.panda.service;
 import com.example.panda.dto.WritingDTO;
 import com.example.panda.entity.WritingEntity;
 import com.example.panda.repository.WritingRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class WritingService {
 //    @Autowired
     private final WritingRepository writingRepository;
 
     public void write(WritingEntity we)
     {
+        we.setFavorite_count(0);
         writingRepository.save(we);
     }
     public List<WritingDTO> findAll(){
@@ -37,5 +41,10 @@ public class WritingService {
             writingDTOList.add(WritingDTO.toWritingDTO(writingEntity));
         }
         return writingDTOList;
+    }
+    public WritingDTO findById(int wid){
+        Optional<WritingEntity> writingEntity = writingRepository.findById(wid);
+        WritingDTO writingDTO=WritingDTO.toWritingDTO(writingEntity.get());
+        return writingDTO;
     }
 }

@@ -247,6 +247,8 @@
 .btn_center{
     margin: 0 auto;
     width: 500px;
+    display: flex;
+    justify-content: center; /* 가로 정렬을 위해 중앙 정렬 설정 */
 }
 
 .common_check_box{

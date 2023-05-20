@@ -54,11 +54,16 @@ public class FavoriteService {
             if(writingEntity.get().getUserEntity().getEmail().equals(email)) return 2;   //사용자 자신이 올린 상품을 찜 등록할때 찜 등록 취소
         }
 
+        writingEntity.get().setFavorite_count(writingEntity.get().getFavorite_count()+1);
+        writingRepository.save(writingEntity.get());
         favoriteRepository.save(favoriteEntity);
         return 3;
     }
 
     public void deleteFavorite(String email,int wid){
+        Optional<WritingEntity> writingEntity=writingRepository.findById(wid);
+        writingEntity.get().setFavorite_count(writingEntity.get().getFavorite_count()-1);
+        writingRepository.save(writingEntity.get());   //찜 삭제시 게시글에 찜 카운팅-1
         favoriteRepository.deleteFavorite(email,wid);
     }
 }
