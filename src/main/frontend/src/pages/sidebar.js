@@ -31,7 +31,15 @@ const Sidebar = () => {
     }
     function goSearchResult(){
         toggleMenu();
-        movePage('/pages/SearchResult');
+        const query='input[id=search_side_input]';
+        const searchElement=document.querySelector(query);
+        const search_word=searchElement.value;
+
+        if(searchElement.value.length >=2){
+            const searchdata=new FormData();
+            searchdata.append('word', search_word);
+            movePage('/pages/SearchResult?search='+search_word, {state:{word:search_word}});
+        }
     }
 
     function goLogin() {
@@ -56,6 +64,14 @@ const Sidebar = () => {
         toggleMenu();
         movePage('/pages/OtherPage2');
     }
+    function goCategorySearch(event){    //카테고리 검색
+
+        console.log(event.currentTarget.id);
+        const searchdata=new FormData();
+        searchdata.append('word', event.currentTarget.id);
+        movePage('/pages/SearchResult?search='+event.currentTarget.id, {state:{word:event.currentTarget.id}});
+        //movePage('/pages/SearchResult', {state:{word:event.currentTarget.id}});
+    }
 
     return (
         <div className={styles.header} ref={sideClickRef}>
@@ -66,8 +82,8 @@ const Sidebar = () => {
             </div>
             <div className={(isOpen ? `${styles.show_menu}` : `${styles.hide_menu}`)}>
                 <div className={styles.search_box}>
-                    <form name='search' id='search_form_s' method='get'>
-                        <input type='text' className={styles.search_input} placeholder='  검색' name='search'></input>
+                    <form name='search_side' id='search_form_s' method='get'>
+                        <input type='text' className={styles.search_input} placeholder='  검색' name='search_side' id='search_side_input'></input>
                     </form>
                     <div className={styles.search_btn_wrap}>
                         <button type='submit' form='search_form_s' className={styles.search_input_btn} onClick={goSearchResult}></button>

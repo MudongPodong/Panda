@@ -26,6 +26,12 @@ function SearchResult() {
             }});
     }
 
+    const divideStr=(str)=>{
+        //str.includes('_')
+        if( str.match(/[_.~]/)) return decodeURIComponent(location.search.toString().split("=").at(1).split(/[_.~]/));
+        else return decodeURIComponent(location.search.toString().split("=").at(1));
+    }
+
     useEffect(() => {
         axios.post('/api/searchResult',listdata,{
             headers: {
@@ -42,7 +48,7 @@ function SearchResult() {
                 <br/><br/><br/><br/><br/>
                 <div className={styles.headTitle}>
                     <h1 className={styles.title}>검색 결과
-                        <span>다음 검색 결과입니다..</span>
+                        <span>'{divideStr(location.search.toString().split("=").at(1)) }' 과 관련된 다음 검색 결과입니다..</span>
                     </h1>
                 </div>
                 <br/><br/>
