@@ -13,11 +13,14 @@ function SearchResult() {
 
     const searchInfo = { ...location.state };
     const listdata=new FormData();
+
     listdata.append('search_word', location.search.toString().split("=").at(1));
-    if(location.search.toString().includes("search_popularity")) listdata.append('sort','search_popularity');  //인기순 정렬
-    else if(location.search.toString().includes("search_price")) listdata.append('sort','search_price'); //가격순 정렬
-    else if(location.search.toString().includes("search_sell")) listdata.append('sort','search_sell');   //판매순 정렬
+    if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search_popularity')) listdata.append('sort','search_popularity');  //인기순 정렬
+    else if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search_price')) listdata.append('sort','search_price'); //가격순 정렬
+    else if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search_sell')) listdata.append('sort','search_sell');   //판매순 정렬
     else listdata.append('sort','search_normal');  //그냥 검색했을때 랜덤으로 뜨게함
+
+    const contents=data;   //받아온 데이터(총 개수)
 
     const movePage= (event)=>{       //일단 아이디만 받아서 넘겨서 게시물 상세 페이지에서 백엔드로 데베 불어오는게 나을듯(WritingConten 테이블이랑, Writing 테이블 개체 다불러야함)
 
@@ -33,11 +36,71 @@ function SearchResult() {
     const divideStr=(str)=>{
         //str.includes('_')
         if( str.match(/[_.~]/)) return decodeURIComponent(location.search.toString().split("=").at(1).split(/[_.~]/));
+        //if( str.match(/[_.~]/)) return decodeURIComponent(location.search.toString()).split("=").at(1).split(/[_.~]/);
         else return decodeURIComponent(location.search.toString().split("=").at(1));
     }
 
+    const contentView=(value=1)=>{
+        const query='div[name="spam"]';
+        const selectedElements= document.querySelectorAll(query);
+        selectedElements.forEach((element)=>{
+            element.style.display = 'none';
+           // element.remove();
+        })
+        if(isNaN(parseInt(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).match(/\d+/g)))) value=1;  //바로 들어왔을때면 NaN되니까 value=1처리
+        else value=parseInt(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).match(/\d+/g));  //페이지가 저장됨
 
-    useEffect(() => {
+        //value=decodeURIComponent(location.search.toString()).split(/[=?]/).at(1);
+        //decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).match(/\d+/g);
+        //console.log(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1));  //정수형 페이지가 저장됨
+        //if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search')) value=1;
+        // else if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search_popularity')) value=1;
+        // else if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search_price')) value=1;
+        // else if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search_sell')) value=1;
+        //console.log(value);
+        let contentArr=[];
+
+        for(let j=value*15-15;j<value*15 && j<contents.length;j++){  //15개씩 끊어서 나타냄(15개 넘어가면 다음 페이지)
+
+            contentArr.push(
+                <div className={styles.resultMap} onClick={movePage} name="spam" id={contents[j].writing_Id}>
+                    <img className={styles.content_picture} src="http://placekitten.com/150/150"></img>
+                    <div> <b>{contents[j].writing_name}</b></div>
+                    <div>  [판매자]: {contents[j].user_name} </div>
+                    <div>    가격: {dividePriceUnit(contents[j].price.toString())} </div>
+                    <div>    판매자 평점:{contents[j].user_point}</div>
+                </div>
+            )
+        }
+
+        return contentArr;
+    }
+    const contentDivide=(event)=>{   //페이지 별로 끊기(15개씩 끊어서 페이지 분할)
+
+        contentView(event.currentTarget.id);
+        // return event.currentTarget.id;
+    }
+    let pages=[];
+    const PageCount=(search_sort)=>{    //하단 총 페이지 수
+        const count=data.length/15;
+        for(let i=0;i<=count && i<=5;i++){
+            pages.push(
+                <span>
+                    <form name={search_sort+(i+1)} id={search_sort+(i+1)} method='get'>
+                        <input name={search_sort+(i+1)} id={search_sort+(i+1)} placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
+                               style={{ display: 'none' }}></input>
+
+                    </form>
+                    <button id={search_sort+(i+1)} form={search_sort+(i+1)} className={styles.num} onClick={contentDivide}>{i+1}</button>
+                </span>
+                // <span id={i+1}  className={styles.num} onClick={contents}>{i+1}</span>
+            )
+        }
+        return pages;
+    }
+
+
+    useEffect(() => {   //정렬할거 있으면 정렬해서 가져오기
 
         axios.post('/api/searchResult',listdata,{
             headers: {
@@ -83,15 +146,17 @@ function SearchResult() {
                         <p style={{ fontSize: '25px' }}>받아온 데이터가 없습니다.</p>
                     ):(
                         <div>
-                            {data.map(item=>(
-                                <div className={styles.resultMap} onClick={movePage} id={item.writing_Id}>
-                                    <img className={styles.content_picture} src="http://placekitten.com/150/150"></img>
-                                    <div> <b>{item.writing_name}</b></div>
-                                    <div>  [판매자]: {item.user_name} </div>
-                                    <div>    가격: {dividePriceUnit(item.price.toString())} </div>
-                                    <div>    판매자 평점:{item.user_point}</div>
-                                </div>
-                            ))}
+                            {/*{data.map(item=>(*/}
+                            {/*    <div className={styles.resultMap} onClick={movePage} id={item.writing_Id}>*/}
+                            {/*        <img className={styles.content_picture} src="http://placekitten.com/150/150"></img>*/}
+                            {/*        <div> <b>{item.writing_name}</b></div>*/}
+                            {/*        <div>  [판매자]: {item.user_name} </div>*/}
+                            {/*        <div>    가격: {dividePriceUnit(item.price.toString())} </div>*/}
+                            {/*        <div>    판매자 평점:{item.user_point}</div>*/}
+                            {/*    </div>*/}
+                            {/*))}*/}
+
+                            {contentView(parseInt(location.search.toString().split("=").at(2)))}
                         </div>
                     )
 
@@ -101,15 +166,26 @@ function SearchResult() {
                 <hr/>
                 <div className={styles.board_wraping}>
                     <div className={styles.board_paging}>
-                        <a href="#" className={styles.num}><b>〈〈</b></a>
-                        <a href="#" className={styles.num}><b>〈</b></a>
-                        <a href="#" className={styles.num}>1</a>
-                        <a href="#" className={styles.num}>2</a>
-                        <a href="#" className={styles.num}>3</a>
-                        <a href="#" className={styles.num}>4</a>
-                        <a href="#" className={styles.num}>5</a>
-                        <a href="#" className={styles.num}><b>〉</b></a>
-                        <a href="#" className={styles.num}><b>〉〉</b></a>
+
+                        <span id="<<" className={styles.num}>
+                            <form name={listdata.get('sort')+1} id={listdata.get('sort')+1} method='get'>
+                                <input name={listdata.get('sort')+1} id={listdata.get('sort')+1}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
+                                       style={{ display: 'none' }}></input>
+
+                            </form>
+                            <button id={listdata.get('sort')+1} form={listdata.get('sort')+1} className={styles.num} onClick={contentDivide}>&lt;&lt;</button>
+                        </span>
+                        {/*<span id="<"  className={styles.num} ><b>〈</b></span>*/}
+                        {PageCount(decodeURIComponent(location.search.toString().split(/[=?]/).at(1)).replace(/[0-9]/g, ''))}    {/*현재 어떤 정렬인지 뽑아냄*/}
+                        {/*<span id=">" className={styles.num} ><b>〉</b></span>*/}
+                        <span id=">>" className={styles.num}>
+                            <form name={listdata.get('sort')+(Math.floor(data.length/15)+1)} id={listdata.get('sort')+(Math.floor(data.length/15)+1)} method='get'>
+                                <input name={listdata.get('sort')+(Math.floor(data.length/15)+1)} id={listdata.get('sort')+(Math.floor(data.length/15)+1)}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
+                                       style={{ display: 'none' }}></input>
+
+                            </form>
+                            <button id={listdata.get('sort')+(Math.floor(data.length/15)+1)} form={listdata.get('sort')+(Math.floor(data.length/15)+1)} className={styles.num} onClick={contentDivide}>&gt;&gt;</button>
+                        </span>
                     </div>
                 </div>
             </div>
