@@ -1,10 +1,14 @@
-package com.example.panda.config;
+/* title : HandshakeInterceptor
+ * 설명 : 웹 소켓 통신 시 Handshake 정보를 얻기 위한 클래스
+ *       스프링 시큐리티의 토큰 정보를 얻어 사용자 정보를 얻기 위하여 생성
+ * 작성자 : 이승현
+ * 생성일 : 2023.05.20
+ * 업데이트 : -
+ */
+package com.example.panda.chat;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

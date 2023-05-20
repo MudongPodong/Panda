@@ -10,9 +10,14 @@ package com.example.panda.repository;
 
 import com.example.panda.entity.ChatEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 
 public interface ChatRepository extends MongoRepository<ChatEntity, String> {
-    List<ChatEntity> findByRoomId(Long roomId);
+
+    List<ChatEntity> findByRoomId(@Param("roomId")Long roomId);
+
+
 }
 

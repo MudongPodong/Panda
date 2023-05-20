@@ -5,7 +5,8 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 dayjs.locale('ko');
 
-const ChatList = React.memo(({ chatRooms, onClick, isClicked, email}) => {
+const ChatList = React.memo(({ chatRooms, onClick, toChatList}) => {
+
     return (
         <ul>
             {chatRooms.map((chatList, index) => {
@@ -27,26 +28,26 @@ const ChatList = React.memo(({ chatRooms, onClick, isClicked, email}) => {
                 else diff = `${date1.format("A h:mm")}`;
 
                 return (
-                    <li className = {`${styles.profile_list} ${index === isClicked ? styles.profile_list_clicked : null}`} key={index} onClick={() => onClick(chatList.roomId,
-                        chatList.buyer.email === email ? chatList.seller.nickname : chatList.buyer.nickname,
-                        chatList.buyer.email !== email,
+                    <li className = {`${styles.profile_list} ${index === toChatList.isClicked ? styles.profile_list_clicked : null}`} key={index} onClick={() => onClick(chatList.roomId,
+                        chatList.buyer.email === toChatList.email ? chatList.seller.nickname : chatList.buyer.nickname,
+                        chatList.buyer.email !== toChatList.email,
                         index)} >
                         <div className={styles.p_profile} >
                             <img src={profile} width="100%" height="100%"></img>
                         </div>
                         <div className={styles.p_info}>
                             {
-                                chatList.buyer.email === email ?
-                                    <div className={`${index === isClicked ? styles.black_color : styles.whitesmoke_color} ${styles.p_name}`}>
+                                chatList.buyer.email === toChatList.email ?
+                                    <div className={`${index === toChatList.isClicked ? styles.black_color : styles.whitesmoke_color} ${styles.p_name}`}>
                                         {chatList.seller.nickname}
                                     </div>
                                     :
-                                    <div className={`${index===isClicked ? styles.black_color : styles.whitesmoke_color } ${styles.p_name}`}>
+                                    <div className={`${index===toChatList.isClicked ? styles.black_color : styles.whitesmoke_color } ${styles.p_name}`}>
                                         {chatList.buyer.nickname}
                                     </div>
                             }
-                            <div className={`${index===isClicked ? styles.black_color : styles.whitesmoke_color } ${styles.p_time}`}>{diff}</div>
-                            <div className={`${index===isClicked ? styles.black_color : styles.whitesmoke_color} ${styles.p_last_message}`}>{chatList.lastContent === null ? "사진" : chatList.lastContent}</div>
+                            <div className={`${index===toChatList.isClicked ? styles.black_color : styles.whitesmoke_color } ${styles.p_time}`}>{diff}</div>
+                            <div className={`${index===toChatList.isClicked ? styles.black_color : styles.whitesmoke_color} ${styles.p_last_message}`}>{chatList.lastContent === null ? "사진" : chatList.lastContent}</div>
                         </div>
                     </li> )
             })}
@@ -54,8 +55,7 @@ const ChatList = React.memo(({ chatRooms, onClick, isClicked, email}) => {
     );
 }, (prevProps, nextProps) => {
     if (prevProps.chatRooms === nextProps.chatRooms &&
-    prevProps.isClicked === nextProps.isClicked &&
-    prevProps.email === nextProps.email &&
+    prevProps.toChatList === nextProps.toChatList &&
     prevProps.onClick === nextProps.onClick)
     {
         return true;

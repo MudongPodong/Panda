@@ -6,26 +6,16 @@
  */
 package com.example.panda.controller;
 
-import com.example.panda.config.HandshakeInterceptor;
-import com.example.panda.config.WebSocketSessionManager;
+import com.example.panda.chat.WebSocketSessionManager;
 import com.example.panda.dto.ChatRoomDTO;
-import com.example.panda.dto.UserDTO;
-import com.example.panda.jwt.TokenProvider;
 import com.example.panda.service.ChatRoomService;
 import com.example.panda.service.ChatService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -33,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
-@RestController
 public class ChatHandler extends TextWebSocketHandler {
     private final ChatService chatService;
     private final ChatRoomService chatRoomService;
@@ -67,7 +56,7 @@ public class ChatHandler extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         String email = (String) session.getAttributes().get("user");
         webSocketSessionManager.removeSession(email);
-        webSocketSessionManager.removeRoomId(email);
+        webSocketSessionManager.removeChatInfo(email);
     }
 
 

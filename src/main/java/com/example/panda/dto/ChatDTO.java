@@ -28,6 +28,12 @@ public class ChatDTO {
     private boolean isFromBuyer;
     private Date chatDate;
     private String photo = null;
+    private int index;
+    // 웹 소켓 용도, DB와 관련 X
+    private int count;
+    // 웹 소켓 용도, DB와 관련 X
+    private String type;
+    // 웹 소켓 용도, DB와 관련 X
 
     public static ChatDTO toChatDTO(ChatEntity chatEntity) {
         ChatDTO chatDTO = new ChatDTO();

@@ -6,7 +6,7 @@
 * 업데이트 : -
 */
 
-package com.example.panda.config;
+package com.example.panda.chat;
 
 import com.example.panda.controller.ChatHandler;
 import com.example.panda.controller.MessageHandler;
