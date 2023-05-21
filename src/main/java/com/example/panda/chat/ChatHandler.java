@@ -57,7 +57,7 @@ public class ChatHandler extends TextWebSocketHandler {
         String email = (String) session.getAttributes().get("user");
 
         webSocketSessionManager.removeSession(email);
-        webSocketSessionManager.removeChatInfo(email);
+        webSocketSessionManager.removeRoomId(email);
     }
 
 

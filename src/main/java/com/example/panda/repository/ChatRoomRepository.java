@@ -35,7 +35,7 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Long> 
     void setNoReadCountByRoomId(@Param("roomId") Long roomId, @Param("isNoRead") boolean isNoRead);
 
     @Modifying
-    @Query("UPDATE ChatRoomEntity  e SET e.is_no_read = :isNoRead, e.no_read_buyer = :noReadBuyer WHERE e.room_id = :roomId")
-    void setNoReadAndBuyerByRoomId(@Param("roomId") Long roomId, @Param("isNoRead") boolean isNoRead, @Param("noReadBuyer") boolean noReadBuyer);
+    @Query("UPDATE ChatRoomEntity  e SET e.no_read_buyer = :noReadBuyer, e.is_no_read = :isNoRead  WHERE e.room_id = :roomId")
+    void setNoReadAndBuyerByRoomId(@Param("roomId") Long roomId, @Param("noReadBuyer") boolean noReadBuyer, @Param("isNoRead") boolean isNoRead);
 
 }

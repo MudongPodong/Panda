@@ -8,6 +8,7 @@ dayjs.locale('ko');
 
 const ChatList = React.memo(({ chatRooms, onClick, toChatList}) => {
 
+    if(!chatRooms[0]) return;
     return (
         <ul>
             {chatRooms.map((chatList, index) => {
@@ -30,26 +31,25 @@ const ChatList = React.memo(({ chatRooms, onClick, toChatList}) => {
                 // console.log(chatList.noRead);
 
                 return (
-                    <li className = {`${styles.profile_list} ${index === toChatList.isClicked ? styles.profile_list_clicked : null}`} key={index} onClick={() => onClick(chatList.roomId,
+                    <li className = {`${styles.profile_list} ${toChatList.roomId === chatList.roomId ? styles.profile_list_clicked : null}`} key={index} onClick={() => onClick(chatList.roomId,
                         chatList.buyer.email === toChatList.email ? chatList.seller.nickname : chatList.buyer.nickname,
-                        chatList.buyer.email !== toChatList.email,
-                        index, chatList)} >
+                        chatList.buyer.email === toChatList.email)} >
                         <div className={styles.p_profile} >
                             <img src={profile} width="100%" height="100%"></img>
                         </div>
                         <div className={styles.p_info}>
                             {
                                 chatList.buyer.email === toChatList.email ?
-                                    <div className={`${index === toChatList.isClicked ? styles.black_color : styles.whitesmoke_color} ${styles.p_name}`}>
+                                    <div className={`${toChatList.roomId === chatList.roomId ? styles.black_color : styles.whitesmoke_color} ${styles.p_name}`}>
                                         {chatList.seller.nickname}
                                     </div>
                                     :
-                                    <div className={`${index===toChatList.isClicked ? styles.black_color : styles.whitesmoke_color } ${styles.p_name}`}>
+                                    <div className={`${toChatList.roomId === chatList.roomId ? styles.black_color : styles.whitesmoke_color } ${styles.p_name}`}>
                                         {chatList.buyer.nickname}
                                     </div>
                             }
-                            <div className={`${index===toChatList.isClicked ? styles.black_color : styles.whitesmoke_color } ${styles.p_time}`}>{diff}</div>
-                            <div className={`${index===toChatList.isClicked ? styles.black_color : styles.whitesmoke_color} ${styles.p_last_message}`}>
+                            <div className={`${toChatList.roomId === chatList.roomId ? styles.black_color : styles.whitesmoke_color } ${styles.p_time}`}>{diff}</div>
+                            <div className={`${toChatList.roomId === chatList.roomId ? styles.black_color : styles.whitesmoke_color} ${styles.p_last_message}`}>
                                 {chatList.lastContent === null ?
                                     "사진" : chatList.lastContent}
                                 <div className={`${styles.no_read_message}`}>

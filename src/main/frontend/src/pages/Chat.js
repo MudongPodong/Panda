@@ -6,8 +6,19 @@ import ChatList from './ChatList';
 import Painting from '../imgs/temp_painting.png';
 import guidance from '../imgs/temp_map.png';
 import XButton from '../imgs/XButton.png';
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
 function Chat() {
+    const mapStyles = {
+        height: '400px',
+        width: '100%'
+    };
+
+    const defaultCenter = {
+        lat: 37.7749,
+        lng: -122.4194
+    };
+
 
     const [messages, setMessages] = useState([]);
     const [chatRooms, setChatRooms] = useState([]);
@@ -66,10 +77,9 @@ function Chat() {
                         let chatList = parsedMap.messages;  // 채팅방을 눌렀을 때 가져올 메시지 목록
                         let chat = parsedMap.message;       // 상대 또는 내가 보낸 메시지 1개
                         let myRoomId = parsedMap.myRoomId;  // 현재 내가 보고있는 채팅창 번호
-                        let myRooms = parsedMap.myRooms     // 갱신될 채팅창 목록
                         let amIBuyer = parsedMap.amIBuyer;  // 내가 구매자인지?
-                        let opNickname = parsedMap.opNickname;  // 상대방 닉네임
-                        let myIndex = parsedMap.myIndex;    // 내 채팅방 인덱스
+                        // let opNickname = parsedMap.opNickname;  // 상대방 닉네임
+                        // let myIndex = parsedMap.myIndex;    // 내 채팅방 인덱스
                         let type = parsedMap.type; // type -> 해당 메시지가 어떤 정보를 담고 있는지
                         // 스크롤을 내려야 하는가 true or false,
                         // 더 이상 불러올 메시지가 없는가 full의 내용이 담김.
@@ -79,19 +89,53 @@ function Chat() {
                         if (!chat) {  // chat == null -> 채팅방을 클릭했다는 의미
                             if(chatList[0] != null)
                                 chatList[chatList.length-1].type = type;
-                            setMessages(chatList);
 
-                            if(myRooms) // 채팅방 리스트를 가져온 경우 -> 읽지 않음 표시가 있는 항목을 클릭했다는 의미
-                                setChatRooms(myRooms);
+                            // console.log(chatList);
+
+                            chatList.forEach((room, index) => {
+                               if(room.roomId === myRoomId) {
+                                    room.noRead = false;
+                               }
+                            });
+
+                            setMessages(chatList);
+                            // if(myRooms) {// 채팅방 리스트를 가져온 경우 -> 읽지 않음 표시가 있는 항목을 클릭했다는 의미
+                            //     // setChatRooms(myRooms);
+                            //     // console.log(myRooms);
+                            // }
                         }
                         // 상대나 자신이 메시지를 보낸게 아니면
                         // 메시지 리스트를 가져와 저장
 
                         else if (chat) {    // chat != null -> 상대나 내가 메시지를 보냈다는 의미
                             // 메시지를 보낸거라면 메시지 목록 갱신 및 채팅방 목록 갱신
-                            setChatRooms(() => myRooms);
-                            if(chat.roomId === myRoomId) {
-                                if(type === 'sender')
+                            if(chatRoom.roomId === chat.roomId) {
+                                setChatRooms((prevChatRooms) => {
+                                    const updatedChatRooms = prevChatRooms.map((chatRoom) => {
+                                        if (chatRoom.roomId === chat.roomId) {
+                                            if(myRoomId !== chat.roomId) {
+                                                return {...chatRoom, lastContent: chat.content, lastDate: chat.chatDate,
+                                                noRead: true, noReadBuyer: amIBuyer}
+                                            }
+                                            return {...chatRoom, lastContent: chat.content, lastDate: chat.chatDate};
+
+                                        }
+                                        return chatRoom;
+                                    });
+
+                                    const updatedChatRoom = updatedChatRooms.find((chatRoom) => chatRoom.roomId === chat.roomId);
+
+                                    if(updatedChatRoom) {
+                                        const filteredChatRooms = updatedChatRooms.filter((chatRoom) => chatRoom.roomId !== chat.roomId);
+                                        return [updatedChatRoom, ...filteredChatRooms];
+                                    }
+
+                                    return prevChatRooms;
+                                });
+                            }
+
+                            if(chat.roomId === myRoomId) {  // 현재 그 채팅창을 보고 있다는 의미
+                                if (type === 'sender')
                                     // 내가 메시지를 보낸거면 스크롤을 내림
                                     chat.type = 'true';
                                 else
@@ -101,22 +145,8 @@ function Chat() {
                                 // isBottom 문자열을 기록.
 
                                 // 메시지의 roomId와 현재 열린 채팅창의 roomId와 같으면 Messages 목록에 메시지 추가
+                                console.log(amIBuyer);
                                 setMessages((prevMessages) => [...prevMessages, chat]);
-                                chatListClick(chat.roomId, opNickname, !amIBuyer, 0);
-                            } else {
-                                if(chatRoom.roomId === chat.roomId) {
-                                    console.log("index = ", + index);
-                                    console.log("myIndex = " + myIndex);
-                                    if(index >= myIndex) {
-                                        setToChatList(prevState => ({...prevState, isClicked: myIndex + 1}));
-                                        // room.send(JSON.stringify({
-                                        //     type:"click",
-                                        //     roomId: myRoomId,
-                                        //     index: myIndex + 1,
-                                        //     count: 0,
-                                        // }))
-                                    }
-                                }
                             }
                         }
                     }
@@ -137,7 +167,6 @@ function Chat() {
 
             roomSocket.send(JSON.stringify({
                 roomId: currentRoomId,
-                index: toChatList.isClicked,
                 count: 0,
                 type: "click",
             }));
@@ -186,10 +215,17 @@ function Chat() {
         }
     };
 
-    const chatListClick = (roomId, op, amIBuyer, clickIndex) => {
+    const chatListClick = (roomId, op, amIBuyer) => {
         setRoomId(roomId);
         setToMessageList(prevState => ({...prevState, op_Id: op, amIBuyer: amIBuyer}));
-        setToChatList(prevState => ({...prevState, isClicked: clickIndex}));
+        setToChatList(prevState => ({...prevState, roomId:roomId}));
+        setChatRooms(prevChatRooms => {
+           return prevChatRooms.map(chatRoom => {
+               if (chatRoom.roomId === roomId)
+                   return { ...chatRoom, noRead:false };
+               return chatRoom;
+           });
+        });
     };
 
     const handleUpload = () => {
@@ -219,6 +255,7 @@ function Chat() {
             setSendText('');
         }
 
+        console.log(message);
         room.send(JSON.stringify(message));
         setPreviewImage(null);
         setIsBigger(false);
@@ -281,7 +318,15 @@ function Chat() {
                         <div className={styles.no_room_selected}>채팅 방을 클릭해주세요.</div>
                     </div>
                     <div className={styles.chat_message} />
+                    {/*<LoadScript googleMapsApiKey="YOUR_API_KEY">*/}
+                    {/*    <GoogleMap*/}
+                    {/*        mapContainerStyle={mapStyles}*/}
+                    {/*        zoom={13}*/}
+                    {/*        center={defaultCenter}*/}
+                    {/*    />*/}
+                    {/*</LoadScript>*/}
                 </div>
+
             }
 
         </div>

@@ -57,54 +57,27 @@ public class MessageHandler extends TextWebSocketHandler {
 
         String email = (String) session.getAttributes().get("user");
 
-        System.out.println(email + chatDTO);
-        webSocketSessionManager.registerChatInfo(email, chatDTO);   // 클릭한 내용을 저장한다.
+//        System.out.println(email + chatDTO);
+        webSocketSessionManager.registerRoomId(email, chatDTO.getRoomId());   // 클릭한 내용을 저장한다.
 
         // 요청을 보낸 사용자가 어떤 채팅방에서 보낸건지 등록
         // 사용자가 현재 그 채팅방을 보고있다고 생각
 
+        long time = System.currentTimeMillis();
+
         ChatRoomDTO chatRoomDTO = chatRoomService.findById(chatDTO.getRoomId());
 
-//        System.out.print(2 + " : ");
-//        System.out.println(System.currentTimeMillis() - time);
-//        time = System.currentTimeMillis();
+        System.out.print(2 + " : ");
+        System.out.println(System.currentTimeMillis() - time);
+        time = System.currentTimeMillis();
 
         if(chatDTO.getType().equals("send")) {
             // 누군가 보낸 메시지일 경우
 
             chatDTO.setChatDate(new Date());
-            chatService.save(chatDTO);
 
             UserDTO buyer = chatRoomDTO.getBuyer();
             UserDTO seller = chatRoomDTO.getSeller();
-
-//            System.out.print(3 + " : ");
-//            System.out.println(System.currentTimeMillis() - time);
-//            time = System.currentTimeMillis();
-
-            if(email.equals(buyer.getEmail())) {   // buyer가 메시지를 보냈다는 의미
-                chatRoomService.updateNoReadBuyerByRoomId(chatRoomDTO.getRoomId(), false);
-
-                ChatDTO sellerInfo = webSocketSessionManager.getChatInfo(seller.getEmail());
-
-                if(sellerInfo == null || sellerInfo.getRoomId() != chatRoomDTO.getRoomId()) {
-                    // seller가 안보고 있다는 의미
-                    chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), true);
-                } else {
-                    chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), false);
-                }
-            } else {  // seller가 메시지를 보냈다는 의미
-                chatRoomService.updateNoReadBuyerByRoomId(chatRoomDTO.getRoomId(), true);
-
-                ChatDTO buyerInfo = webSocketSessionManager.getChatInfo(buyer.getEmail());
-
-                if(buyerInfo == null || buyerInfo.getRoomId() != chatRoomDTO.getRoomId()) {
-                    // buyer가 안보고 있다는 의미
-                    chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), true);
-                } else {
-                    chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), false);
-                }
-            }
 
 //            System.out.print(4 + " : ");
 //            System.out.println(System.currentTimeMillis() - time);
@@ -120,7 +93,6 @@ public class MessageHandler extends TextWebSocketHandler {
                 Map<String, Object> buyerMap = new HashMap<>();
                 Map<String, Object> sellerMap = new HashMap<>();
 
-
 //                System.out.print(5 + " : ");
 //                System.out.println(System.currentTimeMillis() - time);
 //                time = System.currentTimeMillis();
@@ -131,11 +103,9 @@ public class MessageHandler extends TextWebSocketHandler {
                         buyerMap.put("type", "sender");      // 내가 현재 채팅을 보낸 사람인가?
                     else
                         buyerMap.put("type", "receiver");    // 내가 현재 채팅을 받는 사람인가?
-
                     buyerMap.put("amIBuyer", true);
                     sendMessage(buyerSession, buyer, seller, buyerMap);
                 }
-
                 if (sellerSession != null) {
                     sellerMap.put("message", chatDTO);
                     if(seller.getEmail().equals(email))
@@ -146,6 +116,15 @@ public class MessageHandler extends TextWebSocketHandler {
                     sendMessage(sellerSession, seller, buyer, sellerMap);
                 }
 
+                chatService.save(chatDTO);
+
+                if(email.equals(buyer.getEmail())) {   // buyer가 메시지를 보냈다는 의미
+                    Long roomId = webSocketSessionManager.getRoomId(seller.getEmail());
+                    chatRoomService.setNoReadAndBuyerByRoomId(chatRoomDTO.getRoomId(), false, roomId != chatRoomDTO.getRoomId());
+                } else {  // seller가 메시지를 보냈다는 의미
+                    Long roomId = webSocketSessionManager.getRoomId(buyer.getEmail());
+                    chatRoomService.setNoReadAndBuyerByRoomId(chatRoomDTO.getRoomId(), true, roomId != chatRoomDTO.getRoomId());
+                }
 
 //                System.out.print(6 + " : ");
 //                System.out.println(System.currentTimeMillis() - time);
@@ -164,16 +143,17 @@ public class MessageHandler extends TextWebSocketHandler {
 //                System.out.println(System.currentTimeMillis() - time);
 //                time = System.currentTimeMillis();
 
+
                 if (chatDTO.getType().equals("scroll")) {    // 스크롤을 위로 올려서 메시지를 받는 경우
                     map.put("type", "false"); // 스크롤을 내려야 하는가?
                 } else if (chatDTO.getType().equals("click")) {    // 채팅방 클릭으로 메시지를 받는 경우
                     map.put("type", "true");  // 스크롤을 내려야 하는가?
 
-                    if(!(chatRoomDTO.getBuyer().getEmail().equals(email) ^ chatRoomDTO.isNoReadBuyer()) ) {
-                        // 만약 채팅방에 읽지 않음 표시가 되어있는 경우 이번에 채팅방을 클릭했으므로 읽음.
-                        chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), false);
-                        List<ChatRoomDTO> chatRoomDTOList = chatRoomService.findByUserEmail(email);
-                        map.put("myRooms", chatRoomDTOList);
+                    if(chatRoomDTO.isNoRead() && !(chatRoomDTO.isNoReadBuyer() ^ chatRoomDTO.getBuyer().getEmail().equals(email))) {
+                            // 만약 채팅방에 읽지 않음 표시가 되어있고, 안읽은 사람이 사용자일 경우 이번에 채팅방을 클릭했으므로 읽음.
+                            chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), false);
+                            List<ChatRoomDTO> chatRoomDTOList = chatRoomService.findByUserEmail(email);
+                            map.put("myRooms", chatRoomDTOList);
                     }
                 }
 
@@ -219,15 +199,12 @@ public class MessageHandler extends TextWebSocketHandler {
                             UserDTO opInfo, Map<String, Object> map) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        ChatDTO chatDTO = webSocketSessionManager.getChatInfo(myInfo.getEmail());
-        List<ChatRoomDTO> myRooms = chatRoomService.findByUserEmail(myInfo.getEmail());
+        Long roomId = webSocketSessionManager.getRoomId(myInfo.getEmail());
+//        List<ChatRoomDTO> myRooms = chatRoomService.findByUserEmail(myInfo.getEmail());
+//        map.put("myRooms", myRooms);
 
-        map.put("myRooms", myRooms);
+        map.put("myRoomId", roomId);
 
-        if(chatDTO != null) {
-            map.put("myIndex", chatDTO.getIndex());
-            map.put("myRoomId", chatDTO.getRoomId());
-        }
 
         if(opInfo != null) {
             map.put("opNickname", opInfo.getNickname());
@@ -237,6 +214,19 @@ public class MessageHandler extends TextWebSocketHandler {
         String json = objectMapper.writeValueAsString(map);
         TextMessage textMessage = new TextMessage(json);
         session.sendMessage(textMessage);
+
+//        if(myInfo.equals(.getEmail())) {   // buyer가 메시지를 보냈다는 의미
+//            chatRoomService.updateNoReadBuyerByRoomId(chatRoomDTO.getRoomId(), false);
+//
+//            Long roomId = webSocketSessionManager.getRoomId(seller.getEmail());
+//
+//            if(roomId != chatRoomDTO.getRoomId()) {
+//                // seller가 안보고 있다는 의미
+//                chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), true);
+//            } else {
+//                chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), false);
+//            }
+//        }
     }
 
 }
