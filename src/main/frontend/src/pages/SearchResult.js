@@ -35,21 +35,15 @@ function SearchResult() {
     }
 
     const divideStr=(str)=>{
-        //str.includes('_')
         if( str.match(/[_.~]/)) return decodeURIComponent(location.search.toString().split("=").at(1).split(/[_.~]/));
         //if( str.match(/[_.~]/)) return decodeURIComponent(location.search.toString()).split("=").at(1).split(/[_.~]/);
         else return decodeURIComponent(location.search.toString().split("=").at(1));
     }
 
     const contentView=(value=1)=>{
-        const query='div[name="spam"]';
-        const selectedElements= document.querySelectorAll(query);
-        selectedElements.forEach((element)=>{
-            element.style.display = 'none';
-           // element.remove();
-        })
+
         if(isNaN(parseInt(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).match(/\d+/g)))) value=1;  //바로 들어왔을때면 NaN되니까 value=1처리
-        else value=parseInt(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).match(/\d+/g));  //페이지가 저장됨
+        else value=parseInt(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).match(/\d+/g));  //페이지가 저장됨(숫자)
 
         //value=decodeURIComponent(location.search.toString()).split(/[=?]/).at(1);
         //decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).match(/\d+/g);
@@ -82,12 +76,33 @@ function SearchResult() {
         // return event.currentTarget.id;
     }
     let pages=[];
+    let currentPage=parseInt(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).match(/\d+/g));
+
+    if(isNaN(currentPage)){  //처음에 오면 현재페이지가 NaN값으로 넘어와짐
+        currentPage=1;
+    }
+
     const PageCount=(search_sort)=>{    //하단 총 페이지 수
         const count=data.length/2;
-        console.log(search_sort);
-        for(let i=0;i<=count;i++){
-            pages.push(
-                <span>
+        // console.log((Math.ceil(currentPage/5)*5-9));
+        // console.log(Math.floor(count/5));
+
+        for(let i=(Math.ceil(currentPage/5)-1)*5;i<=count && i<(Math.ceil(currentPage/5)-1)*5+5;i++){
+            if(currentPage===(i+1)){  //현재 페이지면 페이지 번호 진하게 색칠
+                pages.push(
+                    <span>
+                    <form name={search_sort+(i+1)} id={search_sort+(i+1)} method='get'>
+                        <input name={search_sort+(i+1)} id={search_sort+(i+1)} placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
+                               style={{ display: 'none' }}></input>
+
+                    </form>
+                    <button id={search_sort+(i+1)} form={search_sort+(i+1)} className={styles.num} style={{ backgroundColor: 'black', color: 'white' }} onClick={contentDivide}>{i+1}</button>
+                </span>
+                    // <span id={i+1}  className={styles.num} onClick={contents}>{i+1}</span>
+                )
+            }else{
+                pages.push(
+                    <span>
                     <form name={search_sort+(i+1)} id={search_sort+(i+1)} method='get'>
                         <input name={search_sort+(i+1)} id={search_sort+(i+1)} placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
                                style={{ display: 'none' }}></input>
@@ -95,9 +110,11 @@ function SearchResult() {
                     </form>
                     <button id={search_sort+(i+1)} form={search_sort+(i+1)} className={styles.num} onClick={contentDivide}>{i+1}</button>
                 </span>
-                // <span id={i+1}  className={styles.num} onClick={contents}>{i+1}</span>
-            )
+                )
+            }
+
         }
+
         return pages;
     }
 
@@ -113,11 +130,6 @@ function SearchResult() {
             .catch(error => console.log(error))
     }, []);
 
-    let currentPage=parseInt(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).match(/\d+/g));
-    console.log(data.length);
-    if(isNaN(currentPage)){
-        currentPage=1;
-    }
     return (
         <div className={styles.wraper}>
             <div className={styles.wrapBox}>
@@ -182,46 +194,43 @@ function SearchResult() {
                             </form>
                             <button id={listdata.get('sort')+1} form={listdata.get('sort')+1} className={styles.num} onClick={contentDivide}>&lt;&lt;</button>
                         </span>
-                        {(currentPage-5-(currentPage%5-1))>=1?(
-                            <span id=">" className={styles.num}>
-                            <form name={listdata.get('sort')+(currentPage-5-(currentPage%5-1))} id={listdata.get('sort')+(currentPage-5-(currentPage%5-1))} method='get'>
-                                <input name={listdata.get('sort')+(currentPage-5-(currentPage%5-1))} id={listdata.get('sort')+(currentPage-5-(currentPage%5-1))}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
+                        {(Math.ceil(currentPage/5)*5-9)>=1?(
+                            <span id="<" className={styles.num}>
+                            <form name={listdata.get('sort')+(Math.ceil(currentPage/5)*5-9)} id={listdata.get('sort')+(Math.ceil(currentPage/5)*5-9)} method='get'>
+                                <input name={listdata.get('sort')+(Math.ceil(currentPage/5)*5-9)} id={listdata.get('sort')+(Math.ceil(currentPage/5)*5-9)}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
                                        style={{ display: 'none' }}></input>
 
                             </form>
-                            <button id={listdata.get('sort')+(currentPage-5-(currentPage%5-1))} form={listdata.get('sort')+(currentPage-5-(currentPage%5-1))} className={styles.num} onClick={contentDivide}>&lt;</button>
+                            <button id={listdata.get('sort')+(Math.ceil(currentPage/5)*5-9)} form={listdata.get('sort')+(Math.ceil(currentPage/5)*5-9)} className={styles.num} onClick={contentDivide}>&lt;</button>
                         </span>
                         ):(
-                            <span id=">>" className={styles.num}>
-
-                            <button id={listdata.get('sort')+(Math.floor(data.length/2)+1)} className={styles.num}>&gt;</button>
-                        </span>
+                            <></>
                         ) }
 
                         {/*<span id="<"  className={styles.num} ><b>〈</b></span>*/}
                         {PageCount(decodeURIComponent(location.search.toString().split(/[=?]/).at(1)).replace(/[0-9]/g, ''))}    {/*현재 어떤 정렬인지 뽑아냄*/}
-                        {(currentPage+5-(currentPage%5-1))<(Math.floor(data.length/2)+1)?(
+                        {(Math.ceil(currentPage/5)-1)*5+5<(Math.floor(data.length/2)+1)?(
                             <span id=">" className={styles.num}>
-                            <form name={listdata.get('sort')+(currentPage+5-(currentPage%5-1))} id={listdata.get('sort')+(currentPage+5-(currentPage%5-1))} method='get'>
-                                <input name={listdata.get('sort')+(currentPage+5-(currentPage%5-1))} id={listdata.get('sort')+(currentPage+5-(currentPage%5-1))}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
+                            <form name={listdata.get('sort')+(Math.ceil(currentPage/5)*5+1)} id={listdata.get('sort')+(Math.ceil(currentPage/5)*5+1)} method='get'>
+                                <input name={listdata.get('sort')+(Math.ceil(currentPage/5)*5+1)} id={listdata.get('sort')+(Math.ceil(currentPage/5)*5+1)}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
                                        style={{ display: 'none' }}></input>
 
                             </form>
-                            <button id={listdata.get('sort')+(currentPage+5-(currentPage%5-1))} form={listdata.get('sort')+(currentPage+5-(currentPage%5-1))} className={styles.num} onClick={contentDivide}>&gt;</button>
+                            <button id={listdata.get('sort')+(Math.ceil(currentPage/5)*5+1)} form={listdata.get('sort')+(Math.ceil(currentPage/5)*5+1)} className={styles.num} onClick={contentDivide}>&gt;</button>
                         </span>
                         ):(
                             <></>
                         ) }
                         {/*<span id=">" className={styles.num} ><b>〉</b></span>*/}
-                        {/*(Math.floor(data.length/2)+1)*/}
-                        {/*<span id=">>" className={styles.num}>*/}
-                        {/*    <form name={listdata.get('sort')+(Math.floor(data.length/2)+1)} id={listdata.get('sort')+(Math.floor(data.length/2)+1)} method='get'>*/}
-                        {/*        <input name={listdata.get('sort')+(Math.floor(data.length/2)+1)} id={listdata.get('sort')+(Math.floor(data.length/2)+1)}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}*/}
-                        {/*               style={{ display: 'none' }}></input>*/}
 
-                        {/*    </form>*/}
-                        {/*    <button id={listdata.get('sort')+(Math.floor(data.length/2)+1)} form={listdata.get('sort')+(Math.floor(data.length/2)+1)} className={styles.num} onClick={contentDivide}>&gt;&gt;</button>*/}
-                        {/*</span>*/}
+                        <span id=">>" className={styles.num}>
+                            <form name={listdata.get('sort')+(Math.floor(data.length/2)+1)} id={listdata.get('sort')+(Math.floor(data.length/2)+1)} method='get'>
+                                <input name={listdata.get('sort')+(Math.floor(data.length/2)+1)} id={listdata.get('sort')+(Math.floor(data.length/2)+1)}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
+                                       style={{ display: 'none' }}></input>
+
+                            </form>
+                            <button id={listdata.get('sort')+(Math.floor(data.length/2)+1)} form={listdata.get('sort')+(Math.floor(data.length/2)+1)} className={styles.num} onClick={contentDivide}>&gt;&gt;</button>
+                        </span>
                     </div>
                 </div>
             </div>
