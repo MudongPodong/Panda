@@ -77,8 +77,12 @@ function Chat() {
 
                         // let opUserImg = parsedMessage.opUserImg;
                         if (!chat) {  // chat == null -> 채팅방을 클릭했다는 의미
-                            chatList[chatList.length-1].type = type;
+                            if(chatList[0] != null)
+                                chatList[chatList.length-1].type = type;
                             setMessages(chatList);
+
+                            if(myRooms) // 채팅방 리스트를 가져온 경우 -> 읽지 않음 표시가 있는 항목을 클릭했다는 의미
+                                setChatRooms(myRooms);
                         }
                         // 상대나 자신이 메시지를 보낸게 아니면
                         // 메시지 리스트를 가져와 저장
@@ -87,7 +91,6 @@ function Chat() {
                             // 메시지를 보낸거라면 메시지 목록 갱신 및 채팅방 목록 갱신
                             setChatRooms(() => myRooms);
                             if(chat.roomId === myRoomId) {
-
                                 if(type === 'sender')
                                     // 내가 메시지를 보낸거면 스크롤을 내림
                                     chat.type = 'true';
@@ -102,8 +105,17 @@ function Chat() {
                                 chatListClick(chat.roomId, opNickname, !amIBuyer, 0);
                             } else {
                                 if(chatRoom.roomId === chat.roomId) {
-                                    if(index >= myIndex)
+                                    console.log("index = ", + index);
+                                    console.log("myIndex = " + myIndex);
+                                    if(index >= myIndex) {
                                         setToChatList(prevState => ({...prevState, isClicked: myIndex + 1}));
+                                        // room.send(JSON.stringify({
+                                        //     type:"click",
+                                        //     roomId: myRoomId,
+                                        //     index: myIndex + 1,
+                                        //     count: 0,
+                                        // }))
+                                    }
                                 }
                             }
                         }

@@ -28,9 +28,9 @@ public class ChatDTO {
     private boolean isFromBuyer;
     private Date chatDate;
     private String photo = null;
-    private Integer index = null;
+    private int index;
     // 웹 소켓 용도, DB와 관련 X
-    private Integer count = null;
+    private int count;
     // 웹 소켓 용도, DB와 관련 X
     private String type;
     // 웹 소켓 용도, DB와 관련 X

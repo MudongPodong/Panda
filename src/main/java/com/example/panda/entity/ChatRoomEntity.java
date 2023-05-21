@@ -37,4 +37,10 @@ public class ChatRoomEntity {
 
     @Column
     private Date last_date;
+
+    @Column
+    private boolean is_no_read; // 안읽었는지?
+
+    @Column
+    private boolean no_read_buyer;
 }

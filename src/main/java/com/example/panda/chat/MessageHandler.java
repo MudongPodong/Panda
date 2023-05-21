@@ -48,28 +48,69 @@ public class MessageHandler extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
 
+//        long time = System.currentTimeMillis();
+
         String receivedMessage = message.getPayload();
         ObjectMapper objectMapper = new ObjectMapper();
         ChatDTO chatDTO = objectMapper.readValue(receivedMessage, ChatDTO.class);
         // ObjectMapper를 통해 Message를 chatDTO로 변환
 
         String email = (String) session.getAttributes().get("user");
+
+        System.out.println(email + chatDTO);
         webSocketSessionManager.registerChatInfo(email, chatDTO);   // 클릭한 내용을 저장한다.
 
         // 요청을 보낸 사용자가 어떤 채팅방에서 보낸건지 등록
         // 사용자가 현재 그 채팅방을 보고있다고 생각
 
+        ChatRoomDTO chatRoomDTO = chatRoomService.findById(chatDTO.getRoomId());
+
+//        System.out.print(2 + " : ");
+//        System.out.println(System.currentTimeMillis() - time);
+//        time = System.currentTimeMillis();
+
         if(chatDTO.getType().equals("send")) {
             // 누군가 보낸 메시지일 경우
+
             chatDTO.setChatDate(new Date());
             chatService.save(chatDTO);
 
+            UserDTO buyer = chatRoomDTO.getBuyer();
+            UserDTO seller = chatRoomDTO.getSeller();
+
+//            System.out.print(3 + " : ");
+//            System.out.println(System.currentTimeMillis() - time);
+//            time = System.currentTimeMillis();
+
+            if(email.equals(buyer.getEmail())) {   // buyer가 메시지를 보냈다는 의미
+                chatRoomService.updateNoReadBuyerByRoomId(chatRoomDTO.getRoomId(), false);
+
+                ChatDTO sellerInfo = webSocketSessionManager.getChatInfo(seller.getEmail());
+
+                if(sellerInfo == null || sellerInfo.getRoomId() != chatRoomDTO.getRoomId()) {
+                    // seller가 안보고 있다는 의미
+                    chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), true);
+                } else {
+                    chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), false);
+                }
+            } else {  // seller가 메시지를 보냈다는 의미
+                chatRoomService.updateNoReadBuyerByRoomId(chatRoomDTO.getRoomId(), true);
+
+                ChatDTO buyerInfo = webSocketSessionManager.getChatInfo(buyer.getEmail());
+
+                if(buyerInfo == null || buyerInfo.getRoomId() != chatRoomDTO.getRoomId()) {
+                    // buyer가 안보고 있다는 의미
+                    chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), true);
+                } else {
+                    chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), false);
+                }
+            }
+
+//            System.out.print(4 + " : ");
+//            System.out.println(System.currentTimeMillis() - time);
+//            time = System.currentTimeMillis();
+
             if (session.isOpen()) {
-                ChatRoomDTO chatRoomDTO = chatRoomService.findById(chatDTO.getRoomId());
-
-                UserDTO buyer = chatRoomDTO.getBuyer();
-                UserDTO seller = chatRoomDTO.getSeller();
-
                 WebSocketSession buyerSession = webSocketSessionManager.
                         getSession(buyer.getEmail() + "/" + chatRoomDTO.getRoomId());
 
@@ -78,6 +119,11 @@ public class MessageHandler extends TextWebSocketHandler {
 
                 Map<String, Object> buyerMap = new HashMap<>();
                 Map<String, Object> sellerMap = new HashMap<>();
+
+
+//                System.out.print(5 + " : ");
+//                System.out.println(System.currentTimeMillis() - time);
+//                time = System.currentTimeMillis();
 
                 if(buyerSession != null) {
                     buyerMap.put("message", chatDTO);
@@ -99,21 +145,41 @@ public class MessageHandler extends TextWebSocketHandler {
                     sellerMap.put("amIBuyer", false);
                     sendMessage(sellerSession, seller, buyer, sellerMap);
                 }
+
+
+//                System.out.print(6 + " : ");
+//                System.out.println(System.currentTimeMillis() - time);
+//                time = System.currentTimeMillis();
             }
         } else {
             if (session.isOpen()) {
+
+                Map<String, Object> map = new HashMap<>();
 
                 List<ChatDTO> chatDTOList = chatService.findNByRoomId(chatDTO.getRoomId(), chatDTO.getCount() + 20);
                 // 메시지 불러오기
                 // 최근 20개의 메시지를 가져옴
 
-                Map<String, Object> map = new HashMap<>();
+//                System.out.print(7 + " : ");
+//                System.out.println(System.currentTimeMillis() - time);
+//                time = System.currentTimeMillis();
 
                 if (chatDTO.getType().equals("scroll")) {    // 스크롤을 위로 올려서 메시지를 받는 경우
                     map.put("type", "false"); // 스크롤을 내려야 하는가?
                 } else if (chatDTO.getType().equals("click")) {    // 채팅방 클릭으로 메시지를 받는 경우
                     map.put("type", "true");  // 스크롤을 내려야 하는가?
+
+                    if(!(chatRoomDTO.getBuyer().getEmail().equals(email) ^ chatRoomDTO.isNoReadBuyer()) ) {
+                        // 만약 채팅방에 읽지 않음 표시가 되어있는 경우 이번에 채팅방을 클릭했으므로 읽음.
+                        chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), false);
+                        List<ChatRoomDTO> chatRoomDTOList = chatRoomService.findByUserEmail(email);
+                        map.put("myRooms", chatRoomDTOList);
+                    }
                 }
+
+//                System.out.print(8 + " : ");
+//                System.out.println(System.currentTimeMillis() - time);
+//                time = System.currentTimeMillis();
 
                 if (chatDTOList.size() == chatDTO.getCount()) {// 사용자가 이미 스크롤을 끝까지 올려 더 이상 불러올 메시지가 없음을 의미
                     map.put("type", "full");
@@ -124,6 +190,10 @@ public class MessageHandler extends TextWebSocketHandler {
                 String json = objectMapper.writeValueAsString(map);
                 TextMessage textMessage = new TextMessage(json);
                 session.sendMessage(textMessage);
+
+//                System.out.print(9 + " : ");
+//                System.out.println(System.currentTimeMillis() - time);
+//                time = System.currentTimeMillis();
             }
         }
     }

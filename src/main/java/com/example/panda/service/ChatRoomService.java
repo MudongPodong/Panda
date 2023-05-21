@@ -8,7 +8,6 @@
 package com.example.panda.service;
 
 import com.example.panda.dto.ChatRoomDTO;
-import com.example.panda.entity.ChatEntity;
 import com.example.panda.entity.ChatRoomEntity;
 import com.example.panda.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +34,7 @@ public class ChatRoomService {
         return chatRoomDTOList;
     }
 
+
     @Transactional
     public ChatRoomDTO findById(Long roomId) {
         Optional<ChatRoomEntity> optionalChatRoomEntity = chatRoomRepository.findById(roomId);
@@ -45,6 +43,21 @@ public class ChatRoomService {
             ChatRoomEntity chatRoomEntity = optionalChatRoomEntity.get();
           return ChatRoomDTO.toChatRoomDTO(chatRoomEntity);
         } else return null;
+    }
+
+    @Transactional
+    public void setNoReadCountByRoomId(Long roomId, boolean isNoRead) {
+        chatRoomRepository.setNoReadCountByRoomId(roomId, isNoRead);
+    }
+
+    @Transactional
+    public void updateNoReadBuyerByRoomId(Long roomId, boolean noReadBuyer) {
+        chatRoomRepository.updateNoReadBuyerByRoomId(roomId, noReadBuyer);
+    }
+
+    @Transactional
+    public void setNoReadAndBuyerByRoomId(Long roomId, boolean noReadBuyer, boolean isNoRead) {
+        chatRoomRepository.setNoReadAndBuyerByRoomId(roomId, noReadBuyer, isNoRead);
     }
 
 }

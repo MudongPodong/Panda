@@ -25,7 +25,8 @@ public class ChatRoomDTO {
     private UserDTO seller;  // 최초 받은 사람 (판매자)
     private String lastContent; // 마지막 메시지의 내용
     private Date lastDate; // 마지막 메시지의 날짜
-
+    private boolean isNoRead;
+    private boolean noReadBuyer; // buyer가 안읽은건지 (안읽은 사람의 채팅 목록에 표시하기 위함)
 
     public static ChatRoomDTO toChatRoomDTO (ChatRoomEntity chatRoomEntity, UserDTO buyer, UserDTO seller) {
         ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
@@ -43,6 +44,8 @@ public class ChatRoomDTO {
         chatRoomDTO.setRoomId(chatRoomEntity.getRoom_id());
         chatRoomDTO.setLastContent(chatRoomEntity.getLast_content());
         chatRoomDTO.setLastDate(chatRoomEntity.getLast_date());
+        chatRoomDTO.setNoReadBuyer(chatRoomEntity.isNo_read_buyer());
+        chatRoomDTO.setNoRead(chatRoomEntity.is_no_read());
 
         if(chatRoomEntity.getBuyer() != null)
             chatRoomDTO.setBuyer(UserDTO.toUserDTO(chatRoomEntity.getBuyer()));

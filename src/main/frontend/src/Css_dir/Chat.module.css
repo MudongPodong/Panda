@@ -387,3 +387,9 @@ body::-webkit-scrollbar {
     left:30px;
     font-weight: bold;
 }
+
+.no_read_message {
+    position:absolute;
+    margin-left: 200px;
+    margin-top: -15px;
+}
