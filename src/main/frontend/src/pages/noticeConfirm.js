@@ -10,8 +10,7 @@ function NoticeConfirm()
     const navigate = useNavigate();
     const writingInfo = { ...location.state };
     const listdata=new FormData();
-    const [favoriteCNT, setCount] = useState(0)  //해당 게시글에 찜등록한 사람 수
-    const [favoriteFlag, setFlag] = useState(0)  //해당 게시글에 찜등록했는지 안했는지 검사
+    const [data, setData] = useState([])  //해당 게시글에 찜등록한 사람 수
     listdata.append('wid', writingInfo.word);  //이전 페이지에서 받아온 글id
 
     function gonoticepage()
@@ -52,7 +51,7 @@ function NoticeConfirm()
                 'Content-Type' : 'multipart/form-data'
             }
         })
-            .then(response => setCount(response.data))
+            .then(response => setData(response.data))
             .catch(error => console.log(error))
     }, []);
 
@@ -67,7 +66,10 @@ function NoticeConfirm()
             <div className={styles.board_view_wrap}>
                 <div className={styles.board_view}>
                     <div className={styles.title}>
-                        <div>글 제목이 들어갑니다.&nbsp;&nbsp; <span className={styles.favorite_count}>찜:{favoriteCNT}회</span></div>
+                        {/*{data =>*/}
+                        {/*    <div>글 제목이 들어갑니다.&nbsp;&nbsp; <span className={styles.favorite_count}>찜:{data.favorite_count}회</span></div>*/}
+                        {/*}*/}
+                        <div>{data.writing_name}&nbsp;&nbsp; <span className={styles.favorite_count}>찜:{data.favorite_count}회</span></div>
                         <button className={styles.favorite_btn} onClick={Btn_register}>찜등록</button>
                     </div>
                     <div className={styles.info}>

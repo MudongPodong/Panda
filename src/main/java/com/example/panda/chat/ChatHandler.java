@@ -4,53 +4,60 @@
  * 생성일 : 2023.05.18
  * 업데이트 : -
  */
-package com.example.panda.controller;
+package com.example.panda.chat;
 
+import com.example.panda.chat.WebSocketSessionManager;
 import com.example.panda.dto.ChatRoomDTO;
-import com.example.panda.dto.UserDTO;
 import com.example.panda.service.ChatRoomService;
 import com.example.panda.service.ChatService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
-@RestController
 public class ChatHandler extends TextWebSocketHandler {
-    private final ChatRoomService chatRoomService;
     private final ChatService chatService;
+    private final ChatRoomService chatRoomService;
+    private final WebSocketSessionManager webSocketSessionManager;
 
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    public void afterConnectionEstablished(WebSocketSession session) throws IOException {
+        String email = (String) session.getAttributes().get("user");
+        webSocketSessionManager.registerSession(email, session);
 
-    }
+        List<ChatRoomDTO> chatRooms = chatRoomService.findByUserEmail(email);
 
-    @Override
-    public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
-        String receivedMessage = message.getPayload();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        UserDTO userDTO = objectMapper.readValue(receivedMessage, UserDTO.class);
-
-        List<ChatRoomDTO> chatRoomDTOList = chatRoomService.findByUserEmail(userDTO.getEmail());
+        Map<String, Object> map = new HashMap<>();
+        map.put("email", email);
+        map.put("chatRooms", chatRooms);
 
         if(session.isOpen()) {
-            String json = objectMapper.writeValueAsString(chatRoomDTOList);
+            ObjectMapper objectMapper = new ObjectMapper();
+            String json = objectMapper.writeValueAsString(map);
             TextMessage textMessage = new TextMessage(json);
             session.sendMessage(textMessage);
         }
     }
 
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
+    public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
 
+    }
+
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
+        String email = (String) session.getAttributes().get("user");
+
+        webSocketSessionManager.removeSession(email);
+        webSocketSessionManager.removeRoomId(email);
     }
 
 

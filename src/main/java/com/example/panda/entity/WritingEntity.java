@@ -32,4 +32,7 @@ public class WritingEntity {
     @ManyToOne
     @JoinColumn(name="email")
     private UserEntity userEntity;
+    @Column
+    private int favorite_count;
+
 }

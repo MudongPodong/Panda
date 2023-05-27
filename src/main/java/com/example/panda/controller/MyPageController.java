@@ -71,13 +71,15 @@ public class MyPageController {
         return favoriteDTOList;
     }
     @PostMapping("/api/favorite_writing")
-    public int favoriteWriting(@RequestParam("wid") int wid){  //해당 게시글 찜 등록한 사람 수 리턴
+    public WritingDTO favoriteWriting(@RequestParam("wid") int wid){  //해당 게시글 찜 등록한 사람 수 리턴
         List<WritingDTO> writingDTOList=new ArrayList<>();
 
         List<FavoriteDTO> favoriteDTOList=favoriteService.findByWid(wid);   //나중에 글아이디 넣기
         int count=favoriteDTOList.size();
 
-        return count;
+        WritingDTO writingDTO=writingService.findById(wid); //찜 등록시 게시글에 찜 카운팅+1
+
+        return writingDTO;
     }
     @PostMapping("/api/favorite_register")
     public int favoriteRegit(@RequestParam("wid") int wid){        //찜 등록

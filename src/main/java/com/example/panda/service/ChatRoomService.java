@@ -16,8 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,17 +34,30 @@ public class ChatRoomService {
         return chatRoomDTOList;
     }
 
-//    @Transactional
-//    public List<ChatRoomDTO> findByUserEmailAsync(String email) throws ExecutionException, InterruptedException {
-//        Future<List<ChatRoomEntity>> future = chatRoomRepository.findByUserEmailAsync(email);
-//
-//        List<ChatRoomEntity> chatRoomEntityList = future.get();
-//
-//        List<ChatRoomDTO> chatRoomDTOList = new ArrayList<>();
-//        for(ChatRoomEntity chatRoomEntity : chatRoomEntityList)
-//            chatRoomDTOList.add(ChatRoomDTO.toChatRoomDTO(chatRoomEntity));
-//
-//        return chatRoomDTOList;
-//    }
+
+    @Transactional
+    public ChatRoomDTO findById(Long roomId) {
+        Optional<ChatRoomEntity> optionalChatRoomEntity = chatRoomRepository.findById(roomId);
+
+        if(optionalChatRoomEntity.isPresent()) {
+            ChatRoomEntity chatRoomEntity = optionalChatRoomEntity.get();
+          return ChatRoomDTO.toChatRoomDTO(chatRoomEntity);
+        } else return null;
+    }
+
+    @Transactional
+    public void setNoReadCountByRoomId(Long roomId, boolean isNoRead) {
+        chatRoomRepository.setNoReadCountByRoomId(roomId, isNoRead);
+    }
+
+    @Transactional
+    public void updateNoReadBuyerByRoomId(Long roomId, boolean noReadBuyer) {
+        chatRoomRepository.updateNoReadBuyerByRoomId(roomId, noReadBuyer);
+    }
+
+    @Transactional
+    public void setNoReadAndBuyerByRoomId(Long roomId, boolean noReadBuyer, boolean isNoRead) {
+        chatRoomRepository.setNoReadAndBuyerByRoomId(roomId, noReadBuyer, isNoRead);
+    }
 
 }

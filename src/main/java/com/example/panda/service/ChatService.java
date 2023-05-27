@@ -11,11 +11,13 @@ import com.example.panda.dto.ChatDTO;
 import com.example.panda.entity.ChatEntity;
 import com.example.panda.entity.ChatRoomEntity;
 import com.example.panda.repository.ChatRepository;
+import com.example.panda.repository.ChatRepositoryCustomImpl;
 import com.example.panda.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +26,7 @@ import java.util.Optional;
 public class ChatService {
     private final ChatRepository chatRepository;
     private final ChatRoomRepository chatRoomRepository;
+    private final ChatRepositoryCustomImpl chatRepositoryCustom;
 
     public List<ChatDTO> findByRoomId(Long roomId) {
         List<ChatEntity> chatEntityList = chatRepository.findByRoomId(roomId);
@@ -33,6 +36,20 @@ public class ChatService {
         for(ChatEntity chatEntity : chatEntityList)
             chatDTOList.add(ChatDTO.toChatDTO(chatEntity));
 
+        return chatDTOList;
+    }
+
+    public List<ChatDTO> findNByRoomId(Long roomId, int count) {
+
+        List<ChatEntity> chatEntityList = chatRepositoryCustom.findTopNByRoomIdOrderByTimestampDesc(roomId, count);
+
+        List<ChatDTO> chatDTOList = new ArrayList<>();
+
+        for(ChatEntity chatEntity : chatEntityList) {
+            chatDTOList.add(ChatDTO.toChatDTO(chatEntity));
+        }
+
+        Collections.reverse(chatDTOList);
         return chatDTOList;
     }
 

@@ -114,6 +114,10 @@ body::-webkit-scrollbar {
     float:left;
     font-family:"NanumSquare";
     margin-top:5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 160px; /* 원하는 너비로 설정 */
 }
 
 .chat_container {
@@ -211,6 +215,7 @@ body::-webkit-scrollbar {
     border-radius: 10px;
     margin-bottom: 30px;
     max-width:90%;
+    word-wrap: break-word;
     right:30px;
     position: relative;
     min-height:26px;
@@ -246,10 +251,10 @@ body::-webkit-scrollbar {
     display:inline-block;
     min-height:26px;
     /*font-weight: bold;*/
+    word-wrap: break-word;
     left:590px;
     transform: translateX(-100%);
     font-family: "NanumGothicOTF";
-
 }
 
 .my_message:after {
@@ -381,4 +386,10 @@ body::-webkit-scrollbar {
     top:5px;
     left:30px;
     font-weight: bold;
+}
+
+.no_read_message {
+    position:absolute;
+    margin-left: 200px;
+    margin-top: -15px;
 }

@@ -1,5 +1,5 @@
 import styles from '../Css_dir/navigation.module.css';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import React from 'react';
 import logo from '../imgs/logo192_192.png';
 import green_logo from '../imgs/green_logo_192_192.png';
@@ -32,7 +32,8 @@ function TopNav() {
         if(searchElement.value.length >=2){
             const searchdata=new FormData();
             searchdata.append('word', search_word);
-            movePage('/pages/SearchResult', {state:{word:search_word}});
+            //movePage('/pages/SearchResult', {state:{word:search_word}});
+            movePage('/pages/SearchResult?search='+search_word, {state:{word:search_word}});
         }
     }
     function goCategorySearch(event){    //카테고리 검색
@@ -133,10 +134,10 @@ function TopNav() {
                                 </form>
                                 <button type="submit" form="search_beauty" onClick={goCategorySearch} className={styles.category_btn}>뷰티</button>
                             </a>
-                            <a onClick={goCategorySearch} id="가구/인테리어">
+                            <a onClick={goCategorySearch} id="가구_인테리어">
                                 <div className={styles.line}></div>
                                 <form name='search_furniture' id='search_furniture' method='get'>
-                                    <input name='search_furniture' id='search_furniture' placeholder='  검색'defaultValue="가구/인테리어" style={{ display: 'none' }}></input>
+                                    <input name='search_furniture' id='search_furniture' placeholder='  검색'defaultValue="가구_인테리어" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_furniture" onClick={goCategorySearch} className={styles.category_btn}>가구/인테리어</button>
                             </a>
@@ -147,10 +148,10 @@ function TopNav() {
                                 </form>
                                 <button type="submit" form="search_eletronics" onClick={goCategorySearch} className={styles.category_btn}>가전제품</button>
                             </a>
-                            <a onClick={goCategorySearch} id="모바일/태블릿/PC">
+                            <a onClick={goCategorySearch} id="모바일_태블릿_PC">
                                 <div className={styles.line}></div>
                                 <form name='search_mobile' id='search_mobile' method='get'>
-                                    <input name='search_mobile' id='search_mobile' placeholder='  검색'defaultValue="모바일/태블릿/PC" style={{ display: 'none' }}></input>
+                                    <input name='search_mobile' id='search_mobile' placeholder='  검색'defaultValue="모바일_태블릿_PC" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_mobile" onClick={goCategorySearch} className={styles.category_btn}>모바일/태블릿/PC</button>
                             </a>
@@ -168,17 +169,17 @@ function TopNav() {
                                 </form>
                                 <button type="submit" form="search_animal" onClick={goCategorySearch} className={styles.category_btn}>반려동물</button>
                             </a>
-                            <a onClick={goCategorySearch} id="문구/도서">
+                            <a onClick={goCategorySearch} id="문구_도서">
                                 <div className={styles.line}></div>
                                 <form name='search_book' id='search_book' method='get'>
-                                    <input name='search_book' id='search_book' placeholder='  검색'defaultValue="문구/도서" style={{ display: 'none' }}></input>
+                                    <input name='search_book' id='search_book' placeholder='  검색'defaultValue="문구_도서" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_book" onClick={goCategorySearch} className={styles.category_btn}>문구/도서</button>
                             </a>
-                            <a onClick={goCategorySearch} id="티켓/쿠폰">
+                            <a onClick={goCategorySearch} id="티켓_쿠폰">
                                 <div className={styles.line}></div>
                                 <form name='search_ticket' id='search_ticket' method='get'>
-                                    <input name='search_ticket' id='search_ticket' placeholder='  검색'defaultValue="티켓/쿠폰" style={{ display: 'none' }}></input>
+                                    <input name='search_ticket' id='search_ticket' placeholder='  검색'defaultValue="티켓_쿠폰" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_ticket" onClick={goCategorySearch} className={styles.category_btn}>티켓/쿠폰</button>
                             </a>
@@ -213,11 +214,18 @@ function TopNav() {
                             <div className={styles.bottom_line}></div>
                         </div>
                     </div>
-                    <li className={styles.tlist_item} onClick={goChat}>
+                    <li className={styles.tlist_item} onClick={goChat} >
                         <a className={styles.tlist_item_a}>
                             <span className={styles.tlist_text}>채팅</span>
                         </a>
                     </li>
+                    {/*<Link to={"/pages/Chat"} target={`_blank`}>*/}
+                    {/*    <li className={styles.tlist_item} >*/}
+                    {/*        <a className={styles.tlist_item_a}>*/}
+                    {/*            <span className={styles.tlist_text}>채팅</span>*/}
+                    {/*        </a>*/}
+                    {/*    </li>*/}
+                    {/*</Link>*/}
                     <li className={styles.tlist_item}>
                         <a className={styles.tlist_item_a}>
                             <form name='search' id='search_form' method='get'>
