@@ -5,7 +5,7 @@ const DetailedSideCategory = () =>{
     return (
         <div className={style.sideCategory}>
             <ul className={style.sideCategory_list}>
-                <li className={style.sideCategory_list_item}>료
+                <li className={style.sideCategory_list_item}>
                     <div>의류</div>
                     <div>
                         <ul>
