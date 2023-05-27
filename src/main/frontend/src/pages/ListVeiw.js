@@ -89,7 +89,7 @@ class ListVeiw extends React.Component {
                                     {/*to안에 해당 상품 페이지로 이동하게 하면됨*/}
                                     <div className={styles.list_container}>
                                         <div className={styles.item_img}>
-                                            <img width={200} src={img} className={styles.list_img}/>
+                                            <img width={200} height={200} src={img} className={styles.list_img}/>
                                         </div>
                                         <div className={styles.item_desc}>
                                             <h2 className={styles.item_name}>{pname[i]}</h2>
