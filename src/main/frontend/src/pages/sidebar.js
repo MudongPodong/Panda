@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState } from "react";
 import styles from "../Css_dir/sidebar.module.css";
 import {useNavigate} from "react-router-dom";
 import DetailedSideCategory from "./SidebarCategory";
+import axios from "axios";
 
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -52,11 +53,27 @@ const Sidebar = () => {
         movePage('/pages/loginPage');
     }
     function logout(){
-        toggleMenu();
-        document.cookie = "name=login; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
-        alert('로그아웃 되었습니다.');
-        movePage('/');
-        window.location.reload();
+        //document.cookie = "JSESSIONID=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
+        axios.get('/logout')
+            .then((response)=> {
+                if(response.status === 200) {
+                    console.log('로그아웃 성공');
+                    document.cookie = "isLogin=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
+                    alert('로그아웃 되었습니다.');
+                    movePage('/');
+                    window.location.reload();
+                }
+                else {
+                    console.log('로그아웃 실패');
+                    alert('로그아웃 실패');
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                console.log('로그아웃 실패');
+                alert('로그아웃 실패');
+            });
+        //alert('로그아웃 되었습니다.');
     }
     function goNotice()
     {
