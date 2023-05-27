@@ -1,14 +1,19 @@
 import React, {useEffect, useRef, useState } from "react";
 import styles from "../Css_dir/sidebar.module.css";
 import {useNavigate} from "react-router-dom";
+import DetailedSideCategory from "./SidebarCategory";
 
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isCategory, setIsCategory] = useState(false);
     const sideClickRef = useRef(null);
     // button 클릭 시 토글
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+    const toggleCategory = () => {
+        setIsCategory(!isCategory);
+    }
 
     //사이드바 외부 클릭시 닫히는 함수
     useEffect(()=> {
@@ -80,7 +85,7 @@ const Sidebar = () => {
                 <button className={(!isOpen ? `${styles.logo}` : `${styles.exit}`)} width='35px' onClick={toggleMenu}></button>
                 <div className={styles.line}></div>
             </div>
-            <div className={(isOpen ? `${styles.show_menu}` : `${styles.hide_menu}`)}>
+            <div className={(isOpen ? (isCategory ? `${styles.show_menu_category}` : `${styles.show_menu}`) : `${styles.hide_menu}`)}>
                 <div className={styles.search_box}>
                     <form name='search_side' id='search_form_s' method='get'>
                         <input type='text' className={styles.search_input} placeholder='  검색' name='search_side' id='search_side_input'></input>
@@ -94,14 +99,16 @@ const Sidebar = () => {
                     최근 검색 or 추천검색 등
                 </div>
                 <ul className={styles.nav_list}>
-                    <li className={`${styles.nav_list_item} ${styles.category}`}>카테고리<div className={styles.list_line}></div></li>
+                    <li className={`${styles.nav_list_item} ${styles.category}`} onClick={toggleCategory}>{isCategory ? '카테고리 ▲' : '카테고리 ▼'}<div className={styles.list_line}></div></li>
+                    <li className={isCategory ? `${styles.category_list}` : `${styles.hide_category_list}`}><DetailedSideCategory/></li>
                     <li className={styles.nav_list_item} onClick={goChat}>채팅<div className={styles.list_line}></div></li>
                     <li className={styles.nav_list_item} onClick={goNotice}>판매등록<div className={styles.list_line}></div></li>
-                    <li className={styles.nav_list_item} onClick={document.cookie.match('(^|;) ?' + 'name' + '=([^;]*)(;|$)') ? logout:goLogin}>
-                        {(document.cookie.match('(^|;) ?' + 'name' + '=([^;]*)(;|$)') ? 'LogOut' : 'LogIn')}
+                    <li className={styles.nav_list_item} onClick={document.cookie.match('isLogin' + '=([^;]*)(;|$)') ? logout:goLogin}>
+                        {(document.cookie.match('isLogin' + '=([^;]*)(;|$)')? 'LogOut' : 'LogIn')}
                         <div className={styles.list_line}></div>
                     </li>
                     <li className={styles.nav_list_item} onClick={goMypage}>마이페이지<div className={styles.list_line}></div></li>
+                    <li className={isCategory ? `${styles.nav_list_item_last_h}` : `${styles.nav_list_item_last}`}></li>
                 </ul>
             </div>
         </div>

@@ -76,12 +76,13 @@
 @media screen and (min-width: 841px) {
     .header{display: none;}
 }
-.show_menu{
+.show_menu_category{
     color: white;
     background-color: black;
     margin: 0;
-    width: 300px;
-    height: 500px;
+    width: 100vw;
+    max-width: 500px;
+    height: 90vh;
     position: absolute;
     top: 71px;
     right: -18px;
@@ -89,34 +90,58 @@
     text-align: center;
     border-radius: 0 0 0 40px;
     z-index: 20;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.show_menu{
+    color: white;
+    background-color: black;
+    margin: 0;
+    width: 100vw;
+    max-width: 500px;
+    height: 90vh;
+    position: absolute;
+    top: 71px;
+    right: -18px;
+    transition: 0.5s;
+    text-align: center;
+    border-radius: 0 0 0 40px;
+    z-index: 20;
+    overflow: hidden;
 }
 .hide_menu{
     color: white;
     background-color: black;
     margin: 0;
-    width: 300px;
-    height: 500px;
+    width: 100vw;
+    max-width: 500px;
+    height: 90vh;
     position: absolute;
     top: 71px;
-    right: -318px;
+    right: -100vw;
     transition: 0.5s;
     border-radius: 0 0 0 40px;
     z-index: 20;
+    overflow: hidden;
 }
 .hide_menu *{
     text-align: center;
 }
 .search_box{
-    width: 224px;
+    width: 100vw;
+    max-width: 500px;
     margin: 0 auto;
     overflow: hidden;
+    text-align: center;
+    margin-left: 10vw;
 }
 .search_input{
     color: black;
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
     height: 35px;
-    width: 180px;
+    width: 70vw;
+    max-width: 350px;
     line-height: 35px;
     font-weight: normal;
     border-radius: 10px;
@@ -176,6 +201,7 @@
     width: 80%;
     padding: 10px 0px;
     margin: 0 auto;
+    background-color: black;
     border-bottom: 1px solid #969696;
     position: relative;
     cursor: pointer;
@@ -184,6 +210,34 @@
     color: #51996b;
     border-color: #51996b;
     transition: all 0.3s ease;
+}
+/*.category_list{*/
+/*    height: 500px;*/
+/*    transition: 0.5s;*/
+/*}*/
+.hide_category_list{
+    height: 0;
+    background-color: transparent;
+    color: black;
+    transition: 0.5s;
+}
+.nav_list_item_last{
+    width: 80%;
+    height: 90vh;
+    padding: 10px 0px;
+    margin: 0 auto;
+    background-color: black;
+    position: relative;
+    transition: 0.5s;
+}
+.nav_list_item_last_h{
+    width: 80%;
+    height: 0;
+    padding: 10px 0px;
+    margin: 0 auto;
+    background-color: black;
+    position: relative;
+    transition: 0.5s;
 }
 .list_line{
     content: "";

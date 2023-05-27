@@ -6,6 +6,7 @@ import green_logo from '../imgs/green_logo_192_192.png';
 import Sidebar from "./sidebar";
 import Searchbar from "./searchbar";
 import axios from "axios";
+import style from "../Css_dir/sidebarCategory.module.css";
 
 
 function TopNav() {
@@ -120,90 +121,198 @@ function TopNav() {
                             {/*<a onClick={goCategorySearch} id="티켓/쿠폰"><div className={styles.line}></div>티켓/쿠폰</a>*/}
                             {/*<a onClick={goCategorySearch} id="스포츠"><div className={styles.line}></div>스포츠</a>*/}
                             {/*<a onClick={goCategorySearch} id="자동차용품"><div className={styles.line}></div>자동차용품</a>*/}
-                            <a onClick={goCategorySearch} id="의류">
-                                <div className={styles.line}></div>
-                                <form name='search_clothes' id='search_clothes' method='get'>
-                                    <input name='search_clothes' id='search_clothes' placeholder='  검색'defaultValue="의류" style={{ display: 'none' }}></input>
-                                </form>
-                                <button type="submit" form="search_clothes" onClick={goCategorySearch} className={styles.category_btn}>의류</button>
-                            </a>
-                            <a onClick={goCategorySearch} id="뷰티">
-                                <div className={styles.line}></div>
-                                <form name='search_beauty' id='search_beauty' method='get'>
-                                    <input name='search_beauty' id='search_beauty' placeholder='  검색'defaultValue="뷰티" style={{ display: 'none' }}></input>
-                                </form>
-                                <button type="submit" form="search_beauty" onClick={goCategorySearch} className={styles.category_btn}>뷰티</button>
-                            </a>
-                            <a onClick={goCategorySearch} id="가구_인테리어">
-                                <div className={styles.line}></div>
-                                <form name='search_furniture' id='search_furniture' method='get'>
-                                    <input name='search_furniture' id='search_furniture' placeholder='  검색'defaultValue="가구_인테리어" style={{ display: 'none' }}></input>
-                                </form>
-                                <button type="submit" form="search_furniture" onClick={goCategorySearch} className={styles.category_btn}>가구/인테리어</button>
-                            </a>
-                            <a onClick={goCategorySearch} id="가전제품">
-                                <div className={styles.line}></div>
-                                <form name='search_eletronics' id='search_eletronics' method='get'>
-                                    <input name='search_eletronics' id='search_eletronics' placeholder='  검색'defaultValue="가전제품" style={{ display: 'none' }}></input>
-                                </form>
-                                <button type="submit" form="search_eletronics" onClick={goCategorySearch} className={styles.category_btn}>가전제품</button>
-                            </a>
-                            <a onClick={goCategorySearch} id="모바일_태블릿_PC">
-                                <div className={styles.line}></div>
-                                <form name='search_mobile' id='search_mobile' method='get'>
-                                    <input name='search_mobile' id='search_mobile' placeholder='  검색'defaultValue="모바일_태블릿_PC" style={{ display: 'none' }}></input>
-                                </form>
-                                <button type="submit" form="search_mobile" onClick={goCategorySearch} className={styles.category_btn}>모바일/태블릿/PC</button>
-                            </a>
-                            <a onClick={goCategorySearch} id="생활용품">
-                                <div className={styles.line}></div>
-                                <form name='search_life' id='search_life' method='get'>
-                                    <input name='search_life' id='search_life' placeholder='  검색'defaultValue="생활용품" style={{ display: 'none' }}></input>
-                                </form>
-                                <button type="submit" form="search_life" onClick={goCategorySearch} className={styles.category_btn}>생활용품</button>
-                            </a>
-                            <a onClick={goCategorySearch} id="반려동물">
-                                <div className={styles.line}></div>
-                                <form name='search_animal' id='search_animal' method='get'>
-                                    <input name='search_animal' id='search_animal' placeholder='  검색'defaultValue="반려동물" style={{ display: 'none' }}></input>
-                                </form>
-                                <button type="submit" form="search_animal" onClick={goCategorySearch} className={styles.category_btn}>반려동물</button>
-                            </a>
-                            <a onClick={goCategorySearch} id="문구_도서">
-                                <div className={styles.line}></div>
-                                <form name='search_book' id='search_book' method='get'>
-                                    <input name='search_book' id='search_book' placeholder='  검색'defaultValue="문구_도서" style={{ display: 'none' }}></input>
-                                </form>
-                                <button type="submit" form="search_book" onClick={goCategorySearch} className={styles.category_btn}>문구/도서</button>
-                            </a>
-                            <a onClick={goCategorySearch} id="티켓_쿠폰">
-                                <div className={styles.line}></div>
-                                <form name='search_ticket' id='search_ticket' method='get'>
-                                    <input name='search_ticket' id='search_ticket' placeholder='  검색'defaultValue="티켓_쿠폰" style={{ display: 'none' }}></input>
-                                </form>
-                                <button type="submit" form="search_ticket" onClick={goCategorySearch} className={styles.category_btn}>티켓/쿠폰</button>
-                            </a>
-                            <a onClick={goCategorySearch} id="스포츠">
-                                <div className={styles.line}></div>
-                                <form name='search_sports' id='search_sports' method='get'>
-                                    <input name='search_sports' id='search_input' placeholder='  검색'defaultValue="스포츠" style={{ display: 'none' }}></input>
-                                </form>
-                                <button type="submit" form="search_sports" onClick={goCategorySearch} className={styles.category_btn}>스포츠</button>
-                            </a>
-                            <a onClick={goCategorySearch} id="자동차용품">
-                                <div className={styles.line}></div>
-                                <form name='search_car' id='search_car' method='get'>
-                                    <input name='search_car' id='search_input' placeholder='  검색'defaultValue="자동차용품" style={{ display: 'none' }}></input>
-                                </form>
-                                <button type="submit" form="search_car" onClick={goCategorySearch} className={styles.category_btn}>자동차용품</button>
-                            </a>
-                            <a onClick={goCategorySearch} id="식품">
-                                <div className={styles.line}></div>
-                                <form name='search_food' id='search_food' method='get'>
-                                    <input name='search_food' id='search_input' placeholder='  검색' defaultValue="식품" style={{ display: 'none' }}></input>
-                                </form>
-                                <button type="submit" form="search_food" onClick={goCategorySearch} className={styles.category_btn}>식품</button>
-                            </a>
+                            <div className={styles.category_item}>
+                                <a onClick={goCategorySearch} id="의류">
+                                    <div className={styles.line}></div>
+                                    <form name='search_clothes' id='search_clothes' method='get'>
+                                        <input name='search_clothes' id='search_clothes' placeholder='  검색'defaultValue="의류" style={{ display: 'none' }}></input>
+                                    </form>
+                                    <button type="submit" form="search_clothes" onClick={goCategorySearch} className={styles.category_btn}>의류</button>
+                                </a>
+                                <div>
+                                    <ul>
+                                        <li className={styles.category_d}>모자</li>
+                                        <li className={styles.category_d}>상의</li>
+                                        <li className={styles.category_d}>하의</li>
+                                        <li className={styles.category_d}>신발</li>
+                                        <li className={styles.category_d}>기타</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className={styles.category_item}>
+                                <a onClick={goCategorySearch} id="뷰티">
+                                    <div className={styles.line}></div>
+                                    <form name='search_beauty' id='search_beauty' method='get'>
+                                        <input name='search_beauty' id='search_beauty' placeholder='  검색'defaultValue="뷰티" style={{ display: 'none' }}></input>
+                                    </form>
+                                    <button type="submit" form="search_beauty" onClick={goCategorySearch} className={styles.category_btn}>뷰티</button>
+                                </a>
+                                <div>
+                                    <ul>
+                                        <li className={styles.category_d}>공용 화장품</li>
+                                        <li className={styles.category_d}>남자 화장품</li>
+                                        <li className={styles.category_d}>여자 화장품</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className={styles.category_item}>
+                                <a onClick={goCategorySearch} id="가구_인테리어">
+                                    <div className={styles.line}></div>
+                                    <form name='search_furniture' id='search_furniture' method='get'>
+                                        <input name='search_furniture' id='search_furniture' placeholder='  검색'defaultValue="가구_인테리어" style={{ display: 'none' }}></input>
+                                    </form>
+                                    <button type="submit" form="search_furniture" onClick={goCategorySearch} className={styles.category_btn}>가구/인테리어</button>
+                                </a>
+                                <div>
+                                    <ul>
+                                        <li className={styles.category_d}>침대</li>
+                                        <li className={styles.category_d}>소파</li>
+                                        <li className={styles.category_d}>책상</li>
+                                        <li className={styles.category_d}>의자</li>
+                                        <li className={styles.category_d}>기타</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className={styles.category_item}>
+                                <a onClick={goCategorySearch} id="가전제품">
+                                    <div className={styles.line}></div>
+                                    <form name='search_eletronics' id='search_eletronics' method='get'>
+                                        <input name='search_eletronics' id='search_eletronics' placeholder='  검색'defaultValue="가전제품" style={{ display: 'none' }}></input>
+                                    </form>
+                                    <button type="submit" form="search_eletronics" onClick={goCategorySearch} className={styles.category_btn}>가전제품</button>
+                                </a>
+                                <div>
+                                    <ul>
+                                        <li className={styles.category_d}>냉장고</li>
+                                        <li className={styles.category_d}>TV</li>
+                                        <li className={styles.category_d}>청소기</li>
+                                        <li className={styles.category_d}>에어컨</li>
+                                        <li className={styles.category_d}>기타</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className={styles.category_item}>
+                                <a onClick={goCategorySearch} id="모바일_태블릿_PC">
+                                    <div className={styles.line}></div>
+                                    <form name='search_mobile' id='search_mobile' method='get'>
+                                        <input name='search_mobile' id='search_mobile' placeholder='  검색'defaultValue="모바일_태블릿_PC" style={{ display: 'none' }}></input>
+                                    </form>
+                                    <button type="submit" form="search_mobile" onClick={goCategorySearch} className={styles.category_btn}>모바일/태블릿/PC</button>
+                                </a>
+                                <div>
+                                    <ul>
+                                        <li className={styles.category_d}>스마트폰</li>
+                                        <li className={styles.category_d}>태플릿</li>
+                                        <li className={styles.category_d}>노트북</li>
+                                        <li className={styles.category_d}>기타</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className={styles.category_item}>
+                                <a onClick={goCategorySearch} id="생활용품">
+                                    <div className={styles.line}></div>
+                                    <form name='search_life' id='search_life' method='get'>
+                                        <input name='search_life' id='search_life' placeholder='  검색'defaultValue="생활용품" style={{ display: 'none' }}></input>
+                                    </form>
+                                    <button type="submit" form="search_life" onClick={goCategorySearch} className={styles.category_btn}>생활용품</button>
+                                </a>
+                                <div>
+                                    <ul>
+                                        <li className={styles.category_d}>생필용품</li>
+                                        <li className={styles.category_d}>욕실용품</li>
+                                        <li className={styles.category_d}>주방용품</li>
+                                        <li className={styles.category_d}>기타</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className={styles.category_item}>
+                                <a onClick={goCategorySearch} id="반려동물">
+                                    <div className={styles.line}></div>
+                                    <form name='search_animal' id='search_animal' method='get'>
+                                        <input name='search_animal' id='search_animal' placeholder='  검색'defaultValue="반려동물" style={{ display: 'none' }}></input>
+                                    </form>
+                                    <button type="submit" form="search_animal" onClick={goCategorySearch} className={styles.category_btn}>반려동물</button>
+                                </a>
+                                <div>
+                                    <ul>
+                                        <li className={styles.category_d}>사료</li>
+                                        <li className={styles.category_d}>toy</li>
+                                        <li className={styles.category_d}>의류</li>
+                                        <li className={styles.category_d}>기타</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className={styles.category_item}>
+                                <a onClick={goCategorySearch} id="문구_도서">
+                                    <div className={styles.line}></div>
+                                    <form name='search_book' id='search_book' method='get'>
+                                        <input name='search_book' id='search_book' placeholder='  검색'defaultValue="문구_도서" style={{ display: 'none' }}></input>
+                                    </form>
+                                    <button type="submit" form="search_book" onClick={goCategorySearch} className={styles.category_btn}>문구/도서</button>
+                                </a>
+                                <div>
+                                    <ul>
+                                        <li className={styles.category_d}>책</li>
+                                        <li className={styles.category_d}>볼펜</li>
+                                        <li className={styles.category_d}>샤프/연필</li>
+                                        <li className={styles.category_d}>기타</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className={styles.category_item}>
+                                <a onClick={goCategorySearch} id="스포츠">
+                                    <div className={styles.line}></div>
+                                    <form name='search_sports' id='search_sports' method='get'>
+                                        <input name='search_sports' id='search_input' placeholder='  검색'defaultValue="스포츠" style={{ display: 'none' }}></input>
+                                    </form>
+                                    <button type="submit" form="search_sports" onClick={goCategorySearch} className={styles.category_btn}>스포츠</button>
+                                </a>
+                                <div>
+                                    <ul>
+                                        <li className={styles.category_d}>축구</li>
+                                        <li className={styles.category_d}>야구</li>
+                                        <li className={styles.category_d}>농구</li>
+                                        <li className={styles.category_d}>웨이트</li>
+                                        <li className={styles.category_d}>기타</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className={styles.category_item}>
+                                <a onClick={goCategorySearch} id="자동차용품">
+                                    <div className={styles.line}></div>
+                                    <form name='search_car' id='search_car' method='get'>
+                                        <input name='search_car' id='search_input' placeholder='  검색'defaultValue="자동차용품" style={{ display: 'none' }}></input>
+                                    </form>
+                                    <button type="submit" form="search_car" onClick={goCategorySearch} className={styles.category_btn}>자동차용품</button>
+                                </a>
+                                <div>
+                                    <ul>
+                                        <li className={styles.category_d}>방향제</li>
+                                        <li className={styles.category_d}>엑세서리</li>
+                                        <li className={styles.category_d}>블랙박스</li>
+                                        <li className={styles.category_d}>기타</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className={styles.category_item}>
+                                <a onClick={goCategorySearch} id="식품">
+                                    <div className={styles.line}></div>
+                                    <form name='search_food' id='search_food' method='get'>
+                                        <input name='search_food' id='search_input' placeholder='  검색' defaultValue="식품" style={{ display: 'none' }}></input>
+                                    </form>
+                                    <button type="submit" form="search_food" onClick={goCategorySearch} className={styles.category_btn}>식품</button>
+                                </a>
+                                <div>
+                                    <ul>
+                                        <li className={styles.category_d}>생수</li>
+                                        <li className={styles.category_d}>라면</li>
+                                        <li className={styles.category_d}>과자</li>
+                                        <li className={styles.category_d}>빵</li>
+                                        <li className={styles.category_d}>기타</li>
+                                    </ul>
+                                </div>
+                            </div>
+
                             <a onClick={goCategorySearch} id="기타">
                                 <div className={styles.line}></div>
                                 <form name='search_etc' id='search_etc' method='get'>
