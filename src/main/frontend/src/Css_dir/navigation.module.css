@@ -196,6 +196,9 @@
 .category_d{
     display: none;
 }
+.category_d button{
+    color: white;
+}
 .category_item:hover .category_d{
     display: block;
     margin: 0 16px;
