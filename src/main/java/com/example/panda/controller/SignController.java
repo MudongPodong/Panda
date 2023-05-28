@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,7 @@ public class SignController {
         if(responseDTO == null){
             return ResponseEntity.status(204).build();
         }
-        return ResponseEntity.ok(signService.joinMem(userDTO));
+        return ResponseEntity.ok(signService.joinMem((userDTO)));
     }
 //    @PostMapping("/sign/login")
 //    public ResponseEntity<TokenDTO> login(@RequestBody UserDTO userDTO) {
@@ -58,7 +59,7 @@ public class SignController {
         log.info("login controller start");
         return HttpStatus.OK;
     }
-    @PostMapping("/check")
+    @GetMapping("/check")
     public boolean loginCheck() {
         log.info("loginCheck controller start");
         return signService.isAuthenticated();

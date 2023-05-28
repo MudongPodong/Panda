@@ -9,7 +9,7 @@ function Home() {
     let [recommend_item, setRecommendItem] = useState('');
 
     const isLogin = () => {
-        axios.post('/check')
+        axios.get('/check')
             .then((response)=>{
                 console.log(response.data)
                 if(response.data){
