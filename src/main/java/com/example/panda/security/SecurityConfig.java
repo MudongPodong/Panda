@@ -5,10 +5,10 @@
 // 생성일 : 2023.05.16
 // 업데이트 : -
 package com.example.panda.security;
-import com.example.panda.jwt.JwtAccessDeniedHandler;
-import com.example.panda.jwt.JwtAuthenticationEntryPoint;
-import com.example.panda.jwt.JwtFilter;
-import com.example.panda.jwt.TokenProvider;
+//import com.example.panda.jwt.JwtAccessDeniedHandler;
+//import com.example.panda.jwt.JwtAuthenticationEntryPoint;
+//import com.example.panda.jwt.JwtFilter;
+//import com.example.panda.jwt.TokenProvider;
 import com.example.panda.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +37,9 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final TokenProvider tokenProvider;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+//    private final TokenProvider tokenProvider;
+//    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+//    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final CustomUserDetailsService userDetailsService;
 
     @Bean
@@ -63,7 +63,7 @@ public class SecurityConfig {
                 //.and()
                 .authorizeHttpRequests((authz) -> authz
                         //.requestMatchers("/", "http://localhost:3000/**", "http://localhost:3000/pages/**", "http://localhost:3000/sign/**", "http://localhost:3000/api/**", "http://localhost:3000/chat/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
-                        .requestMatchers("/chat/**", "/login", "/check","http://localhost:3000/**", "http://localhost:3000/", "http://localhost:3000/pages/loginPage", "http://localhost:3000/pages/joinMemPage").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
+                        .requestMatchers("/chat/**", "/login", "/check","http://localhost:3000/**", "http://localhost:3000/", "http://localhost:3000/pages/loginPage", "http://localhost:3000/pages/joinMemPage", "/sign/joinMem", "/sign/**", "/login/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
                         //.requestMatchers("http://localhost:3000/pages/joinMemPage").hasAuthority("USER")
                         .anyRequest().authenticated());
         //http.apply(new JwtSecurityConfig(tokenProvider));   // JwtSecurityConfig로 tokenProvider 적용
