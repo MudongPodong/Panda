@@ -6,7 +6,7 @@ import ChatList from './ChatList';
 import Painting from '../imgs/temp_painting.png';
 import guidance from '../imgs/temp_map.png';
 import XButton from '../imgs/XButton.png';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+//import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
 function Chat() {
     const mapStyles = {
