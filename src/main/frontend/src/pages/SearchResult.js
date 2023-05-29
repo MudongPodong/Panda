@@ -7,6 +7,7 @@ import axios from 'axios';
 
 function SearchResult() {
     const [data, setData] = useState([])
+    const [advertise, setAdvertise] = useState([])
     const [sortFlag,setFlag] = useState(0)
     const location = useLocation();
     const navigate = useNavigate();
@@ -127,6 +128,16 @@ function SearchResult() {
             }
         })
             .then(response => setData(response.data))
+            .catch(error => console.log(error))
+    }, []);
+    useEffect(() => {   //정렬할거 있으면 정렬해서 가져오기
+
+        axios.post('/api/todayAds',null,{
+
+        })
+            .then(response => {setAdvertise(response.data)
+                console.log(advertise)
+            })
             .catch(error => console.log(error))
     }, []);
 
