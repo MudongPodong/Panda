@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface WritingRepository extends JpaRepository<WritingEntity, Integer> {
-    @Query(value = "SELECT * FROM Writing WHERE writing_name LIKE :word " +
-            "OR category LIKE :word OR detail_category LIKE :word"
-            ,nativeQuery = true)
-    List<WritingEntity> findSearch(@Param("word") String word);
+//    @Query(value = "SELECT * FROM Writing WHERE writing_name LIKE :word " +
+//            "OR category LIKE :word OR detail_category LIKE :word"
+//            ,nativeQuery = true)
+//    List<WritingEntity> findSearch(@Param("word") String word);
 }

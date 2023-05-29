@@ -2,6 +2,7 @@ package com.example.panda.service;
 
 import com.example.panda.dto.WritingDTO;
 import com.example.panda.entity.WritingEntity;
+import com.example.panda.repository.WritingDSLRepository;
 import com.example.panda.repository.WritingRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,8 @@ public class WritingService {
 //    @Autowired
     private final WritingRepository writingRepository;
 
+    private final WritingDSLRepository writingDSLRepository;
+
     public void write(WritingEntity we)
     {
         we.setFavorite_count(0);
@@ -35,7 +38,7 @@ public class WritingService {
         return writingDTOList;
     }
     public List<WritingDTO> findSearch(String word){
-        List<WritingEntity> writingEntityList = writingRepository.findSearch(word);
+        List<WritingEntity> writingEntityList = writingDSLRepository.findSearch(word);
         List<WritingDTO> writingDTOList = new ArrayList<>();
         for(WritingEntity writingEntity : writingEntityList) {
             writingDTOList.add(WritingDTO.toWritingDTO(writingEntity));
