@@ -6,9 +6,6 @@
  */
 package com.example.panda.chat;
 
-import com.example.panda.dto.ChatDTO;
-import com.example.panda.dto.ChatRoomDTO;
-import com.example.panda.dto.emailPairDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 

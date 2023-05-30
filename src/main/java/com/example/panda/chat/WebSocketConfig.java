@@ -8,10 +8,7 @@
 
 package com.example.panda.chat;
 
-import com.example.panda.service.ChatRoomService;
-import com.example.panda.service.ChatService;
-import com.example.panda.service.UserService;
-import com.example.panda.service.WritingCompleteService;
+import com.example.panda.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +24,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     private final ChatService chatService;
     private final WritingCompleteService writingCompleteService;
     private final UserService userService;
+    private final PurchaseHistoryService purchaseHistoryService;
     private final HandshakeInterceptor handshakeInterceptor;
     private final WebSocketSessionManager webSocketSessionManager;
 
@@ -36,7 +34,8 @@ public class WebSocketConfig implements WebSocketConfigurer {
                 .addInterceptors(handshakeInterceptor)
                 .setAllowedOrigins("http://localhost:3000");
 
-        registry.addHandler(new MessageHandler(chatService, chatRoomService, writingCompleteService, userService, webSocketSessionManager), "/chat/{roomId}")
+        registry.addHandler(new MessageHandler(chatService, chatRoomService, writingCompleteService,
+                        userService, purchaseHistoryService, webSocketSessionManager), "/chat/{roomId}")
                 .addInterceptors(handshakeInterceptor)
                 .setAllowedOrigins("http://localhost:3000");
     }

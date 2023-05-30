@@ -20,7 +20,6 @@ public class WritingCompleteService {
         Optional<WritingEntity> writingEntityOptional = writingRepository.findById(wid);
         WritingCompleteEntity writingCompleteEntity = WritingCompleteEntity.writingToComplete(writingEntityOptional.get());
 
-        System.out.println(writingCompleteEntity);
         writingCompleteRepository.save(writingCompleteEntity);
     }
 }

@@ -10,10 +10,7 @@ import com.example.panda.dto.ChatDTO;
 import com.example.panda.dto.ChatRoomDTO;
 import com.example.panda.dto.UserDTO;
 import com.example.panda.entity.WritingCompleteEntity;
-import com.example.panda.service.ChatRoomService;
-import com.example.panda.service.ChatService;
-import com.example.panda.service.UserService;
-import com.example.panda.service.WritingCompleteService;
+import com.example.panda.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.socket.CloseStatus;
@@ -34,6 +31,7 @@ public class MessageHandler extends TextWebSocketHandler {
     private final ChatRoomService chatRoomService;
     private final WritingCompleteService writingCompleteService;
     private final UserService userService;
+    private final PurchaseHistoryService purchaseHistoryService;
     private final WebSocketSessionManager webSocketSessionManager;
 
     @Override
@@ -136,6 +134,7 @@ public class MessageHandler extends TextWebSocketHandler {
                         writingCompleteService.save(chatRoomDTO.getWriting().getWriting_Id());
                         userService.changeMemberPoint(buyer.getEmail(), chatRoomDTO.getEvaluateSeller() - 2);
                         userService.changeMemberPoint(seller.getEmail(), chatRoomDTO.getEvaluateBuyer() - 2);
+                        purchaseHistoryService.save(buyer.getEmail(), chatRoomDTO.getWriting().getWriting_Id());
                         // 구매, 판매 확정 시 사용자 평가 반영 / good : +1, normal : 0, bad : -1
                     }
                 } else {
@@ -151,6 +150,7 @@ public class MessageHandler extends TextWebSocketHandler {
                         writingCompleteService.save(chatRoomDTO.getWriting().getWriting_Id());
                         userService.changeMemberPoint(buyer.getEmail(), chatRoomDTO.getEvaluateSeller() - 2);
                         userService.changeMemberPoint(seller.getEmail(), chatRoomDTO.getEvaluateBuyer() - 2);
+                        purchaseHistoryService.save(buyer.getEmail(), chatRoomDTO.getWriting().getWriting_Id());
                         // 구매, 판매 확정 시 사용자 평가 반영 / good : +1, normal : 0, bad : -1
                     }
                 }

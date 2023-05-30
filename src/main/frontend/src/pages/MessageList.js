@@ -2,9 +2,9 @@ import React, {useEffect, useRef, useState} from 'react';
 import styles from '../Css_dir/Chat.module.css'
 import dayjs from 'dayjs';
 import profile from "../imgs/profileEx.PNG";
-import smile from "../imgs/emo_smile.PNG";
-import normal from "../imgs/emo_normal.PNG";
-import sad from "../imgs/emo_sad.PNG";
+import smile from "../imgs/emo_smile.png";
+import normal from "../imgs/emo_normal.png";
+import sad from "../imgs/emo_sad.png";
 import Modal from 'react-modal';
 
 const MessageList = React.memo(({ messages, toMessageList, socket}) => {
