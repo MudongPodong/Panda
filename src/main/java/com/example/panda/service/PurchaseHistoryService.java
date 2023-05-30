@@ -30,7 +30,9 @@ public class PurchaseHistoryService {
             WritingCompleteEntity writingCompleteEntity = optionalWritingCompleteEntity.get();
             UserEntity userEntity = optionalUserEntity.get();
 
-            PurchaseHistoryEntity.toPurchaseHistoryEntity(userEntity, writingCompleteEntity);
+            PurchaseHistoryEntity purchaseHistoryEntity = PurchaseHistoryEntity.toPurchaseHistoryEntity(userEntity, writingCompleteEntity);
+
+            purchaseHistoryRepository.save(purchaseHistoryEntity);
         }
     }
 }

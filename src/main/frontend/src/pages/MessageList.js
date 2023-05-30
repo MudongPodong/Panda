@@ -74,6 +74,12 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
             console.log("대화를 나눈 적이 없습니다.");
             return;
         }
+
+        if(selectedEmo === null) {
+            console.log("선택하세요.");
+            return;
+
+        }
         socket.send(JSON.stringify({
             roomId:roomId,
             count:selectedEmo,
