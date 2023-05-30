@@ -10,7 +10,10 @@ package com.example.panda.chat;
 
 import com.example.panda.service.ChatRoomService;
 import com.example.panda.service.ChatService;
+import com.example.panda.service.UserService;
+import com.example.panda.service.WritingCompleteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
@@ -20,19 +23,20 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 @RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketConfigurer {
-
     private final ChatRoomService chatRoomService;
     private final ChatService chatService;
+    private final WritingCompleteService writingCompleteService;
+    private final UserService userService;
     private final HandshakeInterceptor handshakeInterceptor;
     private final WebSocketSessionManager webSocketSessionManager;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new ChatHandler(chatService, chatRoomService, webSocketSessionManager), "/chat")
+        registry.addHandler(new ChatHandler(chatRoomService, webSocketSessionManager), "/chat")
                 .addInterceptors(handshakeInterceptor)
                 .setAllowedOrigins("http://localhost:3000");
 
-        registry.addHandler(new MessageHandler(chatService, chatRoomService, webSocketSessionManager), "/chat/{roomId}")
+        registry.addHandler(new MessageHandler(chatService, chatRoomService, writingCompleteService, userService, webSocketSessionManager), "/chat/{roomId}")
                 .addInterceptors(handshakeInterceptor)
                 .setAllowedOrigins("http://localhost:3000");
     }

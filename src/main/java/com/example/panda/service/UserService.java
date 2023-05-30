@@ -74,4 +74,11 @@ public class UserService {
         user.setPassword(passwordEncoder.encode((newPassword)));
         return UserResponseDTO.of(userSaveRepository.save(user));
     }
+
+    @Transactional
+    public UserResponseDTO changeMemberPoint(String email, int point) {
+        UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
+        user.setPoint(user.getPoint() + point);
+        return UserResponseDTO.of(userSaveRepository.save(user));
+    }
 }

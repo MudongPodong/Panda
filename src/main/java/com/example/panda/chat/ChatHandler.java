@@ -6,7 +6,6 @@
  */
 package com.example.panda.chat;
 
-import com.example.panda.chat.WebSocketSessionManager;
 import com.example.panda.dto.ChatRoomDTO;
 import com.example.panda.service.ChatRoomService;
 import com.example.panda.service.ChatService;
@@ -24,7 +23,6 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 public class ChatHandler extends TextWebSocketHandler {
-    private final ChatService chatService;
     private final ChatRoomService chatRoomService;
     private final WebSocketSessionManager webSocketSessionManager;
 

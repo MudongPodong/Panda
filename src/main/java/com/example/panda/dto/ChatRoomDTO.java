@@ -8,6 +8,7 @@
 package com.example.panda.dto;
 
 import com.example.panda.entity.ChatRoomEntity;
+import com.example.panda.entity.WritingEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,17 +28,9 @@ public class ChatRoomDTO {
     private Date lastDate; // 마지막 메시지의 날짜
     private boolean isNoRead;
     private boolean noReadBuyer; // buyer가 안읽은건지 (안읽은 사람의 채팅 목록에 표시하기 위함)
-
-    public static ChatRoomDTO toChatRoomDTO (ChatRoomEntity chatRoomEntity, UserDTO buyer, UserDTO seller) {
-        ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
-        chatRoomDTO.setRoomId(chatRoomEntity.getRoom_id());
-        chatRoomDTO.setLastContent(chatRoomEntity.getLast_content());
-        chatRoomDTO.setBuyer(buyer);
-        chatRoomDTO.setSeller(seller);
-        chatRoomDTO.setLastDate(chatRoomEntity.getLast_date());
-
-        return chatRoomDTO;
-    }
+    private WritingDTO writing;
+    private Integer evaluateBuyer;
+    private Integer evaluateSeller;
 
     public static ChatRoomDTO toChatRoomDTO (ChatRoomEntity chatRoomEntity) {
         ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
@@ -46,12 +39,17 @@ public class ChatRoomDTO {
         chatRoomDTO.setLastDate(chatRoomEntity.getLast_date());
         chatRoomDTO.setNoReadBuyer(chatRoomEntity.isNo_read_buyer());
         chatRoomDTO.setNoRead(chatRoomEntity.is_no_read());
+        chatRoomDTO.setEvaluateBuyer(chatRoomEntity.getEvaluate_buyer());
+        chatRoomDTO.setEvaluateSeller(chatRoomEntity.getEvaluate_seller());
 
         if(chatRoomEntity.getBuyer() != null)
             chatRoomDTO.setBuyer(UserDTO.toUserDTO(chatRoomEntity.getBuyer()));
 
         if(chatRoomEntity.getSeller() != null)
             chatRoomDTO.setSeller(UserDTO.toUserDTO(chatRoomEntity.getSeller()));
+
+        if(chatRoomEntity.getWriting() != null)
+        chatRoomDTO.setWriting(WritingDTO.toWritingDTO(chatRoomEntity.getWriting()));
 
         return chatRoomDTO;
     }

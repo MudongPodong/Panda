@@ -2,11 +2,16 @@ import React, {useEffect, useRef, useState} from 'react';
 import styles from '../Css_dir/Chat.module.css'
 import dayjs from 'dayjs';
 import profile from "../imgs/profileEx.PNG";
+import smile from "../imgs/emo_smile.PNG";
+import normal from "../imgs/emo_normal.PNG";
+import sad from "../imgs/emo_sad.PNG";
 import Modal from 'react-modal';
 
 const MessageList = React.memo(({ messages, toMessageList, socket}) => {
 
     const [selectedImage, setSelectedImage] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedEmo, setSelectedEmo] = useState(null);
     const chatContainerRef = useRef();
     const messageRef = useRef();
 
@@ -55,8 +60,63 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
         setSelectedImage(null);
     };
 
+    const openEvaluateModal = () => {
+        setIsOpen(true);
+        setSelectedEmo(null);
+    }
+
+    const closeEvaluateModal = () => {
+        setIsOpen(false);
+    }
+
+    const sendEvaluate = (roomId) => {
+        if(roomId === null) {
+            console.log("대화를 나눈 적이 없습니다.");
+            return;
+        }
+        socket.send(JSON.stringify({
+            roomId:roomId,
+            count:selectedEmo,
+            type:"evaluate",
+        }));
+        setIsOpen(false);
+    }
     return (
         <div>
+            <Modal
+                isOpen={isOpen}
+                onRequestClose={closeEvaluateModal}
+                onClick={closeImageModal}
+                ariaHideApp={false}
+                style={{
+                    content: {
+                        width: '40%',
+                        margin: '0 auto',
+                        marginTop:'50px',
+                        height: '45%',
+                        backgroundColor: 'whitesmoke',
+                    },
+                    overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    },
+                }}>
+                <div>
+                    <div className={styles.eval_header}>
+                        상대방을 평가해주세요!
+                    </div>
+
+                    <div className={styles.eval_img}>
+                        <img src={smile} className = {selectedEmo === 3 ? null : styles.blackwhite} onClick={() => setSelectedEmo(3)}/>
+                        <img src={normal}  className = {selectedEmo === 2 ? null : styles.blackwhite} onClick={() => setSelectedEmo(2)}/>
+                        <img src={sad}  className = {selectedEmo === 1 ? null : styles.blackwhite} onClick={() => setSelectedEmo(1)}/>
+                    </div>
+
+                    <div className={styles.eval_button}>
+                        <button onClick={ messages[0] != null ? () => sendEvaluate(messages[0].roomId) : () => sendEvaluate() }>확인</button>
+                        <button onClick={closeEvaluateModal}>닫기</button>
+                    </div>
+                </div>
+            </Modal>
             <div className={styles.chat_header}>
                 <div className={styles.chat_image}>
                     <img src={profile} width="100%" height="100%"></img>
@@ -64,6 +124,26 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
                 <div className={styles.chat_info}>
                     <div className={styles.chat_name}>{toMessageList.op_Id}</div>
                 </div>
+                {
+                    toMessageList.amIBuyer ?
+                        toMessageList.evaluateBuyer > 0 ?
+                            <button className={styles.purchase_button}>
+                                평점 작성 완료
+                            </button>
+                            :
+                            <button className={`${styles.purchase_button} ${styles.point_cursor}`} onClick={openEvaluateModal}>
+                                상대 평점 남기기
+                            </button>
+                        :
+                        toMessageList.evaluateSeller > 0 ?
+                            <button className={styles.purchase_button}>
+                                평점 작성 완료
+                            </button>
+                            :
+                            <button className={`${styles.purchase_button} ${styles.point_cursor}`} onClick={openEvaluateModal}>
+                                상대 평점 남기기
+                            </button>
+                }
             </div>
             <div className={styles.chat_history} ref={chatContainerRef} onScroll={handleScroll}>
         <ul>
@@ -77,7 +157,7 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
                 else if(date2.diff(date1, 'day') > 0)
                     date = date1.format('M월 D일 A h시 m분');
                 else
-                    date = date1.format('A h시 m분');
+                    date = date1.format('오늘 A h시 m분');
 
                 return (
                     <li key={index}>
@@ -127,6 +207,7 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
             <Modal
                 isOpen={selectedImage !== null}
                 onRequestClose={closeImageModal}
+                ariaHideApp={false}
                 contentLabel="이미지 확대"
                 style={{
                     content: {

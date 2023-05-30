@@ -42,5 +42,16 @@ public class ChatRoomEntity {
     private boolean is_no_read; // 안읽었는지?
 
     @Column
-    private boolean no_read_buyer;
+    private boolean no_read_buyer; // buyer가 안읽었는지?
+
+    @OneToOne
+    @JoinColumn(name="wid")
+    private WritingEntity writing;
+
+    @Column
+    private Integer evaluate_buyer;
+
+    @Column
+    private Integer evaluate_seller;
+
 }

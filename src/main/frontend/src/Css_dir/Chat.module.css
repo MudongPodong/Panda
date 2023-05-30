@@ -393,3 +393,65 @@ body::-webkit-scrollbar {
     margin-left: 200px;
     margin-top: -15px;
 }
+
+.purchase_button {
+    float:right;
+    margin-top:-35px;
+    color: whitesmoke;
+    font-size: 16px;
+    font-family: "NanumGothicOTF";
+    border: none;
+    font-weight: bold;
+    background: black;
+    padding: 5px 20px;
+    border-radius: 8%;
+}
+
+.eval_header {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    font-family: "NanumGothicOTF";
+    margin-bottom: 50px;
+}
+
+.eval_img {
+    text-align: center;
+}
+
+.eval_img > img{
+    width: 150px;
+    height: 150px;
+    border-radius: 70%;
+    margin: 15px;
+    cursor:pointer;
+    border: 1px solid black;
+}
+
+.eval_button {
+    margin-top:50px;
+    text-align: center;
+}
+
+.eval_button > button {
+    color: whitesmoke;
+    margin-right: 50px;
+    margin-left: 50px;
+    font-size: 24px;
+    font-family: "NanumGothicOTF";
+    border: none;
+    cursor:pointer;
+    font-weight: bold;
+    background: black;
+    padding: 15px 30px;
+    border-radius: 8%;
+}
+
+.point_cursor {
+    cursor:pointer;
+}
+
+.blackwhite {
+    /*filter: grayscale(100%);*/
+    filter: opacity(30%);
+}

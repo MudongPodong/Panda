@@ -19,7 +19,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class WebSocketSessionManager {
     private Map<String, WebSocketSession> sessionMap; // 사용자 email과 세션 정보를 매핑하는 맵
     private Map<String, Long> roomIdMap; // 사용자의 현재 roomId를 매핑하는 맵
-    private Map<String, emailPairDTO> emailPairMap;
 
     public WebSocketSessionManager() {
         sessionMap = new ConcurrentHashMap<>();
@@ -47,19 +46,6 @@ public class WebSocketSessionManager {
     }
 
     public Long getRoomId(String sessionId) {
-        return roomIdMap.get(sessionId);
-    }
-
-
-    public void registerEmailPair(String sessionId, Long roomId) {
-        roomIdMap.put(sessionId, roomId);
-    }
-
-    public void removeEmailPair(String sessionId) {
-        roomIdMap.remove(sessionId);
-    }
-
-    public Long getEmailPair(String sessionId) {
         return roomIdMap.get(sessionId);
     }
 

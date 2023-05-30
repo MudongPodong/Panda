@@ -81,12 +81,28 @@ function Chat() {
                         // let opNickname = parsedMap.opNickname;  // 상대방 닉네임
                         // let myIndex = parsedMap.myIndex;    // 내 채팅방 인덱스
                         let type = parsedMap.type; // type -> 해당 메시지가 어떤 정보를 담고 있는지
+                        let evaluateRoom = parsedMap.evaluateRoom;
+                        let currentRoom = parsedMap.currentRoom;
+
                         // 스크롤을 내려야 하는가 true or false,
                         // 더 이상 불러올 메시지가 없는가 full의 내용이 담김.
                         // 또한 채팅을 보낸 사람 sender, 받은 사람 receiver 내용이 담김.
 
                         // let opUserImg = parsedMessage.opUserImg;
-                        if (!chat) {  // chat == null -> 채팅방을 클릭했다는 의미
+
+                        if (evaluateRoom !== undefined) {
+                            setToMessageList(prevState => ({...prevState,
+                                evaluateBuyer: evaluateRoom.evaluateBuyer,
+                                evaluateSeller: evaluateRoom.evaluateSeller}));
+
+                            setMessages(prevState => {
+                             const newArray = [...prevState];
+                             newArray[0].type = "evaluate";
+                             return newArray;
+                            });
+                        }
+
+                        else if (chat === undefined) {  // chat === undefined -> 채팅방을 클릭했다는 의미
                             if(chatList[0] != null)
                                 chatList[chatList.length-1].type = type;
 
@@ -97,6 +113,9 @@ function Chat() {
                                     room.noRead = false;
                                }
                             });
+                            setToMessageList(prevState => ({...prevState,
+                                evaluateBuyer: currentRoom.evaluateBuyer,
+                                evaluateSeller: currentRoom.evaluateSeller}));
 
                             setMessages(chatList);
                             // if(myRooms) {// 채팅방 리스트를 가져온 경우 -> 읽지 않음 표시가 있는 항목을 클릭했다는 의미
@@ -107,7 +126,7 @@ function Chat() {
                         // 상대나 자신이 메시지를 보낸게 아니면
                         // 메시지 리스트를 가져와 저장
 
-                        else if (chat) {    // chat != null -> 상대나 내가 메시지를 보냈다는 의미
+                        else if (chat !== undefined) {    // chat != null -> 상대나 내가 메시지를 보냈다는 의미
                             // 메시지를 보낸거라면 메시지 목록 갱신 및 채팅방 목록 갱신
                             if(chatRoom.roomId === chat.roomId) {
                                 setChatRooms((prevChatRooms) => {
@@ -118,7 +137,6 @@ function Chat() {
                                                 noRead: true, noReadBuyer: amIBuyer}
                                             }
                                             return {...chatRoom, lastContent: chat.content, lastDate: chat.chatDate};
-
                                         }
                                         return chatRoom;
                                     });
@@ -291,6 +309,7 @@ function Chat() {
 
             {currentRoomId != null ?
                 <div className={styles.chat_container}>
+
                     <MessageList messages={messages} toMessageList={toMessageList} socket={socketMap.get(currentRoomId)} />
                     <div className={styles.chat_message} >
                         <div className={styles.error_message}>

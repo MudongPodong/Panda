@@ -9,6 +9,7 @@ package com.example.panda.service;
 
 import com.example.panda.dto.ChatRoomDTO;
 import com.example.panda.entity.ChatRoomEntity;
+import com.example.panda.repository.ChatRoomDSLRepository;
 import com.example.panda.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ChatRoomService {
     private final ChatRoomRepository chatRoomRepository;
+    private final ChatRoomDSLRepository chatRoomDSLRepository;
 
     @Transactional
     public List<ChatRoomDTO> findByUserEmail(String email) {
-        List<ChatRoomEntity> chatRoomEntityList = chatRoomRepository.findByUserEmail(email);
+        List<ChatRoomEntity> chatRoomEntityList = chatRoomDSLRepository.findByUserEmail(email);
         List<ChatRoomDTO> chatRoomDTOList = new ArrayList<>();
 
         for(ChatRoomEntity chatRoomEntity : chatRoomEntityList)
@@ -51,13 +53,18 @@ public class ChatRoomService {
     }
 
     @Transactional
-    public void updateNoReadBuyerByRoomId(Long roomId, boolean noReadBuyer) {
-        chatRoomRepository.updateNoReadBuyerByRoomId(roomId, noReadBuyer);
+    public void setNoReadAndBuyerByRoomId(Long roomId, boolean noReadBuyer, boolean isNoRead) {
+        chatRoomRepository.setNoReadAndBuyerByRoomId(roomId, noReadBuyer, isNoRead);
     }
 
     @Transactional
-    public void setNoReadAndBuyerByRoomId(Long roomId, boolean noReadBuyer, boolean isNoRead) {
-        chatRoomRepository.setNoReadAndBuyerByRoomId(roomId, noReadBuyer, isNoRead);
+    public void setEvaluateBuyerByRoomId(Long roomId, Integer evaluateBuyer) {
+        chatRoomRepository.setEvaluateBuyerByRoomId(roomId, evaluateBuyer);
+    }
+
+    @Transactional
+    public void setEvaluateSellerByRoomId(Long roomId, Integer evaluateSeller) {
+        chatRoomRepository.setEvaluateSellerByRoomId(roomId, evaluateSeller);
     }
 
 }
