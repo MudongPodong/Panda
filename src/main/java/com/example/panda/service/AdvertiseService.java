@@ -18,7 +18,7 @@ public class AdvertiseService {
     private final AdvertiseDSLRepository advertiseDSLRepository;
     private final AdvertisementRepository advertisementRepository;
 
-    public List<AdvertiseDTO> todayADs(){  //현재 남아있는 광고중 가장 비싼 광고료 낸 5개의 게시글만 가져옴
+    public List<AdvertiseDTO> todayADs(){  //현재 남아있는 광고리스트 가져옴
         List<AdvertisementEntity> advertisementEntities=advertiseDSLRepository.todayAdvertise();
         List<AdvertiseDTO> advertiseDTOList=new ArrayList<>();
 

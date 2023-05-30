@@ -15,11 +15,10 @@ import java.util.List;
 public class AdvertiseDSLRepository {
     private final JPAQueryFactory queryFactory;
 
-    public List<AdvertisementEntity> todayAdvertise(){ //현재 광고테이블에 존재하는 데이터 중 가장 비싼 광고료를 낸 사용자의 게시글을 올려줌(5개만)
+    public List<AdvertisementEntity> todayAdvertise(){ //현재 광고테이블에 존재하는 데이터를 일단 다 가져옴
         return queryFactory
                 .selectFrom(advertisementEntity)
                 .orderBy(advertisementEntity.ad_price.desc())
-                .limit(5)
                 .fetch();
     }
 }

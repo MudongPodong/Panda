@@ -2,6 +2,7 @@ package com.example.panda.controller;
 
 import com.example.panda.dto.AdvertiseDTO;
 import com.example.panda.dto.WritingDTO;
+import com.example.panda.service.AdvertiseRandom;
 import com.example.panda.service.AdvertiseService;
 import com.example.panda.service.WritingService;
 import lombok.RequiredArgsConstructor;
@@ -54,13 +55,20 @@ public class SearchController {
     }
 
     @PostMapping("/api/todayAds")
-    public List<AdvertiseDTO> todayList(){  //현재 남아있는 광고 중 가장 비싼 가격을 지불한 게시글 5개 출력
+    public List<WritingDTO> todayList(){  //현재 남아있는 광고 중 가장 비싼 가격을 지불한 게시글 5개를 랜덤으로 뽑아서 프론트로 보냄
 
 //        List<AdvertiseDTO> list=advertiseService.todayADs();
 //        for(AdvertiseDTO advertiseDTO:list){
 //            System.out.println(advertiseDTO);
 //        }
 //        System.out.println("여기까지!");
-        return advertiseService.todayADs();
+        List<AdvertiseDTO> list=advertiseService.todayADs();
+        List<AdvertiseDTO> list2= AdvertiseRandom.randFive(list);
+        System.out.println("최종:"+list2.size());
+        System.out.println(list2);
+
+        List<WritingDTO> writingDTOList=new ArrayList<>();
+        for(AdvertiseDTO advertiseDTO: list2) writingDTOList.add(advertiseDTO.getWritingDTO());
+       return writingDTOList;
     }
 }

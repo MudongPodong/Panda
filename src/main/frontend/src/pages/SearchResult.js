@@ -3,11 +3,12 @@ import { useLocation, useNavigate} from 'react-router-dom';
 import FixBar from "./FixBar";
 import styles from '../Css_dir/SearchResult.module.css'
 import axios from 'axios';
+import ListVeiw from "./ListVeiw";
+import ListViewADs from "./ListViewADs";
 
 
 function SearchResult() {
     const [data, setData] = useState([])
-    const [advertise, setAdvertise] = useState([])
     const [sortFlag,setFlag] = useState(0)
     const location = useLocation();
     const navigate = useNavigate();
@@ -130,16 +131,6 @@ function SearchResult() {
             .then(response => setData(response.data))
             .catch(error => console.log(error))
     }, []);
-    useEffect(() => {   //정렬할거 있으면 정렬해서 가져오기
-
-        axios.post('/api/todayAds',null,{
-
-        })
-            .then(response => {setAdvertise(response.data)
-                console.log(advertise)
-            })
-            .catch(error => console.log(error))
-    }, []);
 
     return (
         <div className={styles.wraper}>
@@ -170,6 +161,7 @@ function SearchResult() {
                     </form>
                     <button type="submit" form="search_sell" className={styles.btn_5} id='search_sell'>판매순</button>
                 </div>
+                <ListViewADs></ListViewADs>
                 <br/>
                 <div className={styles.container}>
                     {data.length === 0 ? (
