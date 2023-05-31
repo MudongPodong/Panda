@@ -62,20 +62,17 @@ public class MessageHandler extends TextWebSocketHandler {
         // 요청을 보낸 사용자가 어떤 채팅방에서 보낸건지 등록
         // 사용자가 현재 그 채팅방을 보고있다고 생각
 
-//        long time = System.currentTimeMillis();
-
-
         if (session.isOpen()) {
             ChatRoomDTO chatRoomDTO = chatRoomService.findById(chatDTO.getRoomId());
             // 현재 채팅방 정보 가져오기
+
+            UserDTO buyer = chatRoomDTO.getBuyer();
+            UserDTO seller = chatRoomDTO.getSeller();
 
             if (chatDTO.getType().equals("send")) {
                 // 누군가 보낸 메시지일 경우
 
                 chatDTO.setChatDate(new Date());
-
-                UserDTO buyer = chatRoomDTO.getBuyer();
-                UserDTO seller = chatRoomDTO.getSeller();
 
                 WebSocketSession buyerSession = webSocketSessionManager.
                         getSession(buyer.getEmail() + "/" + chatRoomDTO.getRoomId());
@@ -117,8 +114,6 @@ public class MessageHandler extends TextWebSocketHandler {
                 }
             } else if (chatDTO.getType().equals("evaluate")) {
                 // 사용자가 평가를 하였을 경우
-                UserDTO buyer = chatRoomDTO.getBuyer();
-                UserDTO seller = chatRoomDTO.getSeller();
                 Map<String, Object> map = new HashMap<>();
 
                 if (email.equals(buyer.getEmail())) {
@@ -154,6 +149,17 @@ public class MessageHandler extends TextWebSocketHandler {
                         // 구매, 판매 확정 시 사용자 평가 반영 / good : +1, normal : 0, bad : -1
                     }
                 }
+            } else if (chatDTO.getType().equals("exit")) {
+
+                Map<String, Object> map = new HashMap<>();
+
+                if(email.equals(buyer.getEmail())) {
+                    chatRoomService.setExitBuyerByRoomId(chatDTO.getRoomId(), true);
+
+                } else {
+                    chatRoomService.setExitSellerByRoomId(chatDTO.getRoomId(), true);
+                }
+
             } else {
                 // 메시지를 불러와야 하는 상황일 경우 (스크롤 or 채팅방 클릭)
 

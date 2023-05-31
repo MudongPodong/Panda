@@ -31,6 +31,8 @@ public class ChatRoomDTO {
     private WritingDTO writing;
     private Integer evaluateBuyer;
     private Integer evaluateSeller;
+    private boolean isExitBuyer;
+    private boolean isExitSeller;
 
     public static ChatRoomDTO toChatRoomDTO (ChatRoomEntity chatRoomEntity) {
         ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
@@ -41,6 +43,8 @@ public class ChatRoomDTO {
         chatRoomDTO.setNoRead(chatRoomEntity.is_no_read());
         chatRoomDTO.setEvaluateBuyer(chatRoomEntity.getEvaluate_buyer());
         chatRoomDTO.setEvaluateSeller(chatRoomEntity.getEvaluate_seller());
+        chatRoomDTO.setExitBuyer(chatRoomEntity.is_exit_buyer());
+        chatRoomDTO.setExitSeller(chatRoomEntity.is_exit_seller());
 
         if(chatRoomEntity.getBuyer() != null)
             chatRoomDTO.setBuyer(UserDTO.toUserDTO(chatRoomEntity.getBuyer()));
@@ -53,5 +57,4 @@ public class ChatRoomDTO {
 
         return chatRoomDTO;
     }
-
 }

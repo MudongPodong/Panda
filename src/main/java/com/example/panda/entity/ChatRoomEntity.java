@@ -54,4 +54,9 @@ public class ChatRoomEntity {
     @Column
     private Integer evaluate_seller;
 
+    @Column
+    private boolean is_exit_buyer;
+
+    @Column
+    private boolean is_exit_seller;
 }

@@ -30,4 +30,13 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Long> 
     @Modifying
     @Query("UPDATE ChatRoomEntity  e SET e.evaluate_seller = :evaluateSeller WHERE e.room_id = :roomId")
     void setEvaluateSellerByRoomId(@Param("roomId") Long roomId, @Param("evaluateSeller") Integer evaluateSeller);
+
+    @Modifying
+    @Query("UPDATE ChatRoomEntity e SET e.is_exit_buyer = :isExitBuyer WHERE e.room_id = :roomId")
+    void setExitBuyerByRoomId(@Param("roomId") Long roomId, @Param("isExitBuyer") boolean isExitBuyer);
+
+    @Modifying
+    @Query("UPDATE ChatRoomEntity e SET e.is_exit_seller = :isExitSeller WHERE e.room_id = :roomId")
+    void setExitSellerByRoomId(@Param("roomId") Long roomId, @Param("isExitSeller") boolean isExitSeller);
+
 }

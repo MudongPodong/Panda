@@ -18,6 +18,7 @@ public class WritingCompleteDTO {
     private String detail_category;
     private UserDTO userDTO;  //글 작성자
     private String writing_photo;
+    private int price;
 
     public static WritingCompleteDTO toWritingComplete(WritingCompleteEntity writingCompleteEntity){
         WritingCompleteDTO writingCompleteDTO=new WritingCompleteDTO();
@@ -27,6 +28,7 @@ public class WritingCompleteDTO {
         writingCompleteDTO.setDetail_category(writingCompleteEntity.getDetail_category());
         writingCompleteDTO.setUserDTO(UserDTO.toUserDTO(writingCompleteEntity.getUserEntity()));
         writingCompleteDTO.setWriting_photo(writingCompleteEntity.getWriting_photo());
+        writingCompleteDTO.setPrice(writingCompleteEntity.getPrice());
 
         return writingCompleteDTO;
     }

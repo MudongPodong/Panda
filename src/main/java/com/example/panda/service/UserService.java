@@ -75,6 +75,7 @@ public class UserService {
         return UserResponseDTO.of(userSaveRepository.save(user));
     }
 
+    // 사용자 평가 점수 반영 함수
     @Transactional
     public UserResponseDTO changeMemberPoint(String email, int point) {
         UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));

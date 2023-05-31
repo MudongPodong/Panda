@@ -5,13 +5,16 @@ import profile from "../imgs/profileEx.PNG";
 import smile from "../imgs/emo_smile.png";
 import normal from "../imgs/emo_normal.png";
 import sad from "../imgs/emo_sad.png";
+import menu from "../imgs/chat_menu.png";
 import Modal from 'react-modal';
 
 const MessageList = React.memo(({ messages, toMessageList, socket}) => {
 
     const [selectedImage, setSelectedImage] = useState(null);
-    const [isOpen, setIsOpen] = useState(false);
+    const [isEvaluateOpen, setIsEvaluateOpen] = useState(false);
+    const [isExitOpen, setExitOpen] = useState(false);
     const [selectedEmo, setSelectedEmo] = useState(null);
+    const [isMenuVisible, setMenuVisible] = useState(false);
     const chatContainerRef = useRef();
     const messageRef = useRef();
 
@@ -61,12 +64,20 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
     };
 
     const openEvaluateModal = () => {
-        setIsOpen(true);
+        setIsEvaluateOpen(true);
         setSelectedEmo(null);
     }
 
     const closeEvaluateModal = () => {
-        setIsOpen(false);
+        setIsEvaluateOpen(false);
+    }
+
+    const openExitChatModal = () => {
+        setExitOpen(true);
+    }
+
+    const closeExitChatModal = () => {
+        setExitOpen(false);
     }
 
     const sendEvaluate = (roomId) => {
@@ -85,21 +96,52 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
             count:selectedEmo,
             type:"evaluate",
         }));
-        setIsOpen(false);
+        setIsEvaluateOpen(false);
     }
+
+    const handleMouseEnter = () => {
+        setMenuVisible(true);
+    };
+
+    const handleMouseLeave = () => {
+        setMenuVisible(false);
+    }
+
+    const exitChat = (roomId) => {
+        socket.send(JSON.stringify({
+            roomId:roomId,
+            type:"exit",
+        }));
+    }
+
+    const Menu = () => {
+        return (
+            <div className={styles.chat_detail_menu}>
+                <ul>
+                    <li onClick={openEvaluateModal}>
+                        상대 평점 남기기
+                    </li>
+                    <li onClick={openExitChatModal}>
+                        채팅방 나가기
+                    </li>
+                </ul>
+            </div>
+        );
+    }
+
     return (
         <div>
             <Modal
-                isOpen={isOpen}
+                isOpen={isEvaluateOpen}
                 onRequestClose={closeEvaluateModal}
-                onClick={closeImageModal}
+                // onClick={closeEvaluateModal}
                 ariaHideApp={false}
                 style={{
                     content: {
-                        width: '40%',
+                        width: '700px',
                         margin: '0 auto',
                         marginTop:'50px',
-                        height: '45%',
+                        height: '400px',
                         backgroundColor: 'whitesmoke',
                     },
                     overlay: {
@@ -123,6 +165,35 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
                     </div>
                 </div>
             </Modal>
+
+            <Modal
+                isOpen={isExitOpen}
+                onRequestClose={closeExitChatModal}
+                // onClick={closeExitChatModal}
+                ariaHideApp={false}
+                style={{
+                    content: {
+                        width: '500px',
+                        margin: '0 auto',
+                        marginTop:'50px',
+                        height: '180px',
+                        backgroundColor: 'whitesmoke',
+                    },
+                    overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    },
+                }}>
+                <div>
+                    <div className={styles.eval_header}>
+                        채팅방을 나가시겠습니까?
+                    </div>
+
+                    <div className={styles.eval_button}>
+                        <button onClick={messages[0] != null ? () => exitChat(messages[0].roomId) : () => exitChat()}>확인</button>
+                        <button onClick={closeExitChatModal}>닫기</button>
+                    </div>
+                </div>
+            </Modal>
             <div className={styles.chat_header}>
                 <div className={styles.chat_image}>
                     <img src={profile} width="100%" height="100%"></img>
@@ -130,26 +201,31 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
                 <div className={styles.chat_info}>
                     <div className={styles.chat_name}>{toMessageList.op_Id}</div>
                 </div>
-                {
-                    toMessageList.amIBuyer ?
-                        toMessageList.evaluateBuyer > 0 ?
-                            <button className={styles.purchase_button}>
-                                평점 작성 완료
-                            </button>
-                            :
-                            <button className={`${styles.purchase_button} ${styles.point_cursor}`} onClick={openEvaluateModal}>
-                                상대 평점 남기기
-                            </button>
-                        :
-                        toMessageList.evaluateSeller > 0 ?
-                            <button className={styles.purchase_button}>
-                                평점 작성 완료
-                            </button>
-                            :
-                            <button className={`${styles.purchase_button} ${styles.point_cursor}`} onClick={openEvaluateModal}>
-                                상대 평점 남기기
-                            </button>
-                }
+                <div className={styles.chat_menu} onMouseLeave={handleMouseLeave}>
+                    <img src={menu} className={styles.chat_menu_img}
+                         onMouseEnter={handleMouseEnter}/>
+                    {isMenuVisible && <Menu />}
+                </div>
+                {/*{*/}
+                {/*    toMessageList.amIBuyer ?*/}
+                {/*        toMessageList.evaluateBuyer > 0 ?*/}
+                {/*            <button className={styles.purchase_button}>*/}
+                {/*                평점 작성 완료*/}
+                {/*            </button>*/}
+                {/*            :*/}
+                {/*            <button className={`${styles.purchase_button} ${styles.point_cursor}`} onClick={openEvaluateModal}>*/}
+                {/*                상대 평점 남기기*/}
+                {/*            </button>*/}
+                {/*        :*/}
+                {/*        toMessageList.evaluateSeller > 0 ?*/}
+                {/*            <button className={styles.purchase_button}>*/}
+                {/*                평점 작성 완료*/}
+                {/*            </button>*/}
+                {/*            :*/}
+                {/*            <button className={`${styles.purchase_button} ${styles.point_cursor}`} onClick={openEvaluateModal}>*/}
+                {/*                상대 평점 남기기*/}
+                {/*            </button>*/}
+                {/*}*/}
             </div>
             <div className={styles.chat_history} ref={chatContainerRef} onScroll={handleScroll}>
         <ul>

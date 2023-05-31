@@ -26,6 +26,8 @@ public class ChatHandler extends TextWebSocketHandler {
     private final ChatRoomService chatRoomService;
     private final WebSocketSessionManager webSocketSessionManager;
 
+    
+    // 채팅 페이지에 접속하면 자동으로 채팅목록을 가져와 보여줌
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws IOException {
         String email = (String) session.getAttributes().get("user");

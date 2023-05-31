@@ -28,6 +28,10 @@ public class QChatRoomEntity extends EntityPathBase<ChatRoomEntity> {
 
     public final NumberPath<Integer> evaluate_seller = createNumber("evaluate_seller", Integer.class);
 
+    public final BooleanPath is_exit_buyer = createBoolean("is_exit_buyer");
+
+    public final BooleanPath is_exit_seller = createBoolean("is_exit_seller");
+
     public final BooleanPath is_no_read = createBoolean("is_no_read");
 
     public final StringPath last_content = createString("last_content");

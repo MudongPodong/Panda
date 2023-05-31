@@ -12,6 +12,9 @@ import com.example.panda.entity.ChatRoomEntity;
 import com.example.panda.repository.ChatRoomDSLRepository;
 import com.example.panda.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,5 +69,16 @@ public class ChatRoomService {
     public void setEvaluateSellerByRoomId(Long roomId, Integer evaluateSeller) {
         chatRoomRepository.setEvaluateSellerByRoomId(roomId, evaluateSeller);
     }
+
+    @Transactional
+    public void setExitBuyerByRoomId(Long roomId, boolean isExitBuyer) {
+        chatRoomRepository.setExitBuyerByRoomId(roomId, isExitBuyer);
+    }
+
+    @Transactional
+    public void setExitSellerByRoomId(Long roomId, boolean isExitSeller) {
+        chatRoomRepository.setExitSellerByRoomId(roomId, isExitSeller);
+    }
+
 
 }

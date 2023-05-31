@@ -19,6 +19,8 @@ public class WritingCompleteEntity {
     private String category;
     @Column(length = 32)
     private String detail_category;
+    @Column
+    private int price;
     @ManyToOne
     @JoinColumn(name="email")
     private UserEntity userEntity; // 글 작성자
