@@ -35,6 +35,7 @@ public class WritingCompleteEntity {
         writingCompleteEntity.setWid(writingEntity.getWid());
         writingCompleteEntity.setCategory(writingEntity.getCategory());
         writingCompleteEntity.setDetail_category(writingEntity.getDetail_category());
+        writingCompleteEntity.setPrice(writingEntity.getPrice());
         if(writingEntity.getUserEntity() != null)
             writingCompleteEntity.setUserEntity(writingEntity.getUserEntity());
         if(writingEntity.getWriting_photo() != null)

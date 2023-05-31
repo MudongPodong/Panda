@@ -26,25 +26,25 @@ public class ChatRoomDTO {
     private UserDTO seller;  // 최초 받은 사람 (판매자)
     private String lastContent; // 마지막 메시지의 내용
     private Date lastDate; // 마지막 메시지의 날짜
-    private boolean isNoRead;
-    private boolean noReadBuyer; // buyer가 안읽은건지 (안읽은 사람의 채팅 목록에 표시하기 위함)
+    private Boolean isNoRead;
+    private Boolean noReadBuyer; // buyer가 안읽은건지 (안읽은 사람의 채팅 목록에 표시하기 위함)
     private WritingDTO writing;
     private Integer evaluateBuyer;
     private Integer evaluateSeller;
-    private boolean isExitBuyer;
-    private boolean isExitSeller;
+    private Boolean isExitBuyer;
+    private Boolean isExitSeller;
 
     public static ChatRoomDTO toChatRoomDTO (ChatRoomEntity chatRoomEntity) {
         ChatRoomDTO chatRoomDTO = new ChatRoomDTO();
         chatRoomDTO.setRoomId(chatRoomEntity.getRoom_id());
         chatRoomDTO.setLastContent(chatRoomEntity.getLast_content());
         chatRoomDTO.setLastDate(chatRoomEntity.getLast_date());
-        chatRoomDTO.setNoReadBuyer(chatRoomEntity.isNo_read_buyer());
-        chatRoomDTO.setNoRead(chatRoomEntity.is_no_read());
         chatRoomDTO.setEvaluateBuyer(chatRoomEntity.getEvaluate_buyer());
         chatRoomDTO.setEvaluateSeller(chatRoomEntity.getEvaluate_seller());
-        chatRoomDTO.setExitBuyer(chatRoomEntity.is_exit_buyer());
-        chatRoomDTO.setExitSeller(chatRoomEntity.is_exit_seller());
+        chatRoomDTO.setNoReadBuyer(chatRoomEntity.getNo_read_buyer());
+        chatRoomDTO.setIsNoRead(chatRoomEntity.getIs_no_read());
+        chatRoomDTO.setIsExitBuyer(chatRoomEntity.getIs_exit_buyer());
+        chatRoomDTO.setIsExitSeller(chatRoomEntity.getIs_exit_seller());
 
         if(chatRoomEntity.getBuyer() != null)
             chatRoomDTO.setBuyer(UserDTO.toUserDTO(chatRoomEntity.getBuyer()));

@@ -80,5 +80,9 @@ public class ChatRoomService {
         chatRoomRepository.setExitSellerByRoomId(roomId, isExitSeller);
     }
 
+    @Transactional
+    public void deleteByRoomId(Long roomId) {
+        chatRoomRepository.deleteById(roomId);
+    }
 
 }

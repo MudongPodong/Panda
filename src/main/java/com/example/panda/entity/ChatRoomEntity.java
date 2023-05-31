@@ -39,10 +39,10 @@ public class ChatRoomEntity {
     private Date last_date;
 
     @Column
-    private boolean is_no_read; // 안읽었는지?
+    private Boolean is_no_read; // 안읽었는지?
 
     @Column
-    private boolean no_read_buyer; // buyer가 안읽었는지?
+    private Boolean no_read_buyer; // buyer가 안읽었는지?
 
     @OneToOne
     @JoinColumn(name="wid")
@@ -55,8 +55,8 @@ public class ChatRoomEntity {
     private Integer evaluate_seller;
 
     @Column
-    private boolean is_exit_buyer;
+    private Boolean is_exit_buyer;
 
     @Column
-    private boolean is_exit_seller;
+    private Boolean is_exit_seller;
 }

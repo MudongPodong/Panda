@@ -11,6 +11,7 @@ import com.example.panda.dto.ChatRoomDTO;
 import com.example.panda.dto.UserDTO;
 import com.example.panda.entity.WritingCompleteEntity;
 import com.example.panda.service.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.socket.CloseStatus;
@@ -80,27 +81,43 @@ public class MessageHandler extends TextWebSocketHandler {
                 WebSocketSession sellerSession = webSocketSessionManager.
                         getSession(seller.getEmail() + "/" + chatRoomDTO.getRoomId());
 
-                Map<String, Object> buyerMap = new HashMap<>();
-                Map<String, Object> sellerMap = new HashMap<>();
-
                 if (buyerSession != null) {
+                    Map<String, Object> buyerMap = new HashMap<>();
                     buyerMap.put("message", chatDTO);
+
                     if (buyer.getEmail().equals(email))
                         buyerMap.put("type", "sender");      // 내가 현재 채팅을 보낸 사람인가?
                     else
                         buyerMap.put("type", "receiver");    // 내가 현재 채팅을 받는 사람인가?
+
                     buyerMap.put("amIBuyer", true);
-                    sendMessage(buyerSession, buyer, seller, buyerMap);
+                    buyerMap.put("myRoomId", webSocketSessionManager.getRoomId(buyer.getEmail()));
+
+                    if(seller != null) {
+                        buyerMap.put("opNickname", seller.getNickname());
+                        buyerMap.put("opUserImg", seller.getUserImg());
+                    }
+                    sendMessage(buyerSession, buyerMap);
                 }
 
                 if (sellerSession != null) {
+                    Map<String, Object> sellerMap = new HashMap<>();
                     sellerMap.put("message", chatDTO);
+
                     if (seller.getEmail().equals(email))
                         sellerMap.put("type", "sender");      // 내가 현재 채팅을 보낸 사람인가?
                     else
                         sellerMap.put("type", "receiver");    // 내가 현재 채팅을 받는 사람인가?
+
                     sellerMap.put("amIBuyer", false);
-                    sendMessage(sellerSession, seller, buyer, sellerMap);
+                    sellerMap.put("myRoomId", webSocketSessionManager.getRoomId(seller.getEmail()));
+
+                    if(buyer != null) {
+                        sellerMap.put("opNickname", buyer.getNickname());
+                        sellerMap.put("opUserImg", buyer.getUserImg());
+                    }
+
+                    sendMessage(sellerSession, sellerMap);
                 }
 
                 chatService.save(chatDTO);
@@ -153,13 +170,26 @@ public class MessageHandler extends TextWebSocketHandler {
 
                 Map<String, Object> map = new HashMap<>();
 
+                webSocketSessionManager.removeRoomId(email);
+
+                map.put("exit", email);
+                map.put("exitRoomId", chatDTO.getRoomId());
+
+
+
                 if(email.equals(buyer.getEmail())) {
-                    chatRoomService.setExitBuyerByRoomId(chatDTO.getRoomId(), true);
-
+                    if(chatRoomDTO.getIsExitBuyer()) {
+                        chatRoomService.deleteByRoomId(chatDTO.getRoomId());
+                    } else {
+                        chatRoomService.setExitBuyerByRoomId(chatDTO.getRoomId(), true);
+                    }
                 } else {
-                    chatRoomService.setExitSellerByRoomId(chatDTO.getRoomId(), true);
+                    if(chatRoomDTO.getIsExitBuyer()) {
+                        chatRoomService.deleteByRoomId(chatDTO.getRoomId());
+                    } else {
+                        chatRoomService.setExitSellerByRoomId(chatDTO.getRoomId(), true);
+                    }
                 }
-
             } else {
                 // 메시지를 불러와야 하는 상황일 경우 (스크롤 or 채팅방 클릭)
 
@@ -174,7 +204,7 @@ public class MessageHandler extends TextWebSocketHandler {
                 } else if (chatDTO.getType().equals("click")) {    // 채팅방 클릭으로 메시지를 받는 경우
                     map.put("type", "true");  // 스크롤을 내려야 하는가?
 
-                    if (chatRoomDTO.isNoRead() && !(chatRoomDTO.isNoReadBuyer() ^ chatRoomDTO.getBuyer().getEmail().equals(email))) {
+                    if (chatRoomDTO.getIsNoRead() && !(chatRoomDTO.getNoReadBuyer() ^ chatRoomDTO.getBuyer().getEmail().equals(email))) {
                         // 만약 채팅방에 읽지 않음 표시가 되어있고, 안읽은 사람이 사용자일 경우 이번에 채팅방을 클릭했으므로 읽음.
                         chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), false);
                         List<ChatRoomDTO> chatRoomDTOList = chatRoomService.findByUserEmail(email);
@@ -212,20 +242,8 @@ public class MessageHandler extends TextWebSocketHandler {
         return roomId;
     }
 
-    public void sendMessage(WebSocketSession session, UserDTO myInfo,
-                            UserDTO opInfo, Map<String, Object> map) throws IOException {
+    public void sendMessage(WebSocketSession session, Map<String, Object> map) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-
-        Long roomId = webSocketSessionManager.getRoomId(myInfo.getEmail());
-
-        map.put("myRoomId", roomId);
-
-
-        if(opInfo != null) {
-            map.put("opNickname", opInfo.getNickname());
-            map.put("opUserImg", opInfo.getUserImg());
-        }
-
         String json = objectMapper.writeValueAsString(map);
         TextMessage textMessage = new TextMessage(json);
         session.sendMessage(textMessage);
