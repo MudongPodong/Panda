@@ -49,7 +49,7 @@ public class ChatRoomDTO {
             chatRoomDTO.setSeller(UserDTO.toUserDTO(chatRoomEntity.getSeller()));
 
         if(chatRoomEntity.getWriting() != null)
-        chatRoomDTO.setWriting(WritingDTO.toWritingDTO(chatRoomEntity.getWriting()));
+            chatRoomDTO.setWriting(WritingDTO.toWritingDTO(chatRoomEntity.getWriting()));
 
         return chatRoomDTO;
     }
