@@ -65,7 +65,6 @@ public class SearchController {
 //        System.out.println("여기까지!");
         List<AdvertiseDTO> list=advertiseService.todayADs();
         List<AdvertiseDTO> list2= AdvertiseRandom.randFive(list);
-        System.out.println("최종:"+list2.size());
         System.out.println(list2);
 
         List<WritingResponseDTO> writingDTOList=new ArrayList<>();

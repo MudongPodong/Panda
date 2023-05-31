@@ -41,6 +41,7 @@ public class WritingDTO {
         writingDTO.setUserDTO(UserDTO.toUserDTO(writingEntity.getUserEntity()));
         writingDTO.setUser_name(writingDTO.getUserDTO().getNickname());
         writingDTO.setUser_point(writingDTO.getUserDTO().getPoint());
+
         return writingDTO;
     }
 

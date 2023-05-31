@@ -38,9 +38,9 @@ function ListViewADs() {
             <div className={styles.container}>
             {advertise.map(item => (
                 <div className={styles.resultMap} onClick={movePage} name="spam" id={item.writingId}>
-                    <img className={styles.content_picture} src="http://placekitten.com/150/150"></img>
+                    <img className={styles.content_picture} src={"data:image/png;base64," + item.writingImg} alt='No Data'></img>
                     <div> <b>{item.writingName}</b></div>
-                    <div>  [판매자]: {item.addr} </div>
+                    <div>  [판매자위치]: {item.addr} </div>
                     <div>    가격: {dividePriceUnit(item.price.toString())} </div>
                     <div>    판매자 평점:{item.userPoint}</div>
                 </div>
