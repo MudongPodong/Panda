@@ -8,7 +8,7 @@ class ListVeiw extends React.Component {
         //현재 화면에 보이고 있는 슬라이드의 시작점
     };
 
-    imgQuantity = this.props.imagesData.length;
+    imgQuantity = this.props.length;
     //데이터로 들어오는 총 이미지 수가 항상 다르기 때문에 총 이미지 수를 구해준다.
     slideWidth =
         IMG_WIDTH * (this.imgQuantity + 1) + (this.imgQuantity) * SLIDE_GAP * 2;
@@ -73,7 +73,15 @@ class ListVeiw extends React.Component {
 
     render() {
         const { slideSpot } = this.state;
-        const { imagesData, pname, price, addr, count } = this.props;
+        const { list } = this.props;
+        //const { imagesData, pname, price, addr, count } = this.props;
+
+        const dividePriceUnit=(price)=>{
+            return price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        }
+        // list&&list.map((item, i) => (
+        //     console.log(item))
+        // );
 
         return (
             <div className={styles.list_view_wrap}>
@@ -83,19 +91,37 @@ class ListVeiw extends React.Component {
             <div className={styles.list_view_box}>
                 <ul className={styles.list}>
                     <div style={{ transform: `translateX(${slideSpot}px)`}} className={styles.slide_item}>
-                        {imagesData&&imagesData.map((img, i) => (
+                        {/*{imagesData&&imagesData.map((img, i) => (*/}
+                        {/*    <li key={i} className={styles.list_item}>*/}
+                        {/*        <Link to={`/pages/noticeConfirm#`} style={{ textDecoration: "none" }}>*/}
+                        {/*            /!*to안에 해당 상품 페이지로 이동하게 하면됨*!/*/}
+                        {/*            <div className={styles.list_container}>*/}
+                        {/*                <div className={styles.item_img}>*/}
+                        {/*                    <img width={200} height={200} src={img} className={styles.list_img}/>*/}
+                        {/*                </div>*/}
+                        {/*                <div className={styles.item_desc}>*/}
+                        {/*                    <h2 className={styles.item_name}>{pname[i]}</h2>*/}
+                        {/*                    <p className={styles.item_price}>{`${price[i]} 원`}</p>*/}
+                        {/*                    <p className={styles.item_addr}>{addr[i]}</p>*/}
+                        {/*                    <p className={styles.item_count}>{`${count[i]}회 검색`}</p>*/}
+                        {/*                </div>*/}
+                        {/*            </div>*/}
+                        {/*        </Link>*/}
+                        {/*    </li>*/}
+                        {/*))}*/}
+                        {list&&list.map((item,i) => (
                             <li key={i} className={styles.list_item}>
-                                <Link to={`/pages/noticeConfirm#`} style={{ textDecoration: "none" }}>
+                                <Link to={`/pages/noticeConfirm#`} style={{ textDecoration: "none" }} id={item.writingId}>
                                     {/*to안에 해당 상품 페이지로 이동하게 하면됨*/}
                                     <div className={styles.list_container}>
                                         <div className={styles.item_img}>
-                                            <img width={200} height={200} src={img} className={styles.list_img}/>
+                                            <img width={200} height={200} src={item.writingImg} className={styles.list_img}/>
                                         </div>
                                         <div className={styles.item_desc}>
-                                            <h2 className={styles.item_name}>{pname[i]}</h2>
-                                            <p className={styles.item_price}>{`${price[i]} 원`}</p>
-                                            <p className={styles.item_addr}>{addr[i]}</p>
-                                            <p className={styles.item_count}>{`${count[i]}회 검색`}</p>
+                                            <h2 className={styles.item_name}>{item.ad ? "[광고]" + item.writingName : item.writingName}</h2>
+                                            <p className={styles.item_price}>{`${dividePriceUnit(item.price.toString())} 원`}</p>
+                                            <p className={styles.item_addr}>{item.addr}</p>
+                                            <p className={styles.item_count}>{`${item.userPoint} 점`}</p>
                                         </div>
                                     </div>
                                 </Link>
@@ -111,29 +137,35 @@ class ListVeiw extends React.Component {
         );
     }
 }
-ListVeiw.defaultProps = {
-    //원래 백에서 이미지 받아와야 되는데 일단 임시로 이미지 넣음
-    imagesData: ['imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png', 'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png',
-        'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png', 'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png',
-        'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png', 'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png',
-        'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png', 'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png'],
-    pname: ['귀여운 판다','판다','안판다','맛있어 보이는 판다','과제 언제끝남','집에 보내줘',
-        '귀여운 판다','판다','안판다','맛있어 보이는 판다','과제 언제끝남','집에 보내줘',
-        '귀여운 판다','판다','안판다','맛있어 보이는 판다','과제 언제끝남','집에 보내줘',
-        '귀여운 판다','판다','안판다','맛있어 보이는 판다','과제 언제끝남','집에 보내줘'],
-    price : ['20,000','1,000','500,000','20,000,000','1','2,500',
-        '20,000','1,000','500,000','20,000,000','1','2,500',
-        '20,000','1,000','500,000','20,000,000','1','2,500',
-        '20,000','1,000','500,000','20,000,000','1','2,500'],
-    addr : ['경북 경산시 대학로 280','대구 남구 현충로 170','대구 북구 대학로 80','경북 상주시 경상대로 2559','대구 북구 호국로 807','대구 중구 국채보상로 680',
-        '경북 경산시 대학로 280','대구 남구 현충로 170','대구 북구 대학로 80','경북 상주시 경상대로 2559','대구 북구 호국로 807','대구 중구 국채보상로 680',
-        '경북 경산시 대학로 280','대구 남구 현충로 170','대구 북구 대학로 80','경북 상주시 경상대로 2559','대구 북구 호국로 807','대구 중구 국채보상로 680',
-        '경북 경산시 대학로 280','대구 남구 현충로 170','대구 북구 대학로 80','경북 상주시 경상대로 2559','대구 북구 호국로 807','대구 중구 국채보상로 680'],
-    count : ['1,000','10','0','1,000,000,000','100','99',
-        '1,000','10','0','1,000,000,000','100','99',
-        '1,000','10','0','1,000,000,000','100','99',
-        '1,000','10','0','1,000,000,000','100','99']
-}
+// ListVeiw.defaultProps = {
+//     //원래 백에서 이미지 받아와야 되는데 일단 임시로 이미지 넣음
+//     imagesData: ['imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png', 'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png',
+//         'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png', 'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png',
+//         'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png', 'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png',
+//         'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png', 'imgs/logo192_192.png', 'imgs/menu_logo.png', 'imgs/close_logo.png'],
+//     pname: ['귀여운 판다','판다','안판다','맛있어 보이는 판다','과제 언제끝남','집에 보내줘',
+//         '귀여운 판다','판다','안판다','맛있어 보이는 판다','과제 언제끝남','집에 보내줘',
+//         '귀여운 판다','판다','안판다','맛있어 보이는 판다','과제 언제끝남','집에 보내줘',
+//         '귀여운 판다','판다','안판다','맛있어 보이는 판다','과제 언제끝남','집에 보내줘'],
+//     price : ['20,000','1,000','500,000','20,000,000','1','2,500',
+//         '20,000','1,000','500,000','20,000,000','1','2,500',
+//         '20,000','1,000','500,000','20,000,000','1','2,500',
+//         '20,000','1,000','500,000','20,000,000','1','2,500'],
+//     addr : ['경북 경산시 대학로 280','대구 남구 현충로 170','대구 북구 대학로 80','경북 상주시 경상대로 2559','대구 북구 호국로 807','대구 중구 국채보상로 680',
+//         '경북 경산시 대학로 280','대구 남구 현충로 170','대구 북구 대학로 80','경북 상주시 경상대로 2559','대구 북구 호국로 807','대구 중구 국채보상로 680',
+//         '경북 경산시 대학로 280','대구 남구 현충로 170','대구 북구 대학로 80','경북 상주시 경상대로 2559','대구 북구 호국로 807','대구 중구 국채보상로 680',
+//         '경북 경산시 대학로 280','대구 남구 현충로 170','대구 북구 대학로 80','경북 상주시 경상대로 2559','대구 북구 호국로 807','대구 중구 국채보상로 680'],
+//     count : ['1,000','10','0','1,000,000,000','100','99',
+//         '1,000','10','0','1,000,000,000','100','99',
+//         '1,000','10','0','1,000,000,000','100','99',
+//         '1,000','10','0','1,000,000,000','100','99']
+// }
+ListVeiw.defaultProps = {list:[{"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":true},
+    {"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":true},
+    {"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":true},
+    {"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":false},
+    {"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":false},
+    {"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":false},]};
 
 const SLIDE_GAP = 14;  //각 슬라이드 사이 간격
 const SLIDE_MOVING_UNIT = 228;  //슬라이드 버튼 클릭 시 움직일 길이

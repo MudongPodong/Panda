@@ -1,6 +1,7 @@
 package com.example.panda.service;
 
 import com.example.panda.dto.WritingDTO;
+import com.example.panda.dto.WritingResponseDTO;
 import com.example.panda.entity.WritingEntity;
 import com.example.panda.repository.WritingDSLRepository;
 import com.example.panda.repository.WritingRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,5 +51,10 @@ public class WritingService {
         Optional<WritingEntity> writingEntity = writingRepository.findById(wid);
         WritingDTO writingDTO=WritingDTO.toWritingDTO(writingEntity.get());
         return writingDTO;
+    }
+    public List<WritingResponseDTO> findPopular(){
+        List<WritingResponseDTO> writingResponseDTOList = new LinkedList<>();
+        //추가 필요
+        return writingResponseDTOList;
     }
 }

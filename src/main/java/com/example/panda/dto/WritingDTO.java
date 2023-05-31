@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class WritingDTO {
     private int writing_Id;
     private String writing_name;
+    private byte[] writingImg;
     private String category;
     private String detail_category;
     private int count;
@@ -28,6 +29,7 @@ public class WritingDTO {
         WritingDTO writingDTO = new WritingDTO();
         writingDTO.setWriting_Id(writingEntity.getWid());
         writingDTO.setWriting_name(writingEntity.getWriting_name());
+        writingDTO.setWritingImg(writingEntity.getWriting_photo());
         writingDTO.setCategory(writingEntity.getCategory());
         writingDTO.setDetail_category(writingEntity.getDetail_category());
         writingDTO.setCount(writingEntity.getCount());

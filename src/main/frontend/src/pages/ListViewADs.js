@@ -37,12 +37,12 @@ function ListViewADs() {
         <div className={styles.advertise_box}>
             <div className={styles.container}>
             {advertise.map(item => (
-                <div className={styles.resultMap} onClick={movePage} name="spam" id={item.writing_Id}>
+                <div className={styles.resultMap} onClick={movePage} name="spam" id={item.writingId}>
                     <img className={styles.content_picture} src="http://placekitten.com/150/150"></img>
-                    <div> <b>{item.writing_name}</b></div>
-                    <div>  [판매자]: {item.user_name} </div>
+                    <div> <b>{item.writingName}</b></div>
+                    <div>  [판매자]: {item.addr} </div>
                     <div>    가격: {dividePriceUnit(item.price.toString())} </div>
-                    <div>    판매자 평점:{item.user_point}</div>
+                    <div>    판매자 평점:{item.userPoint}</div>
                 </div>
             ))}
             </div>
