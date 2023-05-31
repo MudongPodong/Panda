@@ -17,7 +17,7 @@ public class PurchaseHistoryEntity {
     private int pid;
     @ManyToOne
     @JoinColumn(name="email")
-    private UserEntity userEntity;
+    private UserEntity userEntity;  //구매자
     @ManyToOne
     @JoinColumn(name="wid")
     private WritingCompleteEntity writingCompleteEntity;
