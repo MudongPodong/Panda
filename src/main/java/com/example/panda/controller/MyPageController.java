@@ -1,9 +1,11 @@
 package com.example.panda.controller;
 
 import com.example.panda.dto.FavoriteDTO;
+import com.example.panda.dto.PurchaseHistoryDTO;
 import com.example.panda.dto.UserDTO;
 import com.example.panda.dto.WritingDTO;
 import com.example.panda.service.FavoriteService;
+import com.example.panda.service.PurchaseHistoryService;
 import com.example.panda.service.UserService;
 import com.example.panda.service.WritingService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,6 +30,7 @@ public class MyPageController {
     private final WritingService writingService;
     private final UserService userService;
     private final FavoriteService favoriteService;
+    private final PurchaseHistoryService purchaseHistoryService;
     @GetMapping("/api/writings")
     public List<WritingDTO> test(){
         List<WritingDTO> writingDTOList = writingService.findAll();
@@ -87,5 +90,12 @@ public class MyPageController {
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         return favoriteService.save(userDetails.getUsername(),wid);
     }
+    @PostMapping("/api/purchaseList")
+    public List<PurchaseHistoryDTO> purchaseHistory(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        List<PurchaseHistoryDTO> list=purchaseHistoryService.findbyEmail(userDetails.getUsername());
 
+        return list;
+    }
 }

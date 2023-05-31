@@ -21,7 +21,7 @@ function BoughtList() {
 
 
     useEffect(() => {
-        axios.get('/api/hello')
+        axios.get('/api/purchaseList')
             .then(response => setData(response.data))
             .catch(error => console.log(error))
     }, []);
@@ -44,8 +44,8 @@ function BoughtList() {
                 {data.map(item=>(
                     <CommonTableRow>
                         <td className={styles.common_check_box}><img src=" http://placekitten.com/150/150" alt=""/></td>
-                        <td className={styles.common_check_box}>{item}</td>
-                        <td className={styles.common_check_box}><label name="price">{dividePriceUnit("10000")}</label></td>
+                        <td className={styles.common_check_box}>{item.writingCompleteDTO.writing_photo}</td>
+                        <td className={styles.common_check_box}><label name="price">{dividePriceUnit('item.writingCompleteDTO.)')}</label></td>
                         <td className={styles.common_check_box}>2020-10-25</td>
                         <td className={styles.common_check_box}>4</td>
                     </CommonTableRow>
