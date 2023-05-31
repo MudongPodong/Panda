@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 public class WritingDTO {
     private int writing_Id;
     private String writing_name;
-    private byte[] writingImg;
+//    private byte[] writingImg;
+    private String writingImg;
     private String category;
     private String detail_category;
     private int count;

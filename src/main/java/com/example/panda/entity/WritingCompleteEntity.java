@@ -23,7 +23,8 @@ public class WritingCompleteEntity {
     @JoinColumn(name="email")
     private UserEntity userEntity; // 글 작성자
     @Lob
-    private byte[] writing_photo;
+    private String writing_photo;
+//    private byte[] writing_photo;
 
     public static WritingCompleteEntity writingToComplete (WritingEntity writingEntity) {
         WritingCompleteEntity writingCompleteEntity = new WritingCompleteEntity();

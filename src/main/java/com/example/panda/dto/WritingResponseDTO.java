@@ -11,7 +11,8 @@ import lombok.*;
 @Builder
 public class WritingResponseDTO {
     private int writingId;
-    private byte[] writingImg;
+//    private byte[] writingImg;
+    private String writingImg;
     private String writingName;
     private int price;
     private String addr;

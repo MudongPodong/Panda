@@ -115,7 +115,8 @@ class ListVeiw extends React.Component {
                                     {/*to안에 해당 상품 페이지로 이동하게 하면됨*/}
                                     <div className={styles.list_container}>
                                         <div className={styles.item_img}>
-                                            <img width={200} height={200} src={item.writingImg} className={styles.list_img}/>
+                                            {/*<img width={200} height={200} src={item.writingImg} className={styles.list_img}/>*/}
+                                            <img width={200} height={200} src={"data:image/png;base64," + item.writingImg} className={styles.list_img}/>
                                         </div>
                                         <div className={styles.item_desc}>
                                             <h2 className={styles.item_name}>{item.ad ? "[광고]" + item.writingName : item.writingName}</h2>
@@ -170,5 +171,4 @@ ListVeiw.defaultProps = {list:[{"writingId":123, "writingImg":"imgs/logo192_192.
 const SLIDE_GAP = 14;  //각 슬라이드 사이 간격
 const SLIDE_MOVING_UNIT = 228;  //슬라이드 버튼 클릭 시 움직일 길이
 const IMG_WIDTH = 200;  //이미지 가로 길이
-
 export default ListVeiw;

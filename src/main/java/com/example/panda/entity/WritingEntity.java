@@ -17,7 +17,8 @@ public class WritingEntity {
     @Column(length = 64)
     private String writing_name;
     @Lob
-    private byte[] writing_photo;
+    private String writing_photo;
+//    private byte[] writing_photo;
     @Column(length = 32)
     private String category;
     @Column(length = 32)
