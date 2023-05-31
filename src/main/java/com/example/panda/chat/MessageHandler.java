@@ -137,12 +137,10 @@ public class MessageHandler extends TextWebSocketHandler {
                     chatRoomDTO.setEvaluateBuyer(chatDTO.getCount());
                     map.put("evaluateRoom", chatRoomDTO);
 
-                    String json = objectMapper.writeValueAsString(map);
-                    TextMessage textMessage = new TextMessage(json);
-                    session.sendMessage(textMessage);
+                    sendMessage(session, map);
 
                     chatRoomService.setEvaluateBuyerByRoomId(chatRoomDTO.getRoomId(), chatDTO.getCount());
-                    if(chatRoomDTO.getEvaluateSeller() != null) { // 상대방의 평점이 null이 아니면 서로 평점을 매겼다는 의미 (구매, 판매 확정)
+                    if(chatRoomDTO.getEvaluateSeller() != 0) { // 상대방의 평점이 null이 아니면 서로 평점을 매겼다는 의미 (구매, 판매 확정)
                         writingCompleteService.save(chatRoomDTO.getWriting().getWriting_Id());
                         userService.changeMemberPoint(buyer.getEmail(), chatRoomDTO.getEvaluateSeller() - 2);
                         userService.changeMemberPoint(seller.getEmail(), chatRoomDTO.getEvaluateBuyer() - 2);
@@ -153,12 +151,10 @@ public class MessageHandler extends TextWebSocketHandler {
                     chatRoomDTO.setEvaluateSeller(chatDTO.getCount());
                     map.put("evaluateRoom", chatRoomDTO);
 
-                    String json = objectMapper.writeValueAsString(map);
-                    TextMessage textMessage = new TextMessage(json);
-                    session.sendMessage(textMessage);
+                    sendMessage(session, map);
 
                     chatRoomService.setEvaluateSellerByRoomId(chatRoomDTO.getRoomId(), chatDTO.getCount());
-                    if(chatRoomDTO.getEvaluateBuyer() != null) { // 상대방의 평점이 null이 아니면 서로 평점을 매겼다는 의미 (구매, 판매 확정)
+                    if(chatRoomDTO.getEvaluateBuyer() != 0) { // 상대방의 평점이 null이 아니면 서로 평점을 매겼다는 의미 (구매, 판매 확정)
                         writingCompleteService.save(chatRoomDTO.getWriting().getWriting_Id());
                         userService.changeMemberPoint(buyer.getEmail(), chatRoomDTO.getEvaluateSeller() - 2);
                         userService.changeMemberPoint(seller.getEmail(), chatRoomDTO.getEvaluateBuyer() - 2);
@@ -175,7 +171,7 @@ public class MessageHandler extends TextWebSocketHandler {
                 map.put("exit", email);
                 map.put("exitRoomId", chatDTO.getRoomId());
 
-
+                sendMessage(session, map);
 
                 if(email.equals(buyer.getEmail())) {
                     if(chatRoomDTO.getIsExitBuyer()) {
@@ -184,12 +180,13 @@ public class MessageHandler extends TextWebSocketHandler {
                         chatRoomService.setExitBuyerByRoomId(chatDTO.getRoomId(), true);
                     }
                 } else {
-                    if(chatRoomDTO.getIsExitBuyer()) {
+                    if(chatRoomDTO.getIsExitSeller()) {
                         chatRoomService.deleteByRoomId(chatDTO.getRoomId());
                     } else {
                         chatRoomService.setExitSellerByRoomId(chatDTO.getRoomId(), true);
                     }
                 }
+
             } else {
                 // 메시지를 불러와야 하는 상황일 경우 (스크롤 or 채팅방 클릭)
 
@@ -218,9 +215,7 @@ public class MessageHandler extends TextWebSocketHandler {
 
                 map.put("currentRoom", chatRoomDTO);
                 map.put("messages", chatDTOList);
-                String json = objectMapper.writeValueAsString(map);
-                TextMessage textMessage = new TextMessage(json);
-                session.sendMessage(textMessage);
+                sendMessage(session, map);
             }
         }
     }

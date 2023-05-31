@@ -17,11 +17,11 @@ import org.springframework.data.repository.query.Param;
 public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Long> {
     @Modifying
     @Query("UPDATE ChatRoomEntity  e SET e.is_no_read = :isNoRead WHERE e.room_id = :roomId")
-    void setNoReadCountByRoomId(@Param("roomId") Long roomId, @Param("isNoRead") boolean isNoRead);
+    void setNoReadCountByRoomId(@Param("roomId") Long roomId, @Param("isNoRead") Boolean isNoRead);
 
     @Modifying
     @Query("UPDATE ChatRoomEntity  e SET e.no_read_buyer = :noReadBuyer, e.is_no_read = :isNoRead  WHERE e.room_id = :roomId")
-    void setNoReadAndBuyerByRoomId(@Param("roomId") Long roomId, @Param("noReadBuyer") boolean noReadBuyer, @Param("isNoRead") boolean isNoRead);
+    void setNoReadAndBuyerByRoomId(@Param("roomId") Long roomId, @Param("noReadBuyer") Boolean noReadBuyer, @Param("isNoRead") Boolean isNoRead);
 
     @Modifying
     @Query("UPDATE ChatRoomEntity  e SET e.evaluate_buyer = :evaluateBuyer WHERE e.room_id = :roomId")
@@ -33,10 +33,10 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Long> 
 
     @Modifying
     @Query("UPDATE ChatRoomEntity e SET e.is_exit_buyer = :isExitBuyer WHERE e.room_id = :roomId")
-    void setExitBuyerByRoomId(@Param("roomId") Long roomId, @Param("isExitBuyer") boolean isExitBuyer);
+    void setExitBuyerByRoomId(@Param("roomId") Long roomId, @Param("isExitBuyer") Boolean isExitBuyer);
 
     @Modifying
     @Query("UPDATE ChatRoomEntity e SET e.is_exit_seller = :isExitSeller WHERE e.room_id = :roomId")
-    void setExitSellerByRoomId(@Param("roomId") Long roomId, @Param("isExitSeller") boolean isExitSeller);
+    void setExitSellerByRoomId(@Param("roomId") Long roomId, @Param("isExitSeller") Boolean isExitSeller);
 
 }

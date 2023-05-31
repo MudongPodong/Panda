@@ -112,15 +112,33 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
             roomId:roomId,
             type:"exit",
         }));
+        setExitOpen(false);
     }
 
     const Menu = () => {
         return (
             <div className={styles.chat_detail_menu}>
                 <ul>
-                    <li onClick={openEvaluateModal}>
-                        상대 평점 남기기
-                    </li>
+                    {
+                        toMessageList.amIBuyer ?
+                            toMessageList.evaluateBuyer > 0 ?
+                                <li>
+                                    평점 작성 완료
+                                </li>
+                                :
+                                <li onClick={openEvaluateModal}>
+                                    상대 평점 남기기
+                                </li>
+                            :
+                            toMessageList.evaluateSeller > 0 ?
+                                <li>
+                                    평점 작성 완료
+                                </li>
+                                :
+                                <li onClick={openEvaluateModal}>
+                                    상대 평점 남기기
+                                </li>
+                    }
                     <li onClick={openExitChatModal}>
                         채팅방 나가기
                     </li>

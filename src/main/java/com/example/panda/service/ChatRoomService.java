@@ -51,12 +51,12 @@ public class ChatRoomService {
     }
 
     @Transactional
-    public void setNoReadCountByRoomId(Long roomId, boolean isNoRead) {
+    public void setNoReadCountByRoomId(Long roomId, Boolean isNoRead) {
         chatRoomRepository.setNoReadCountByRoomId(roomId, isNoRead);
     }
 
     @Transactional
-    public void setNoReadAndBuyerByRoomId(Long roomId, boolean noReadBuyer, boolean isNoRead) {
+    public void setNoReadAndBuyerByRoomId(Long roomId, Boolean noReadBuyer, Boolean isNoRead) {
         chatRoomRepository.setNoReadAndBuyerByRoomId(roomId, noReadBuyer, isNoRead);
     }
 
@@ -71,12 +71,12 @@ public class ChatRoomService {
     }
 
     @Transactional
-    public void setExitBuyerByRoomId(Long roomId, boolean isExitBuyer) {
+    public void setExitBuyerByRoomId(Long roomId, Boolean isExitBuyer) {
         chatRoomRepository.setExitBuyerByRoomId(roomId, isExitBuyer);
     }
 
     @Transactional
-    public void setExitSellerByRoomId(Long roomId, boolean isExitSeller) {
+    public void setExitSellerByRoomId(Long roomId, Boolean isExitSeller) {
         chatRoomRepository.setExitSellerByRoomId(roomId, isExitSeller);
     }
 
