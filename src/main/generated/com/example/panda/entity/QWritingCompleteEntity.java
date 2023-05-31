@@ -32,6 +32,8 @@ public class QWritingCompleteEntity extends EntityPathBase<WritingCompleteEntity
 
     public final StringPath writing_name = createString("writing_name");
 
+    public final ArrayPath<byte[], Byte> writing_photo = createArray("writing_photo", byte[].class);
+
     public QWritingCompleteEntity(String variable) {
         this(WritingCompleteEntity.class, forVariable(variable), INITS);
     }
