@@ -50,7 +50,7 @@ function BoughtList() {
                         <td className={styles.common_check_box}>{item.writingCompleteDTO.writing_name}</td>
                         <td className={styles.common_check_box}><label name="price">{dividePriceUnit(item.writingCompleteDTO.price.toString())}</label></td>
                         <td className={styles.common_check_box}>{dayjs(item.purchase_date).format("YYYY-MM-DD")}</td>
-                        <td className={styles.common_check_box}>{item.userDTO.nickname}</td>
+                        <td className={styles.common_check_box}>{item.writingCompleteDTO.userDTO.nickname}</td>
                     </CommonTableRow>
                 ))}
             </CommonTable>
