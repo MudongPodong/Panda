@@ -1,6 +1,5 @@
 package com.example.panda.dto;
 
-import com.example.panda.entity.UserEntity;
 import com.example.panda.entity.WritingEntity;
 import lombok.*;
 

@@ -41,10 +41,6 @@ function Login() {
             alert('비밀번호를 입력해 주세요.');
             return false;
         }
-        // const user = {
-        //     'email': email,
-        //     'password': pw,
-        // }
         let formData = new FormData();
         formData.append("email", email);
         formData.append("password", pw);
@@ -56,7 +52,7 @@ function Login() {
             },
         })
             .then((response) => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     console.log('로그인 성공');
                     //alert('로그인');
                     document.cookie="isLogin=true; path=/;"
@@ -72,31 +68,6 @@ function Login() {
                 document.cookie="isLogin=false; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;"
                 alert('로그인 실패\n이메일과 비밀번호를 확인해 주세요.');
             });
-        // axios.post('/sign/login', user, {
-        //     headers: {
-        //         "Content-Type": `application/json`,
-        //         "Access-Control-Allow-Origin": `http://localhost:3000`,
-        //         'Access-Control-Allow-Credentials':"true",
-        //     },
-        // })
-        //     .then((response) => {
-        //         console.log(response)
-        //         if (response.status == 200) {
-        //             console.log('로그인 성공');
-        //             //console.log(response.data);
-        //             //document.cookie=`JUSER_T=${response.data['accessToken']}`;
-        //             //document.cookie=`J_RT=${response.data['refreshToken']}`;
-        //             goHome();
-        //         } else {
-        //             console.log('로그인 실패');
-        //             alert('로그인 실패\n이메일과 비밀번호를 확인해 주세요.');
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error(error);
-        //         console.log('로그인 실패');
-        //         alert('로그인 실패\n이메일과 비밀번호를 확인해 주세요.');
-        //     });
     }
     const handleOnKeyPress = e => {
         if (e.key === 'Enter') {
@@ -107,14 +78,12 @@ function Login() {
         <>
         <div>
             <form name='login_form' id='login_form' method='post'>
-            {/*<form name='login_form' id='login_form' method='post'>*/}
                 <input type='text' className={styles.input} placeholder='E-mail' name='email' onChange={changeEmail} value={email} onKeyDown={handleOnKeyPress}></input>
                 {!email_regex.test(email) && email !== '' ? <div className={styles.error_message}>{email_error}</div>:<div className={styles.error_message}></div>}
                 <input type='password' className={styles.input} placeholder='Password : 영어, 숫자 포함 8자리 이상' name='password' onChange={changePw} value={pw} onKeyDown={handleOnKeyPress}></input>
                 {!pw_regex.test(pw) && pw !== '' ? <div className={styles.error_message}>{pw_error}</div>:<div className={styles.error_message}></div>}
                 <div className={styles.login_btn_wrap}>
                     <button className={styles.login_btn_under}>LogIn</button>
-                    {/*<button className={styles.login_btn} onClick={login}><span>LogIn</span></button>*/}
                     <button className={styles.login_btn} onClick={login}><span>LogIn</span></button>
                 </div>
             </form>

@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useLocation, useNavigate} from 'react-router-dom';
-import FixBar from "./FixBar";
 import styles from '../Css_dir/SearchResult.module.css'
 import axios from 'axios';
-import ListVeiw from "./ListVeiw";
 import ListViewADs from "./ListViewADs";
 
 

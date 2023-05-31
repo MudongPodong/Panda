@@ -19,7 +19,7 @@ const Sidebar = () => {
     //사이드바 외부 클릭시 닫히는 함수
     useEffect(()=> {
         function handleClose(e){
-            if (isOpen==true && (sideClickRef.current && !sideClickRef.current.contains(e.target))) {
+            if (isOpen === true && (sideClickRef.current && !sideClickRef.current.contains(e.target))) {
                 setIsOpen(false);
             }
         }
@@ -53,7 +53,6 @@ const Sidebar = () => {
         movePage('/pages/loginPage');
     }
     function logout(){
-        //document.cookie = "JSESSIONID=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
         axios.get('/logout')
             .then((response)=> {
                 if(response.status === 200) {
@@ -73,7 +72,6 @@ const Sidebar = () => {
                 console.log('로그아웃 실패');
                 alert('로그아웃 실패');
             });
-        //alert('로그아웃 되었습니다.');
     }
     function goNotice()
     {
@@ -86,14 +84,12 @@ const Sidebar = () => {
         toggleMenu();
         movePage('/pages/OtherPage2');
     }
-    function goCategorySearch(event){    //카테고리 검색
-
-        console.log(event.currentTarget.id);
-        const searchdata=new FormData();
-        searchdata.append('word', event.currentTarget.id);
-        movePage('/pages/SearchResult?search='+event.currentTarget.id, {state:{word:event.currentTarget.id}});
-        //movePage('/pages/SearchResult', {state:{word:event.currentTarget.id}});
-    }
+    // function goCategorySearch(event){    //카테고리 검색
+    //     console.log(event.currentTarget.id);
+    //     const searchdata=new FormData();
+    //     searchdata.append('word', event.currentTarget.id);
+    //     movePage('/pages/SearchResult?search='+event.currentTarget.id, {state:{word:event.currentTarget.id}});
+    // }
 
     return (
         <div className={styles.header} ref={sideClickRef}>
@@ -116,7 +112,7 @@ const Sidebar = () => {
                     최근 검색 or 추천검색 등
                 </div>
                 <ul className={styles.nav_list}>
-                    <li className={`${styles.nav_list_item} ${styles.category}`} onClick={toggleCategory}>{isCategory ? '카테고리 ▲' : '카테고리 ▼'}<div className={styles.list_line}></div></li>
+                    <li className={`${styles.nav_list_item}`} onClick={toggleCategory}>{isCategory ? '카테고리 ▲' : '카테고리 ▼'}<div className={styles.list_line}></div></li>
                     <li className={isCategory ? `${styles.category_list}` : `${styles.hide_category_list}`}><DetailedSideCategory/></li>
                     <li className={styles.nav_list_item} onClick={goChat}>채팅<div className={styles.list_line}></div></li>
                     <li className={styles.nav_list_item} onClick={goNotice}>판매등록<div className={styles.list_line}></div></li>

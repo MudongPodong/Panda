@@ -13,14 +13,12 @@ const DetailedSideCategory = () =>{
         const searchdata=new FormData();
         searchdata.append('word', event.currentTarget.id);
         movePage('/pages/SearchResult?search='+event.currentTarget.id, {state:{word:event.currentTarget.id}});
-        //movePage('/pages/SearchResult', {state:{word:event.currentTarget.id}});
     }
 
     return (
         <div className={style.sideCategory}>
             <ul className={style.sideCategory_list}>
                 <li className={style.sideCategory_list_item}>
-                    {/*<div>의류</div>*/}
                     <div>
                         <form name='search_clothes' id='search_clothes' method='get'>
                             <input name='search_clothes' id='search_clothes' placeholder='  검색'defaultValue="의류" style={{ display: 'none' }}></input>
@@ -30,35 +28,30 @@ const DetailedSideCategory = () =>{
                     <div>
                         <ul>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_hat' id='search_hat' method='get'>
                                     <input name='search_hat' id='search_hat' placeholder='  검색'defaultValue="모자" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_hat" onClick={goCategorySearch} className={styles.side_category_btn}>모자</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_topClothes' id='search_topClothes' method='get'>
                                     <input name='search_topClothes' id='search_topClothes' placeholder='  검색'defaultValue="상의" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_topClothes" onClick={goCategorySearch} className={styles.side_category_btn}>상의</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_bottomClothes' id='search_bottomClothes' method='get'>
                                     <input name='search_bottomClothes' id='search_bottomClothes' placeholder='  검색'defaultValue="하의" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_bottomClothes" onClick={goCategorySearch} className={styles.side_category_btn}>하의</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_shoes' id='search_shoes' method='get'>
                                     <input name='search_shoes' id='search_shoes' placeholder='  검색'defaultValue="신발" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_shoes" onClick={goCategorySearch} className={styles.side_category_btn}>신발</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_clothesElse' id='search_clothesElse' method='get'>
                                     <input name='search_clothesElse' id='search_clothesElse' placeholder='  검색'defaultValue="의류기타" style={{ display: 'none' }}></input>
                                 </form>
@@ -69,7 +62,6 @@ const DetailedSideCategory = () =>{
                 </li>
                 <li className={style.sideCategory_list_item}>
                     <div>
-                        {/*<div className={styles.line}></div>*/}
                         <form name='search_beauty' id='search_beauty' method='get'>
                             <input name='search_beauty' id='search_beauty' placeholder='  검색'defaultValue="뷰티" style={{ display: 'none' }}></input>
                         </form>
@@ -78,21 +70,18 @@ const DetailedSideCategory = () =>{
                     <div>
                         <ul>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_manBeauty' id='search_manBeauty' method='get'>
                                     <input name='search_manBeauty' id='search_manBeauty' placeholder='  검색'defaultValue="남자화장품" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_manBeauty" onClick={goCategorySearch} className={styles.side_category_btn}>남자화장품</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_womanBeauty' id='search_womanBeauty' method='get'>
                                     <input name='search_womanBeauty' id='search_womanBeauty' placeholder='  검색'defaultValue="여자화장품" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_womanBeauty" onClick={goCategorySearch} className={styles.side_category_btn}>여자화장품</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_commonBeauty' id='search_commonBeauty' method='get'>
                                     <input name='search_commonBeauty' id='search_commonBeauty' placeholder='  검색'defaultValue="공용화장품" style={{ display: 'none' }}></input>
                                 </form>
@@ -111,35 +100,30 @@ const DetailedSideCategory = () =>{
                     <div>
                         <ul>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_bed' id='search_bed' method='get'>
                                     <input name='search_bed' id='search_bed' placeholder='  검색'defaultValue="침대" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_bed" onClick={goCategorySearch} className={styles.side_category_btn}>침대</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_sofa' id='search_sofa' method='get'>
                                     <input name='search_sofa' id='search_sofa' placeholder='  검색'defaultValue="소파" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_sofa" onClick={goCategorySearch} className={styles.side_category_btn}>소파</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_desk' id='search_desk' method='get'>
                                     <input name='search_desk' id='search_desk' placeholder='  검색'defaultValue="책상" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_desk" onClick={goCategorySearch} className={styles.side_category_btn}>책상</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_chair' id='search_chair' method='get'>
                                     <input name='search_chair' id='search_chair' placeholder='  검색'defaultValue="의자" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_chair" onClick={goCategorySearch} className={styles.side_category_btn}>의자</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_furnitureElse' id='search_furnitureElse' method='get'>
                                     <input name='search_furnitureElse' id='search_furnitureElse' placeholder='  검색'defaultValue="가구기타" style={{ display: 'none' }}></input>
                                 </form>
@@ -158,35 +142,30 @@ const DetailedSideCategory = () =>{
                     <div>
                         <ul>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_refrigerator' id='search_refrigerator' method='get'>
                                     <input name='search_refrigerator' id='search_refrigerator' placeholder='  검색'defaultValue="냉장고" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_refrigerator" onClick={goCategorySearch} className={styles.side_category_btn}>냉장고</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_TV' id='search_TV' method='get'>
                                     <input name='search_TV' id='search_TV' placeholder='  검색'defaultValue="TV" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_TV" onClick={goCategorySearch} className={styles.side_category_btn}>TV</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_vacuum' id='search_vacuum' method='get'>
                                     <input name='search_vacuum' id='search_vacuum' placeholder='  검색'defaultValue="청소기" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_vacuum" onClick={goCategorySearch} className={styles.side_category_btn}>청소기</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_aircon' id='search_aircon' method='get'>
                                     <input name='search_aircon' id='search_aircon' placeholder='  검색'defaultValue="에어컨" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_aircon" onClick={goCategorySearch} className={styles.side_category_btn}>에어컨</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_eletronicsElse' id='search_eletronicsElse' method='get'>
                                     <input name='search_eletronicsElse' id='search_eletronicsElse' placeholder='  검색'defaultValue="가전제품기타" style={{ display: 'none' }}></input>
                                 </form>
@@ -205,28 +184,24 @@ const DetailedSideCategory = () =>{
                     <div>
                         <ul>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_smartPhone' id='search_smartPhone' method='get'>
                                     <input name='search_smartPhone' id='search_smartPhone' placeholder='  검색'defaultValue="스마트폰" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_smartPhone" onClick={goCategorySearch} className={styles.side_category_btn}>스마트폰</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_tablet' id='search_tablet' method='get'>
                                     <input name='search_tablet' id='search_tablet' placeholder='  검색'defaultValue="태블릿" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_tablet" onClick={goCategorySearch} className={styles.side_category_btn}>태블릿</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_laptop' id='search_laptop' method='get'>
                                     <input name='search_laptop' id='search_laptop' placeholder='  검색'defaultValue="노트북" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_laptop" onClick={goCategorySearch} className={styles.side_category_btn}>노트북</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_mobileElse' id='search_mobileElse' method='get'>
                                     <input name='search_mobileElse' id='search_mobileElse' placeholder='  검색'defaultValue="모바일/태블릿/PC기타" style={{ display: 'none' }}></input>
                                 </form>
@@ -245,28 +220,24 @@ const DetailedSideCategory = () =>{
                     <div>
                         <ul>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_dailyLife' id='search_dailyLife' method='get'>
                                     <input name='search_dailyLife' id='search_dailyLife' placeholder='  검색'defaultValue="생필용품" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_dailyLife" onClick={goCategorySearch} className={styles.side_category_btn}>생필용품</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_bathLife' id='search_bathLife' method='get'>
                                     <input name='search_bathLife' id='search_bathLife' placeholder='  검색'defaultValue="욕실용품" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_bathLife" onClick={goCategorySearch} className={styles.side_category_btn}>욕실용품</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_kitchenLife' id='search_kitchenLife' method='get'>
                                     <input name='search_kitchenLife' id='search_kitchenLife' placeholder='  검색'defaultValue="주방용품" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_kitchenLife" onClick={goCategorySearch} className={styles.side_category_btn}>주방용품</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_lifeElse' id='search_lifeElse' method='get'>
                                     <input name='search_lifeElse' id='search_lifeElse' placeholder='  검색'defaultValue="생활용품기타" style={{ display: 'none' }}></input>
                                 </form>
@@ -285,28 +256,24 @@ const DetailedSideCategory = () =>{
                     <div>
                         <ul>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_feed' id='search_feed' method='get'>
                                     <input name='search_feed' id='search_feed' placeholder='  검색'defaultValue="사료" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_feed" onClick={goCategorySearch} className={styles.side_category_btn}>사료</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_toy' id='search_toy' method='get'>
                                     <input name='search_toy' id='search_toy' placeholder='  검색'defaultValue="Toy" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_toy" onClick={goCategorySearch} className={styles.side_category_btn}>Toy</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_dogClothes' id='search_dogClothes' method='get'>
                                     <input name='search_dogClothes' id='search_dogClothes' placeholder='  검색'defaultValue="애견의류" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_dogClothes" onClick={goCategorySearch} className={styles.side_category_btn}>애견의류</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_animalElse' id='search_animalElse' method='get'>
                                     <input name='search_animalElse' id='search_animalElse' placeholder='  검색'defaultValue="반려동물기타" style={{ display: 'none' }}></input>
                                 </form>
@@ -325,28 +292,24 @@ const DetailedSideCategory = () =>{
                     <div>
                         <ul>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_book' id='search_book' method='get'>
                                     <input name='search_book' id='search_book' placeholder='  검색'defaultValue="책" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_book" onClick={goCategorySearch} className={styles.side_category_btn}>책</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_pen' id='search_pen' method='get'>
                                     <input name='search_pen' id='search_pen' placeholder='  검색'defaultValue="볼펜" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_pen" onClick={goCategorySearch} className={styles.side_category_btn}>볼펜</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_sharpPen' id='search_sharpPen' method='get'>
                                     <input name='search_sharpPen' id='search_sharpPen' placeholder='  검색'defaultValue="샤프_연필" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_sharpPen" onClick={goCategorySearch} className={styles.side_category_btn}>샤프/연필</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_stationeryElse' id='search_stationeryElse' method='get'>
                                     <input name='search_stationeryElse' id='search_stationeryElse' placeholder='  검색'defaultValue="문구/도서기타" style={{ display: 'none' }}></input>
                                 </form>
@@ -365,35 +328,30 @@ const DetailedSideCategory = () =>{
                     <div>
                         <ul>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_soccer' id='search_soccer' method='get'>
                                     <input name='search_soccer' id='search_soccer' placeholder='  검색'defaultValue="축구" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_soccer" onClick={goCategorySearch} className={styles.side_category_btn}>축구</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_baseball' id='search_baseball' method='get'>
                                     <input name='search_baseball' id='search_baseball' placeholder='  검색'defaultValue="야구" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_baseball" onClick={goCategorySearch} className={styles.side_category_btn}>야구</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_basketball' id='search_basketball' method='get'>
                                     <input name='search_basketball' id='search_basketball' placeholder='  검색'defaultValue="농구" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_basketball" onClick={goCategorySearch} className={styles.side_category_btn}>농구</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_weight' id='search_weight' method='get'>
                                     <input name='search_weight' id='search_weight' placeholder='  검색'defaultValue="웨이트" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_weight" onClick={goCategorySearch} className={styles.side_category_btn}>웨이트</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_sportsElse' id='search_sportsElse' method='get'>
                                     <input name='search_sportsElse' id='search_sportsElse' placeholder='  검색'defaultValue="스포츠기타" style={{ display: 'none' }}></input>
                                 </form>
@@ -412,28 +370,24 @@ const DetailedSideCategory = () =>{
                     <div>
                         <ul>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_freshener' id='search_freshener' method='get'>
                                     <input name='search_freshener' id='search_freshener' placeholder='  검색'defaultValue="방향제" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_freshener" onClick={goCategorySearch} className={styles.side_category_btn}>방향제</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_accessory' id='search_accessory' method='get'>
                                     <input name='search_accessory' id='search_accessory' placeholder='  검색'defaultValue="악세사리" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_accessory" onClick={goCategorySearch} className={styles.side_category_btn}>악세사리</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_blackbox' id='search_blackbox' method='get'>
                                     <input name='search_blackbox' id='search_blackbox' placeholder='  검색'defaultValue="블랙박스" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_blackbox" onClick={goCategorySearch} className={styles.side_category_btn}>블랙박스</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_carElse' id='search_carElse' method='get'>
                                     <input name='search_carElse' id='search_carElse' placeholder='  검색'defaultValue="자동차용품기타" style={{ display: 'none' }}></input>
                                 </form>
@@ -452,35 +406,30 @@ const DetailedSideCategory = () =>{
                     <div>
                         <ul>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_water' id='search_water' method='get'>
                                     <input name='search_water' id='search_water' placeholder='  검색'defaultValue="생수" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_water" onClick={goCategorySearch} className={styles.side_category_btn}>생수</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_noodle' id='search_noodle' method='get'>
                                     <input name='search_noodle' id='search_noodle' placeholder='  검색'defaultValue="라면" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_noodle" onClick={goCategorySearch} className={styles.side_category_btn}>라면</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_snack' id='search_snack' method='get'>
                                     <input name='search_snack' id='search_snack' placeholder='  검색'defaultValue="과자" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_snack" onClick={goCategorySearch} className={styles.side_category_btn}>과자</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_bread' id='search_bread' method='get'>
                                     <input name='search_bread' id='search_bread' placeholder='  검색'defaultValue="빵" style={{ display: 'none' }}></input>
                                 </form>
                                 <button type="submit" form="search_bread" onClick={goCategorySearch} className={styles.side_category_btn}>빵</button>
                             </li>
                             <li className={style.sideCategory_list_item_d}>
-                                {/*<div className={styles.line}></div>*/}
                                 <form name='search_foodElse' id='search_foodElse' method='get'>
                                     <input name='search_foodElse' id='search_foodElse' placeholder='  검색'defaultValue="식품기타" style={{ display: 'none' }}></input>
                                 </form>

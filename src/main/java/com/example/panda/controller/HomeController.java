@@ -1,17 +1,14 @@
 package com.example.panda.controller;
 
 import com.example.panda.dto.AdvertiseDTO;
-import com.example.panda.dto.WritingDTO;
 import com.example.panda.dto.WritingResponseDTO;
 import com.example.panda.service.AdvertiseRandom;
 import com.example.panda.service.AdvertiseService;
 import com.example.panda.service.WritingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,7 +22,6 @@ public class HomeController {
         List<AdvertiseDTO> adList2= AdvertiseRandom.randFive(adList);
         List<WritingResponseDTO> popularList = writingService.findPopular();
 
-        //List<WritingResponseDTO> writingResponseDTOList = new ArrayList<>();
         for(AdvertiseDTO advertiseDTO: adList2)
             popularList.add(0, advertiseDTO.getWritingResponseDTO());
         return popularList;

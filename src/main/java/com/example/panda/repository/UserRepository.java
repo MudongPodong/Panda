@@ -12,19 +12,13 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import java.util.Optional;
 
 import static com.example.panda.entity.QUserEntity.userEntity;
-//import static com.sun.crypto.provider.AESCrypt.log;
 
-//public interface UserRepository extends JpaRepository<UserEntity, String>, UserRepositoryCustom {
-////    boolean existsByEmailAndPhoneNumber(String email, String phoneNumber);
-////    Optional<UserEntity> findByEmail(String email);
-//}
 @Repository
 @Slf4j
 @RequiredArgsConstructor

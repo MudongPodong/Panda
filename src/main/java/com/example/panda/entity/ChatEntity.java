@@ -11,8 +11,6 @@ import com.example.panda.dto.ChatDTO;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
-import java.util.Base64;
 import java.util.Date;
 
 @Data

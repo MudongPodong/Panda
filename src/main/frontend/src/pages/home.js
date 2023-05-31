@@ -6,49 +6,14 @@ import axios from "axios";
 
 function Home() {
     const movePage = useNavigate();
-    // let [recommend_item, setRecommendItem] = useState('');
-    let [popular, setPopular] = useState([]);
-
-    // const isLogin = () => {
-    //     axios.get('/check')
-    //         .then((response)=>{
-    //             console.log(response.data)
-    //             if(response.data){
-    //                 console.log('now login');
-    //                 return true;
-    //             }
-    //             else{
-    //                 console.log('need login');
-    //                 document.cookie = "isLogin=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
-    //                 alert('로그인이 필요합니다.');
-    //                 movePage('/pages/loginPage');
-    //             }
-    //         }).catch(error=>{
-    //             console.error(error);
-    //             console.log('need login');
-    //             document.cookie = "isLogin=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
-    //             alert('로그인이 필요합니다.');
-    //             movePage('/pages/loginPage');
-    //         });
-    // }
-
-    // const getAD = () => {
-    //     axios.get('/get/advertise')
-    //         .then((response)=>{
-    //             console.log(response.data);
-    //             let copy = [...ad];
-    //             copy.push(response.data);
-    //             setAd(copy);
-    //         }).catch(error => {
-    //             console.error(error);
-    //     });
-    // }
+    let [recommend_item, setRecommendItem] = useState([]);   // 추천 제품 리스트
+    let [popular, setPopular] = useState([]);   // 인기상품 + 광고 리스트
 
     function goSearchResult(){
         //movePage('/pages/SearchResult');
     }
-    //isLogin();
-    useEffect(() => {
+
+    useEffect(() => {   // 로그인 되었는지 확인
         axios.get('/check')
             .then((response)=>{
                 console.log(response.data)
@@ -70,7 +35,7 @@ function Home() {
             movePage('/pages/loginPage');
         });
     },[]);
-    useEffect(() => {
+    useEffect(() => {   // 인기상품 + 광고 가져오기
         axios.get('/get/popular')
             .then((response)=>{
                 console.log(response.data);
@@ -87,6 +52,7 @@ function Home() {
                         <section className={styles.top_section}>
                             <h1 className={styles.head}>추천 매물</h1>
                             <div className={styles.list_wrap}>
+                                {/*<ListVeiw list={recommend_item}></ListVeiw>*/}
                                 <ListVeiw></ListVeiw>
                             </div>
                             <div className={styles.more_wrap}>

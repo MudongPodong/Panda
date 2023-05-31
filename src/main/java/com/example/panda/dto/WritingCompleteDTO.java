@@ -2,10 +2,8 @@ package com.example.panda.dto;
 
 import com.example.panda.entity.WritingCompleteEntity;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
 
 @Data
 @NoArgsConstructor

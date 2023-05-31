@@ -6,7 +6,6 @@ import green_logo from '../imgs/green_logo_192_192.png';
 import Sidebar from "./sidebar";
 import Searchbar from "./searchbar";
 import axios from "axios";
-import style from "../Css_dir/sidebarCategory.module.css";
 
 
 function TopNav() {
@@ -20,20 +19,9 @@ function TopNav() {
         const searchElement=document.querySelector(query);
         const search_word=searchElement.value;
 
-        // axios.post('/api/searchResult', searchdata,{     post방식
-        //     headers: {
-        //         'Content-Type' : 'multipart/form-data'
-        //     }
-        // }).then((response)=>{
-        //     console.log('성공');
-        // }).catch(error=>{
-        //     console.error(error);
-        // })
-
         if(searchElement.value.length >=2){
             const searchdata=new FormData();
             searchdata.append('word', search_word);
-            //movePage('/pages/SearchResult', {state:{word:search_word}});
             movePage('/pages/SearchResult?search='+search_word, {state:{word:search_word}});
         }
     }
@@ -43,14 +31,12 @@ function TopNav() {
         const searchdata=new FormData();
         searchdata.append('word', event.currentTarget.id);
         movePage('/pages/SearchResult?search='+event.currentTarget.id, {state:{word:event.currentTarget.id}});
-        //movePage('/pages/SearchResult', {state:{word:event.currentTarget.id}});
     }
 
     function goLogin() {
         movePage('/pages/loginPage');
     }
     function logout(){
-        //document.cookie = "JSESSIONID=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
         axios.get('/logout')
             .then((response)=> {
                 if(response.status === 200) {
@@ -70,7 +56,6 @@ function TopNav() {
                 console.log('로그아웃 실패');
                 alert('로그아웃 실패');
             });
-        //alert('로그아웃 되었습니다.');
     }
 
     function goNotice()
@@ -109,7 +94,6 @@ function TopNav() {
                             </a>
                         </li>
                         <div className={styles.category_content}>
-                            {/* /로 구분돼있는 것들(기타) 어떻게 처리할지 생각해보기 */}
                             <div className={styles.category_item}>
                                 <a onClick={goCategorySearch} id="의류">
                                     <div className={styles.line}></div>
@@ -605,13 +589,6 @@ function TopNav() {
                             <span className={styles.tlist_text}>채팅</span>
                         </a>
                     </li>
-                    {/*<Link to={"/pages/Chat"} target={`_blank`}>*/}
-                    {/*    <li className={styles.tlist_item} >*/}
-                    {/*        <a className={styles.tlist_item_a}>*/}
-                    {/*            <span className={styles.tlist_text}>채팅</span>*/}
-                    {/*        </a>*/}
-                    {/*    </li>*/}
-                    {/*</Link>*/}
                     <li className={styles.tlist_item}>
                         <a className={styles.tlist_item_a}>
                             <form name='search' id='search_form' method='get'>

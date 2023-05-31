@@ -7,19 +7,14 @@
 // 업데이트 : -
 package com.example.panda.service;
 
-import com.example.panda.dto.TokenDTO;
 import com.example.panda.dto.UserDTO;
 import com.example.panda.dto.UserResponseDTO;
-import com.example.panda.entity.Authority;
 import com.example.panda.entity.UserEntity;
-//import com.example.panda.jwt.TokenProvider;
 import com.example.panda.repository.UserRepository;
 import com.example.panda.repository.UserSaveRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;

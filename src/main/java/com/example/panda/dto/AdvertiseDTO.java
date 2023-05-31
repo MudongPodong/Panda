@@ -15,7 +15,6 @@ public class AdvertiseDTO {
     private int aid;
     private LocalDateTime ad_regitDate;
     private int ad_Price;
-    //private WritingDTO writingDTO;
     private WritingResponseDTO writingResponseDTO;
     public static AdvertiseDTO toadvertiseDTO(AdvertisementEntity advertisementEntity){
         AdvertiseDTO advertiseDTO=new AdvertiseDTO();

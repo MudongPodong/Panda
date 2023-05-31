@@ -41,7 +41,7 @@
     height: 85%;
     margin: 0 14px;
     padding: 0;
-    background-color: #e8e8e8;
+    background-color: #f1f1f1;
     margin-top: 25px;
     border-radius: 20px;
     cursor: pointer;
@@ -79,7 +79,7 @@
 }
 .item_name{
     color: #2d2d2d;
-    font-size: 16px;
+    font-size: 13px;
 }
 
 .left_btn{
