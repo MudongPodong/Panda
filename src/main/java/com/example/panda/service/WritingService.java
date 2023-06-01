@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,11 +27,12 @@ public class WritingService {
     private final WritingDSLRepository writingDSLRepository;
     
     //이미지 등록 로직
-//    public void saveImage(MultipartFile image , WritingEntity wee) throws IOException{
-//        byte[] imageData = image.getBytes();
-//        wee.setWriting_photo(imageData);
-//        //writingRepository.save(wee);
-//    }
+    public void saveImage(MultipartFile image , WritingEntity wee) throws IOException {
+        //byte[] imageData = image.getBytes();
+        String imageData = image.getBytes().toString();
+        wee.setWriting_photo(imageData);
+        //writingRepository.save(wee);
+    }
     
     public void write(WritingEntity we)
     {
