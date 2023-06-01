@@ -63,160 +63,174 @@ public class MessageHandler extends TextWebSocketHandler {
         // 요청을 보낸 사용자가 어떤 채팅방에서 보낸건지 등록
         // 사용자가 현재 그 채팅방을 보고있다고 생각
 
-        if (session.isOpen()) {
-            ChatRoomDTO chatRoomDTO = chatRoomService.findById(chatDTO.getRoomId());
-            // 현재 채팅방 정보 가져오기
+        ChatRoomDTO chatRoomDTO = chatRoomService.findById(chatDTO.getRoomId());
+        // 현재 채팅방 정보 가져오기
 
-            UserDTO buyer = chatRoomDTO.getBuyer();
-            UserDTO seller = chatRoomDTO.getSeller();
+        UserDTO buyer = chatRoomDTO.getBuyer();
+        UserDTO seller = chatRoomDTO.getSeller();
 
-            if (chatDTO.getType().equals("send")) {
-                // 누군가 보낸 메시지일 경우
+        if (chatDTO.getType().equals("send")) {
+            // 누군가 보낸 메시지일 경우
 
-                chatDTO.setChatDate(new Date());
+            chatDTO.setChatDate(new Date());
 
-                WebSocketSession buyerSession = webSocketSessionManager.
-                        getSession(buyer.getEmail() + "/" + chatRoomDTO.getRoomId());
+            WebSocketSession buyerSession = webSocketSessionManager.
+                    getSession(buyer.getEmail() + "/" + chatRoomDTO.getRoomId());
 
-                WebSocketSession sellerSession = webSocketSessionManager.
-                        getSession(seller.getEmail() + "/" + chatRoomDTO.getRoomId());
+            WebSocketSession sellerSession = webSocketSessionManager.
+                    getSession(seller.getEmail() + "/" + chatRoomDTO.getRoomId());
 
-                if (buyerSession != null) {
-                    Map<String, Object> buyerMap = new HashMap<>();
-                    buyerMap.put("message", chatDTO);
+            Map<String, Object> buyerMap = new HashMap<>();
+            buyerMap.put("type", "chat");
+            buyerMap.put("message", chatDTO);
 
-                    if (buyer.getEmail().equals(email))
-                        buyerMap.put("type", "sender");      // 내가 현재 채팅을 보낸 사람인가?
-                    else
-                        buyerMap.put("type", "receiver");    // 내가 현재 채팅을 받는 사람인가?
+            if (buyer.getEmail().equals(email))
+                buyerMap.put("messageType", "sender");      // 내가 현재 채팅을 보낸 사람인가?
+            else
+                buyerMap.put("messageType", "receiver");    // 내가 현재 채팅을 받는 사람인가?
 
-                    buyerMap.put("amIBuyer", true);
-                    buyerMap.put("myRoomId", webSocketSessionManager.getRoomId(buyer.getEmail()));
+            buyerMap.put("amIBuyer", true);
+            buyerMap.put("myRoomId", webSocketSessionManager.getRoomId(buyer.getEmail()));
 
-                    if(seller != null) {
-                        buyerMap.put("opNickname", seller.getNickname());
-                        buyerMap.put("opUserImg", seller.getUserImg());
-                    }
-                    sendMessage(buyerSession, buyerMap);
-                }
-
-                if (sellerSession != null) {
-                    Map<String, Object> sellerMap = new HashMap<>();
-                    sellerMap.put("message", chatDTO);
-
-                    if (seller.getEmail().equals(email))
-                        sellerMap.put("type", "sender");      // 내가 현재 채팅을 보낸 사람인가?
-                    else
-                        sellerMap.put("type", "receiver");    // 내가 현재 채팅을 받는 사람인가?
-
-                    sellerMap.put("amIBuyer", false);
-                    sellerMap.put("myRoomId", webSocketSessionManager.getRoomId(seller.getEmail()));
-
-                    if(buyer != null) {
-                        sellerMap.put("opNickname", buyer.getNickname());
-                        sellerMap.put("opUserImg", buyer.getUserImg());
-                    }
-
-                    sendMessage(sellerSession, sellerMap);
-                }
-
-                chatService.save(chatDTO);
-
-                if (email.equals(buyer.getEmail())) {   // buyer가 메시지를 보냈다는 의미
-                    Long roomId = webSocketSessionManager.getRoomId(seller.getEmail());
-                    chatRoomService.setNoReadAndBuyerByRoomId(chatRoomDTO.getRoomId(), false, roomId != chatRoomDTO.getRoomId());
-                } else {  // seller가 메시지를 보냈다는 의미
-                    Long roomId = webSocketSessionManager.getRoomId(buyer.getEmail());
-                    chatRoomService.setNoReadAndBuyerByRoomId(chatRoomDTO.getRoomId(), true, roomId != chatRoomDTO.getRoomId());
-                }
-            } else if (chatDTO.getType().equals("evaluate")) {
-                // 사용자가 평가를 하였을 경우
-                Map<String, Object> map = new HashMap<>();
-
-                if (email.equals(buyer.getEmail())) {
-                    chatRoomDTO.setEvaluateBuyer(chatDTO.getCount());
-                    map.put("evaluateRoom", chatRoomDTO);
-
-                    sendMessage(session, map);
-
-                    chatRoomService.setEvaluateBuyerByRoomId(chatRoomDTO.getRoomId(), chatDTO.getCount());
-                    if(chatRoomDTO.getEvaluateSeller() != 0) { // 상대방의 평점이 null이 아니면 서로 평점을 매겼다는 의미 (구매, 판매 확정)
-                        writingCompleteService.save(chatRoomDTO.getWriting().getWriting_Id());
-                        userService.changeMemberPoint(buyer.getEmail(), chatRoomDTO.getEvaluateSeller() - 2);
-                        userService.changeMemberPoint(seller.getEmail(), chatRoomDTO.getEvaluateBuyer() - 2);
-                        purchaseHistoryService.save(buyer.getEmail(), chatRoomDTO.getWriting().getWriting_Id());
-                        // 구매, 판매 확정 시 사용자 평가 반영 / good : +1, normal : 0, bad : -1
-                    }
-                } else {
-                    chatRoomDTO.setEvaluateSeller(chatDTO.getCount());
-                    map.put("evaluateRoom", chatRoomDTO);
-
-                    sendMessage(session, map);
-
-                    chatRoomService.setEvaluateSellerByRoomId(chatRoomDTO.getRoomId(), chatDTO.getCount());
-                    if(chatRoomDTO.getEvaluateBuyer() != 0) { // 상대방의 평점이 null이 아니면 서로 평점을 매겼다는 의미 (구매, 판매 확정)
-                        writingCompleteService.save(chatRoomDTO.getWriting().getWriting_Id());
-                        userService.changeMemberPoint(buyer.getEmail(), chatRoomDTO.getEvaluateSeller() - 2);
-                        userService.changeMemberPoint(seller.getEmail(), chatRoomDTO.getEvaluateBuyer() - 2);
-                        purchaseHistoryService.save(buyer.getEmail(), chatRoomDTO.getWriting().getWriting_Id());
-                        // 구매, 판매 확정 시 사용자 평가 반영 / good : +1, normal : 0, bad : -1
-                    }
-                }
-            } else if (chatDTO.getType().equals("exit")) {
-
-                Map<String, Object> map = new HashMap<>();
-
-                webSocketSessionManager.removeRoomId(email);
-
-                map.put("exit", email);
-                map.put("exitRoomId", chatDTO.getRoomId());
-
-                sendMessage(session, map);
-
-                if(email.equals(buyer.getEmail())) {
-                    if(chatRoomDTO.getIsExitBuyer()) {
-                        chatRoomService.deleteByRoomId(chatDTO.getRoomId());
-                    } else {
-                        chatRoomService.setExitBuyerByRoomId(chatDTO.getRoomId(), true);
-                    }
-                } else {
-                    if(chatRoomDTO.getIsExitSeller()) {
-                        chatRoomService.deleteByRoomId(chatDTO.getRoomId());
-                    } else {
-                        chatRoomService.setExitSellerByRoomId(chatDTO.getRoomId(), true);
-                    }
-                }
-
-            } else {
-                // 메시지를 불러와야 하는 상황일 경우 (스크롤 or 채팅방 클릭)
-
-                Map<String, Object> map = new HashMap<>();
-
-                List<ChatDTO> chatDTOList = chatService.findNByRoomId(chatDTO.getRoomId(), chatDTO.getCount() + 20);
-                // 메시지 불러오기
-                // 최근 20개의 메시지를 가져옴
-
-                if (chatDTO.getType().equals("scroll")) {    // 스크롤을 위로 올려서 메시지를 받는 경우
-                    map.put("type", "false"); // 스크롤을 내려야 하는가?
-                } else if (chatDTO.getType().equals("click")) {    // 채팅방 클릭으로 메시지를 받는 경우
-                    map.put("type", "true");  // 스크롤을 내려야 하는가?
-
-                    if (chatRoomDTO.getIsNoRead() && !(chatRoomDTO.getNoReadBuyer() ^ chatRoomDTO.getBuyer().getEmail().equals(email))) {
-                        // 만약 채팅방에 읽지 않음 표시가 되어있고, 안읽은 사람이 사용자일 경우 이번에 채팅방을 클릭했으므로 읽음.
-                        chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), false);
-                        List<ChatRoomDTO> chatRoomDTOList = chatRoomService.findByUserEmail(email);
-                        map.put("myRooms", chatRoomDTOList);
-                    }
-                }
-
-                if (chatDTOList.size() == chatDTO.getCount()) {// 사용자가 이미 스크롤을 끝까지 올려 더 이상 불러올 메시지가 없음을 의미
-                    map.put("type", "full");
-                }
-
-                map.put("currentRoom", chatRoomDTO);
-                map.put("messages", chatDTOList);
-                sendMessage(session, map);
+            if (seller != null) {
+                buyerMap.put("opNickname", seller.getNickname());
+                buyerMap.put("opUserImg", seller.getUserImg());
             }
+            sendMessage(buyerSession, buyerMap);
+
+            Map<String, Object> sellerMap = new HashMap<>();
+            sellerMap.put("type", "chat");
+            sellerMap.put("message", chatDTO);
+
+            if (seller.getEmail().equals(email))
+                sellerMap.put("messageType", "sender");      // 내가 현재 채팅을 보낸 사람인가?
+            else
+                sellerMap.put("messageType", "receiver");    // 내가 현재 채팅을 받는 사람인가?
+
+            sellerMap.put("amIBuyer", false);
+            sellerMap.put("myRoomId", webSocketSessionManager.getRoomId(seller.getEmail()));
+
+            if (buyer != null) {
+                sellerMap.put("opNickname", buyer.getNickname());
+                sellerMap.put("opUserImg", buyer.getUserImg());
+            }
+
+            sendMessage(sellerSession, sellerMap);
+
+            chatService.save(chatDTO);
+
+            if (email.equals(buyer.getEmail())) {   // buyer가 메시지를 보냈다는 의미
+                Long roomId = webSocketSessionManager.getRoomId(seller.getEmail());
+                chatRoomService.setNoReadAndBuyerByRoomId(chatRoomDTO.getRoomId(), false, roomId != chatRoomDTO.getRoomId());
+                chatRoomService.setExitSellerByRoomId(chatRoomDTO.getRoomId(), false);
+            } else {  // seller가 메시지를 보냈다는 의미
+                Long roomId = webSocketSessionManager.getRoomId(buyer.getEmail());
+                chatRoomService.setNoReadAndBuyerByRoomId(chatRoomDTO.getRoomId(), true, roomId != chatRoomDTO.getRoomId());
+                chatRoomService.setExitBuyerByRoomId(chatRoomDTO.getRoomId(), false);
+            }
+        } else if (chatDTO.getType().equals("evaluate")) {
+            // 사용자가 평가를 하였을 경우
+            Map<String, Object> map = new HashMap<>();
+            map.put("type", "evaluate");
+
+            if (email.equals(buyer.getEmail())) {
+                chatRoomDTO.setEvaluateBuyer(chatDTO.getCount());
+                map.put("evaluateRoom", chatRoomDTO);
+
+                sendMessage(session, map);
+
+                chatRoomService.setEvaluateBuyerByRoomId(chatRoomDTO.getRoomId(), chatDTO.getCount());
+                if (chatRoomDTO.getEvaluateSeller() != 0) { // 상대방의 평점이 null이 아니면 서로 평점을 매겼다는 의미 (구매, 판매 확정)
+                    writingCompleteService.save(chatRoomDTO.getWriting().getWriting_Id());
+                    userService.changeMemberPoint(buyer.getEmail(), chatRoomDTO.getEvaluateSeller() - 2);
+                    userService.changeMemberPoint(seller.getEmail(), chatRoomDTO.getEvaluateBuyer() - 2);
+                    purchaseHistoryService.save(buyer.getEmail(), chatRoomDTO.getWriting().getWriting_Id());
+                    // 구매, 판매 확정 시 사용자 평가 반영 / good : +1, normal : 0, bad : -1
+                }
+            } else {
+                chatRoomDTO.setEvaluateSeller(chatDTO.getCount());
+                map.put("evaluateRoom", chatRoomDTO);
+
+                sendMessage(session, map);
+
+                chatRoomService.setEvaluateSellerByRoomId(chatRoomDTO.getRoomId(), chatDTO.getCount());
+                if (chatRoomDTO.getEvaluateBuyer() != 0) { // 상대방의 평점이 null이 아니면 서로 평점을 매겼다는 의미 (구매, 판매 확정)
+                    writingCompleteService.save(chatRoomDTO.getWriting().getWriting_Id());
+                    userService.changeMemberPoint(buyer.getEmail(), chatRoomDTO.getEvaluateSeller() - 2);
+                    userService.changeMemberPoint(seller.getEmail(), chatRoomDTO.getEvaluateBuyer() - 2);
+                    purchaseHistoryService.save(buyer.getEmail(), chatRoomDTO.getWriting().getWriting_Id());
+                    // 구매, 판매 확정 시 사용자 평가 반영 / good : +1, normal : 0, bad : -1
+                }
+            }
+        } else if (chatDTO.getType().equals("exit")) {
+            // 채팅방을 나갔을 경우
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("type", "exit");
+            map.put("exitedRoomId", chatDTO.getRoomId());
+
+            webSocketSessionManager.removeRoomId(email);
+
+            WebSocketSession buyerSession = webSocketSessionManager.
+                    getSession(buyer.getEmail() + "/" + chatRoomDTO.getRoomId());
+
+            WebSocketSession sellerSession = webSocketSessionManager.
+                    getSession(seller.getEmail() + "/" + chatRoomDTO.getRoomId());
+
+            map.put("amIExit", false);
+
+            if (email.equals(buyer.getEmail())) {
+                sendMessage(sellerSession, map);
+                map.put("amIExit", true);
+                sendMessage(buyerSession, map);
+
+                if (chatRoomDTO.getIsExitSeller()) {
+                    chatRoomService.deleteByRoomId(chatDTO.getRoomId());
+                } else {
+                    chatRoomService.setExitBuyerByRoomId(chatDTO.getRoomId(), true);
+                }
+            } else {
+                sendMessage(buyerSession, map);
+                map.put("amIExit", true);
+                sendMessage(sellerSession, map);
+
+                if (chatRoomDTO.getIsExitBuyer()) {
+                    chatRoomService.deleteByRoomId(chatDTO.getRoomId());
+                } else {
+                    chatRoomService.setExitSellerByRoomId(chatDTO.getRoomId(), true);
+                }
+            }
+
+        } else {
+            // 메시지를 불러와야 하는 상황일 경우 (스크롤 or 채팅방 클릭)
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("type", "chatList");
+
+            List<ChatDTO> chatDTOList = chatService.findNByRoomId(chatDTO.getRoomId(), chatDTO.getCount() + 20);
+            // 메시지 불러오기
+            // 최근 20개의 메시지를 가져옴
+
+            if (chatDTO.getType().equals("scroll")) {    // 스크롤을 위로 올려서 메시지를 받는 경우
+                map.put("messageType", "false"); // 스크롤을 내려야 하는가?
+            } else if (chatDTO.getType().equals("click")) {    // 채팅방 클릭으로 메시지를 받는 경우
+                map.put("messageType", "true");  // 스크롤을 내려야 하는가?
+
+                if (chatRoomDTO.getIsNoRead() && !(chatRoomDTO.getNoReadBuyer() ^ chatRoomDTO.getBuyer().getEmail().equals(email))) {
+                    // 만약 채팅방에 읽지 않음 표시가 되어있고, 안읽은 사람이 사용자일 경우 이번에 채팅방을 클릭했으므로 읽음.
+                    chatRoomService.setNoReadCountByRoomId(chatRoomDTO.getRoomId(), false);
+                    List<ChatRoomDTO> chatRoomDTOList = chatRoomService.findByUserEmail(email);
+                    map.put("myRooms", chatRoomDTOList);
+                }
+            }
+
+            if (chatDTOList.size() == chatDTO.getCount()) {// 사용자가 이미 스크롤을 끝까지 올려 더 이상 불러올 메시지가 없음을 의미
+                map.put("messageType", "full");
+            }
+
+            map.put("currentRoom", chatRoomDTO);
+            map.put("messages", chatDTOList);
+            sendMessage(session, map);
         }
     }
 
@@ -238,13 +252,13 @@ public class MessageHandler extends TextWebSocketHandler {
     }
 
     public void sendMessage(WebSocketSession session, Map<String, Object> map) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(map);
-        TextMessage textMessage = new TextMessage(json);
-        session.sendMessage(textMessage);
-
+        if(session != null && session.isOpen()) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            String json = objectMapper.writeValueAsString(map);
+            TextMessage textMessage = new TextMessage(json);
+            session.sendMessage(textMessage);
+        }
     }
-
 }
 
 
