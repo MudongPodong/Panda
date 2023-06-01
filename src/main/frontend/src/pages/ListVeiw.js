@@ -96,12 +96,10 @@ class ListVeiw extends React.Component {
                     <div style={{ transform: `translateX(${slideSpot}px)`}} className={styles.slide_item}>
                         {list&&list.map((item,i) => (
                             <li key={i} className={styles.list_item}>
-                                {/*<Link to={`/pages/noticeConfirm#`} style={{ textDecoration: "none" }} id={item.writingId}>*/}
                                 <Link to={'/pages/noticeConfirm?search='+item.writingId} state={{ word:item.writingId }} style={{ textDecoration: "none" }} id={item.writingId}>
-                                    {/*to안에 해당 상품 페이지로 이동하게 하면됨*/}
                                     <div className={styles.list_container}>
                                         <div className={styles.item_img}>
-                                            <img width={200} height={200} src={"data:image/png;base64," + item.writingImg} className={styles.list_img}/>
+                                            <img width={200} height={200} src={"data:image/png;base64," + item.writingImg} className={styles.list_img} alt={"게시글 이미지."}/>
                                         </div>
                                         <div className={styles.item_desc}>
                                             <h2 className={styles.item_name}>{item.ad ? "[광고]" + item.writingName : item.writingName}</h2>
