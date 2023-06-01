@@ -32,21 +32,20 @@ public class WritingController {
     private final UserService userService;
 
     //게시글 내용 데이터베이스에 저장 이미지는 계속 작업중
-    @PostMapping("http://localhost:8080/noticeRegist")
-    public void boardwritepro(WritingEntity writingentity , @RequestParam("writing_photo") MultipartFile image) throws IOException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        UserEntity userEntity =userService.findbyEmail(userDetails.getUsername());
-        //byte[] imageData = image.getBytes();
-        String imageData = image.getBytes().toString();
-
-        writingentity.setUserEntity(userEntity);
-        writingentity.setWriting_photo(imageData);
-        //writingService.saveImage(image , writingentity);
-        writingService.write(writingentity);
-
-
-    }
+//    @PostMapping("http://localhost:8080/noticeRegist")
+//    public void boardwritepro(WritingEntity writingentity , @RequestParam("writing_photo") MultipartFile image) throws IOException {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+//        UserEntity userEntity =userService.findbyEmail(userDetails.getUsername());
+//        byte[] imageData = image.getBytes();
+//
+//        writingentity.setUserEntity(userEntity);
+//        //writingentity.setWriting_photo(imageData);
+//        //writingService.saveImage(image , writingentity);
+//        writingService.write(writingentity);
+//
+//
+//    }
 
     //게시글 내용 목록 조회를 위한 부분
     @RequestMapping("/api/noticePage")

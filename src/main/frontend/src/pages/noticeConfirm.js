@@ -16,7 +16,7 @@ function NoticeConfirm({match})
     //게시글 상세 조회
     //const {id} = useParams();
     const [post , setPost] = useState(null); //게시글 내용을 가져오는 변수
-    const {postId} = match.params;
+    // const {postId} = match.params;
     function gonoticepage()
     {
         movePage('/pages/noticePage');
@@ -61,12 +61,12 @@ function NoticeConfirm({match})
 
 
     //상세 게시글 조회 useEffect
-    useEffect(() => {
-        fetch(`/api/noticeConfirm/${postId}`)
-            .then(response => response.json())
-            .then(data => setPost(data))
-            .catch(error => console.log(error))
-    } , [postId]);
+    // useEffect(() => {
+    //     fetch(`/api/noticeConfirm/${postId}`)
+    //         .then(response => response.json())
+    //         .then(data => setPost(data))
+    //         .catch(error => console.log(error))
+    // } , [postId]);
 
     /*if(!post)
     {
@@ -98,7 +98,7 @@ function NoticeConfirm({match})
                         </dl>
                         <dl>
                             <dt>글쓴이</dt>
-                            <dd>{post.user_name}</dd>
+                            {/*<dd>{post.user_name}</dd>*/}
                         </dl>
                         <dl>
                             <dt>작성일</dt>
@@ -110,7 +110,7 @@ function NoticeConfirm({match})
                         </dl>
                     </div>
                     <div className={styles.cont}>
-                        {post.content}
+                        {/*{post.content}*/}
                     </div>
                     <div className={styles.bt_wrap}>
                         <a onClick={gonoticepage} className={styles.on}>목록</a>
