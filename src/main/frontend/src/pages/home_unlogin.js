@@ -15,7 +15,7 @@ function HomeUn() {
                         <section className={styles.top_section}>
                             <div className={styles.home_top}>
                                 <div className={styles.home_img_box}>
-                                    <img src={'/imgs/logo512_512.png'} width={512} height={512} className={styles.home_top_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
+                                    <img src={'/imgs/panda_home.png'} width={512} height={512} className={styles.home_top_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
                                 </div>
                                 <div className={styles.home_text}>
                                     <h1 className={styles.home_top_title}>
@@ -45,20 +45,20 @@ function HomeUn() {
                                     <p>AI를 활용한 빠른 등록</p>
                                     <p>나를 위한 맞춤형 추천</p>
                                     <ul className={styles.home_mid_list}>
-                                        <li><img src={'/imgs/logo192_192.png'} width={81} alt={'이미지를 불러오는데 실패하였습니다.'}/><br/>AI를 통한<br/>판매 등록</li>
-                                        <li><img src={'/imgs/logo192_192.png'} width={81} alt={'이미지를 불러오는데 실패하였습니다.'}/><br/>챗봇</li>
-                                        <li><img src={'/imgs/logo192_192.png'} width={81} alt={'이미지를 불러오는데 실패하였습니다.'}/><br/>데이터 분석을<br/>통한<br></br> 제품 추천</li>
+                                        <li><img src={'/imgs/AIpanda.png'} width={81} alt={'이미지를 불러오는데 실패하였습니다.'}/><br/>AI를 통한<br/>판매 등록</li>
+                                        <li><img src={'/imgs/pandaChat.png'} width={81} alt={'이미지를 불러오는데 실패하였습니다.'}/><br/>챗봇</li>
+                                        <li><img src={'/imgs/analysis.png'} width={81} alt={'이미지를 불러오는데 실패하였습니다.'}/><br/>데이터 분석을<br/>통한<br></br> 제품 추천</li>
                                     </ul>
                                 </div>
                                 <div className={styles.home_img_box}>
-                                    <img src={'/imgs/logo512_512.png'} width={512} height={512} className={styles.home_mid_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
+                                    <img src={'/imgs/smartPanda.png'} width={512} height={512} className={styles.home_mid_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
                                 </div>
                             </div>
                         </section>
                         <section className={styles.bottom_section}>
                         <div className={styles.home_bottom}>
                             <div className={styles.home_img_box}>
-                                <img src={'/imgs/logo512_512.png'} width={512} height={512} className={styles.home_bottom_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
+                                <img src={'/imgs/pandaAuction.png'} width={512} height={512} className={styles.home_bottom_img} alt={'이미지를 불러오는데 실패하였습니다.'}/>
                             </div>
                             <div className={styles.home_text}>
                                 <h1 className={styles.home_bottom_title}>
