@@ -8,8 +8,7 @@ class ListVeiw extends React.Component {
         //현재 화면에 보이고 있는 슬라이드의 시작점
     };
 
-    imgQuantity = this.props.length;
-    //데이터로 들어오는 총 이미지 수가 항상 다르기 때문에 총 이미지 수를 구해준다.
+    imgQuantity = 15;
     slideWidth =
         IMG_WIDTH * (this.imgQuantity + 1) + (this.imgQuantity) * SLIDE_GAP * 2;
     //슬라이드 내부 컨텐츠의 전체 길이를 구해준다.
@@ -116,12 +115,14 @@ class ListVeiw extends React.Component {
     }
 }
 
-ListVeiw.defaultProps = {list:[{"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":true},
+ListVeiw.defaultProps = {
+    list:[{"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":true},
     {"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":true},
     {"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":true},
     {"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":false},
     {"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":false},
-    {"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":false},]};
+    {"writingId":123, "writingImg":"imgs/logo192_192.png", "writingName":"귀여운 판다", "price":123, "addr":"경북 경산시 대학로 280", "userPoint":50, "ad":false},],
+    len:15};
 
 const SLIDE_GAP = 14;  //각 슬라이드 사이 간격
 const SLIDE_MOVING_UNIT = 228;  //슬라이드 버튼 클릭 시 움직일 길이

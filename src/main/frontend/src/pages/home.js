@@ -34,9 +34,7 @@ function Home() {
             alert('로그인이 필요합니다.');
             movePage('/pages/loginPage');
         });
-    },[]);
-    useEffect(() => {   // 인기상품 + 광고 가져오기
-        axios.get('/get/popular')
+        axios.get('/get/popular')   // 인기상품 + 광고 가져오기
             .then((response)=>{
                 console.log(response.data);
                 setPopular(response.data);
@@ -44,6 +42,7 @@ function Home() {
             console.error(error);
         });
     },[]);
+
     return (
         <div className={styles.App}>
             <div className={styles.home_page}>

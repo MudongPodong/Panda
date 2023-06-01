@@ -1,5 +1,6 @@
 package com.example.panda.repository;
 
+import com.example.panda.dto.WritingResponseDTO;
 import com.example.panda.entity.WritingEntity;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,13 @@ public class WritingDSLRepository {
                 .where(writingEntity.writing_name.like(word)
                         .or(writingEntity.category.like(word))
                         .or(writingEntity.detail_category.like(word)))
+                .fetch();
+    }
+    public List<WritingEntity> findPopularWriting(){
+        return queryFactory
+                .selectFrom(writingEntity)
+                .orderBy(writingEntity.favorite_count.desc())
+                .limit(10)
                 .fetch();
     }
 }

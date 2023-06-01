@@ -53,8 +53,11 @@ public class WritingService {
         return writingDTO;
     }
     public List<WritingResponseDTO> findPopular(){
+        List<WritingEntity> writingEntityList = writingDSLRepository.findPopularWriting();
         List<WritingResponseDTO> writingResponseDTOList = new LinkedList<>();
-        //추가 필요
+        for(WritingEntity we : writingEntityList){
+            writingResponseDTOList.add(WritingResponseDTO.toWritingResponseDTO(we, false));
+        }
         return writingResponseDTOList;
     }
 }
