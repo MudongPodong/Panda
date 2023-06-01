@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState } from "react";
 import styles from "../Css_dir/sidebar.module.css";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import DetailedSideCategory from "./SidebarCategory";
 import axios from "axios";
 
@@ -132,6 +132,10 @@ const Sidebar = () => {
     //     searchdata.append('word', event.currentTarget.id);
     //     movePage('/pages/SearchResult?search='+event.currentTarget.id, {state:{word:event.currentTarget.id}});
     // }
+    const link_style = {
+        textDecoration: "none",
+        color: "white"
+    }
 
     return (
         <div className={styles.header} ref={sideClickRef}>
@@ -156,7 +160,12 @@ const Sidebar = () => {
                 <ul className={styles.nav_list}>
                     <li className={`${styles.nav_list_item}`} onClick={toggleCategory}>{isCategory ? '카테고리 ▲' : '카테고리 ▼'}<div className={styles.list_line}></div></li>
                     <li className={isCategory ? `${styles.category_list}` : `${styles.hide_category_list}`}><DetailedSideCategory/></li>
-                    <li className={styles.nav_list_item} onClick={goChat}>채팅<div className={styles.list_line}></div></li>
+                    <Link to={"/pages/Chat"} target={`_top`} style={link_style}>
+                        <li className={styles.nav_list_item} >
+                            채팅
+                        </li>
+                    </Link>
+                    {/*<li className={styles.nav_list_item} onClick={goChat}>채팅<div className={styles.list_line}></div></li>*/}
                     <li className={styles.nav_list_item} onClick={goNotice}>판매등록<div className={styles.list_line}></div></li>
                     <li className={styles.nav_list_item} onClick={document.cookie.match('isLogin' + '=([^;]*)(;|$)') ? logout:goLogin}>
                         {(document.cookie.match('isLogin' + '=([^;]*)(;|$)')? 'LogOut' : 'LogIn')}

@@ -6,9 +6,12 @@ import ChatList from './ChatList';
 import Painting from '../imgs/temp_painting.png';
 import guidance from '../imgs/temp_map.png';
 import XButton from '../imgs/XButton.png';
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 //import { GoogleMap, LoadScript } from '@react-google-maps/api';
 
 function Chat() {
+    const movePage = useNavigate();
     const mapStyles = {
         height: '400px',
         width: '100%'
@@ -53,6 +56,25 @@ function Chat() {
     // 이미지 파일 최대 사이즈 4MB로 함
 
     useEffect(() => {
+        axios.get('/check')
+            .then((response)=>{
+                console.log(response.data)
+                if(response.data){
+                    console.log('now login');
+                }
+                else{
+                    console.log('need login');
+                    document.cookie = "isLogin=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
+                    alert('로그인이 필요합니다.');
+                    movePage('/pages/loginPage');
+                }
+            }).catch(error=>{
+            console.error(error);
+            console.log('need login');
+            document.cookie = "isLogin=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
+            alert('로그인이 필요합니다.');
+            movePage('/pages/loginPage');
+        });
         const socket = new WebSocket('ws://localhost:8080/chat');
         socket.onmessage = (event) => {
             let receivedMap = JSON.parse(event.data);
