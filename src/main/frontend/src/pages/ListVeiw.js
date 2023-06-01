@@ -1,13 +1,12 @@
 import React from 'react';
 import styles from '../Css_dir/listVeiw.module.css';
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 class ListVeiw extends React.Component {
     state = {
         slideSpot: 0,
         //현재 화면에 보이고 있는 슬라이드의 시작점
     };
-
 
     imgQuantity = 15;
     slideWidth =
@@ -79,13 +78,6 @@ class ListVeiw extends React.Component {
             return price.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
         }
 
-        // const moveWriting= (event)=>{       //일단 아이디만 받아서 넘겨서 게시물 상세 페이지에서 백엔드로 데베 불어오는게 나을듯(WritingConten 테이블이랑, Writing 테이블 개체 다불러야함)
-        //
-        //     let getId=event.currentTarget.id
-        //     navigate('/pages/noticeConfirm?search='+getId, {state:{
-        //             word:getId
-        //         }});
-        // }
         return (
             <div className={styles.list_view_wrap}>
                 <button onClick={this.handlePrevBtn} className={(!!slideSpot ? `${styles.left_btn}` : `${styles.left_btn_hidden}`)}>
@@ -96,8 +88,7 @@ class ListVeiw extends React.Component {
                     <div style={{ transform: `translateX(${slideSpot}px)`}} className={styles.slide_item}>
                         {list&&list.map((item,i) => (
                             <li key={i} className={styles.list_item}>
-                                {/*<Link to={`/pages/noticeConfirm#`} style={{ textDecoration: "none" }} id={item.writingId}>*/}
-                                <Link to={'/pages/noticeConfirm?search='+item.writingId} state={{ word:item.writingId }} style={{ textDecoration: "none" }} id={item.writingId}>
+                                <Link to={`/pages/noticeConfirm#`} style={{ textDecoration: "none" }} id={item.writingId}>
                                     {/*to안에 해당 상품 페이지로 이동하게 하면됨*/}
                                     <div className={styles.list_container}>
                                         <div className={styles.item_img}>
