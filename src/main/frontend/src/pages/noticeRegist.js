@@ -28,19 +28,22 @@ const NoticeRegist = () => {
 
     //사용자가 입력한 데이터
     const [writing_name, setTitle] = useState('');
+    const [content_blob , setContentBlob] = useState(null);
     const [category, setCategory] = useState('');
     const [detail_category , setDetailcategory] = useState('');
     const [count,setCount] = useState(0);
     const [price,setPrice] = useState(0);
-
-
-    //이미지 , 게시글 데이터
-    const [content_blob , setContentBlob] = useState(null);
     const [content , setContent] = useState('');
 
     //이미지 업로드
     const handleFileChange = (ev) => {
-        setContentBlob(ev.target.files[0]);
+        const reader = new FileReader();
+        reader.onload = function (ev)
+        {
+            setContentBlob(ev.target.result);
+        }
+        reader.readAsDataURL(ev.target.files[0]);
+        //setContentBlob(ev.target.files[0]);
     };
 
     const handleSubmit = (e) => {
@@ -49,12 +52,13 @@ const NoticeRegist = () => {
         const formdata = new FormData();
 
         formdata.append('writing_name',writing_name);
+        formdata.append('writing_photo',content_blob);
         formdata.append('category',category);
         formdata.append('detail_category',detail_category);
         formdata.append('count',count);
         formdata.append('price',price);
-        //formdata.append('image',content_blob);
-        //formdata.append("content",content);
+        formdata.append('content',content);
+
         /*이미지 데이터
         const postData =
         {
@@ -64,7 +68,7 @@ const NoticeRegist = () => {
 
 
 
-        axios.post("/api/noticeRegist", formdata,{     //post방식
+        axios.post("http://localhost:8080/noticeRegist", formdata,{     //post방식
             headers: {
                 'Content-Type' : 'multipart/form-data'
             }
@@ -80,12 +84,12 @@ const NoticeRegist = () => {
 
         // 게시글 작성 후 입력 필드 초기화
         setTitle('');
-        setContent('');
+        setCount('');
         setPrice(0);
         setCategory('');
         setDetailcategory('');
         setContent('');
-        setContentBlob(null);
+        setContentBlob('');
     };
 
 
@@ -134,8 +138,17 @@ const NoticeRegist = () => {
 
                                 <dl>
                                     <dt>사진 등록</dt>
-                                    <dd><input type="file" onChange={handleFileChange}></input></dd>
+                                    <dd>
+                                        <input type="file" id="writing_photo" onChange={handleFileChange}></input>
 
+                                    </dd>
+
+                                </dl>
+                                <dl>
+                                    <dt>대표 이미지 설정</dt>
+                                    <dd>
+                                        <img alt = "미리보기" src = {content_blob} style={{maxWidth:"100px"}} />
+                                    </dd>
                                 </dl>
 
                             </div>

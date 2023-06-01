@@ -3,7 +3,7 @@ import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import styles from "../Css_dir/notice.module.css";
 import axios from "axios";
 
-function NoticeConfirm()
+function NoticeConfirm({match})
 {
     const movePage = useNavigate();
     const location=useLocation();
@@ -13,6 +13,10 @@ function NoticeConfirm()
     const [data, setData] = useState([])  //해당 게시글에 찜등록한 사람 수
     listdata.append('wid', writingInfo.word);  //이전 페이지에서 받아온 글id
 
+    //게시글 상세 조회
+    //const {id} = useParams();
+    const [post , setPost] = useState(null); //게시글 내용을 가져오는 변수
+    const {postId} = match.params;
     function gonoticepage()
     {
         movePage('/pages/noticePage');
@@ -55,6 +59,20 @@ function NoticeConfirm()
             .catch(error => console.log(error))
     }, []);
 
+
+    //상세 게시글 조회 useEffect
+    useEffect(() => {
+        fetch(`/api/noticeConfirm/${postId}`)
+            .then(response => response.json())
+            .then(data => setPost(data))
+            .catch(error => console.log(error))
+    } , [postId]);
+
+    /*if(!post)
+    {
+        return <div>불러오는 중입니다 잠시만 기다려 주십시오...!</div>;
+    }*/
+
     return(
         <div>
             <div className={styles.board_wrap}>
@@ -80,7 +98,7 @@ function NoticeConfirm()
                         </dl>
                         <dl>
                             <dt>글쓴이</dt>
-                            <dd>박민기</dd>
+                            <dd>{post.user_name}</dd>
                         </dl>
                         <dl>
                             <dt>작성일</dt>
@@ -92,8 +110,7 @@ function NoticeConfirm()
                         </dl>
                     </div>
                     <div className={styles.cont}>
-                        글내용이 들어갑니다
-
+                        {post.content}
                     </div>
                     <div className={styles.bt_wrap}>
                         <a onClick={gonoticepage} className={styles.on}>목록</a>
