@@ -22,6 +22,7 @@ import NoticeModify from "./pages/noticeModify";
 import Home_unlogin from "./pages/home_unlogin";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import TopNav from "./pages/top_navigation";
+import noticeConfirm from "./pages/noticeConfirm";
 
 function App() {
     return (
@@ -42,6 +43,7 @@ function App() {
                         <Route path="/pages/noticePage" exact={true} element={<Notice/>}/>
                         <Route path="/pages/noticeRegist" exact={true} element={<NoticeRegist/>}/>
                         <Route path="/pages/noticeConfirm" exact={true} element={<NoticeConfirm/>}/>
+                        <Route path="/pages/noticeConfirm/:writing_Id" component={noticeConfirm} />
                         <Route path="/pages/noticeModify" exact={true} element={<NoticeModify/>}/>
                     </Routes>
                 </div>
