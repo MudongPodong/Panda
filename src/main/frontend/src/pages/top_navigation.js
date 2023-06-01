@@ -26,7 +26,6 @@ function TopNav() {
         }
     }
     function goCategorySearch(event){    //카테고리 검색
-
         console.log(event.currentTarget.id);
         const searchdata=new FormData();
         searchdata.append('word', event.currentTarget.id);
@@ -60,12 +59,50 @@ function TopNav() {
 
     function goNotice()
     {
-        movePage('/pages/noticePage');
+        axios.get('/check')
+            .then((response)=>{
+                console.log(response.data)
+                if(response.data){
+                    console.log('now login');
+                    movePage('/pages/noticePage');
+                }
+                else{
+                    console.log('need login');
+                    document.cookie = "isLogin=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
+                    alert('로그인이 필요합니다.');
+                    movePage('/pages/loginPage');
+                }
+            }).catch(error=>{
+            console.error(error);
+            console.log('need login');
+            document.cookie = "isLogin=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
+            alert('로그인이 필요합니다.');
+            movePage('/pages/loginPage');
+        });
     }
 
     function goMypage()
     {
-        movePage('/pages/OtherPage2');
+        axios.get('/check')
+            .then((response)=>{
+                console.log(response.data)
+                if(response.data){
+                    console.log('now login');
+                    movePage('/pages/OtherPage2');
+                }
+                else{
+                    console.log('need login');
+                    document.cookie = "isLogin=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
+                    alert('로그인이 필요합니다.');
+                    movePage('/pages/loginPage');
+                }
+            }).catch(error=>{
+            console.error(error);
+            console.log('need login');
+            document.cookie = "isLogin=false; path=/; expires=Thu, 01 JAN 1999 00:00:10 GMT";
+            alert('로그인이 필요합니다.');
+            movePage('/pages/loginPage');
+        });
     }
 
     function goChat(){
@@ -623,7 +660,7 @@ function TopNav() {
                         </a>
                     </li>
                     <li className={styles.tlist_item} onClick={goMypage}>
-                        <a className={styles.tlist_item_a} href="">
+                        <a className={styles.tlist_item_a} href="#">
                             <span className={styles.tlist_text}>마이페이지</span>
                         </a>
                     </li>
