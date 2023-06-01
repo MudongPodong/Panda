@@ -37,7 +37,8 @@ public class WritingController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         UserEntity userEntity =userService.findbyEmail(userDetails.getUsername());
-        byte[] imageData = image.getBytes();
+        //byte[] imageData = image.getBytes();
+        String imageData = image.getBytes().toString();
 
         writingentity.setUserEntity(userEntity);
         writingentity.setWriting_photo(imageData);
