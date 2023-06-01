@@ -13,6 +13,7 @@ function Home() {
         //movePage('/pages/SearchResult');
     }
 
+
     useEffect(() => {   // 로그인 되었는지 확인
         axios.get('/check')
             .then((response)=>{
