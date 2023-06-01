@@ -146,7 +146,7 @@ function Mem() {
                 <div className={styles.error_message}></div>
                 <input type='text' className={styles.input} placeholder='휴대폰 : 숫자만 입력(- 자동 입력)' name='phone' onChange={changePhone} value={phone} onKeyDown={handleOnKeyPress}></input>
                 {!phone_regex.test(phone) && phone !== '' ? <div className={styles.error_message}>{phone_error}</div>:<div className={styles.error_message}></div>}
-                <input type='text' className={styles.input} placeholder='주소' name='address' onChange={changeAddr} value={addr} onKeyDown={handleOnKeyPress}></input>
+                <input type='text' className={styles.input} placeholder='주소 : 구매자들이 알 수 있는 정도의 대략적인 주소를 입력해 주세요.' name='address' onChange={changeAddr} value={addr} onKeyDown={handleOnKeyPress}></input>
                 <div className={styles.error_message}></div>
                 <div className={styles.login_btn_wrap}>
                     <button className={styles.mem_btn_under}>회원가입</button>
