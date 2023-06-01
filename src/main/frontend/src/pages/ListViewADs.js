@@ -4,7 +4,7 @@ import styles from '../Css_dir/SearchResult.module.css'
 import FixBar from "./FixBar";
 import CommonTable from "../Tables/CommonTable";
 import CommonTableRow from "../Tables/CommonTableRow";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 function ListViewADs() {
 
@@ -33,8 +33,10 @@ function ListViewADs() {
             .catch(error => console.log(error))
     }, []);
 
+
     return (
         <div className={styles.advertise_box}>
+
             <div className={styles.container}>
             {advertise.map(item => (
                 <div className={styles.resultMap} onClick={movePage} name="spam" id={item.writingId}>

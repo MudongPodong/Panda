@@ -131,6 +131,16 @@ function SearchResult() {
             .then(response => setData(response.data))
             .catch(error => console.log(error))
     }, []);
+    const firstPage=()=>{
+        let ads=[];
+        const nowPage=decodeURIComponent(location.search.toString().split(/[=?]/).at(1)).match(/\d+/g)
+        if(nowPage==1 || nowPage==null){
+            ads.push(
+                <ListViewADs></ListViewADs>
+            )
+        }
+        return ads;
+    }
 
     return (
         <div className={styles.wraper}>
@@ -161,7 +171,8 @@ function SearchResult() {
                     </form>
                     <button type="submit" form="search_sell" className={styles.btn_5} id='search_sell'>판매순</button>
                 </div>
-                <ListViewADs></ListViewADs>
+                {/*<ListViewADs></ListViewADs>*/}
+                {firstPage()}
                 <br/>
                 <div className={styles.container}>
                     {data.length === 0 ? (
