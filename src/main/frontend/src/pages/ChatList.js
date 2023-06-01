@@ -12,6 +12,14 @@ const ChatList = React.memo(({ chatRooms, onClick, toChatList}) => {
     return (
         <ul>
             {chatRooms.map((chatList, index) => {
+                if(chatList.buyer.email === toChatList.email && chatList.isExitBuyer) {
+                    return null;
+                }
+
+                if (chatList.seller.email === toChatList.email && chatList.isExitSeller) {
+                    return null;
+                }
+
                 const date1 = dayjs(chatList.lastDate);
                 const date2 = dayjs(new Date());
 
@@ -28,7 +36,6 @@ const ChatList = React.memo(({ chatRooms, onClick, toChatList}) => {
                 else if (date2.diff(date1, 'day') == 1)
                     diff = "어제";
                 else diff = `${date1.format("A h:mm")}`;
-                // console.log(chatList.noRead);
 
                 return (
                     <li className = {`${styles.profile_list} ${toChatList.roomId === chatList.roomId ? styles.profile_list_clicked : null}`} key={index} onClick={() => onClick(chatList.roomId,

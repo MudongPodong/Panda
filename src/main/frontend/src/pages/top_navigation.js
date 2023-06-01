@@ -584,11 +584,19 @@ function TopNav() {
                             <div className={styles.bottom_line}></div>
                         </div>
                     </div>
-                    <li className={styles.tlist_item} onClick={goChat} >
-                        <a className={styles.tlist_item_a}>
-                            <span className={styles.tlist_text}>채팅</span>
-                        </a>
-                    </li>
+                    <Link to={"/pages/Chat"} className={styles.tlist_item_a} target={`_top`}>
+                        <li className={styles.tlist_item} >
+                                <a className={styles.tlist_item_a}>
+                                    <span className={styles.tlist_text}>채팅</span>
+                                </a>
+                        </li>
+                    </Link>
+
+                    {/*<li className={styles.tlist_item}>*/}
+                    {/*    <a className={styles.tlist_item_a}>*/}
+                    {/*        <span className={styles.tlist_text}>채팅</span>*/}
+                    {/*    </a>*/}
+                    {/*</li>*/}
                     <li className={styles.tlist_item}>
                         <a className={styles.tlist_item_a}>
                             <form name='search' id='search_form' method='get'>

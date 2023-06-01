@@ -462,7 +462,6 @@ body::-webkit-scrollbar {
     width:250px;
     height:90px;
     /*border:1px solid green;*/
-    cursor:pointer;
     transition: 0.5s;
 }
 
@@ -471,14 +470,17 @@ body::-webkit-scrollbar {
     width:40px;
     height:40px;
     top:2px;
+    cursor:pointer;
 }
 
 .chat_detail_menu {
     position: absolute;
+    border-left:1px solid white;
     left:30px;
     top:-36px;
     font-weight: bold;
     font-size:20px;
+    cursor:pointer;
 }
 
 .chat_detail_menu > ul {
@@ -490,7 +492,7 @@ body::-webkit-scrollbar {
 
 .chat_detail_menu li {
     /*border: 1px solid green;*/
-    border-top: 1px solid black;
+    border-top: 1px solid gray;
     background-color:whitesmoke;
     padding:6px 8px;
 }

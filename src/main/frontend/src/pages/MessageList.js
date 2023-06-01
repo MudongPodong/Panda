@@ -224,26 +224,6 @@ const MessageList = React.memo(({ messages, toMessageList, socket}) => {
                          onMouseEnter={handleMouseEnter}/>
                     {isMenuVisible && <Menu />}
                 </div>
-                {/*{*/}
-                {/*    toMessageList.amIBuyer ?*/}
-                {/*        toMessageList.evaluateBuyer > 0 ?*/}
-                {/*            <button className={styles.purchase_button}>*/}
-                {/*                평점 작성 완료*/}
-                {/*            </button>*/}
-                {/*            :*/}
-                {/*            <button className={`${styles.purchase_button} ${styles.point_cursor}`} onClick={openEvaluateModal}>*/}
-                {/*                상대 평점 남기기*/}
-                {/*            </button>*/}
-                {/*        :*/}
-                {/*        toMessageList.evaluateSeller > 0 ?*/}
-                {/*            <button className={styles.purchase_button}>*/}
-                {/*                평점 작성 완료*/}
-                {/*            </button>*/}
-                {/*            :*/}
-                {/*            <button className={`${styles.purchase_button} ${styles.point_cursor}`} onClick={openEvaluateModal}>*/}
-                {/*                상대 평점 남기기*/}
-                {/*            </button>*/}
-                {/*}*/}
             </div>
             <div className={styles.chat_history} ref={chatContainerRef} onScroll={handleScroll}>
         <ul>
