@@ -23,7 +23,14 @@ public class WritingService {
     private final WritingRepository writingRepository;
 
     private final WritingDSLRepository writingDSLRepository;
-
+    
+    //이미지 등록 로직
+    public void saveImage(MultipartFile image , WritingEntity wee) throws IOException{
+        byte[] imageData = image.getBytes();
+        wee.setWriting_photo(imageData);
+        //writingRepository.save(wee);
+    }
+    
     public void write(WritingEntity we)
     {
         we.setFavorite_count(0);
@@ -60,4 +67,6 @@ public class WritingService {
         }
         return writingResponseDTOList;
     }
+      
+    
 }
