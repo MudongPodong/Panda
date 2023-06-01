@@ -68,21 +68,6 @@ function Home() {
                                 <a className={styles.more} onClick={goSearchResult}>인기 매물 더 보기</a>
                             </div>
                         </section>
-                        <section className={styles.bottom_section}>
-                            <h1 className={styles.head}>인기 검색어</h1>
-                            <div className={styles.search_wrap}>
-                                <ul>
-                                    <li>검색어</li>
-                                    <li>검색어</li>
-                                    <li>검색어</li>
-                                    <li>검색어</li>
-                                    <li>검색어</li>
-                                </ul>
-                            </div>
-                            <div className={styles.more_wrap}>
-                                <a className={styles.more} onClick={goSearchResult}>인기 검색어 더 보기</a>
-                            </div>
-                        </section>
                     </div>
                 </div>
             </div>

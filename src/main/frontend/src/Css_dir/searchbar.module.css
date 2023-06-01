@@ -52,7 +52,7 @@
     background-size: 35px 35px;
     transition: all 0.3s ease;
 }
-@media screen and (max-width: 1027px) {
+@media screen and (max-width: 1045px) {
     .header{display: block;}
 }
 .search_box{

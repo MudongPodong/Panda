@@ -325,13 +325,13 @@
     color: black;
 }
 
-@media screen and (max-width: 1240px){
+@media screen and (max-width: 1245px){
     .search_input{width: 300px;}
 }
-@media screen and (max-width: 1140px) {
+@media screen and (max-width: 1145px) {
     .search_input{width: 200px;}
 }
-@media screen and (max-width: 1040px) {
+@media screen and (max-width: 1045px) {
     .search_input{display: none;}
     .search_input_btn{display: none;}
 }
