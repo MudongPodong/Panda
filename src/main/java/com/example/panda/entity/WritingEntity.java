@@ -35,5 +35,6 @@ public class WritingEntity {
     private UserEntity userEntity;
     @Column
     private int favorite_count;
-
+    @Column(length = 1024)
+    private String content;
 }
