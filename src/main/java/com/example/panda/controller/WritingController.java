@@ -63,6 +63,18 @@ public class WritingController {
         WritingDTO writingDTO = writingService.findById(postId);
         return writingDTO;
     }
+    
+    //게시글 로그인한 사용자 게시글 필터링
+    @GetMapping("/api/UserInfo")
+    public UserEntity getUserInfo()
+    {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        UserEntity userEntity =userService.findbyEmail(userDetails.getUsername());
+        System.out.println(userEntity.getEmail());
+        return userEntity;
+    }
 
 
 }
