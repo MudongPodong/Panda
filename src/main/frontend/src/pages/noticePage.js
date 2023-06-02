@@ -7,7 +7,7 @@ import styles from "../Css_dir/notice.module.css";
 function NoticePage(){
     const navigate = useNavigate();
 
-    const movePage= (event)=>{
+     const movePage1= (event)=>{
         const getId=event.currentTarget.id
         navigate('/pages/noticeConfirm?search='+getId, {state:{
                 word:getId
@@ -16,12 +16,12 @@ function NoticePage(){
 
     function goregist()
     {
-        movePage('/pages/noticeRegist');
+        navigate('/pages/noticeRegist');
     }
 
     function goconfirm()
     {
-        movePage('/pages/noticeConfirm');
+        navigate('/pages/noticeConfirm');
     }
 
     const [posts , setPosts] = useState([]);
@@ -71,7 +71,7 @@ function NoticePage(){
                                 loginUser && post.user_name === loginUser.nickname && (
                                     <div key={post.writing_Id}>
                                         <div className={styles.num}>{post.writing_Id}</div>
-                                        <div className={styles.title} onClick={movePage} id={post.writing_Id}>{post.writing_name}</div>
+                                        <div className={styles.title} onClick={movePage1} id={post.writing_Id}>{post.writing_name}</div>
                                         <div className={styles.writer}>{post.user_name}</div>
                                         <div className={styles.date}>2023.04.28</div>
                                         <div className={styles.count}>33</div>
