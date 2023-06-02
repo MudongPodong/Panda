@@ -3,15 +3,18 @@ import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import styles from "../Css_dir/notice.module.css";
 import axios from "axios";
 
-function NoticeConfirm({match})
+function NoticeConfirm()
 {
     const movePage = useNavigate();
     const location=useLocation();
     const navigate = useNavigate();
     const writingInfo = { ...location.state };
     const listdata=new FormData();
+   // const writingdata = new FormData();
     const [data, setData] = useState([])  //해당 게시글에 찜등록한 사람 수
     listdata.append('wid', writingInfo.word);  //이전 페이지에서 받아온 글id
+    const writingdata = new FormData();
+    writingdata.append('wid',writingInfo.word);
 
     //게시글 상세 조회
     //const {id} = useParams();
@@ -50,6 +53,7 @@ function NoticeConfirm({match})
     }
 
     useEffect(() => {
+
         axios.post('/api/favorite_writing',listdata,{  //해당 게시글을 찜등록한 사람의 수를 카운팅해서 가져옴
             headers: {
                 'Content-Type' : 'multipart/form-data'
@@ -61,17 +65,20 @@ function NoticeConfirm({match})
 
 
     //상세 게시글 조회 useEffect
-    // useEffect(() => {
-    //     fetch(`/api/noticeConfirm/${postId}`)
-    //         .then(response => response.json())
-    //         .then(data => setPost(data))
-    //         .catch(error => console.log(error))
-    // } , [postId]);
+     useEffect(() => {
 
-    /*if(!post)
-    {
-        return <div>불러오는 중입니다 잠시만 기다려 주십시오...!</div>;
-    }*/
+         axios.post('/api/noticeConfirm',writingdata,{
+             headers: {
+                 'Content-Type' : 'multipart/form-data'
+            }
+         })
+            .then(response => setPost(response.data))
+             .catch(error => console.log(error))
+     } , []);
+
+
+
+
 
     return(
         <div>
@@ -98,7 +105,7 @@ function NoticeConfirm({match})
                         </dl>
                         <dl>
                             <dt>글쓴이</dt>
-                            {/*<dd>{post.user_name}</dd>*/}
+                            <dd>{data.user_name}</dd>
                         </dl>
                         <dl>
                             <dt>작성일</dt>
@@ -110,11 +117,12 @@ function NoticeConfirm({match})
                         </dl>
                     </div>
                     <div className={styles.cont}>
-                        {/*{post.content}*/}
+                        {data.content}
                     </div>
                     <div className={styles.bt_wrap}>
                         <a onClick={gonoticepage} className={styles.on}>목록</a>
                         <a onClick={gomodify} >수정</a>
+                        <a onClick={gonoticepage} className={styles.on}>채팅</a>
                     </div>
                 </div>
             </div>
