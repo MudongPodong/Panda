@@ -7,6 +7,7 @@ import axios from "axios";
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isCategory, setIsCategory] = useState(false);
+    const [inputText, setInputText] = useState('');
     const sideClickRef = useRef(null);
     // button 클릭 시 토글
     const toggleMenu = () => {
@@ -40,11 +41,14 @@ const Sidebar = () => {
         const query='input[id=search_side_input]';
         const searchElement=document.querySelector(query);
         const search_word=searchElement.value;
+        const singleConsonantRegex = /[ㄱ-ㅎ | ㅏ-ㅣ]{1}$/;
 
-        if(searchElement.value.length >=2){
+        if(searchElement.value.length >=1 && singleConsonantRegex.test(inputText)==false){
             const searchdata=new FormData();
             searchdata.append('word', search_word);
             movePage('/pages/SearchResult?search='+search_word, {state:{word:search_word}});
+        }else{
+            alert('자음, 모음 1글자 입력은 안됩니다!');
         }
     }
 
@@ -126,6 +130,9 @@ const Sidebar = () => {
             movePage('/pages/loginPage');
         });
     }
+    const handleInputChange=(e)=>{
+        setInputText(e.target.value);
+    }
     // function goCategorySearch(event){    //카테고리 검색
     //     console.log(event.currentTarget.id);
     //     const searchdata=new FormData();
@@ -147,7 +154,7 @@ const Sidebar = () => {
             <div className={(isOpen ? (isCategory ? `${styles.show_menu_category}` : `${styles.show_menu}`) : `${styles.hide_menu}`)}>
                 <div className={styles.search_box}>
                     <form name='search_side' id='search_form_s' method='get'>
-                        <input type='text' className={styles.search_input} placeholder='  검색' name='search_side' id='search_side_input'></input>
+                        <input type='text' minLength="1" className={styles.search_input} placeholder='  검색' name='search_side' id='search_side_input' onChange={handleInputChange} required></input>
                     </form>
                     <div className={styles.search_btn_wrap}>
                         <button type='submit' form='search_form_s' className={styles.search_input_btn} onClick={goSearchResult}></button>

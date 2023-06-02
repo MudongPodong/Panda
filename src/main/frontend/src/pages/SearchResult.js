@@ -26,6 +26,7 @@ function SearchResult() {
     const movePage= (event)=>{       //일단 아이디만 받아서 넘겨서 게시물 상세 페이지에서 백엔드로 데베 불어오는게 나을듯(WritingConten 테이블이랑, Writing 테이블 개체 다불러야함)
 
         let getId=event.currentTarget.id
+
         navigate('/pages/noticeConfirm?search='+getId, {state:{
             word:getId
             }});

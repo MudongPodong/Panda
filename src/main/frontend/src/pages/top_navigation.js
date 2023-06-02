@@ -1,6 +1,6 @@
 import styles from '../Css_dir/navigation.module.css';
 import {Link, useNavigate} from 'react-router-dom';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from '../imgs/logo192_192.png';
 import green_logo from '../imgs/green_logo_192_192.png';
 import Sidebar from "./sidebar";
@@ -10,6 +10,7 @@ import axios from "axios";
 
 function TopNav() {
     const movePage = useNavigate();
+    const [inputText, setInputText] = useState('');
 
     function goHome() {
         movePage('/');
@@ -19,10 +20,19 @@ function TopNav() {
         const searchElement=document.querySelector(query);
         const search_word=searchElement.value;
 
-        if(searchElement.value.length >=2){
+        const singleConsonantRegex = /[ㄱ-ㅎ | ㅏ-ㅣ]{1}$/;
+        //const singleVowelRegex = /[ㅏ-ㅣ]{1}$/;
+        // singleConsonantRegex.test(inputText);  //한글자음 1개만 입력했는지 확인
+        // //singleVowelRegex.test(inputText);      //한글모음 1개만 입력했는지 확인
+
+
+
+        if(inputText.length >=1 && singleConsonantRegex.test(inputText)==false){
             const searchdata=new FormData();
             searchdata.append('word', search_word);
             movePage('/pages/SearchResult?search='+search_word, {state:{word:search_word}});
+        }else{
+            alert('자음, 모음 1글자 입력은 안됩니다!');
         }
     }
     function goCategorySearch(event){    //카테고리 검색
@@ -107,6 +117,10 @@ function TopNav() {
 
     function goChat(){
         movePage('/pages/Chat');
+    }
+
+    const handleInputChange=(e)=>{
+        setInputText(e.target.value);
     }
 
     return (
@@ -637,12 +651,13 @@ function TopNav() {
                     <li className={styles.tlist_item}>
                         <a className={styles.tlist_item_a}>
                             <form name='search' id='search_form' method='get'>
-                                <input type='text' minLength="2" id='search_input' className={`${styles.tlist_text} ${styles.search_input}`}
-                                       placeholder='  검색' name='search' required></input>
+                                <input type='text' minLength="1" id='search_input' className={`${styles.tlist_text} ${styles.search_input}`}
+                                       placeholder='  검색' name='search' onChange={handleInputChange} required></input>
                             </form>
                         </a>
                         <button type='submit' form='search_form' id='search_btn'
                                 className={`${styles.tlist_text} ${styles.search_input_btn}`} onClick={goSearchResult}></button>
+                        {/*disabled={inputText.length < 2}*/}
                         <Searchbar></Searchbar>
                     </li>
                 </ul>
