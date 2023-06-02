@@ -186,6 +186,7 @@ public class MessageHandler extends TextWebSocketHandler {
 
                 if (chatRoomDTO.getIsExitSeller()) {
                     chatRoomService.deleteByRoomId(chatDTO.getRoomId());
+                    chatService.deleteByRoomId(chatDTO.getRoomId());
                 } else {
                     chatRoomService.setExitBuyerByRoomId(chatDTO.getRoomId(), true);
                 }
@@ -196,6 +197,7 @@ public class MessageHandler extends TextWebSocketHandler {
 
                 if (chatRoomDTO.getIsExitBuyer()) {
                     chatRoomService.deleteByRoomId(chatDTO.getRoomId());
+                    chatService.deleteByRoomId(chatDTO.getRoomId());
                 } else {
                     chatRoomService.setExitSellerByRoomId(chatDTO.getRoomId(), true);
                 }

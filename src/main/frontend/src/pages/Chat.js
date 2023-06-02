@@ -75,6 +75,7 @@ function Chat() {
             alert('로그인이 필요합니다.');
             movePage('/pages/loginPage');
         });
+
         const socket = new WebSocket('ws://localhost:8080/chat');
         socket.onmessage = (event) => {
             let receivedMap = JSON.parse(event.data);

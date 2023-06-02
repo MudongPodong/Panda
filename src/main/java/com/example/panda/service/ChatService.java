@@ -70,4 +70,9 @@ public class ChatService {
         else return null;
     }
 
+    @Transactional
+    public void deleteByRoomId(Long roomId) {
+        chatRepositoryCustom.deleteByRoomId(roomId);
+    }
+
 }

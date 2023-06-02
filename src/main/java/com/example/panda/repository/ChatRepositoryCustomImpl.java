@@ -16,6 +16,7 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -39,5 +40,10 @@ public class ChatRepositoryCustomImpl {
         AggregationResults<ChatEntity> results = mongoOperations.aggregate(aggregation, "Chat", ChatEntity.class);
 
         return results.getMappedResults();
+    }
+
+    public void deleteByRoomId(Long roomId) {
+        Query query = new Query(Criteria.where("roomId").is(roomId));
+        mongoOperations.remove(query, ChatEntity.class);
     }
 }
