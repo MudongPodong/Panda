@@ -25,17 +25,28 @@ function NoticePage(){
     }
 
     const [posts , setPosts] = useState([]);
+    const [loginUser , setLoiginUser] = useState(null)
 
     useEffect(() => {
-        axios.get('/api/noticePage')
+       axios.get('/api/noticePage')
             .then(response => {
-                setPosts(response.data);
-            })
-            .catch(error => {
+            setPosts(response.data);
+           })
+           .catch(error => {
                 console.log(error);
             });
 
     },[]);
+
+    useEffect(() => {
+        axios.get('/api/UserInfo')
+            .then(response => {
+                setLoiginUser(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    } , [])
 
     return (
             <div className={styles.wrap}>
@@ -54,17 +65,16 @@ function NoticePage(){
                                 <div className={styles.count}>조회</div>
                             </div>
                             {posts.map(post => (
-                            <div key={post.writing_Id}>
-
-                                    <div className={styles.num}>{post.writing_Id}</div>
-                                    <div className={styles.title} onClick={movePage} id={post.writing_Id}>{post.writing_name}</div>
-                                    <div className={styles.writer}>{post.user_name}</div>
-                                    <div className={styles.date}>2023.04.28</div>
-                                    <div className={styles.count}>33</div>
-
-
-                            </div>
-                            ))}
+                                loginUser && post.user_name === loginUser.nickname && (
+                                    <div key={post.writing_Id}>
+                                        <div className={styles.num}>{post.writing_Id}</div>
+                                        <div className={styles.title} onClick={movePage} id={post.writing_Id}>{post.writing_name}</div>
+                                        <div className={styles.writer}>{post.user_name}</div>
+                                        <div className={styles.date}>2023.04.28</div>
+                                        <div className={styles.count}>33</div>
+                                    </div>
+                                    )
+                                 ))}
 
                         </div>
                         <div className={styles.board_page}>
