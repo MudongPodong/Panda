@@ -52,8 +52,11 @@ function NoticePage(){
             <div className={styles.wrap}>
                 <div className={styles.board_wrap}>
                     <div className={styles.board_title}>
-                        <strong>게시글 작성</strong>
-                        <p>판매자는 하단 등록 버튼을 눌러 판매 등록을 할 수 있습니다.</p>
+                        <strong>게시글 확인 및 등록</strong>
+                        {loginUser && (
+                            <p>{loginUser.nickname}님 반갑습니다. 하단 등록 버튼을 눌러 추가 게시글 등록을 할 수 있습니다.</p>
+                            
+                        )}
                     </div>
                     <div className={styles.border_list_wrap}>
                         <div className={styles.board_list}>
