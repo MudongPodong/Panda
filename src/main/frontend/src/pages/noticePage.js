@@ -5,10 +5,15 @@ import styles from "../Css_dir/notice.module.css";
 
 
 function NoticePage(){
-    const movePage = useNavigate();
-    function gohome(){
-        movePage('/');
+    const navigate = useNavigate();
+
+    const movePage= (event)=>{
+        const getId=event.currentTarget.id
+        navigate('/pages/noticeConfirm?search='+getId, {state:{
+                word:getId
+            }});
     }
+
     function goregist()
     {
         movePage('/pages/noticeRegist');
@@ -52,10 +57,7 @@ function NoticePage(){
                             <div key={post.writing_Id}>
 
                                     <div className={styles.num}>{post.writing_Id}</div>
-                                    <div className={styles.title}>
-                                        {/*<Link to={`/post/${post.writing_Id}`}>{post.writing_name}</Link>*/}
-                                        <Link to={`/pages/noticeConfirm/${post.writing_Id}`}>{post.writing_name}</Link>
-                                    </div>
+                                    <div className={styles.title} onClick={movePage} id={post.writing_Id}>{post.writing_name}</div>
                                     <div className={styles.writer}>{post.user_name}</div>
                                     <div className={styles.date}>2023.04.28</div>
                                     <div className={styles.count}>33</div>
