@@ -12,19 +12,33 @@ import com.example.panda.dto.UserResponseDTO;
 import com.example.panda.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/?")   // 회원정보 수정 주소 넣기
+@RequestMapping("/account")   // 회원정보 수정 주소 넣기
 public class UserController {
     private final UserService userService;
 
+//    @GetMapping("/me")  // 사용자 정보 가져오기
+    //public ResponseEntity<UserResponseDTO> getMyMemberInfo() {
+    //UserResponseDTO myInfoBySecurity = userService.getMyInfoBySecurity();
+    //System.out.println(myInfoBySecurity.getNickname());
+    //return ResponseEntity.ok((myInfoBySecurity));
+    // }
+
     @GetMapping("/me")  // 사용자 정보 가져오기
-    public ResponseEntity<UserResponseDTO> getMyMemberInfo() {
-        UserResponseDTO myInfoBySecurity = userService.getMyInfoBySecurity();
-        //System.out.println(myInfoBySecurity.getNickname());
-        return ResponseEntity.ok((myInfoBySecurity));
+    public UserDTO getMyMemberInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        UserDTO userDTO = userService.findbyId(userDetails.getUsername());
+
+//        System.out.println(userDTO);
+
+        return userDTO;
     }
 
     @PostMapping("/nickname")   // 닉네임 변경
@@ -33,7 +47,12 @@ public class UserController {
     }
 
     @PostMapping("/password")   // 비밀번호 변경
-    public ResponseEntity<UserResponseDTO> setMemberPassword(ChangePasswordDTO request) {
+    public ResponseEntity<UserResponseDTO> setMemberPassword(@RequestBody ChangePasswordDTO request) {
         return ResponseEntity.ok(userService.changeMemberPassword(request.getEmail(), request.getExPassword(), request.getNewPassword()));
+    }
+
+    @PostMapping("/user") // 비밀번호 외 다른 정보(닉네임, 전화번호, 주소, 프로필 사진) 수정
+    public ResponseEntity<UserResponseDTO> setMemberInfo(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(userService.changeMemberInfo(userDTO));
     }
 }

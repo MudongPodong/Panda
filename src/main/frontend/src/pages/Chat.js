@@ -390,7 +390,6 @@ function Chat() {
             }
 
         </div>
-
     );
 }
 

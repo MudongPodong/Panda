@@ -271,3 +271,85 @@ button.num:hover{
     justify-content: center;
     align-items: center;
 }
+
+.form_item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form_label {
+    width: 120px;
+    /*text-align: right;*/
+    /*margin-right: 10px;*/
+}
+
+.form_button {
+    font-size:16px;
+    position: relative;
+    text-decoration: 0;
+    display: block;
+    background: black;
+    font-weight: bold;
+    font-family: NanumGothicOTF;
+    color:white;
+    width: 100%;
+    height: 45px;
+    text-align: center;
+    line-height: 43px;
+    margin-top: 15px;
+
+}
+
+.form_profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width:100%;
+    height:200px;
+    margin-left:-20px;
+}
+
+.form_profile_img {
+    width:200px;
+    height:100%;
+    border-radius: 50%;
+}
+
+.img_button {
+    font-family: NanumGothicOTF;
+    width:100px;
+    background: black;
+    color:white;
+    border-radius: 7%;
+    font-size:16px;
+}
+
+.selectImg {
+    position:absolute;
+    line-height:26px;
+    margin-top:176px;
+    margin-left:340px;
+}
+
+.change_pw {
+    position:absolute;
+    margin-left:705px;
+    margin-bottom: 10px;
+    font-family: NanumGothicOTF;
+    background: black;
+    border-radius: 7%;
+    color:white;
+    width:70px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 50px;
+}
+
+.modal_title {
+    font-weight: bold;
+    font-family: NanumGothicOTF;
+    font-size:32px;
+    text-align: center;
+    margin-bottom: 25px;
+}

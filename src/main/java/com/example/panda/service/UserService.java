@@ -82,4 +82,16 @@ public class UserService {
         user.setPoint(user.getPoint() + point);
         return UserResponseDTO.of(userSaveRepository.save(user));
     }
+
+    // 사용자 정보 수정(닉네임, 전화번호, 주소, 프로필 이미지 등) 함수
+    @Transactional
+    public UserResponseDTO changeMemberInfo(UserDTO userDTO) {
+        UserEntity user = userRepository.findByEmail(userDTO.getEmail()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
+        user.setNickname(userDTO.getNickname());
+        user.setPhoneNumber(userDTO.getPhoneNumber());
+        user.setAddress(userDTO.getAddress());
+        user.setUserImg(userDTO.getUserImg().getBytes());
+
+        return UserResponseDTO.of(userSaveRepository.save(user));
+    }
 }

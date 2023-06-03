@@ -14,7 +14,7 @@ function FixBar() {
 
 
     useEffect(() => {
-        axios.get('/api/hello')
+        axios.get('/account/me')
             .then(response => setData(response.data))
             .catch(error => console.log(error))
     }, []);
@@ -27,14 +27,14 @@ function FixBar() {
             <div className={styles.my_page}>
                 <div className={styles.profile_background}>
                     <div className={styles.profile_image}>
-                        <img src={profile} width="100%" height="100%"/>
+                        <img src={data.userImg != null ? `data:image/png;base64,${data.userImg}` : profile} width="100%" height="100%"/>
                     </div>
                     <div className={styles.profile_content}>
                         <div className={styles.p_nickname}>
-                            닉네임
+                            {data.nickname}
                         </div>
                         <div className={styles.p_point}>
-                            97명의 사람들이 당신을 추천합니다!
+                            당신의 매너 점수는 {data.point}점 입니다.
                         </div>
                     </div>
                 </div>

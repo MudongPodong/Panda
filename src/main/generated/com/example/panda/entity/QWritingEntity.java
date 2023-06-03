@@ -24,6 +24,8 @@ public class QWritingEntity extends EntityPathBase<WritingEntity> {
 
     public final StringPath category = createString("category");
 
+    public final StringPath content = createString("content");
+
     public final NumberPath<Integer> count = createNumber("count", Integer.class);
 
     public final StringPath detail_category = createString("detail_category");
