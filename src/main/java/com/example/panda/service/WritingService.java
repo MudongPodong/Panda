@@ -63,5 +63,15 @@ public class WritingService {
         }
         return writingResponseDTOList;
     }
+    
+    //게시글 삭제 로직 구현
+    public void deletePost(Integer postId) throws ChangeSetPersister.NotFoundException {
+        if(!writingRepository.existsById(postId))
+        {
+            throw new ChangeSetPersister.NotFoundException();
+        }
+
+        writingRepository.deleteById(postId);
+    }
 
 }
