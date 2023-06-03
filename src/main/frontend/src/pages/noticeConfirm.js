@@ -53,7 +53,23 @@ function NoticeConfirm()
     }
 
     const goChat = () => {
-        axios.post('/')
+        axios.post('/joinChat', {writing_Id: writingInfo.word}, {
+            headers: {
+                "Content-Type" : `application/json`
+            },
+        })
+            .then(response => {
+                if(response.data != '') {
+                    console.log("채팅 페이지 이동");
+                    window.open('/pages/Chat', '_blank');
+                }
+                else {
+                    alert('당신의 글입니다');
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     useEffect(() => {
@@ -136,7 +152,7 @@ function NoticeConfirm()
                     <div className={styles.bt_wrap}>
                         <a onClick={gonoticepage} className={styles.on}>목록</a>
                         <a onClick={gomodify} >수정</a>
-                        <a onClick={gonoticepage} className={styles.on}>채팅</a>
+                        <a onClick={goChat} className={styles.on}>채팅</a>
                     </div>
                 </div>
             </div>

@@ -8,9 +8,15 @@
 package com.example.panda.service;
 
 import com.example.panda.dto.ChatRoomDTO;
+import com.example.panda.dto.UserDTO;
+import com.example.panda.dto.WritingDTO;
 import com.example.panda.entity.ChatRoomEntity;
+import com.example.panda.entity.UserEntity;
+import com.example.panda.entity.WritingEntity;
 import com.example.panda.repository.ChatRoomDSLRepository;
 import com.example.panda.repository.ChatRoomRepository;
+import com.example.panda.repository.UserRepository;
+import com.example.panda.repository.WritingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -27,6 +33,27 @@ import java.util.Optional;
 public class ChatRoomService {
     private final ChatRoomRepository chatRoomRepository;
     private final ChatRoomDSLRepository chatRoomDSLRepository;
+    private final WritingRepository writingRepository;
+    private final UserRepository userRepository;
+
+    @Transactional
+    public Long save(int wid, String buyer) {
+        Optional<WritingEntity> optionalWritingEntity = writingRepository.findById(wid);
+        WritingEntity writingEntity = optionalWritingEntity.get();
+
+        UserEntity sellerEntity = writingEntity.getUserEntity();
+
+        if(sellerEntity.getEmail().equals(buyer))
+            return null; // 판매자와 구매자가 같은 경우
+
+        Optional<UserEntity> optionalBuyerEntity = userRepository.findByEmail(buyer);
+        UserEntity buyerEntity = optionalBuyerEntity.get();
+
+        ChatRoomEntity chatRoomEntity
+                = new ChatRoomEntity(null, buyerEntity, sellerEntity, " ", null, false, false, writingEntity, 0, 0, false, false);
+
+        return chatRoomRepository.save(chatRoomEntity).getRoom_id();
+    }
 
     @Transactional
     public List<ChatRoomDTO> findByUserEmail(String email) {
@@ -38,7 +65,6 @@ public class ChatRoomService {
 
         return chatRoomDTOList;
     }
-
 
     @Transactional
     public ChatRoomDTO findById(Long roomId) {

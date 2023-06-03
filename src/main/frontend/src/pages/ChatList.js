@@ -55,7 +55,7 @@ const ChatList = React.memo(({ chatRooms, onClick, toChatList}) => {
                                         {chatList.buyer.nickname}
                                     </div>
                             }
-                            <div className={`${toChatList.roomId === chatList.roomId ? styles.black_color : styles.whitesmoke_color } ${styles.p_time}`}>{diff}</div>
+                            <div className={`${toChatList.roomId === chatList.roomId ? styles.black_color : styles.whitesmoke_color } ${styles.p_time}`}>{date1.isValid() ? diff : null}</div>
                             <div className={`${toChatList.roomId === chatList.roomId ? styles.black_color : styles.whitesmoke_color} ${styles.p_last_message}`}>
                                 {chatList.lastContent === null ?
                                     "사진" : chatList.lastContent}

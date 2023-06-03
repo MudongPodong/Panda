@@ -1,15 +1,15 @@
 package com.example.panda.controller;
 
 import com.example.panda.dto.AdvertiseDTO;
+import com.example.panda.dto.WritingDTO;
 import com.example.panda.dto.WritingResponseDTO;
-import com.example.panda.service.AdvertiseRandom;
-import com.example.panda.service.AdvertiseService;
-import com.example.panda.service.WritingService;
+import com.example.panda.entity.UserEntity;
+import com.example.panda.service.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,9 +17,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChatController {
 
-    @PostMapping("/chat")
-    public void joinChat(@RequestParam int wid){
+    private final ChatRoomService chatRoomService;
 
+    @PostMapping("/joinChat")
+    public Long joinChat(@RequestBody WritingDTO writingDTO){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+
+        return chatRoomService.save(writingDTO.getWriting_Id(), userDetails.getUsername());
     }
-
 }

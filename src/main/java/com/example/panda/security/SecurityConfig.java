@@ -63,7 +63,7 @@ public class SecurityConfig {
                 //.and()
                 .authorizeHttpRequests((authz) -> authz
                         //.requestMatchers("/", "http://localhost:3000/**", "http://localhost:3000/pages/**", "http://localhost:3000/sign/**", "http://localhost:3000/api/**", "http://localhost:3000/chat/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
-                        .requestMatchers("/api/searchResult","/api/todayAds", "/login", "/check","http://localhost:3000/pages/SearchResult**", "http://localhost:3000/", "http://localhost:3000/pages/loginPage", "http://localhost:3000/pages/joinMemPage", "/sign/joinMem", "/sign/**", "/login/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
+                        .requestMatchers("ws://localhost:8080/chat","/api/searchResult","/api/todayAds", "/login", "/check","http://localhost:3000/pages/SearchResult**", "http://localhost:3000/", "http://localhost:3000/pages/loginPage", "http://localhost:3000/pages/joinMemPage", "/sign/joinMem", "/sign/**", "/login/**").permitAll() // /pages/, sign를 제외한 모든 uri의 request는 토큰 필요
                         //.requestMatchers("http://localhost:3000/pages/joinMemPage").hasAuthority("USER")
                         .anyRequest().authenticated());
         //http.apply(new JwtSecurityConfig(tokenProvider));   // JwtSecurityConfig로 tokenProvider 적용

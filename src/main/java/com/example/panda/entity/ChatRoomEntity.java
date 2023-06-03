@@ -9,8 +9,7 @@
 package com.example.panda.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -18,6 +17,8 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "Chat_room")
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChatRoomEntity {
     @Id // pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,4 +59,5 @@ public class ChatRoomEntity {
 
     @Column
     private Boolean is_exit_seller;
+
 }
