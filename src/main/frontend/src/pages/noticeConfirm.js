@@ -109,7 +109,24 @@ function NoticeConfirm()
             .catch(error => console.log(error))
     } , []);
 
+     //게시글 삭제기능 구현
+    const deletePost = (postId) => {
+        axios.delete(`/api/posts/${postId}`)
+            .then(response => {
+                alert("게시글 삭제가 완료되었습니다!!");
+                movePage("/pages/noticePage");
+            })
+            .catch(error => {
+                alert("게시글이 존재하지 않거나 오류가 발생 하여 삭제 할 수 없습니다")
+            });
+    };
 
+
+    const handleDelete = () => {
+        deletePost(writingInfo.word);
+    };
+    
+    
     return(
         <div>
             <div className={styles.board_wrap}>
@@ -152,6 +169,7 @@ function NoticeConfirm()
                     <div className={styles.bt_wrap}>
                         <a onClick={gonoticepage} className={styles.on}>목록</a>
                         <a onClick={gomodify} >수정</a>
+                        <a onClick={handleDelete}>삭제</a>
                         <a onClick={goChat} className={styles.on}>채팅</a>
                     </div>
                 </div>
