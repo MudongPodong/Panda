@@ -110,6 +110,12 @@ public class WritingController {
         System.out.println(userEntity.getEmail());
         return userEntity;
     }
+    
+     //게시글 삭제 기능구현
+    @DeleteMapping("/api/posts/{postId}")
+    public void deletePost(@PathVariable Integer postId) throws ChangeSetPersister.NotFoundException {
+        writingService.deletePost(postId);
+    }
 
 
 }
