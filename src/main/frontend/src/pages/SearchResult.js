@@ -55,8 +55,8 @@ function SearchResult() {
         // else if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search_sell')) value=1;
         //console.log(value);
         let contentArr=[];
-
-        for(let j=value*2-2;j<value*2 && j<contents.length;j++){  //15개씩 끊어서 나타냄(15개 넘어가면 다음 페이지)
+        // for(let j=value*2-2;j<value*2 && j<contents.length;j++){  //15개씩 끊어서 나타냄(15개 넘어가면 다음 페이지)
+        for(let j=value*15-15;j<value*15 && j<contents.length;j++){  //15개씩 끊어서 나타냄(15개 넘어가면 다음 페이지)
 
             contentArr.push(
                 <div className={styles.resultMap} onClick={movePage} name="spam" id={contents[j].writing_Id}>
@@ -86,7 +86,7 @@ function SearchResult() {
     }
 
     const PageCount=(search_sort)=>{    //하단 총 페이지 수
-        const count=data.length/2;
+        const count=data.length/15;
         // console.log((Math.ceil(currentPage/5)*5-9));
         // console.log(Math.floor(count/5));
 
@@ -218,7 +218,7 @@ function SearchResult() {
 
                         {/*<span id="<"  className={styles.num} ><b>〈</b></span>*/}
                         {PageCount(decodeURIComponent(location.search.toString().split(/[=?]/).at(1)).replace(/[0-9]/g, ''))}    {/*현재 어떤 정렬인지 뽑아냄*/}
-                        {(Math.ceil(currentPage/5)-1)*5+5<(Math.floor(data.length/2)+1)?(
+                        {(Math.ceil(currentPage/5)-1)*5+5<(Math.floor(data.length/15)+1)?(
                             <span id=">" className={styles.num}>
                             <form name={listdata.get('sort')+(Math.ceil(currentPage/5)*5+1)} id={listdata.get('sort')+(Math.ceil(currentPage/5)*5+1)} method='get'>
                                 <input name={listdata.get('sort')+(Math.ceil(currentPage/5)*5+1)} id={listdata.get('sort')+(Math.ceil(currentPage/5)*5+1)}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
@@ -235,12 +235,12 @@ function SearchResult() {
                             <></>
                         ):(
                             <span id=">>" className={styles.num}>
-                            <form name={listdata.get('sort')+(Math.ceil(data.length/2))} id={listdata.get('sort')+(Math.ceil(data.length/2))} method='get'>
-                                <input name={listdata.get('sort')+(Math.ceil(data.length/2))} id={listdata.get('sort')+(Math.ceil(data.length/2))}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
+                            <form name={listdata.get('sort')+(Math.ceil(data.length/15))} id={listdata.get('sort')+(Math.ceil(data.length/15))} method='get'>
+                                <input name={listdata.get('sort')+(Math.ceil(data.length/15))} id={listdata.get('sort')+(Math.ceil(data.length/15))}placeholder='  검색'defaultValue={decodeURIComponent(location.search.toString()).split("=").at(1)}
                                        style={{ display: 'none' }}></input>
 
                             </form>
-                            <button id={listdata.get('sort')+(Math.ceil(data.length/2))} form={listdata.get('sort')+(Math.ceil(data.length/2))} className={styles.num} onClick={contentDivide}>&gt;&gt;</button>
+                            <button id={listdata.get('sort')+(Math.ceil(data.length/15))} form={listdata.get('sort')+(Math.ceil(data.length/15))} className={styles.num} onClick={contentDivide}>&gt;&gt;</button>
                             </span>
                         )
 

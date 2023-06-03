@@ -139,7 +139,7 @@ function OtherPage() {
                 <br/><br/><br/>
                 <button className={styles.changePage} onClick={ Btn_del }>선택 삭제</button>
                 <br/><br/><br/>
-                <button className={styles.changePage} onClick={ movePage }>테스트</button>
+
                 <br/><br/><br/>
             </div>
 
