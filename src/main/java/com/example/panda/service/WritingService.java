@@ -2,7 +2,9 @@ package com.example.panda.service;
 
 import com.example.panda.dto.WritingDTO;
 import com.example.panda.dto.WritingResponseDTO;
+import com.example.panda.entity.UserEntity;
 import com.example.panda.entity.WritingEntity;
+import com.example.panda.repository.UserRepository;
 import com.example.panda.repository.WritingDSLRepository;
 import com.example.panda.repository.WritingRepository;
 import jakarta.transaction.Transactional;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +27,7 @@ public class WritingService {
 //    @Autowired
     private final WritingRepository writingRepository;
     private final WritingDSLRepository writingDSLRepository;
+    private final UserRepository userRepository;
 
     public void write(WritingEntity we)
     {
@@ -72,6 +76,15 @@ public class WritingService {
         }
 
         writingRepository.deleteById(postId);
+    }
+
+    public void saveWriting(String email,WritingDTO writingDTO){
+        WritingEntity writingEntity=WritingEntity.toWritingEntity(writingDTO);
+
+        Optional<UserEntity> userEntity=userRepository.findByEmail(email);
+        writingEntity.setUserEntity(userEntity.get());
+
+        writingRepository.save(writingEntity);
     }
 
 }
