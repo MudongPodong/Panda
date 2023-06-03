@@ -1,9 +1,6 @@
 package com.example.panda.controller;
 
-import com.example.panda.dto.FavoriteDTO;
-import com.example.panda.dto.PurchaseHistoryDTO;
-import com.example.panda.dto.UserDTO;
-import com.example.panda.dto.WritingDTO;
+import com.example.panda.dto.*;
 import com.example.panda.service.*;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -104,5 +101,12 @@ public class MyPageController {
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
 
         inquiryHistoryService.save(userDetails.getUsername(),wid);
+    }
+    @GetMapping("/api/inquiryList")
+    public List<InquiryHistoryDTO> myInquiryList(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        List<InquiryHistoryDTO> list=inquiryHistoryService.findbyEmail(userDetails.getUsername());
+        return list;
     }
 }

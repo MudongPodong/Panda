@@ -20,6 +20,7 @@ import NoticeRegist from "./pages/noticeRegist";
 import NoticeConfirm from "./pages/noticeConfirm";
 import NoticeModify from "./pages/noticeModify";
 import Home_unlogin from "./pages/home_unlogin";
+import Inquiry_list from "./pages/Inquiry_list";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import TopNav from "./pages/top_navigation";
 import noticeConfirm from "./pages/noticeConfirm";
@@ -36,6 +37,7 @@ function App() {
                         <Route path="/pages/joinMemPage" element={<MemPage/>}></Route>
                         <Route path="/pages/OtherPage" exact={true} element={<OtherPage />}/>
                         <Route path="/pages/OtherPage2" exact={true} element={<OtherPage2 />}/>
+                        <Route path="/pages/Inquiry_list" exact={true} element={<Inquiry_list />}/>
                         <Route path="/pages/BoughtList" exact={true} element={<BoughtList />}/>
                         <Route path="/pages/FixBar" exact={true} element={<FixBar />}/>
                         <Route path="/pages/Chat" exact={true} element={<Chat />}/>
