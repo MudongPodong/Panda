@@ -56,7 +56,7 @@ public class WritingController {
 
         if (!writingPhoto.isEmpty()) {
             byte[] imageData = writingPhoto.getBytes();
-            //String base64Image = Base64.getEncoder().encodeToString(imageData);
+            String base64Image = Base64.getEncoder().encodeToString(imageData);
             writingentity.setWriting_photo(imageData);
         }
 
