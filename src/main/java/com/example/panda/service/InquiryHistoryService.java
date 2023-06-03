@@ -1,6 +1,7 @@
 package com.example.panda.service;
 
 import com.example.panda.dto.InquiryHistoryDTO;
+import com.example.panda.dto.WritingDTO;
 import com.example.panda.entity.InquiryHistoryEntity;
 import com.example.panda.entity.UserEntity;
 import com.example.panda.entity.WritingCompleteEntity;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,13 +27,21 @@ public class InquiryHistoryService {
     private final InquiryHistoryRepository inquiryHistoryRepository;
     private final WritingRepository writingRepository;
     private final UserRepository userRepository;
-    public List<InquiryHistoryDTO> findbyEmail(String email){
+    public List<WritingDTO> findbyEmail(String email){
         List<InquiryHistoryEntity> inquiryHistoryEntities=inquiryHistoryDSLRepository.findByEmail(email);
         List<InquiryHistoryDTO> inquiryHistoryDTOList=new ArrayList<>();
-        for(InquiryHistoryEntity inquiryHistory:inquiryHistoryEntities)
+        HashSet<Integer> writingID=new HashSet<>();
+        for(InquiryHistoryEntity inquiryHistory:inquiryHistoryEntities){
             inquiryHistoryDTOList.add(InquiryHistoryDTO.toInquiryHistoryDTO(inquiryHistory));
+            writingID.add(inquiryHistory.getWritingEntity().getWid());
+        }
+        List<WritingDTO> list=new ArrayList<>();
+        for(int item:writingID){
+            Optional<WritingEntity> writingEntity=writingRepository.findById(item);
+            list.add(WritingDTO.toWritingDTO(writingEntity.get()));
+        }
 
-        return inquiryHistoryDTOList;
+        return list;
     }
     @Transactional
     public int save(String email, int wid){

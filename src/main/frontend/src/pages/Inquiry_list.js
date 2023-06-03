@@ -29,7 +29,7 @@ function Inquiry_list() {
 
 
     useEffect(() => {    //사용자 조회 글 찾아옴
-        axios.get('/api/favoriteList')
+        axios.get('/api/inquiryList')
             .then(response => setData(response.data))
             .catch(error => console.log(error))
     }, []);
@@ -42,23 +42,39 @@ function Inquiry_list() {
                 <div id='root'>
                     <br/>
                     <div className={styles.headTitle}>
-                        <h1 className={styles.title}>찜 목록
-                            <span>사용자가 선택한 찜 목록입니다..</span>
+                        <h1 className={styles.title}>과거 조회 이력
+                            <span>사용자가 찾아봤던 상품 목록입니다..</span>
                         </h1>
                     </div>
                     <br/><br/>
                     <br/><br/>
-                    <CommonTable headersName={['선택/제품id','사진', '상품명', '가격', '상품등록일']}>
-                        {data.map(item=>(
-                            <CommonTableRow>
-                                <td className={styles.common_check_box}><input type="checkbox"  style={{left:"5%"}} name="likeList" value={item.price}/>{item.writing_id}</td>
-                                <td className={styles.common_check_box} onClick={movePage} id={item.writing_id}><img src=" http://placekitten.com/150/150" alt=""/></td>
-                                <td className={styles.common_check_box} onClick={movePage} id={item.writing_id}>{item.writing_name}</td>
-                                <td className={styles.common_check_box} onClick={movePage} id={item.writing_id}><label name="price">{dividePriceUnit(item.price.toString())}</label></td>
-                                <td className={styles.common_check_box} onClick={movePage} id={item.writing_id}>{item.regit_date}</td>
-                            </CommonTableRow>
-                        ))}
-                    </CommonTable>
+                    {data.length === 0 ? (
+                        <p style={{ fontSize: '25px' }}>검색된 조회 목록이 없습니다..!</p>
+                    ):(
+                        <CommonTable headersName={['사진', '상품명', '가격', '상품등록일']}>
+                            {data.map(item=>(
+                                <CommonTableRow>
+                                    {/*<td className={styles.common_check_box}><input type="checkbox"  style={{left:"5%"}} name="likeList" value={item.price}/>{item.writing_Id}</td>*/}
+                                    <td className={styles.common_check_box} onClick={movePage} id={item.writing_Id}><img src=" http://placekitten.com/150/150" alt=""/></td>
+                                    <td className={styles.common_check_box} onClick={movePage} id={item.writing_Id}>{item.writing_name}</td>
+                                    <td className={styles.common_check_box} onClick={movePage} id={item.writing_Id}><label name="price">{dividePriceUnit(item.price.toString())}</label></td>
+                                    <td className={styles.common_check_box} onClick={movePage} id={item.writing_Id}>{item.regit_date}</td>
+                                </CommonTableRow>
+                            ))}
+                        </CommonTable>
+                    )
+                    }
+                    {/*<CommonTable headersName={['사진', '상품명', '가격', '상품등록일']}>*/}
+                    {/*    {data.map(item=>(*/}
+                    {/*        <CommonTableRow>*/}
+                    {/*            /!*<td className={styles.common_check_box}><input type="checkbox"  style={{left:"5%"}} name="likeList" value={item.price}/>{item.writing_Id}</td>*!/*/}
+                    {/*            <td className={styles.common_check_box} onClick={movePage} id={item.writing_Id}><img src=" http://placekitten.com/150/150" alt=""/></td>*/}
+                    {/*            <td className={styles.common_check_box} onClick={movePage} id={item.writing_Id}>{item.writing_name}</td>*/}
+                    {/*            <td className={styles.common_check_box} onClick={movePage} id={item.writing_Id}><label name="price">{dividePriceUnit(item.price.toString())}</label></td>*/}
+                    {/*            <td className={styles.common_check_box} onClick={movePage} id={item.writing_Id}>{item.regit_date}</td>*/}
+                    {/*        </CommonTableRow>*/}
+                    {/*    ))}*/}
+                    {/*</CommonTable>*/}
 
                 </div>
 

@@ -6,6 +6,7 @@ import axios from 'axios';
 import OtherPage from "./OtherPage";
 import OtherPage2 from "./OtherPage2";
 import BoughtList from "./BoughtList";
+import Inquiry_list from "./Inquiry_list";
 import profile from '../profileEx.PNG'
 import SearchResult from "./SearchResult";
 
@@ -44,7 +45,7 @@ function FixBar() {
                         <li><Link to="/pages/OtherPage2">회원 정보</Link></li>
                         <li><Link to="/pages/OtherPage">찜 목록</Link></li>
                         <li><Link to="/pages/BoughtList">구매 이력</Link></li>
-                        <li><Link to="/pages/SearchResult">문의 내역</Link></li>
+                        <li><Link to="/pages/Inquiry_list">조회 내역</Link></li>
                     </ul>
                 </div>
             </div>
@@ -52,7 +53,7 @@ function FixBar() {
                 <Route path="/pages/OtherPage" element={<OtherPage/>}></Route>
                 <Route path="/pages/OtherPage2" element={<OtherPage2/>}></Route>
                 <Route path="/pages/BoughtList" element={<BoughtList/>}></Route>
-                <Route path="/pages/SearchResult" element={<SearchResult/>}></Route>
+                <Route path="/pages/Inquiry_list" element={<Inquiry_list/>}></Route>
             </Routes>
         </div>
     );

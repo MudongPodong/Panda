@@ -103,10 +103,10 @@ public class MyPageController {
         inquiryHistoryService.save(userDetails.getUsername(),wid);
     }
     @GetMapping("/api/inquiryList")
-    public List<InquiryHistoryDTO> myInquiryList(){
+    public List<WritingDTO> myInquiryList(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        List<InquiryHistoryDTO> list=inquiryHistoryService.findbyEmail(userDetails.getUsername());
+        List<WritingDTO> list=inquiryHistoryService.findbyEmail(userDetails.getUsername());  //WritingDTO를 반환함
         return list;
     }
 }

@@ -43,17 +43,33 @@ function BoughtList() {
             <br/><br/>
 
             <br/><br/>
-            <CommonTable headersName={['사진', '상품명','가격', '구매완료일', '판매자']}>
-                {data.map(item=>(
-                    <CommonTableRow>
-                        <td className={styles.common_check_box}><img src=" http://placekitten.com/150/150" alt=""/></td>
-                        <td className={styles.common_check_box}>{item.writingCompleteDTO.writing_name}</td>
-                        <td className={styles.common_check_box}><label name="price">{dividePriceUnit(item.writingCompleteDTO.price.toString())}</label></td>
-                        <td className={styles.common_check_box}>{dayjs(item.purchase_date).format("YYYY-MM-DD")}</td>
-                        <td className={styles.common_check_box}>{item.writingCompleteDTO.userDTO.nickname}</td>
-                    </CommonTableRow>
-                ))}
-            </CommonTable>
+                {data.length === 0 ? (
+                    <p style={{ fontSize: '25px' }}>검색된 구매이력이 없습니다...!</p>
+                ):(
+                    <CommonTable headersName={['사진', '상품명','가격', '구매완료일', '판매자']}>
+                        {data.map(item=>(
+                            <CommonTableRow>
+                                <td className={styles.common_check_box}><img src=" http://placekitten.com/150/150" alt=""/></td>
+                                <td className={styles.common_check_box}>{item.writingCompleteDTO.writing_name}</td>
+                                <td className={styles.common_check_box}><label name="price">{dividePriceUnit(item.writingCompleteDTO.price.toString())}</label></td>
+                                <td className={styles.common_check_box}>{dayjs(item.purchase_date).format("YYYY-MM-DD")}</td>
+                                <td className={styles.common_check_box}>{item.writingCompleteDTO.userDTO.nickname}</td>
+                            </CommonTableRow>
+                        ))}
+                    </CommonTable>
+                )
+                }
+            {/*<CommonTable headersName={['사진', '상품명','가격', '구매완료일', '판매자']}>*/}
+            {/*    {data.map(item=>(*/}
+            {/*        <CommonTableRow>*/}
+            {/*            <td className={styles.common_check_box}><img src=" http://placekitten.com/150/150" alt=""/></td>*/}
+            {/*            <td className={styles.common_check_box}>{item.writingCompleteDTO.writing_name}</td>*/}
+            {/*            <td className={styles.common_check_box}><label name="price">{dividePriceUnit(item.writingCompleteDTO.price.toString())}</label></td>*/}
+            {/*            <td className={styles.common_check_box}>{dayjs(item.purchase_date).format("YYYY-MM-DD")}</td>*/}
+            {/*            <td className={styles.common_check_box}>{item.writingCompleteDTO.userDTO.nickname}</td>*/}
+            {/*        </CommonTableRow>*/}
+            {/*    ))}*/}
+            {/*</CommonTable>*/}
 
             <br/><br/><br/><br/><br/><br/><br/><br/>
                 </div>
