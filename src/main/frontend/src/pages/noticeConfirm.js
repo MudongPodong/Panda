@@ -67,7 +67,7 @@ function NoticeConfirm()
     //상세 게시글 조회 useEffect
      useEffect(() => {
 
-         axios.post('/api/noticeConfirm',writingdata,{
+         axios.post('/api/noticeConfirm',listdata,{
              headers: {
                  'Content-Type' : 'multipart/form-data'
             }
@@ -77,7 +77,17 @@ function NoticeConfirm()
      } , []);
 
 
+    //사용자 게시글 조회목록 등록 useEffect
+    useEffect(() => {
 
+        axios.post('/api/saveInquiry',writingdata,{
+            headers: {
+                'Content-Type' : 'multipart/form-data'
+            }
+        })
+            .then(response => console.log(response))
+            .catch(error => console.log(error))
+    } , []);
 
 
     return(

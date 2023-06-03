@@ -4,10 +4,7 @@ import com.example.panda.dto.FavoriteDTO;
 import com.example.panda.dto.PurchaseHistoryDTO;
 import com.example.panda.dto.UserDTO;
 import com.example.panda.dto.WritingDTO;
-import com.example.panda.service.FavoriteService;
-import com.example.panda.service.PurchaseHistoryService;
-import com.example.panda.service.UserService;
-import com.example.panda.service.WritingService;
+import com.example.panda.service.*;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +28,7 @@ public class MyPageController {
     private final UserService userService;
     private final FavoriteService favoriteService;
     private final PurchaseHistoryService purchaseHistoryService;
+    private final InquiryHistoryService inquiryHistoryService;
     @GetMapping("/api/writings")
     public List<WritingDTO> test(){
         List<WritingDTO> writingDTOList = writingService.findAll();
@@ -98,5 +96,13 @@ public class MyPageController {
 
         System.out.println(list);
         return list;
+    }
+
+    @PostMapping("/api/saveInquiry")
+    public void saveInquiry(@RequestParam("wid") int wid){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+
+        inquiryHistoryService.save(userDetails.getUsername(),wid);
     }
 }
