@@ -27,7 +27,7 @@ function FixBar() {
             <div className={styles.my_page}>
                 <div className={styles.profile_background}>
                     <div className={styles.profile_image}>
-                        <img src={data.userImg != null ? `data:image/png;base64,${data.userImg}` : profile} width="100%" height="100%"/>
+                        <img src={data.userImg != null ? `${data.userImg}` : profile} width="100%" height="100%"/>
                     </div>
                     <div className={styles.profile_content}>
                         <div className={styles.p_nickname}>
