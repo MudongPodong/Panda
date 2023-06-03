@@ -52,6 +52,10 @@ function NoticeConfirm()
         })
     }
 
+    const goChat = () => {
+        axios.post('/')
+    }
+
     useEffect(() => {
 
         axios.post('/api/favorite_writing',listdata,{  //해당 게시글을 찜등록한 사람의 수를 카운팅해서 가져옴

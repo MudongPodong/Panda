@@ -97,6 +97,7 @@ function OtherPage() {
             .then((response) => {
                 if(response.status === 200) {
                     alert('회원정보 변경 성공');
+                    window.location.reload();
                 } else {
                     alert('요청이 이상함');
                 }

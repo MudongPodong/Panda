@@ -298,6 +298,7 @@ button.num:hover{
     text-align: center;
     line-height: 43px;
     margin-top: 15px;
+    cursor:pointer;
 
 }
 
@@ -323,6 +324,7 @@ button.num:hover{
     color:white;
     border-radius: 7%;
     font-size:16px;
+    cursor:pointer;
 }
 
 .selectImg {
@@ -344,6 +346,7 @@ button.num:hover{
     font-weight: bold;
     font-size: 16px;
     line-height: 50px;
+    cursor:pointer;
 }
 
 .modal_title {
