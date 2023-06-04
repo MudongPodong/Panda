@@ -84,7 +84,6 @@ public class WritingController {
 ///api/noticeRegister
     @PostMapping("/api/noticeRegister")
     public void boardwritepro(@RequestBody WritingDTO writingDTO){
-        System.out.println(writingDTO);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
 

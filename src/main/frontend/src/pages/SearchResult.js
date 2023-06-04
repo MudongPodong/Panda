@@ -52,7 +52,8 @@ function SearchResult() {
         //if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search')) value=1;
         // else if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search_popularity')) value=1;
         // else if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search_price')) value=1;
-        // else if(decodeURIComponent(location.search.toString()).split(/[=?]/).at(1).includes('search_sell')) value=1;
+        // else if(decodeURIComponent(location.search.
+        // toString()).split(/[=?]/).at(1).includes('search_sell')) value=1;
         //console.log(value);
         let contentArr=[];
         // for(let j=value*2-2;j<value*2 && j<contents.length;j++){  //15개씩 끊어서 나타냄(15개 넘어가면 다음 페이지)
